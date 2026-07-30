@@ -1,0 +1,86 @@
+@use "../../utils" as *;
+
+/*----------------------------------------*/
+/*  7.6 Brand Css
+/*----------------------------------------*/
+
+.#{$theme-prefix}-brand {
+  &-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 50px;
+    color: var(--tp-theme-primary);
+  }
+  &-active {
+    & .swiper-slide {
+      width: auto;
+    }
+  }
+}
+
+.#{$theme-prefix}-brand-2 {
+  &-item {
+    padding: 60px;
+    margin: 0 0 -1px -1px;
+    min-height: 150px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    @media #{$xs} {
+      text-align: center;
+    }
+    &:hover {
+      & .tp-brand-2-toltip {
+        opacity: 1;
+        top: -15px;
+        visibility: visible;
+      }
+    }
+  }
+  &-toltip {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    text-align: center;
+    @include transition();
+    & span {
+      position: relative;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 42px;
+      display: inline-block;
+      color: var(--tp-common-white);
+      background-color: var(--tp-theme-primary);
+      &::after {
+        position: absolute;
+        content: "";
+        height: 15px;
+        width: 15px;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--tp-theme-primary);
+        clip-path: polygon(100% 0, 0 0, 50% 100%);
+      }
+    }
+  }
+}
+
+.#{$theme-prefix}-brand-4 {
+  &-ptb {
+    @media #{$xs} {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+  }
+  &-item {
+    & img {
+      opacity: 0.2;
+      @include transition();
+    }
+    &:hover {
+      & img {
+        opacity: 1;
+      }
+    }
+  }
+}

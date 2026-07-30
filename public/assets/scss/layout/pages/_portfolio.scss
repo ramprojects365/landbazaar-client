@@ -1,0 +1,76 @@
+@use "../../utils" as *;
+
+/*----------------------------------------*/
+/*  8.5 Portfolio Css
+/*----------------------------------------*/
+
+.#{$theme-prefix}-portfolio {
+  &-item {
+    &:hover {
+      & .tp-portfolio-item-thumb {
+        & img {
+          transform: scale(1.1) translateZ(0);
+        }
+      }
+    }
+    &-thumb {
+      position: relative;
+      overflow: hidden;
+      & img {
+        width: 100%;
+        object-fit: cover;
+        transform: scale(1) translateZ(0);
+        transition: transform 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+      }
+      &::after {
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(
+          0deg,
+          rgba(7, 17, 36, 0.9) 0.07%,
+          rgba(10, 20, 39, 0.2) 39.39%
+        );
+      }
+    }
+    &-content {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      right: 30px;
+      margin: 0 auto;
+      @media #{$xl} {
+        right: 20px;
+        left: 20px;
+      }
+      &-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        color: var(--tp-common-white);
+        border-bottom: 1px solid rgba($color: #ffff, $alpha: 0.35);
+        & .textline {
+          background-image: linear-gradient(#fff, #fff),
+            linear-gradient(#fff, #fff);
+        }
+      }
+    }
+    &-meta {
+      & span {
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--tp-common-white);
+        &:not(:last-child) {
+          margin-right: 35px;
+        }
+        & svg {
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}

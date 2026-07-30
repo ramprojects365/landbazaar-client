@@ -1,0 +1,152 @@
+@use "../utils" as *;
+
+/*----------------------------------------*/
+/*  2.7 Offcanvas
+/*----------------------------------------*/
+
+.offcanvas {
+  $self: &;
+  &__area {
+    position: fixed;
+    right: 0;
+    left: auto;
+    width: 400px;
+    height: 100%;
+    @include transform(translateX(calc(100% + 80px)));
+    background: #000 none repeat scroll 0 0;
+    transition: all 0.4s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none; /* for Chrome, Safari, and Opera */
+    }
+    &.offcanvas-opened {
+      @include transform(translateX(0));
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @media #{$xs} {
+      width: 350px;
+    }
+  }
+  &__top {
+    @media #{$md, $sm, $xs} {
+      margin-bottom: 30px;
+    }
+  }
+  &__wrapper {
+    min-height: 100%;
+    padding: 40px 50px 40px 50px;
+
+    @media #{$xs} {
+      padding: 30px;
+    }
+  }
+  &__close {
+    &-btn {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      display: inline-block;
+      font-size: 14px;
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      color: var(--tp-common-white);
+      background-color: var(--tp-theme-primary);
+      @media #{$xs} {
+        right: 30px;
+        top: 40px;
+      }
+      & svg {
+        @include transform(translateY(-1px));
+        transition: all 0.3s ease-in-out;
+      }
+      &:hover {
+        & svg {
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+  &__contact {
+    margin-bottom: 30px;
+    &-content {
+      margin-bottom: 10px;
+      &-icon {
+        & i {
+          color: var(--tp-theme-primary);
+          margin-right: 10px;
+        }
+      }
+      &-content {
+        & a {
+          font-size: 14px;
+          color: var(--tp-common-white);
+          &:hover {
+            color: var(--tp-theme-primary);
+          }
+        }
+      }
+    }
+  }
+  &__text {
+    & p {
+      color: var(--tp-common-white);
+    }
+  }
+  &__social {
+    margin-bottom: 22px;
+    padding-bottom: 40px;
+    & .icon {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      background: var(--tp-theme-primary);
+      color: var(--tp-common-white);
+      margin-right: 5px;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: translateY(-8px);
+      }
+    }
+  }
+  &__title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--tp-common-white);
+  }
+}
+
+/*----------------------------------------
+    Body Overlay 
+-----------------------------------------*/
+
+.body-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  background-color: var(--tp-common-black);
+  @include transition();
+  &.opened {
+    opacity: 0.4;
+    visibility: visible;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}

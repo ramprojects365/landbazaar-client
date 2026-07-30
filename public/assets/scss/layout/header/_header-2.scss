@@ -1,0 +1,83 @@
+@use "../../utils" as *;
+/*----------------------------------------*/
+/*  3.2 Header Style 2
+/*----------------------------------------*/
+
+.#{$theme-prefix}-header-2 {
+  &-ptb {
+    @media #{$lg,$md,$xs} {
+      padding: 10px 0;
+    }
+  }
+  &-menu {
+    padding-left: 10px;
+  }
+  &-btn {
+    & .tp-btn {
+      color: var(--tp-theme-primary);
+      background-color: var(--tp-common-white);
+    }
+  }
+}
+
+.#{$theme-prefix}-header-4 {
+  &-btn {
+    & .tp-btn {
+      @media #{$lg,$md,$xs} {
+        padding: 14px 40px;
+      }
+    }
+  }
+}
+
+.#{$theme-prefix}-header-5 {
+  &-ptb {
+    background-color: var(--tp-common-white);
+    @media #{$lg,$md,$xs} {
+      padding: 10px 0;
+    }
+  }
+  &-main-right {
+    & .tp-header-hamburger {
+      & .hamburger-btn {
+        background: var(--tp-theme-primary);
+        & span {
+          background: var(--tp-common-white);
+        }
+      }
+    }
+  }
+  &-btn {
+    line-height: 1;
+    & .tp-btn {
+      color: var(--tp-common-white);
+      background-color: var(--tp-theme-primary);
+      @media #{$lg,$md,$xs} {
+        padding: 17px 40px;
+      }
+    }
+  }
+  &-contact {
+    @media #{$xl,$lg,$md,$xs} {
+      display: none;
+    }
+    & a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--tp-common-black);
+      & span {
+        display: inline-block;
+        text-align: center;
+        height: 60px;
+        width: 60px;
+        line-height: 60px;
+        border-radius: 50%;
+        margin-right: 8px;
+        background-color: #f0f4fd;
+      }
+      &:hover {
+        color: var(--tp-theme-primary);
+      }
+    }
+  }
+}

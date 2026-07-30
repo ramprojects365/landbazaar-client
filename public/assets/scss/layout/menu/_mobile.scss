@@ -1,0 +1,60 @@
+@use "../../utils" as *;
+
+/*----------------------------------------*/
+/*  4.2 Mobilemenu css
+/*----------------------------------------*/
+
+.tp-offcanvas-menu ul {
+  list-style: none;
+  & li {
+    position: relative;
+
+    & > a {
+      padding: 8px 0;
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--tp-common-white);
+      &:hover {
+        color: var(--tp-theme-primary);
+      }
+    }
+
+    &:not(:last-child) {
+      & > a {
+        border-bottom: 1px solid var(--tp-common-white);
+      }
+    }
+    &.active {
+      & > a {
+        color: var(--tp-theme-primary);
+      }
+      & > .tp-menu-close {
+        border-color: var(--tp-theme-primary);
+        background-color: var(--tp-theme-primary);
+        & i {
+          @include transform(rotate(90deg));
+        }
+      }
+    }
+    & .sub-menu {
+      display: none;
+      padding-left: 20px;
+    }
+  }
+}
+.tp-menu-close {
+  position: absolute;
+  right: 0;
+  top: 7.5px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 29px;
+  color: var(--tp-common-white);
+  border: 1px solid var(--tp-common-white);
+  & i {
+    @include transition(0.3s);
+  }
+}

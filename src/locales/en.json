@@ -1,0 +1,29 @@
+{
+  "common": {
+    "property": "Property",
+    "properties": "Properties",
+    "rent": "Rent",
+    "buy": "Buy",
+    "myProfile": "My Profile",
+    "logout": "Logout"
+  },
+  "header": {
+    "postPropertyText": "Post property",
+    "postPropertyFree": "FREE",
+    "hiSignIn": "Hi, Sign In"
+  },
+  "hero": {
+    "findProperties": "Find Properties for Sale & Rent in Malaysia",
+    "searchDescription": "Search houses, condos, apartments, and land easily"
+  },
+  "home": {
+    "featuredListings": "Featured Listings",
+    "propertyForSellAndRent": "Property for sell and rent",
+    "propertiesByCity": "PROPERTIES BY CITY",
+    "exploreNeighbourhoods": "Explore the neighbourhoods",
+    "trustedPartners": "Trusted Partners",
+    "meetPropertyConsultants": "Meet our verified and experienced property consultants",
+    "latestArticleAndNews": "Our latest article and news",
+    "whyChoosePropertyLa": "Why Choose PropertyLa?"
+  }
+}

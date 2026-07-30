@@ -1,0 +1,29 @@
+{
+  "common": {
+    "property": "Hartanah",
+    "properties": "Hartanah",
+    "rent": "Sewa",
+    "buy": "Beli",
+    "myProfile": "Profil Saya",
+    "logout": "Log Keluar"
+  },
+  "header": {
+    "postPropertyText": "Post property",
+    "postPropertyFree": "FREE",
+    "hiSignIn": "Hi, Sign In"
+  },
+  "hero": {
+    "findProperties": "Cari Hartanah untuk Dijual & Disewa di Malaysia",
+    "searchDescription": "Cari rumah, kondominium, pangsapuri, dan tanah dengan mudah"
+  },
+  "home": {
+    "featuredListings": "Senarai Pilihan",
+    "propertyForSellAndRent": "Hartanah untuk dijual dan disewa",
+    "propertiesByCity": "HARTANAH MENGIKUT BANDAR",
+    "exploreNeighbourhoods": "Terokai kawasan sekitar",
+    "trustedPartners": "Rakan Kongsi Dipercayai",
+    "meetPropertyConsultants": "Temui perunding hartanah yang disahkan dan berpengalaman kami",
+    "latestArticleAndNews": "Artikel dan berita terkini kami",
+    "whyChoosePropertyLa": "Mengapa Pilih PropertyLa?"
+  }
+}

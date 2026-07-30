@@ -1,0 +1,100 @@
+@use "../utils" as *;
+
+/*----------------------------------------*/
+/*  2.2 Buttons
+/*----------------------------------------*/
+
+.#{$theme-prefix}-btn {
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.26;
+  padding: 15px 20px 15px;
+  display: inline-block;
+  color: var(--tp-common-white);
+  background-color: var(--tp-theme-primary);
+  -webkit-transition: 500ms all ease;
+  transition: 500ms all ease;
+  & .btn-wrap {
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    & b {
+      font-weight: 500;
+    }
+    & .text {
+      &-1 {
+        display: block;
+        position: relative;
+        @include transition();
+        -webkit-box-align: center;
+      }
+      &-2 {
+        top: 100%;
+        position: absolute;
+        display: block;
+        @include transition();
+        -webkit-box-align: center;
+      }
+    }
+  }
+  &:hover {
+    color: var(--tp-common-white);
+    & .text {
+      &-1 {
+        transform: translateY(-150%);
+        -webkit-transform: translateY(-150%);
+      }
+      &-2 {
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+      }
+    }
+  }
+  &:focus {
+    color: var(--tp-common-white);
+  }
+}
+
+/* hamburger btn */
+
+.hamburger-btn {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  outline: 0;
+  border-radius: 8px;
+  transform: translateX(0%);
+  background: var(--tp-theme-primary);
+  &:hover {
+    background-color: var(--tp-theme-primary);
+    & span {
+      background-color: var(--tp-common-white);
+    }
+  }
+  & span {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 18px;
+    opacity: 1;
+    z-index: 1;
+    @include transition();
+    transform: translate(-30%, -40%);
+    background: var(--tp-common-white);
+    &:nth-child(1) {
+      top: 10px;
+    }
+    &:nth-child(2) {
+      top: 15px;
+    }
+    &:nth-child(3) {
+      top: 20px;
+    }
+  }
+}

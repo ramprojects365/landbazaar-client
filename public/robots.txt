@@ -1,0 +1,19 @@
+# PropertyLa Malaysia - Robots.txt
+# Allow all crawlers to access the site
+
+User-agent: *
+Allow: /
+
+# Disallow dashboard and private pages
+Disallow: /dashboard/
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /forget
+Disallow: /reset-password
+Disallow: /verify
+
+# Disallow API endpoints
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://propertyla.com.my/sitemap.xml
