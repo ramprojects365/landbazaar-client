@@ -87,7 +87,7 @@ export default function OffcanvasArea() {
                 }}
               >
                 <span style={{ color: "#000", fontWeight: 600 }}>
-                  Sell Land
+                  Post Land
                 </span>
                 <span
                   style={{
