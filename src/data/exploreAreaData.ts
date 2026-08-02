@@ -7,7 +7,7 @@ const neighbourhoodsData: INeighbourhoodProperty[] = [
     image: "/assets/img/banner/bg-1.png",
     count: 25,
   },
-  { id: 2, name: "Penang", image: "/assets/img/banner/bg-2.jpg", count: 25 },
+  { id: 2, name: "Penang", image: "/assets/img/banner/bg-2.png", count: 25 },
   {
     id: 3,
     name: "Port Dickson",

@@ -23,12 +23,12 @@ const featureListImg1 = listingThumb1;
 const featureListImg2 = listingThumb1;
 const featureListImg3 = listingThumb1;
 //home three property list image - use existing images
-import propertyImg1 from "../../public/assets/img/banner/bg-2.jpg";
+import propertyImg1 from "../../public/assets/img/banner/bg-2.png";
 const propertyImg2 = propertyImg1;
 const propertyImg3 = propertyImg1;
 const propertyImg4 = propertyImg1;
 //home three property image
-import propertyImg5 from "../../public/assets/img/banner/bg-4.jpg";
+import propertyImg5 from "../../public/assets/img/banner/bg-4.png";
 const propertyImg6 = propertyImg5;
 const propertyImg7 = propertyImg5;
 //author image - use existing team image
