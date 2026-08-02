@@ -16,7 +16,7 @@ export default function ReusableAboutArea() {
             >
               <div className="tp-about-5-heading mb-50">
                 <span className="tp-section-title-pre">
-                  Why Choose PropertyLa
+                  Why Choose Land Bazaar
                 </span>
                 <h3 className="tp-section-title">
                   Malaysia's Trusted Real Estate Platform

@@ -8,21 +8,21 @@
     "logout": "Logout"
   },
   "header": {
-    "postPropertyText": "Post property",
+    "postPropertyText": "Sell Land",
     "postPropertyFree": "FREE",
     "hiSignIn": "Hi, Sign In"
   },
   "hero": {
-    "findProperties": "Find Properties for Sale & Rent in Malaysia",
-    "searchDescription": "Search houses, condos, apartments, and land easily"
+    "findProperties": "Trusted Marketplace for Lands & Plots",
+    "searchDescription": "Search open plots, farm lands, commercial and investment properties in one place."
   },
   "home": {
-    "featuredListings": "Featured Listings",
-    "propertyForSellAndRent": "Property for sell and rent",
+    "featuredListings": "Premium Land Listings",
+    "propertyForSellAndRent": "Latest Lands for Sale",
     "propertiesByCity": "PROPERTIES BY CITY",
-    "exploreNeighbourhoods": "Explore the neighbourhoods",
-    "trustedPartners": "Trusted Partners",
-    "meetPropertyConsultants": "Meet our verified and experienced property consultants",
+    "exploreNeighbourhoods": "Explore Lands by Location",
+    "trustedPartners": "Verified Sellers",
+    "meetPropertyConsultants": "Meet our verified and experienced land sellers",
     "latestArticleAndNews": "Our latest article and news",
     "whyChoosePropertyLa": "Why Choose PropertyLa?"
   }
