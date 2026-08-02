@@ -63,7 +63,11 @@ export default function OffcanvasArea() {
                   <>
                     <span className="logo-icon-white">Property</span>{" "}
                     <span className="logo-icon-white">La</span>
-                    <Image className="logo-header" src={logoIcon} alt="PropertyLa" />
+                    <Image
+                      className="logo-header"
+                      src={logoIcon}
+                      alt="PropertyLa"
+                    />
                   </>
                 </Link>
               </div>
@@ -83,7 +87,7 @@ export default function OffcanvasArea() {
                 }}
               >
                 <span style={{ color: "#000", fontWeight: 600 }}>
-                  Post property
+                  Sell Land
                 </span>
                 <span
                   style={{
@@ -124,9 +128,7 @@ export default function OffcanvasArea() {
                   <i className="fa-sharp fa-solid fa-location-dot"></i>
                 </div>
                 <div className="offcanvas__contact-content-content">
-                  <Link href={mapUrl}>
-                    86 Jalan Berhala, Brickfields{" "}
-                  </Link>
+                  <Link href={mapUrl}>86 Jalan Berhala, Brickfields </Link>
                 </div>
               </div>
               <div className="offcanvas__contact-content d-flex">

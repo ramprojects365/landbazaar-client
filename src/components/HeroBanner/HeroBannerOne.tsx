@@ -144,7 +144,7 @@ export default function HeroBannerOne() {
                         "0 4px 15px rgba(0, 59, 92, 0.3)";
                     }}
                   >
-                    Browse Properties
+                    Explore Lands
                   </Link>
                 </div>
                 <SocialLinks />

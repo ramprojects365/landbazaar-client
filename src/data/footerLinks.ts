@@ -15,9 +15,9 @@ export const locationLinks = [
 ];
 
 export const propertyTypeLinks = [
-  { label: "Residential", href: "/search" },
-  { label: "Commercial", href: "/search" },
-  { label: "Land", href: "/search" },
-  { label: "New Launch", href: "/search" },
-  { label: "Auction", href: "/search" },
+  { label: "Residential Plots", href: "/search" },
+  { label: "Agricultural Lands", href: "/search" },
+  { label: "Commercial Lands", href: "/search" },
+  { label: "Farm Lands", href: "/search" },
+  { label: "Auction Lands", href: "/search" },
 ];

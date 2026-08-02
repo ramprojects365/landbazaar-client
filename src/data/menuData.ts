@@ -1,32 +1,32 @@
 const menu_data_one = [
   {
     id: 1,
-    label: "Buy",
+    label: "Residential",
     url: "/",
     home_menu: false,
     previewImg: false,
     submenu: [
       {
         id: 1,
-        label: "Residential",
+        label: "HMDA Layouts",
         url: "/search",
         img: "",
       },
       {
         id: 2,
-        label: "Commercial",
+        label: "DTCP / YTDA Layouts",
         url: "/search",
         img: "",
       },
       {
         id: 3,
-        label: "New Launch",
+        label: "RERA Ventures",
         url: "/search",
         img: "",
       },
       {
         id: 4,
-        label: "Auction",
+        label: "Villa Plots",
         url: "/search",
         img: "",
       },
@@ -34,20 +34,26 @@ const menu_data_one = [
   },
   {
     id: 2,
-    label: "Rent",
+    label: "Commercial",
     url: "/",
     home_menu: false,
     previewImg: false,
     submenu: [
       {
         id: 1,
-        label: "Residential",
+        label: "Main Road",
         url: "/search",
         img: "",
       },
       {
         id: 2,
-        label: "Commercial",
+        label: "Industrial",
+        url: "/search",
+        img: "",
+      },
+      {
+        id: 2,
+        label: "Highway",
         url: "/search",
         img: "",
       },
@@ -55,20 +61,26 @@ const menu_data_one = [
   },
   {
     id: 3,
-    label: "New Projects",
+    label: "Farm",
     url: "/",
     home_menu: false,
     previewImg: false,
     submenu: [
       {
         id: 1,
-        label: "Residential",
+        label: "Agricultural",
         url: "/search",
         img: "",
       },
       {
         id: 2,
-        label: "Commercial",
+        label: "Farmhouses",
+        url: "/search",
+        img: "",
+      },
+      {
+        id: 2,
+        label: "Weekend Eco-Plots",
         url: "/search",
         img: "",
       },
@@ -79,9 +91,10 @@ const menu_data_one = [
     label: "Services",
     url: "#",
     submenu: [
-      { id: 1, label: "Property advisor", url: "/property-advisor" },
-      { id: 2, label: "Home loan", url: "/home-loan" },
-      { id: 3, label: "Interior design", url: "/interior-design" },
+      { id: 1, label: "Dharani Title Check", url: "/property-advisor" },
+      { id: 2, label: "egal Verification", url: "/property-advisor" },
+      { id: 3, label: "EC Verification", url: "/home-loan" },
+      { id: 4, label: "Site Visit Scheduler", url: "/interior-design" },
     ],
   },
   {
