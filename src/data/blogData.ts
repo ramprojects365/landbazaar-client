@@ -11,9 +11,10 @@ export const blogData: IBlogDT[] = [
   {
     id: 1,
     image: blogThumb1,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "5 min read",
-    title: "Costly Mistakes Malaysians Make When Buying Property",
+    title:
+      "10 Essential Legal Documents to Check Before Buying a Plot in Hyderabad",
     slug: "costly-mistakes-malaysians-make-when-buying-property",
     authorName: "PropertyLa",
     authorRole: "Property News",
@@ -22,9 +23,9 @@ export const blogData: IBlogDT[] = [
   {
     id: 2,
     image: blogThumb4,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "4 min read",
-    title: "Foreign Investors Still Interested in Malaysian Property (2026)",
+    title: "HMDA vs. DTCP vs. RERA: What’s the Difference and Which is Safer?",
     slug: "foreign-investors-still-interested-in-malaysian-property",
     authorName: "PropertyLa",
     authorRole: "Investment News",
@@ -33,9 +34,10 @@ export const blogData: IBlogDT[] = [
   {
     id: 3,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "6 min read",
-    title: "Stamp Duty in Malaysia Property (2026): Complete Guide",
+    title:
+      "How to Verify Land Records on the Telangana Dharani / Registration Portal",
     slug: "Stamp-Duty-in-Malaysia-Property",
     authorName: "PropertyLa",
     authorRole: "Property Guide",
@@ -44,9 +46,9 @@ export const blogData: IBlogDT[] = [
   {
     id: 4,
     image: blogThumb2,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "7 min read",
-    title: "Best Places to Buy Property in Selangor (2026)",
+    title: "Top 5 High-Growth Land Investment Corridors Around Hyderabad",
     slug: "best-places-to-buy-property-in-Selangor",
     authorName: "PropertyLa",
     authorRole: "Property Guide",
@@ -55,9 +57,10 @@ export const blogData: IBlogDT[] = [
   {
     id: 5,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "8 min read",
-    title: "Best Places to Buy Property in Selangor (2026)",
+    title:
+      "Impact of the Regional Ring Road (RRR) on Hyderabad Farmland Prices",
     slug: "best-places-to-buy-property-in-selangor-2026",
     authorName: "PropertyLa",
     authorRole: "Property Guide",
@@ -66,9 +69,10 @@ export const blogData: IBlogDT[] = [
   {
     id: 6,
     image: blogThumb7,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "10 min read",
-    title: "Complete Guide to Buying Your First Home in Malaysia",
+    title:
+      "Why West Hyderabad (Shankarpally to Sadashivpet) is the Next Realty Hotspot",
     slug: "complete-guide-to-buying-your-first-home-in-malaysia",
     authorName: "PropertyLa",
     authorRole: "Property Guide",
@@ -77,9 +81,9 @@ export const blogData: IBlogDT[] = [
   {
     id: 7,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "8 min read",
-    title: "How Much Salary Do You Need to Buy a House in Malaysia?",
+    title: "Complete Guide to Buying Managed Farmland and Weekend Farmhouses",
     slug: "how-much-salary-do-you-need-to-buy-a-house-in-malaysia",
     authorName: "PropertyLa",
     authorRole: "Property Guide",
@@ -88,9 +92,9 @@ export const blogData: IBlogDT[] = [
   {
     id: 8,
     image: blogThumb6,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "7 min read",
-    title: "Top 10 Areas to Buy Property in Kuala Lumpur",
+    title: "Can Non-Farmers Buy Agricultural Land in Telangana?",
     slug: "top-10-areas-to-buy-property-in-kuala-lumpur",
     authorName: "PropertyLa",
     authorRole: "Property Guide",
@@ -99,9 +103,10 @@ export const blogData: IBlogDT[] = [
   {
     id: 9,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "7 min read",
-    title: "Hidden Costs When Buying a Property in Malaysia",
+    title:
+      "HHow to Get a Plot Loan in Hyderabad: Bank Eligibility & Interest Rates",
     slug: "hidden-costs-when-buying-a-property-in-malaysia",
     authorName: "PropertyLa",
     authorRole: "Property Guide",
@@ -110,7 +115,7 @@ export const blogData: IBlogDT[] = [
   {
     id: 10,
     image: blogThumb5,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "6 min read",
     title: "How to Sell Your House Faster in Malaysia",
     slug: "how-to-sell-your-house-faster-in-malaysia",
@@ -121,7 +126,7 @@ export const blogData: IBlogDT[] = [
   {
     id: 11,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "7 min read",
     title: "Freehold vs Leasehold Property in Malaysia",
     slug: "freehold-vs-leasehold-property-in-malaysia",
@@ -132,7 +137,7 @@ export const blogData: IBlogDT[] = [
   {
     id: 12,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "6 min read",
     title: "How to Increase Your Property Value Before Selling",
     slug: "how-to-increase-your-property-value-before-selling",
@@ -143,7 +148,7 @@ export const blogData: IBlogDT[] = [
   {
     id: 13,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "9 min read",
     title: "Property Investment Guide for Beginners in Malaysia",
     slug: "property-investment-guide-for-beginners",
@@ -154,7 +159,7 @@ export const blogData: IBlogDT[] = [
   {
     id: 14,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "7 min read",
     title: "Understanding SPA (Sale and Purchase Agreement) in Malaysia",
     slug: "understanding-spa-sale-and-purchase-agreement",
@@ -165,7 +170,7 @@ export const blogData: IBlogDT[] = [
   {
     id: 15,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "6 min read",
     title: "Top Condo Projects Near KLCC",
     slug: "top-condo-projects-near-klcc",
@@ -176,7 +181,7 @@ export const blogData: IBlogDT[] = [
   {
     id: 16,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "6 min read",
     title: "Top Townships in Kajang, Cheras, and Puchong",
     slug: "top-townships-in-kajang-cheras-and-puchong",
@@ -187,7 +192,7 @@ export const blogData: IBlogDT[] = [
   {
     id: 17,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "7 min read",
     title: "Best Areas to Buy Property in Selangor",
     slug: "best-areas-to-buy-property-in-selangor",
@@ -198,7 +203,7 @@ export const blogData: IBlogDT[] = [
   {
     id: 18,
     image: blogThumb3,
-    category: "Property lah",
+    category: "LandWay",
     readTime: "6 min read",
     title: "Best New Property Launches in Malaysia (2026)",
     slug: "best-new-property-launches-in-malaysia",

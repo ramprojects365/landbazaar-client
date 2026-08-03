@@ -12,11 +12,14 @@ type SearchItem = {
 };
 
 const placeholderExamples = [
-  "Search by property name",
-  "Try Blue Wave Apartments",
-  "Try condo in Selangor",
-  "Try Kuala Lumpur",
+  "Search by land name",
+  "Try farm lands in Hyderabad",
+  "Try agriculture lands",
+  "Try plots in Visakhapatnam",
 ];
+
+const CITIES = ["Hyderabad", "Visakhapatnam"];
+const LAND_TYPES = ["All", "Farm Lands", "Agriculture Lands"];
 
 export default function HeroBannerTabContent({
   id,
@@ -24,21 +27,31 @@ export default function HeroBannerTabContent({
 }: ITabContentProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
+  const [city, setCity] = useState("Hyderabad");
+  const [landType, setLandType] = useState("All");
   const [suggestions, setSuggestions] = useState<SearchItem[]>([]);
   const [open, setOpen] = useState(false);
   const [searched, setSearched] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [typedPlaceholder, setTypedPlaceholder] = useState(placeholderExamples[0]);
+  const [typedPlaceholder, setTypedPlaceholder] = useState(
+    placeholderExamples[0],
+  );
+  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
+  const [landTypeDropdownOpen, setLandTypeDropdownOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const cityDropdownRef = useRef<HTMLDivElement>(null);
+  const landTypeDropdownRef = useRef<HTMLDivElement>(null);
 
-  const runSearch = (value: string, city?: string) => {
+  const runSearch = (value: string) => {
     if (!value.trim()) return;
     const params = new URLSearchParams({
       q: value.trim(),
-      type: id || "rent",
     });
-    if (city?.trim()) {
+    if (city?.trim() && city !== "All") {
       params.append("city", city.trim());
+    }
+    if (landType?.trim() && landType !== "All") {
+      params.append("landType", landType.trim());
     }
     router.push(`/search?${params}`);
   };
@@ -68,7 +81,7 @@ export default function HeroBannerTabContent({
         const API_BASE =
           process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
         const res = await fetch(
-          `${API_BASE}/api/properties/search?q=${encodeURIComponent(query)}&type=${id || "rent"}`,
+          `${API_BASE}/api/properties/search?q=${encodeURIComponent(query)}`,
         );
         if (!res.ok) {
           setSuggestions([]);
@@ -108,13 +121,23 @@ export default function HeroBannerTabContent({
       }
     }, 400);
     return () => clearTimeout(timer);
-  }, [query, id]);
+  }, [query]);
 
-  // Close dropdown on outside click
+  // Close dropdowns on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node))
         setOpen(false);
+      if (
+        cityDropdownRef.current &&
+        !cityDropdownRef.current.contains(e.target as Node)
+      )
+        setCityDropdownOpen(false);
+      if (
+        landTypeDropdownRef.current &&
+        !landTypeDropdownRef.current.contains(e.target as Node)
+      )
+        setLandTypeDropdownOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -159,196 +182,390 @@ export default function HeroBannerTabContent({
   }, []);
 
   return (
-    <div
-      className={`tab-pane fade${isActive ? " show active" : ""}`}
-      id={id}
-      role="tabpanel"
-    >
-      <div className="tp-hero-tab-box">
-        <div
-          className="row g-0 align-items-stretch"
-          ref={wrapperRef}
-          style={{
-            position: "relative",
-            width: "100%",
-            marginLeft: 0,
-            marginRight: 0,
-            boxSizing: "border-box",
-          }}
-        >
-          {/* Search Input */}
-          <div className="col-9 col-sm-10">
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value);
-                setOpen(true);
-              }}
-              onKeyDown={handleKeyDown}
-              placeholder={typedPlaceholder}
-              style={{
-                width: "100%",
-                height: "52px",
-                border: "none",
-                borderRadius: "8px 0 0 8px",
-                padding: "0 16px",
-                fontSize: "15px",
-                outline: "none",
-                background: "#fff",
-              }}
-            />
-          </div>
+    <div className="tp-hero-tab-box">
+      <div
+        className="row g-0 align-items-stretch"
+        ref={wrapperRef}
+        style={{
+          position: "relative",
+          width: "100%",
+          marginLeft: 0,
+          marginRight: 0,
+          boxSizing: "border-box",
+        }}
+      >
+        {/* Search Input */}
+        <div className="col-9 col-sm-10">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setOpen(true);
+            }}
+            onKeyDown={handleKeyDown}
+            placeholder={typedPlaceholder}
+            style={{
+              width: "100%",
+              height: "52px",
+              border: "none",
+              borderRadius: "8px 0 0 8px",
+              padding: "0 16px",
+              fontSize: "15px",
+              outline: "none",
+              background: "#fff",
+            }}
+          />
+        </div>
 
-          {/* Search Button */}
-          <div className="col-3 col-sm-2">
+        {/* Search Button */}
+        <div className="col-3 col-sm-2">
+          <button
+            type="button"
+            onClick={handleSearch}
+            style={{
+              width: "100%",
+              height: "52px",
+              background: "#003B5C",
+              color: "#fff",
+              border: "none",
+              borderRadius: "8px 8px 8px 8px",
+              fontSize: "15px",
+              fontWeight: 600,
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+              boxShadow: "0 4px 15px rgba(0, 59, 92, 0.3)",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.currentTarget.style.background = "#0056b3";
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow =
+                "0 6px 20px rgba(0, 59, 92, 0.4)";
+            }}
+            onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.currentTarget.style.background = "#003B5C";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow =
+                "0 4px 15px rgba(0, 59, 92, 0.3)";
+            }}
+          >
+            Search
+          </button>
+        </div>
+
+        {/* Suggestions Dropdown */}
+        {open &&
+          query.trim() &&
+          (loading || searched || suggestions.length > 0) && (
+            <div
+              style={{
+                position: "absolute",
+                top: "calc(100% + 12px)",
+                left: 0,
+                width: "100%",
+                background: "#fff",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+                zIndex: 9999,
+                maxHeight: "320px",
+                overflowY: "auto",
+                boxSizing: "border-box",
+              }}
+            >
+              <div
+                style={{
+                  padding: "8px 16px",
+                  borderBottom: "1px solid #f0f0f0",
+                  fontSize: "12px",
+                  color: "#888",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                }}
+              >
+                {loading
+                  ? "Searching…"
+                  : suggestions.length === 0
+                    ? "No results found"
+                    : `${suggestions.length} result${suggestions.length !== 1 ? "s" : ""} found`}
+              </div>
+              {!loading && suggestions.length === 0 && (
+                <div
+                  style={{
+                    padding: "12px 16px",
+                    fontSize: "13px",
+                    color: "#666",
+                  }}
+                >
+                  Try searching with a different keyword.
+                </div>
+              )}
+              {suggestions.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => {
+                    setQuery(item.displayText);
+                    setOpen(false);
+                    runSearch(item.displayText);
+                  }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
+                    padding: "12px 16px",
+                    border: "none",
+                    borderBottom: "1px solid #f5f5f5",
+                    background: "#fff",
+                    cursor: "pointer",
+                    textAlign: "left",
+                    gap: "12px",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = "#f5f6ff")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = "#fff")
+                  }
+                >
+                  <div>
+                    <div
+                      style={{
+                        fontWeight: 600,
+                        fontSize: "14px",
+                        color: "#222",
+                      }}
+                    >
+                      {item.displayText}
+                    </div>
+                    {item.displayDescription && (
+                      <div
+                        style={{
+                          fontSize: "12px",
+                          color: "#888",
+                          marginTop: "2px",
+                        }}
+                      >
+                        {item.displayDescription}
+                      </div>
+                    )}
+                  </div>
+                  <span
+                    style={{
+                      background: "#eef0ff",
+                      color: "#003B5C",
+                      borderRadius: "20px",
+                      padding: "3px 10px",
+                      fontSize: "11px",
+                      fontWeight: 600,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {item.displayType}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
+      </div>
+
+      {/* Filter Dropdowns - Outside search bar */}
+      <div
+        className="row g-2"
+        style={{ marginTop: "8px", marginLeft: "7px", marginRight: "-5px" }}
+      >
+        {/* City Dropdown */}
+        <div className="col-6" ref={cityDropdownRef}>
+          <div
+            style={{
+              position: "relative",
+            }}
+          >
             <button
               type="button"
-              onClick={handleSearch}
+              onClick={() => setCityDropdownOpen(!cityDropdownOpen)}
               style={{
                 width: "100%",
-                height: "52px",
-                background: "#003B5C",
-                color: "#fff",
-                border: "none",
-                borderRadius: "8px 8px 8px 8px",
-                fontSize: "15px",
-                fontWeight: 600,
+                height: "44px",
+                background: "#fff",
+                color: "#333",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                padding: "0 16px",
+                fontSize: "14px",
+                fontWeight: 500,
                 cursor: "pointer",
-                whiteSpace: "nowrap",
-                boxShadow: "0 4px 15px rgba(0, 59, 92, 0.3)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
                 transition: "all 0.3s ease",
               }}
               onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.currentTarget.style.background = "#0056b3";
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow = "0 6px 20px rgba(0, 59, 92, 0.4)";
+                e.currentTarget.style.borderColor = "#003B5C";
               }}
               onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.currentTarget.style.background = "#003B5C";
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 59, 92, 0.3)";
+                e.currentTarget.style.borderColor = "#ddd";
               }}
             >
-              Search
+              <span>{city}</span>
+              <span
+                style={{
+                  fontSize: "10px",
+                  transition: "transform 0.3s ease",
+                  transform: cityDropdownOpen
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)",
+                }}
+              >
+                ▼
+              </span>
             </button>
-          </div>
-
-          {/* Suggestions Dropdown */}
-          {open &&
-            query.trim() &&
-            (loading || searched || suggestions.length > 0) && (
+            {cityDropdownOpen && (
               <div
                 style={{
                   position: "absolute",
-                  top: "calc(100% + 20px)",
+                  top: "calc(100% + 4px)",
                   left: 0,
                   width: "100%",
                   background: "#fff",
                   border: "1px solid #ddd",
                   borderRadius: "8px",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-                  zIndex: 9999,
-                  maxHeight: "320px",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  zIndex: 1000,
+                  maxHeight: "200px",
                   overflowY: "auto",
-                  boxSizing: "border-box",
                 }}
               >
-                <div
-                  style={{
-                    padding: "8px 16px",
-                    borderBottom: "1px solid #f0f0f0",
-                    fontSize: "12px",
-                    color: "#888",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {loading
-                    ? "Searching…"
-                    : suggestions.length === 0
-                      ? "No results found"
-                      : `${suggestions.length} result${suggestions.length !== 1 ? "s" : ""} found`}
-                </div>
-                {!loading && suggestions.length === 0 && (
-                  <div
-                    style={{
-                      padding: "12px 16px",
-                      fontSize: "13px",
-                      color: "#666",
-                    }}
-                  >
-                    Try searching with a different keyword.
-                  </div>
-                )}
-                {suggestions.map((item) => (
+                {CITIES.map((cityOption) => (
                   <button
-                    key={item.id}
+                    key={cityOption}
                     type="button"
                     onClick={() => {
-                      setQuery(item.displayText);
-                      setOpen(false);
-                      runSearch(item.displayText, item.cityName);
+                      setCity(cityOption);
+                      setCityDropdownOpen(false);
                     }}
                     style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
                       width: "100%",
-                      padding: "12px 16px",
+                      padding: "10px 16px",
                       border: "none",
-                      borderBottom: "1px solid #f5f5f5",
                       background: "#fff",
                       cursor: "pointer",
                       textAlign: "left",
-                      gap: "12px",
+                      fontSize: "14px",
+                      color: "#333",
+                      transition: "background 0.2s ease",
                     }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.background = "#f5f6ff")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.background = "#fff")
-                    }
+                    onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.currentTarget.style.background = "#f5f6ff";
+                    }}
+                    onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.currentTarget.style.background = "#fff";
+                    }}
                   >
-                    <div>
-                      <div
-                        style={{
-                          fontWeight: 600,
-                          fontSize: "14px",
-                          color: "#222",
-                        }}
-                      >
-                        {item.displayText}
-                      </div>
-                      {item.displayDescription && (
-                        <div
-                          style={{
-                            fontSize: "12px",
-                            color: "#888",
-                            marginTop: "2px",
-                          }}
-                        >
-                          {item.displayDescription}
-                        </div>
-                      )}
-                    </div>
-                    <span
-                      style={{
-                        background: "#eef0ff",
-                        color: "#003B5C",
-                        borderRadius: "20px",
-                        padding: "3px 10px",
-                        fontSize: "11px",
-                        fontWeight: 600,
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {item.displayType}
-                    </span>
+                    {cityOption}
                   </button>
                 ))}
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Land Type Dropdown */}
+        <div className="col-6" ref={landTypeDropdownRef}>
+          <div
+            style={{
+              position: "relative",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setLandTypeDropdownOpen(!landTypeDropdownOpen)}
+              style={{
+                width: "100%",
+                height: "44px",
+                background: "#fff",
+                color: "#333",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                padding: "0 16px",
+                fontSize: "14px",
+                fontWeight: 500,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                e.currentTarget.style.borderColor = "#003B5C";
+              }}
+              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                e.currentTarget.style.borderColor = "#ddd";
+              }}
+            >
+              <span>{landType}</span>
+              <span
+                style={{
+                  fontSize: "10px",
+                  transition: "transform 0.3s ease",
+                  transform: landTypeDropdownOpen
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)",
+                }}
+              >
+                ▼
+              </span>
+            </button>
+            {landTypeDropdownOpen && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 4px)",
+                  left: 0,
+                  width: "100%",
+                  background: "#fff",
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  zIndex: 1000,
+                  maxHeight: "200px",
+                  overflowY: "auto",
+                }}
+              >
+                {LAND_TYPES.map((typeOption) => (
+                  <button
+                    key={typeOption}
+                    type="button"
+                    onClick={() => {
+                      setLandType(typeOption);
+                      setLandTypeDropdownOpen(false);
+                    }}
+                    style={{
+                      width: "100%",
+                      padding: "10px 16px",
+                      border: "none",
+                      background: "#fff",
+                      cursor: "pointer",
+                      textAlign: "left",
+                      fontSize: "14px",
+                      color: "#333",
+                      transition: "background 0.2s ease",
+                    }}
+                    onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.currentTarget.style.background = "#f5f6ff";
+                    }}
+                    onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.currentTarget.style.background = "#fff";
+                    }}
+                  >
+                    {typeOption}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

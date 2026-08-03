@@ -4,6 +4,7 @@
     "properties": "Properties",
     "rent": "Rent",
     "buy": "Buy",
+    "land": "Land",
     "myProfile": "My Profile",
     "logout": "Logout"
   },
@@ -14,7 +15,7 @@
   },
   "hero": {
     "findProperties": "Trusted Marketplace for Lands & Plots",
-    "searchDescription": "Search open plots, farm lands, commercial and investment properties in one place."
+    "searchDescription": "Search open plots, farm lands, commercial plots in one place."
   },
   "home": {
     "featuredListings": "Premium Land Listings",
