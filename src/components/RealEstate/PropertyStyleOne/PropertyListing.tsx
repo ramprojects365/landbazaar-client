@@ -118,6 +118,7 @@ export default function PropertyListing() {
   const q = searchParams.get("q") || "";
   const type = searchParams.get("type") || "";
   const city = searchParams.get("city") || "";
+  const queryLandType = searchParams.get("propertyType") || "";
   const propertyName = searchParams.get("propertyName") || "";
   // Homepage sends "address" — treat it as keyword fallback
   const address = searchParams.get("address") || "";
@@ -126,7 +127,7 @@ export default function PropertyListing() {
   const keyword = keywordParam || q || address;
 
   // ── Sidebar filter params (PropertyFilterWidget) ─────────────────
-  const propertyType = searchParams.get("propertyType") || "All";
+  const propertyType = queryLandType || searchParams.get("propertyType") || "All";
   const minPriceStr = searchParams.get("minPrice") || "Any";
   const maxPriceStr = searchParams.get("maxPrice") || "Any";
   const bedroomsFilter = searchParams.get("bedrooms") || "All";
@@ -151,11 +152,12 @@ export default function PropertyListing() {
 
         if (keyword.trim()) {
           // ── Text search: /api/properties/search ─────────────────
-          // Accepts: q, type (listingType), city, propertyName
+          // Accepts: q, type (listingType), city, propertyType, propertyName
           const params = new URLSearchParams();
           params.set("q", keyword.trim());
           if (type) params.set("type", type);
           if (city.trim()) params.set("city", city.trim());
+          if (queryLandType.trim()) params.set("propertyType", queryLandType.trim());
           if (propertyName.trim())
             params.set("propertyName", propertyName.trim());
           url = `${API_BASE}/api/properties/search?${params}`;
@@ -219,6 +221,7 @@ export default function PropertyListing() {
     keyword,
     type,
     city,
+    queryLandType,
     propertyName,
     propertyType,
     minPriceStr,

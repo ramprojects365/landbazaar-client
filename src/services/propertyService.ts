@@ -14,6 +14,43 @@ export const getPropertyById = async (id: string | number) => {
   return res.data;
 };
 
+export const getLandListings = async (params?: {
+  q?: string;
+  city?: string;
+  propertyType?: string;
+  listingType?: string;
+  minPrice?: string | number;
+  maxPrice?: string | number;
+}) => {
+  const hasSearch = Boolean(params?.q || params?.city || params?.propertyType);
+  const query = new URLSearchParams();
+
+  if (params?.q) query.set("q", params.q);
+  if (params?.propertyType) query.set("propertyType", params.propertyType);
+
+  if (hasSearch) {
+    if (params?.city) query.set("city", params.city);
+    if (params?.listingType) query.set("type", params.listingType);
+  } else {
+    if (params?.city) query.set("cityName", params.city);
+    if (params?.listingType) query.set("listingType", params.listingType);
+  }
+
+  if (params?.minPrice !== undefined) query.set("minPrice", String(params.minPrice));
+  if (params?.maxPrice !== undefined) query.set("maxPrice", String(params.maxPrice));
+
+  const endpoint = hasSearch
+    ? `/properties/search?${query.toString()}`
+    : `/properties?${query.toString()}`;
+  const res = await apiClient.get(endpoint);
+  return res.data;
+};
+
+export const getLandListingDetails = async (id: string | number) => {
+  const res = await apiClient.get(`/properties/${id}`);
+  return res.data;
+};
+
 export const getPropertyFitMatches = async (
   answers: AdvisorAnswers,
   contact: AdvisorContact,

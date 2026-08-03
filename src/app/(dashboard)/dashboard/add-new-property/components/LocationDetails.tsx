@@ -6,6 +6,11 @@ import ErrorMessage from "../../../../../components/Form/ErrorMassage";
 import PlaceSearch, {
   PlaceResult,
 } from "../../../../../components/HeroBanner/subComponents/PlaceSearch";
+import {
+  LAND_CITIES,
+  LAND_DISTRICTS,
+  LAND_STATES,
+} from "@/config/landOptions";
 
 export default function LocationDetails() {
   const {
@@ -30,24 +35,24 @@ export default function LocationDetails() {
         <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Property Name</label>
+              <label>Village / Area</label>
               <input
                 className="textBox"
                 type="text"
-                {...register("propertyName")}
-                placeholder="The Horizon Residences"
+                {...register("streetName")}
+                placeholder="Example: Kukutpally"
               />
-              {errors?.propertyName && (
-                <ErrorMessage message={errors?.propertyName?.message || ""} />
+              {errors?.streetName && (
+                <ErrorMessage message={errors?.streetName?.message || ""} />
               )}
             </div>
           </div>
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Property Location</label>
+              <label>Google Map Location</label>
               <PlaceSearch
                 onSelect={handleSelect}
-                placeholder="Search property location"
+                placeholder="Search and pick exact location"
                 defaultValue={locationValue ?? ""}
               />
               {/* Hidden inputs so react-hook-form tracks lat/lng */}
@@ -68,67 +73,33 @@ export default function LocationDetails() {
         <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Street Name</label>
-              <input
-                className="textBox"
-                type="text"
-                {...register("streetName")}
-                placeholder="Enter street name"
-              />
-              {errors?.streetName && (
-                <ErrorMessage message={errors?.streetName?.message || ""} />
-              )}
-            </div>
-          </div>
-          <div className="col-lg-6">
-            <div className="tp-dashboard-new-input">
-              <label>City Name</label>
-              <input
-                className="textBox"
-                type="text"
-                {...register("cityName")}
-                placeholder="Enter city name"
-              />
+              <label>City / Town</label>
+              <div className="tp-property-tabs-select tp-select">
+                <select {...register("cityName")} className="listDropDown">
+                  <option value="">Select</option>
+                  {LAND_CITIES.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+              </div>
               {errors?.cityName && (
                 <ErrorMessage message={errors?.cityName?.message || ""} />
               )}
             </div>
           </div>
-        </div>
-        <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>State</label>
-              <div className="tp-property-tabs-select tp-select">
-                <select {...register("stateName")} className="listDropDown">
-                  <option value="">Select</option>
-                  <option value="Johor">Johor</option>
-                  <option value="Kedah">Kedah</option>
-                  <option value="Kelantan">Kelantan</option>
-                  <option value="Kuala Lumpur">Kuala Lumpur</option>
-                  <option value="Melaka">Melaka</option>
-                  <option value="Negeri Sembilan">Negeri Sembilan</option>
-                  <option value="Pahang">Pahang</option>
-                  <option value="Perak">Perak</option>
-                  <option value="Perlis">Perlis</option>
-                  <option value="Pulau Pinang">Pulau Pinang</option>
-                  <option value="Sabah">Sabah</option>
-                  <option value="Sarawak">Sarawak</option>
-                  <option value="Selangor">Selangor</option>
-                  <option value="Terengganu">Terengganu</option>
-                </select>
-              </div>
-              {errors?.stateName && (
-                <ErrorMessage message={errors?.stateName?.message || ""} />
-              )}
-            </div>
-          </div>
-          <div className="col-lg-6">
-            <div className="tp-dashboard-new-input">
-              <label>Country</label>
+              <label>District</label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("countryName")} className="listDropDown">
-                  <option value="Malaysia">Malaysia</option>
+                  <option value="">Select</option>
+                  {LAND_DISTRICTS.map((district) => (
+                    <option key={district} value={district}>
+                      {district}
+                    </option>
+                  ))}
                 </select>
               </div>
               {errors?.countryName && (
@@ -140,20 +111,38 @@ export default function LocationDetails() {
         <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
+              <label>State</label>
+              <div className="tp-property-tabs-select tp-select">
+                <select {...register("stateName")} className="listDropDown">
+                  <option value="">Select</option>
+                  {LAND_STATES.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {errors?.stateName && (
+                <ErrorMessage message={errors?.stateName?.message || ""} />
+              )}
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="tp-dashboard-new-input">
               <label>Pin Code</label>
               <input
                 className="textBox"
                 type="text"
                 inputMode="numeric"
-                placeholder="Enter Pin Code"
+                placeholder="6 digit pin code"
                 {...register("pinCode")}
                 onInput={(e) => {
                   e.currentTarget.value = e.currentTarget.value.replace(
                     /\D/g,
                     "",
                   );
-                  if (e.currentTarget.value.length > 5) {
-                    e.currentTarget.value = e.currentTarget.value.slice(0, 5);
+                  if (e.currentTarget.value.length > 6) {
+                    e.currentTarget.value = e.currentTarget.value.slice(0, 6);
                   }
                 }}
               />
@@ -169,7 +158,7 @@ export default function LocationDetails() {
                 className="textBox"
                 type="text"
                 {...register("landmark")}
-                placeholder="Near MRT"
+                placeholder="Near ORR Exit 12"
               />
               {errors?.landmark && (
                 <ErrorMessage message={errors?.landmark?.message || ""} />

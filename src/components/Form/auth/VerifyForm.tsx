@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import apiClient from "@/config/axios";
 
 interface FormData {
   emailOtp: string;
@@ -28,17 +29,12 @@ export default function VerifyForm() {
 
     if (otp) {
       try {
-        const API_BASE =
-          process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-        const otpUrl = `${API_BASE}/api/auth/verify-otp`;
-
         // read the registered email saved at registration (fallback to the previous hardcoded email)
         const user_id = localStorage.getItem("user_id");
 
-        const res = await fetch(otpUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: user_id, otp }),
+        const res = await apiClient.post("/auth/verify-otp", {
+          user_id,
+          otp,
         });
 
         if (!res.ok) {

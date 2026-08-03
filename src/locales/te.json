@@ -1,0 +1,13 @@
+{
+  "common": {
+    "buy": "కొనుగోలు",
+    "rent": "అద్దె"
+  },
+  "hero": {
+    "findProperties": "Find Lands",
+    "searchDescription": "Search lands by location and land type"
+  },
+  "header": {
+    "hiSignIn": "Hi, Sign in"
+  }
+}

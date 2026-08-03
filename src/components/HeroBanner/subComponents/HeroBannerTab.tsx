@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
+import { LAND_CITIES, LAND_TYPES } from "@/config/landOptions";
 
 type SearchItem = {
   id: string;
@@ -12,18 +13,19 @@ type SearchItem = {
 };
 
 const placeholderExamples = [
-  "Search by property name",
-  "Try Blue Wave Apartments",
-  "Try condo in Selangor",
-  "Try Kuala Lumpur",
+  "Search by listing title",
+  "Try HMDA approved plot",
+  "Try farm land in Hyderabad",
+  "Try open plot near ORR",
 ];
 
 export default function HeroBannerTabContent({
   id,
-  isActive,
 }: ITabContentProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
+  const [city, setCity] = useState("");
+  const [landType, setLandType] = useState("");
   const [suggestions, setSuggestions] = useState<SearchItem[]>([]);
   const [open, setOpen] = useState(false);
   const [searched, setSearched] = useState(false);
@@ -31,15 +33,12 @@ export default function HeroBannerTabContent({
   const [typedPlaceholder, setTypedPlaceholder] = useState(placeholderExamples[0]);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const runSearch = (value: string, city?: string) => {
-    if (!value.trim()) return;
-    const params = new URLSearchParams({
-      q: value.trim(),
-      type: id || "rent",
-    });
-    if (city?.trim()) {
-      params.append("city", city.trim());
-    }
+  const runSearch = (value: string, selectedCity?: string) => {
+    const params = new URLSearchParams();
+    if (value.trim()) params.set("q", value.trim());
+    if (selectedCity?.trim()) params.set("city", selectedCity.trim());
+    if (landType) params.set("propertyType", landType);
+    if (!params.toString()) return;
     router.push(`/search?${params}`);
   };
 
@@ -67,8 +66,13 @@ export default function HeroBannerTabContent({
       try {
         const API_BASE =
           process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
+        const queryParams = new URLSearchParams();
+        queryParams.set("q", query);
+        if (city.trim()) queryParams.set("city", city.trim());
+        if (landType) queryParams.set("propertyType", landType);
+
         const res = await fetch(
-          `${API_BASE}/api/properties/search?q=${encodeURIComponent(query)}&type=${id || "rent"}`,
+          `${API_BASE}/api/properties/search?${queryParams.toString()}`,
         );
         if (!res.ok) {
           setSuggestions([]);
@@ -108,7 +112,7 @@ export default function HeroBannerTabContent({
       }
     }, 400);
     return () => clearTimeout(timer);
-  }, [query, id]);
+  }, [query, city, landType]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -160,11 +164,55 @@ export default function HeroBannerTabContent({
 
   return (
     <div
-      className={`tab-pane fade${isActive ? " show active" : ""}`}
+      className="tab-pane fade show active"
       id={id}
       role="tabpanel"
     >
       <div className="tp-hero-tab-box">
+        <div className="row g-2" style={{ marginBottom: "10px" }}>
+          <div className="col-6">
+            <select
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              style={{
+                width: "100%",
+                height: "44px",
+                border: "none",
+                borderRadius: "8px",
+                padding: "0 12px",
+                fontSize: "14px",
+              }}
+            >
+              <option value="">All Cities</option>
+              {LAND_CITIES.map((cityOption) => (
+                <option key={cityOption} value={cityOption}>
+                  {cityOption}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col-6">
+            <select
+              value={landType}
+              onChange={(e) => setLandType(e.target.value)}
+              style={{
+                width: "100%",
+                height: "44px",
+                border: "none",
+                borderRadius: "8px",
+                padding: "0 12px",
+                fontSize: "14px",
+              }}
+            >
+              <option value="">All Land Types</option>
+              {LAND_TYPES.map((landTypeOption) => (
+                <option key={landTypeOption} value={landTypeOption}>
+                  {landTypeOption}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
         <div
           className="row g-0 align-items-stretch"
           ref={wrapperRef}
@@ -288,7 +336,7 @@ export default function HeroBannerTabContent({
                     onClick={() => {
                       setQuery(item.displayText);
                       setOpen(false);
-                      runSearch(item.displayText, item.cityName);
+                      runSearch(item.displayText, item.cityName || city);
                     }}
                     style={{
                       display: "flex",

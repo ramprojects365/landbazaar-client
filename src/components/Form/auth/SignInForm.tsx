@@ -12,16 +12,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { signInSchema } from "@/schemas/validationSchema";
 import ErrorMessage from "../ErrorMassage";
 import { useForm } from "react-hook-form";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import apiClient from "@/config/axios";
 
 interface FormData {
   email: string;
   password: string;
+  remember: boolean;
 }
+
+const REMEMBER_EMAIL_KEY = "rememberedLoginEmail";
+const REMEMBER_FLAG_KEY = "rememberLoginEnabled";
 
 export default function SignInForm() {
   const [showPass, setShowPass] = useState(false);
@@ -35,7 +40,22 @@ export default function SignInForm() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      remember: false,
+    },
   });
+
+  useEffect(() => {
+    const isRememberEnabled =
+      localStorage.getItem(REMEMBER_FLAG_KEY) === "true";
+    const rememberedEmail = localStorage.getItem(REMEMBER_EMAIL_KEY) || "";
+
+    if (isRememberEnabled && rememberedEmail) {
+      reset({ email: rememberedEmail, password: "", remember: true });
+    }
+  }, [reset]);
 
   const onSubmit = async (data: FormData) => {
     const requestBody = {
@@ -46,9 +66,6 @@ export default function SignInForm() {
       "Content-Type": "application/json",
       "X-Request-Source": "react-client",
     };
-    const API_BASE =
-      process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-
     const formatApiError = (err: any): string => {
       if (axios.isAxiosError(err)) {
         const data = err.response?.data;
@@ -85,11 +102,18 @@ export default function SignInForm() {
     toast.error = (err: any, opts?: any) => {
       return _toastError(formatApiError(err), opts);
     };
-    const signupUrl = `${API_BASE}/api/auth/login`;
     try {
-      const response = await axios.post<any>(signupUrl, requestBody, {
+      const response = await apiClient.post<any>("/auth/login", requestBody, {
         headers,
       });
+
+      if (data.remember) {
+        localStorage.setItem(REMEMBER_FLAG_KEY, "true");
+        localStorage.setItem(REMEMBER_EMAIL_KEY, data.email);
+      } else {
+        localStorage.removeItem(REMEMBER_FLAG_KEY);
+        localStorage.removeItem(REMEMBER_EMAIL_KEY);
+      }
 
       // if token returned, store it immediately and schedule a redirect so the rest of the code (toast, etc.) can run
       const token = response?.data?.data?.token;
@@ -130,7 +154,7 @@ export default function SignInForm() {
 
       toast.error(errorMessage);
     }
-    reset();
+    reset({ email: data.remember ? data.email : "", password: "", remember: data.remember });
   };
 
   return (
@@ -189,7 +213,7 @@ export default function SignInForm() {
             <div className="row">
               <div className="col-6">
                 <div className="tp-contact-input-remeber">
-                  <input id="remember" type="checkbox" />
+                  <input id="remember" type="checkbox" {...register("remember")} />
                   <label htmlFor="remember">Remember me</label>
                 </div>
               </div>

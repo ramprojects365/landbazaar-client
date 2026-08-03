@@ -10,7 +10,6 @@ import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function HeroBannerOne() {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [activeTab] = useState("rent");
   const toggleFilter = () => setIsFilterVisible((prev) => !prev);
   const handleSorting = () => {};
   const { t } = useTranslation();
@@ -61,46 +60,10 @@ export default function HeroBannerOne() {
                   data-wow-delay=".7s"
                 >
                   <div className="row">
-                    <nav>
-                      <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button
-                          className="nav-link active"
-                          id="nav-rent-tab"
-                          data-bs-toggle="tab"
-                          data-bs-target="#rent"
-                          type="button"
-                          role="tab"
-                          aria-controls="nav-rent"
-                          aria-selected="false"
-                          style={{ borderRadius: "8px 0px 0px 0px" }}
-                        >
-                          {t("common.rent")}
-                        </button>
-                        <button
-                          className="nav-link"
-                          id="nav-buy-tab"
-                          data-bs-toggle="tab"
-                          data-bs-target="#buy"
-                          type="button"
-                          role="tab"
-                          aria-controls="nav-buy"
-                          aria-selected="true"
-                          style={{ borderRadius: "0px 8px 0px 0px" }}
-                        >
-                          {t("common.buy")}
-                        </button>
-                      </div>
-                    </nav>
                     <div className="tab-content" id="nav-tabContent">
                       <HeroBannerTabContent
-                        id="buy"
-                        isActive={activeTab === "buy"}
-                        onSortChange={handleSorting}
-                        toggleFilter={toggleFilter}
-                      />
-                      <HeroBannerTabContent
-                        id="rent"
-                        isActive={activeTab === "rent"}
+                        id="land"
+                        isActive
                         onSortChange={handleSorting}
                         toggleFilter={toggleFilter}
                       />

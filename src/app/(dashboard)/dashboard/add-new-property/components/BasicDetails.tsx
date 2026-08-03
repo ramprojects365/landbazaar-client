@@ -5,6 +5,11 @@ import { PropertyFormData } from "@/schemas/validationSchema";
 import ErrorMessage from "../../../../../components/Form/ErrorMassage";
 import "../property.css";
 import { useState, useEffect } from "react";
+import {
+  AREA_UNITS,
+  LAND_TYPES,
+  LISTING_TYPES,
+} from "@/config/landOptions";
 
 export default function BasicDetails() {
   const {
@@ -15,17 +20,31 @@ export default function BasicDetails() {
   } = useFormContext<PropertyFormData>();
 
   const listingType = watch("listingType");
-  const listingTypeRegister = register("listingType");
   const description = watch("description") || "";
+  const landArea = watch("landSize") || "";
+  const pricePerUnit = watch("pricePerUnit") || "";
+  const totalPrice = watch("totalPrice") || "";
   const [charCount, setCharCount] = useState(0);
 
   useEffect(() => {
     setCharCount(description.length);
   }, [description]);
 
+  useEffect(() => {
+    const area = Number(landArea);
+    const unitPrice = Number(pricePerUnit);
+    if (Number.isFinite(area) && Number.isFinite(unitPrice) && area > 0 && unitPrice > 0) {
+      const computed = String(Math.round(area * unitPrice));
+      if (!totalPrice) {
+        setValue("totalPrice", computed, { shouldValidate: true });
+        setValue("price", computed, { shouldValidate: true });
+      }
+    }
+  }, [landArea, pricePerUnit, totalPrice, setValue]);
+
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    if (value.length <= 1000) {
+    if (value.length <= 5000) {
       setValue("description", value);
       setCharCount(value.length);
     }
@@ -43,7 +62,7 @@ export default function BasicDetails() {
                 className="textBox"
                 type="text"
                 {...register("title")}
-                placeholder="Spacious 3-Bedroom Condo in Mont Kiara"
+                placeholder="HMDA Approved 200 Sq. Yard Plot for Sale in Shadnagar"
               />
               {errors?.title && (
                 <ErrorMessage message={errors?.title?.message || ""} />
@@ -67,10 +86,10 @@ export default function BasicDetails() {
                 </div>
               </div>
               <textarea
-                placeholder="Write a few lines about your property something which is special and makes your property stand out. Please do not mention your contact details in any format."
+                placeholder="Write land highlights, approvals, road access, and nearby landmarks."
                 value={description}
                 onChange={handleDescriptionChange}
-                maxLength={1000}
+                maxLength={5000}
                 style={{ borderRadius: "8px" }}
               ></textarea>
               {errors?.description && (
@@ -82,33 +101,35 @@ export default function BasicDetails() {
         <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label> Listing Type </label>
+              <label>Land Type</label>
               <div className="tp-property-tabs-select tp-select">
-                <select
-                  {...listingTypeRegister}
-                  className="listDropDown"
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    listingTypeRegister.onChange(e);
-                    setValue("listingType", value, { shouldValidate: true });
-                    sessionStorage.setItem("listingType", value);
-                    window.dispatchEvent(new Event("listingTypeChanged"));
-
-                    if (value !== "sale") {
-                      setValue("tenure", "", { shouldValidate: false });
-                      setValue("yearOfCompletion", null, { shouldValidate: false });
-                      setValue("facingDirection", "", { shouldValidate: false });
-                      setValue("renovationStatus", "", { shouldValidate: false });
-                      setValue("maintenanceFee", "", { shouldValidate: false });
-                      setValue("sinkingFund", "", { shouldValidate: false });
-                      setValue("bumiLotStatus", "", { shouldValidate: false });
-                      setValue("floorPlan", "", { shouldValidate: false });
-                    }
-                  }}
-                >
+                <select {...register("propertyType")} className="listDropDown">
                   <option value="">Select</option>
-                  <option value="rent">Rent</option>
-                  <option value="sale">Sale</option>
+                  {LAND_TYPES.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                {errors?.propertyType && (
+                  <ErrorMessage message={errors?.propertyType?.message || ""} />
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-4">
+            <div className="tp-dashboard-new-input">
+              <label>Listing Type</label>
+              <div className="tp-property-tabs-select tp-select">
+                <select {...register("listingType")} className="listDropDown">
+                  <option value="">Select</option>
+                  {LISTING_TYPES.map((item) => (
+                    <option key={item} value={item}>
+                      {item.charAt(0).toUpperCase() + item.slice(1)}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div>
@@ -120,48 +141,98 @@ export default function BasicDetails() {
           </div>
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Property Type </label>
+              <label>Area Unit</label>
               <div className="tp-property-tabs-select tp-select">
-                <select {...register("propertyType")} className="listDropDown">
+                <select {...register("areaUnit")} className="listDropDown">
                   <option value="">Select</option>
-                  <option value="Apartment">Apartment</option>
-                  <option value="Landed House">Bungalow</option>
-                  <option value="Condominium">Condominium</option>
-                  <option value="Landed House">Land</option>
-                  <option value="Factory">Factory</option>
-                  <option value="Landed House">Landed House</option>
-                  <option value="Landed House">Office</option>
-                  <option value="Landed House">Serviced Residence</option>
-                  <option value="Landed House">Shop Lot</option>
-                  <option value="Warehouse">Warehouse</option>
+                  {AREA_UNITS.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
                 </select>
               </div>
-              <div>
-                {errors?.propertyType && (
-                  <ErrorMessage message={errors?.propertyType?.message || ""} />
-                )}
-              </div>
+              {errors?.areaUnit && (
+                <ErrorMessage message={errors?.areaUnit?.message || ""} />
+              )}
             </div>
           </div>
-          {listingType === "sale" && (
-            <div className="col-lg-4">
-              <div className="tp-dashboard-new-input">
-                <label>Tenure</label>
-                <div className="tp-property-tabs-select tp-select">
-                  <select {...register("tenure")} className="listDropDown">
-                    <option value="">Select</option>
-                    <option value="freehold">Freehold</option>
-                    <option value="leasehold">Leasehold</option>
-                  </select>
-                </div>
-                <div>
-                  {errors?.tenure && (
-                    <ErrorMessage message={errors?.tenure?.message || ""} />
-                  )}
-                </div>
-              </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-4">
+            <div className="tp-dashboard-new-input">
+              <label>Land Area</label>
+              <input
+                className="textBox"
+                type="text"
+                inputMode="numeric"
+                placeholder="Example: 200"
+                {...register("landSize")}
+                onInput={(e) => {
+                  e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "");
+                }}
+              />
+              {errors?.landSize && <ErrorMessage message={errors?.landSize?.message || ""} />}
             </div>
-          )}
+          </div>
+          <div className="col-lg-4">
+            <div className="tp-dashboard-new-input">
+              <label>Price Per Unit (₹)</label>
+              <input
+                className="textBox"
+                type="text"
+                inputMode="numeric"
+                placeholder="Example: 25000"
+                {...register("pricePerUnit")}
+                onInput={(e) => {
+                  e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "");
+                }}
+              />
+              {errors?.pricePerUnit && (
+                <ErrorMessage message={errors?.pricePerUnit?.message || ""} />
+              )}
+            </div>
+          </div>
+          <div className="col-lg-4">
+            <div className="tp-dashboard-new-input">
+              <label>Total Price (₹)</label>
+              <input
+                className="textBox"
+                type="text"
+                inputMode="numeric"
+                placeholder="Auto calculated"
+                {...register("totalPrice")}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+                  setValue("totalPrice", value, { shouldValidate: true });
+                  setValue("price", value, { shouldValidate: true });
+                }}
+              />
+              {errors?.totalPrice && (
+                <ErrorMessage message={errors?.totalPrice?.message || ""} />
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-4">
+            <div className="tp-dashboard-new-input">
+              <label>Price Negotiable</label>
+              <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <input type="radio" value="Yes" {...register("negotiable")} />
+                  <span>Yes</span>
+                </label>
+                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <input type="radio" value="No" {...register("negotiable")} />
+                  <span>No</span>
+                </label>
+              </div>
+              {errors?.negotiable && (
+                <ErrorMessage message={errors?.negotiable?.message || ""} />
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
