@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  quickLinks,
-  locationLinks,
-  propertyTypeLinks,
-} from "@/data/footerLinks";
+import { quickLinks, locationLinks, landTypeLinks } from "@/data/footerLinks";
 import FooterContact from "./subComponents/FooterContact";
 import FooterColumn from "./subComponents/FooterColumn";
-import FooterNewsletter from "./subComponents/FooterNewsletter";
 import FooterCopyright from "./subComponents/FooterCopyright";
 
 // Main Footer component
@@ -25,7 +20,7 @@ export default function CommonFooter({ className = "pt-50" }) {
               <FooterColumn title="Locations" links={locationLinks} />
             </div>
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-              <FooterColumn title="Property Types" links={propertyTypeLinks} />
+              <FooterColumn title="Land Types" links={landTypeLinks} />
             </div>
           </div>
         </div>

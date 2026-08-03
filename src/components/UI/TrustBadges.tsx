@@ -5,17 +5,17 @@ import { LockKeyhole, ShieldCheck, Trophy, Users } from "lucide-react";
 
 const badges = [
   {
-    label: "Verified Agents",
+    label: "Verified Listings",
     detail: "REN-focused profiles",
     icon: ShieldCheck,
   },
   {
-    label: "Secure Platform",
+    label: "Verified Documents",
     detail: "Protected enquiries",
     icon: LockKeyhole,
   },
   {
-    label: "Top Rated",
+    label: "Secure Enquiries",
     detail: "Trusted by buyers",
     icon: Trophy,
   },
