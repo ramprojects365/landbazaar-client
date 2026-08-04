@@ -6,13 +6,13 @@ import "swiper/css/bundle";
 import "./globals.scss";
 import RootProviders from "./RootProviders";
 
-const siteUrl = "https://propertyla.com.my/";
+const siteUrl = "https://landbazaar.com/";
 const siteTitle =
-  "PropertyLa Malaysia Real Estate | Buy, Rent & Discover Property";
+  "LandBazaar India | Buy & Sell Lands and Plots";
 const siteDescription =
-  "PropertyLa is a Malaysia real estate platform for condos, houses, apartments, rental homes, subsale homes and verified property agents.";
+  "LandBazaar is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.";
 const siteLogo =
-  "https://propertyla.com.my/assets/img/logo/logo-icon-blue.png";
+  "https://landbazaar.com/assets/img/logo/logo-icon-blue.png";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -31,31 +31,34 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
+  metadataBase: new URL("https://landbazaar.com"),
 
   title: {
     default: siteTitle,
-    template: "%s | PropertyLa",
+    template: "%s | LandBazaar",
   },
 
   description: siteDescription,
 
-  applicationName: "PropertyLa",
+  applicationName: "LandBazaar",
 
   keywords: [
-    "PropertyLa",
-    "Malaysia real estate",
-    "Malaysia property",
-    "condos Malaysia",
-    "houses Malaysia",
-    "apartments Malaysia",
-    "property for rent Malaysia",
-    "property for sale Malaysia",
+    "LandBazaar",
+    "India land",
+    "India plots",
+    "agricultural land India",
+    "farmland India",
+    "land for sale India",
+    "plots for sale India",
+    "buy land India",
+    "sell land India",
+    "Telangana land",
+    "Hyderabad plots",
   ],
 
-  authors: [{ name: "PropertyLa" }],
-  creator: "PropertyLa",
-  publisher: "PropertyLa",
+  authors: [{ name: "LandBazaar" }],
+  creator: "LandBazaar",
+  publisher: "LandBazaar",
 
   alternates: {
     canonical: siteUrl,
@@ -65,16 +68,16 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
     url: siteUrl,
-    siteName: "PropertyLa",
+    siteName: "LandBazaar",
     images: [
       {
         url: siteLogo,
         width: 512,
         height: 512,
-        alt: "PropertyLa Logo",
+        alt: "LandBazaar Logo",
       },
     ],
-    locale: "en_MY",
+    locale: "en_IN",
     type: "website",
   },
 
@@ -105,15 +108,15 @@ export default function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "PropertyLa",
-    alternateName: ["PropertyLa Malaysia", "PropertyLa Malaysia Real Estate"],
+    name: "LandBazaar",
+    alternateName: ["LandBazaar India", "LandBazaar Land & Plots"],
     url: siteUrl,
   };
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "PropertyLa",
+    name: "LandBazaar",
     url: siteUrl,
     logo: siteLogo,
   };

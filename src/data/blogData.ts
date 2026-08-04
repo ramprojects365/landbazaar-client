@@ -1,8 +1,8 @@
 import { IBlogDT } from "@/types/blog-d-t";
-import blogThumb1 from "../../public/assets/img/blog/costly-mistakes-malaysians-make-when-buying-property.png";
+import blogThumb1 from "../../public/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
 import blogThumb2 from "../../public/assets/img/blog/best-places-to-buy-property-in-Selangor.png";
 import blogThumb3 from "../../public/assets/img/blog/Stamp-Duty-in-Malaysia-Property.png";
-import blogThumb4 from "../../public/assets/img/blog/foreign-investors-still-interested-in-malaysian-property.png";
+import blogThumb4 from "../../public/assets/img/blog/hmda-vs-dtcp-vs-rera-whats-the-difference-and-which-is-safer.png";
 import blogThumb5 from "../../public/assets/img/blog/how-to-sell-your-house-faster-in-malaysia.png";
 import blogThumb6 from "../../public/assets/img/blog/top-10-areas-to-buy-property-in-kuala-lumpur.png";
 import blogThumb7 from "../../public/assets/img/blog/complete-guide-to-buying-your-first-home-in-malaysia.png";
@@ -15,9 +15,9 @@ export const blogData: IBlogDT[] = [
     readTime: "5 min read",
     title:
       "10 Essential Legal Documents to Check Before Buying a Plot in Hyderabad",
-    slug: "costly-mistakes-malaysians-make-when-buying-property",
-    authorName: "PropertyLa",
-    authorRole: "Property News",
+    slug: "10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad",
+    authorName: "LandBazaar",
+    authorRole: "Land News",
     delay: ".3s",
   },
   {
@@ -26,8 +26,8 @@ export const blogData: IBlogDT[] = [
     category: "LandWay",
     readTime: "4 min read",
     title: "HMDA vs. DTCP vs. RERA: What’s the Difference and Which is Safer?",
-    slug: "foreign-investors-still-interested-in-malaysian-property",
-    authorName: "PropertyLa",
+    slug: "hmda-vs-dtcp-vs-rera-whats-the-difference-and-which-is-safer",
+    authorName: "LandBazaar",
     authorRole: "Investment News",
     delay: ".5s",
   },
@@ -39,8 +39,8 @@ export const blogData: IBlogDT[] = [
     title:
       "How to Verify Land Records on the Telangana Dharani / Registration Portal",
     slug: "Stamp-Duty-in-Malaysia-Property",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -50,8 +50,8 @@ export const blogData: IBlogDT[] = [
     readTime: "7 min read",
     title: "Top 5 High-Growth Land Investment Corridors Around Hyderabad",
     slug: "best-places-to-buy-property-in-Selangor",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -62,8 +62,8 @@ export const blogData: IBlogDT[] = [
     title:
       "Impact of the Regional Ring Road (RRR) on Hyderabad Farmland Prices",
     slug: "best-places-to-buy-property-in-selangor-2026",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -74,8 +74,8 @@ export const blogData: IBlogDT[] = [
     title:
       "Why West Hyderabad (Shankarpally to Sadashivpet) is the Next Realty Hotspot",
     slug: "complete-guide-to-buying-your-first-home-in-malaysia",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -85,8 +85,8 @@ export const blogData: IBlogDT[] = [
     readTime: "8 min read",
     title: "Complete Guide to Buying Managed Farmland and Weekend Farmhouses",
     slug: "how-much-salary-do-you-need-to-buy-a-house-in-malaysia",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -96,8 +96,8 @@ export const blogData: IBlogDT[] = [
     readTime: "7 min read",
     title: "Can Non-Farmers Buy Agricultural Land in Telangana?",
     slug: "top-10-areas-to-buy-property-in-kuala-lumpur",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -108,8 +108,8 @@ export const blogData: IBlogDT[] = [
     title:
       "HHow to Get a Plot Loan in Hyderabad: Bank Eligibility & Interest Rates",
     slug: "hidden-costs-when-buying-a-property-in-malaysia",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -119,8 +119,8 @@ export const blogData: IBlogDT[] = [
     readTime: "6 min read",
     title: "How to Sell Your House Faster in Malaysia",
     slug: "how-to-sell-your-house-faster-in-malaysia",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -130,8 +130,8 @@ export const blogData: IBlogDT[] = [
     readTime: "7 min read",
     title: "Freehold vs Leasehold Property in Malaysia",
     slug: "freehold-vs-leasehold-property-in-malaysia",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -141,8 +141,8 @@ export const blogData: IBlogDT[] = [
     readTime: "6 min read",
     title: "How to Increase Your Property Value Before Selling",
     slug: "how-to-increase-your-property-value-before-selling",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -152,8 +152,8 @@ export const blogData: IBlogDT[] = [
     readTime: "9 min read",
     title: "Property Investment Guide for Beginners in Malaysia",
     slug: "property-investment-guide-for-beginners",
-    authorName: "PropertyLa",
-    authorRole: "Investment Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Investment Guide",
     delay: ".7s",
   },
   {
@@ -163,7 +163,7 @@ export const blogData: IBlogDT[] = [
     readTime: "7 min read",
     title: "Understanding SPA (Sale and Purchase Agreement) in Malaysia",
     slug: "understanding-spa-sale-and-purchase-agreement",
-    authorName: "PropertyLa",
+    authorName: "LandBazaar",
     authorRole: "Legal Guide",
     delay: ".7s",
   },
@@ -174,8 +174,8 @@ export const blogData: IBlogDT[] = [
     readTime: "6 min read",
     title: "Top Condo Projects Near KLCC",
     slug: "top-condo-projects-near-klcc",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -185,8 +185,8 @@ export const blogData: IBlogDT[] = [
     readTime: "6 min read",
     title: "Top Townships in Kajang, Cheras, and Puchong",
     slug: "top-townships-in-kajang-cheras-and-puchong",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -196,8 +196,8 @@ export const blogData: IBlogDT[] = [
     readTime: "7 min read",
     title: "Best Areas to Buy Property in Selangor",
     slug: "best-areas-to-buy-property-in-selangor",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
   {
@@ -207,8 +207,8 @@ export const blogData: IBlogDT[] = [
     readTime: "6 min read",
     title: "Best New Property Launches in Malaysia (2026)",
     slug: "best-new-property-launches-in-malaysia",
-    authorName: "PropertyLa",
-    authorRole: "Property Guide",
+    authorName: "LandBazaar",
+    authorRole: "Land Guide",
     delay: ".7s",
   },
 ];

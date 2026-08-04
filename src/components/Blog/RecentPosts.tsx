@@ -7,7 +7,7 @@ interface RecentPostsProps {
 }
 
 const DEFAULT_BLOG_IMAGE =
-  "/assets/img/blog/costly-mistakes-malaysians-make-when-buying-property.png";
+  "/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
 
 export default function RecentPosts({ currentSlug }: RecentPostsProps) {
   const otherPosts = blogData.filter((post) => post.slug !== currentSlug);

@@ -24,7 +24,7 @@ const neighbourhoodsData: INeighbourhoodProperty[] = [
     id: 5,
     name: "Johor Bahru",
     image:
-      "/assets/img/blog/costly-mistakes-malaysians-make-when-buying-property.png",
+      "/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png",
     count: 25,
   },
   {
