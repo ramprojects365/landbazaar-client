@@ -118,7 +118,7 @@ export default function PropertyListing() {
   const q = searchParams.get("q") || "";
   const type = searchParams.get("type") || "";
   const city = searchParams.get("city") || "";
-  const queryLandType = searchParams.get("propertyType") || "";
+  const landType = searchParams.get("landType") || "";
   const propertyName = searchParams.get("propertyName") || "";
   // Homepage sends "address" — treat it as keyword fallback
   const address = searchParams.get("address") || "";
@@ -152,22 +152,23 @@ export default function PropertyListing() {
 
         if (keyword.trim()) {
           // ── Text search: /api/properties/search ─────────────────
-          // Accepts: q, type (listingType), city, propertyType, propertyName
+          // Accepts: q, type (listingType), city, propertyName, landType
           const params = new URLSearchParams();
           params.set("q", keyword.trim());
           if (type) params.set("type", type);
           if (city.trim()) params.set("city", city.trim());
-          if (queryLandType.trim()) params.set("propertyType", queryLandType.trim());
+          if (landType.trim() && landType !== "All") params.set("landType", landType.trim());
           if (propertyName.trim())
             params.set("propertyName", propertyName.trim());
           url = `${API_BASE}/api/properties/search?${params}`;
         } else {
           // ── Filter-only: /api/properties ────────────────────────
           // Accepts: listingType, propertyType, cityName,
-          //          minPrice, maxPrice, minBedrooms, maxBedrooms, minArea
+          //          minPrice, maxPrice, minBedrooms, maxBedrooms, minArea, landType
           const params = new URLSearchParams();
           if (type) params.set("listingType", type);
           if (city.trim()) params.set("cityName", city.trim());
+          if (landType.trim() && landType !== "All") params.set("landType", landType.trim());
           if (propertyType && propertyType !== "All") {
             params.set("propertyType", propertyType);
           }

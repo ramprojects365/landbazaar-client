@@ -4,17 +4,18 @@
     "properties": "Hartanah",
     "rent": "Sewa",
     "buy": "Beli",
+    "land": "Tanah",
     "myProfile": "Profil Saya",
     "logout": "Log Keluar"
   },
   "header": {
-    "postPropertyText": "Post Land",
+    "postPropertyText": "Post Property",
     "postPropertyFree": "FREE",
     "hiSignIn": "Hi, Sign In"
   },
   "hero": {
-    "findProperties": "Cari Hartanah untuk Dijual & Disewa di Malaysia",
-    "searchDescription": "Cari rumah, kondominium, pangsapuri, dan tanah dengan mudah"
+    "findProperties": "భూములు మరియు ప్లాట్ల కోసం నమ్మదగిన మార్కెట్‌ప్లేస్",
+    "searchDescription": "ఖాళీ స్థలాలు, వ్యవసాయ భూములు మరియు వాణిజ్య స్థలాల కోసం వెతకండి."
   },
   "home": {
     "featuredListings": "Senarai Pilihan",

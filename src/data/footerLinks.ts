@@ -7,17 +7,17 @@ export const quickLinks = [
 ];
 
 export const locationLinks = [
-  { label: "Kuala Lumpur", href: "/properties/kuala-lumpur" },
-  { label: "Selangor", href: "/properties/selangor" },
-  { label: "Penang", href: "/properties/penang" },
-  { label: "Johor", href: "/properties/johor" },
-  { label: "Perak", href: "/properties/perak" },
+  { label: "Hyderabad", href: "/properties/kuala-lumpur" },
+  { label: "Visakhapatnam", href: "/properties/selangor" },
+  { label: "Vijayawada", href: "/properties/penang" },
+  { label: "Amaravati", href: "/properties/johor" },
+  { label: "Kakinada", href: "/properties/perak" },
 ];
 
-export const propertyTypeLinks = [
+export const landTypeLinks = [
   { label: "Residential Plots", href: "/search" },
   { label: "Agricultural Lands", href: "/search" },
   { label: "Commercial Lands", href: "/search" },
   { label: "Farm Lands", href: "/search" },
-  { label: "Auction Lands", href: "/search" },
+  { label: "Gated Community Lands", href: "/search" },
 ];

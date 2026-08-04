@@ -4,17 +4,18 @@
     "properties": "Properties",
     "rent": "Rent",
     "buy": "Buy",
+    "land": "Land",
     "myProfile": "My Profile",
     "logout": "Logout"
   },
   "header": {
-    "postPropertyText": "Post Land",
+    "postPropertyText": "Post Property",
     "postPropertyFree": "FREE",
     "hiSignIn": "Hi, Sign In"
   },
   "hero": {
     "findProperties": "Trusted Marketplace for Lands & Plots",
-    "searchDescription": "Search open plots, farm lands, commercial and investment properties in one place."
+    "searchDescription": "Search open plots, farm lands, commercial plots in one place."
   },
   "home": {
     "featuredListings": "Premium Land Listings",

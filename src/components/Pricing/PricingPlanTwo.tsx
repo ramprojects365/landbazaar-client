@@ -3,8 +3,8 @@ import { Bot, CheckCircle2, Coins, MessageCircle, RefreshCw, Sparkles } from "lu
 
 const pricingPlans = [
     { name: "Basic Plan", price: "Free", delay: ".3s" },
-    { name: "Standard Plan", price: "RM 49", delay: ".5s", active: true },
-    { name: "Premium Plan", price: "RM 99", delay: ".7s" }
+    { name: "Standard Plan", price: "₹ 999", delay: ".5s", active: true },
+    { name: "Premium Plan", price: "₹ 1,999", delay: ".7s" }
 ];
 
 
@@ -16,7 +16,7 @@ export default function PricingPlanTwo() {
                     <div className="col-lg-12">
                         <div className="tp-pricing-heading pricing-page-section__heading mb-50">
                             <span className="tp-section-title-pre">Pricing</span>
-                            <h4 className="tp-section-title">Simple plans for every property journey.</h4>
+                            <h4 className="tp-section-title">Simple plans for every land journey.</h4>
                             <p>
                                 Start free, upgrade when you need more visibility, and use AI
                                 credits only when they help your team move faster.
@@ -99,15 +99,15 @@ export default function PricingPlanTwo() {
                             <div className="pricing-credits__rates">
                                 <div>
                                     <span>Input token</span>
-                                    <strong>RM12.50 / 1 million tokens</strong>
+                                    <strong>₹ 1,000 / 1 million tokens</strong>
                                 </div>
                                 <div>
                                     <span>Cache token</span>
-                                    <strong>RM6.25 / 1 million tokens</strong>
+                                    <strong>₹ 500 / 1 million tokens</strong>
                                 </div>
                                 <div>
                                     <span>Output token</span>
-                                    <strong>RM50.00 / 1 million tokens</strong>
+                                    <strong>₹ 4,000 / 1 million tokens</strong>
                                 </div>
                             </div>
 
@@ -119,15 +119,15 @@ export default function PricingPlanTwo() {
                             <div className="pricing-credits__included">
                                 <span>
                                     <Coins size={16} />
-                                    Basic: FREE RM10 credit
+                                    Basic: FREE ₹ 800 credit
                                 </span>
                                 <span>
                                     <Coins size={16} />
-                                    Standard: FREE RM50 credit monthly
+                                    Standard: FREE ₹ 4,000 credit monthly
                                 </span>
                                 <span>
                                     <Coins size={16} />
-                                    Premium: FREE RM100 credit monthly
+                                    Premium: FREE ₹ 8,000 credit monthly
                                 </span>
                             </div>
                         </div>
