@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 import logoIconBlue from "../../../public/assets/img/logo/logo-icon-blue.png";
 import logoIconWhite from "../../../public/assets/img/logo/logo-icon-white.png";
 import ProfileDropdown from "./ProfileDropdown";
