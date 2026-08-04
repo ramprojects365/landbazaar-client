@@ -8,37 +8,37 @@ import HomeAdvisorPopup from "@/components/Advisor/HomeAdvisorPopup";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "PropertyLa Malaysia Real Estate | Buy, Rent & Discover Property",
+    absolute: "LandBazaar India | Buy & Sell Lands and Plots",
   },
   description:
-    "PropertyLa is a Malaysia real estate platform for condos, houses, apartments, rental homes, subsale homes and verified property agents.",
-  metadataBase: new URL("https://propertyla.com.my"),
+    "LandBazaar is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.",
+  metadataBase: new URL("https://landbazaar.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "PropertyLa Malaysia Real Estate | Buy, Rent & Discover Property",
-    description: "PropertyLa is a Malaysia real estate platform for condos, houses, apartments, rental homes, subsale homes and verified property agents.",
-    url: "https://propertyla.com.my",
-    siteName: "PropertyLa",
+    title: "LandBazaar India | Buy & Sell Lands and Plots",
+    description: "LandBazaar is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.",
+    url: "https://landbazaar.com",
+    siteName: "LandBazaar",
     type: "website",
-    locale: "en_MY",
+    locale: "en_IN",
     images: [
       {
-        url: "https://propertyla.com.my/assets/img/og-image.jpg",
+        url: "https://landbazaar.com/assets/img/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "PropertyLa Malaysia Real Estate Platform",
+        alt: "LandBazaar India Land & Plats Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PropertyLa Malaysia Real Estate | Buy, Rent & Discover Property",
-    description: "PropertyLa is a Malaysia real estate platform for condos, houses, apartments, rental homes, subsale homes and verified property agents.",
-    images: ["https://propertyla.com.my/assets/img/og-image.jpg"],
+    title: "LandBazaar India | Buy & Sell Lands and Plots",
+    description: "LandBazaar is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.",
+    images: ["https://landbazaar.com/assets/img/og-image.jpg"],
   },
-  keywords: "Malaysia real estate, property for sale, property for rent, condos, apartments, houses, Kuala Lumpur, Selangor, Penang, Johor, PropertyLa",
+  keywords: "India land, plots for sale, agricultural land, farmland, buy land India, sell land India, Telangana land, Hyderabad plots, LandBazaar",
 };
 
 const Home = () => {
