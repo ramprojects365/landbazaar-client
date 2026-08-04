@@ -44,25 +44,11 @@ export const signUpSchema = yup.object().shape({
   displayname: personName("Enter display name"),
   email: strictEmail(),
   phone: strictPhone(),
-  renNumber: yup.string().when("$showRen", {
-    is: true,
-    then: (schema) =>
-      schema
-        .required("REN/PEA number is required")
-        .matches(
-          /^(REN|PEA)[0-9]{4,6}$/,
-          "Must start with REN or PEA followed by 4-6 digits",
-        ),
-    otherwise: (schema) => schema.optional(),
-  }),
   password: yup
     .string()
     .required("Enter password")
-    .min(6, "Password must be at least 6 characters")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      "Password must contain at least one uppercase letter, one lowercase letter, and one number",
-    ),
+    .min(4, "Password must be at least 4 characters")
+    .matches(/^[A-Za-z0-9]+$/, "Password must be alphanumeric only"),
   confirmPassword: yup
     .string()
     .required("Please same password again")
@@ -75,7 +61,7 @@ export const signInSchema = yup.object().shape({
   password: yup
     .string()
     .required("Enter password")
-    .min(6, "Password must be at least 6 characters"),
+    .min(4, "Password must be at least 4 characters"),
 });
 
 //Forgot form validation schema
@@ -119,15 +105,34 @@ export const basicSchema = yup.object().shape({
 
 export const propertySchema = yup.object({
   listingType: yup.string().required("Listing type is required"),
-  propertyName: yup.string().required("Property name is required"),
+  propertyName: yup.string().optional(),
   propertyType: yup.string().required("Property type is required"),
-  tenure: yup.string().when("listingType", {
-    is: "sale",
-    then: (schema) => schema.optional(),
-    otherwise: (schema) => schema.optional(),
-  }),
+  tenure: yup.string().optional(),
+  areaUnit: yup.string().required("Area unit is required"),
+  pricePerUnit: yup
+    .string()
+    .required("Price per unit is required")
+    .matches(/^[0-9]+$/, "Only numbers are allowed")
+    .test(
+      "not-zero",
+      "Price per unit must be greater than 0",
+      (value) => Number(value) > 0,
+    ),
+  totalPrice: yup
+    .string()
+    .required("Total price is required")
+    .matches(/^[0-9]+$/, "Only numbers are allowed")
+    .test(
+      "not-zero",
+      "Total price must be greater than 0",
+      (value) => Number(value) > 0,
+    ),
   title: yup.string().required("Title is required"),
-  description: yup.string().required("Description is required"),
+  description: yup
+    .string()
+    .required("Description is required")
+    .min(50, "Description must be at least 50 characters")
+    .max(5000, "Description cannot exceed 5000 characters"),
   location: yup.string().required("Property location is required"),
   latitude: yup
     .number()
@@ -148,15 +153,18 @@ export const propertySchema = yup.object({
         : value;
     })
     .optional(),
-  streetName: yup.string().required("Street name is required"),
+  streetName: yup
+    .string()
+    .required("Village / Area is required")
+    .max(30, "Village / Area must be 30 characters or less"),
   cityName: yup.string().required("City name is required"),
   stateName: yup.string().required("State is required"),
-  countryName: yup.string().required("Country is required"),
+  countryName: yup.string().required("District is required"),
   pinCode: yup
     .string()
-    .required("Pin Code is required")
-    .matches(/^[0-9]{5}$/, "Pin Code must be exactly 5 digits"),
-  landmark: yup.string().required("Land mark is required"),
+    .optional()
+    .matches(/^[0-9]{6}$/, "Pin Code must be exactly 6 digits"),
+  landmark: yup.string().optional(),
   price: yup
     .string()
     .required("Price is required")
@@ -181,7 +189,7 @@ export const propertySchema = yup.object({
     ),
   landSize: yup
     .string()
-    .optional()
+    .required("Land area is required")
     .test(
       "only-numbers",
       "Only numbers are allowed",
@@ -192,12 +200,25 @@ export const propertySchema = yup.object({
       "Land Size must be greater than 0",
       (value) => !value || Number(value) > 0,
     ),
-  furnishing: yup.string().required("Furnishing type is required"),
-  bedRooms: yup.string().required("Bed rooms are required"),
-  bathRooms: yup.string().required("Bath rooms are required"),
-  availability: yup.string().required("Availability is required"),
-  negotiable: yup.string().optional(),
-  floorLevel: yup.string().required("Floor Number is required"),
+  furnishing: yup.string().optional(),
+  bedRooms: yup.string().optional(),
+  bathRooms: yup.string().optional(),
+  availability: yup.string().optional(),
+  negotiable: yup.string().required("Please select negotiable value"),
+  floorLevel: yup.string().optional(),
+  cornerPlot: yup.string().optional(),
+  roadWidth: yup.string().optional(),
+  surveyNumber: yup.string().optional(),
+  approvalTypes: yup.array().of(yup.string()).optional(),
+  soilType: yup.string().optional(),
+  clearTitle: yup.string().optional(),
+  loanFacility: yup.string().optional(),
+  registrationReady: yup.string().optional(),
+  contactPersonName: yup.string().required("Contact person name is required"),
+  contactNumber: yup
+    .string()
+    .required("Contact number is required")
+    .matches(/^[0-9]{10}$/, "Contact number must be 10 digits"),
   propertyAge: yup
     .number()
     .typeError("Year of build must be a number")

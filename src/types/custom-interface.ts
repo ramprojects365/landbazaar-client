@@ -114,7 +114,6 @@ export interface ISignUpFormData {
   displayname: string;
   email: string;
   phone: string;
-  renNumber?: string;
   password: string;
   confirmPassword: string;
   remember?: boolean;

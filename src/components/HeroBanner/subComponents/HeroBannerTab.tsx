@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
+import { LAND_CITIES, LAND_TYPES } from "@/config/landOptions";
 
 type SearchItem = {
   id: string;
@@ -23,7 +24,6 @@ const LAND_TYPES = ["All", "Farm Lands", "Agriculture Lands"];
 
 export default function HeroBannerTabContent({
   id,
-  isActive,
 }: ITabContentProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -80,6 +80,11 @@ export default function HeroBannerTabContent({
       try {
         const API_BASE =
           process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
+        const queryParams = new URLSearchParams();
+        queryParams.set("q", query);
+        if (city.trim()) queryParams.set("city", city.trim());
+        if (landType) queryParams.set("propertyType", landType);
+
         const res = await fetch(
           `${API_BASE}/api/properties/search?q=${encodeURIComponent(query)}`,
         );

@@ -14,17 +14,16 @@ import { signUpSchema } from "@/schemas/validationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ErrorMessage from "../ErrorMassage";
 import { useForm } from "react-hook-form";
-import { useState, CSSProperties } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import apiClient from "@/config/axios";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [showRen, setShowRen] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string>("Owner");
   const router = useRouter();
 
   const {
@@ -34,49 +33,7 @@ export default function SignUpForm() {
     formState: { errors },
   } = useForm<ISignUpFormData>({
     resolver: yupResolver(signUpSchema),
-    context: { showRen },
   });
-
-  const styles: Record<string, CSSProperties> = {
-    container: {
-      padding: "16px",
-      border: "1px solid #ddd",
-      borderRadius: "8px",
-      width: "250px",
-    },
-    title: {
-      fontWeight: 600,
-      marginBottom: "10px",
-    },
-    radioGroup: {
-      display: "flex",
-      gap: "10px",
-    },
-    radioOption: {
-      display: "flex",
-      alignItems: "center",
-      gap: "4px",
-      cursor: "pointer",
-      color: "#333",
-      fontSize: "14px",
-    },
-    radioInput: {
-      width: "16px",
-      height: "16px",
-      accentColor: "#003B5C", // modern browsers support this
-      cursor: "pointer",
-      marginRight: "0px",
-    },
-  };
-  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSelectedValue(value);
-    if (value === "Agent") {
-      setShowRen(true);
-    } else {
-      setShowRen(false);
-    }
-  };
 
   const formatNum = (phone: string): string => {
     if (!phone) return "";
@@ -103,25 +60,17 @@ export default function SignUpForm() {
       username: data.displayname,
       email: data.email,
       phone_number: formatNum(data.phone),
-      renNumber: data.renNumber?.trim().toUpperCase(),
       password: data.password,
       confirmPassword: data.confirmPassword,
       remember: data.remember,
     };
-    const headers = {
-      "Content-Type": "application/json",
-      "X-Request-Source": "react-client",
-    };
-    const API_BASE =
-      process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-    const signupUrl = `${API_BASE}/api/auth/register`;
     try {
-      const payload = {
-        ...requestBody,
-        userType: selectedValue,
-      };
-
-      const response = await axios.post(signupUrl, payload, { headers });
+      const response = await apiClient.post("/auth/register", requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Request-Source": "react-client",
+        },
+      });
       // Persist the registered email so the verify page can read it via localStorage.getItem("registeredEmail")
       try {
         console.log("Registration response:", response);
@@ -202,42 +151,6 @@ export default function SignUpForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
         <div className="col-12">
-          <div
-            className="tp-cart-coupon-input"
-            style={{ marginBottom: "10px" }}
-          >
-            <label style={{ float: "left", marginRight: "20px" }}>
-              Are you ?
-            </label>
-
-            <div style={styles.radioGroup}>
-              <label style={styles.radioOption}>
-                <input
-                  type="radio"
-                  name="userType"
-                  value="Owner"
-                  checked={selectedValue === "Owner"}
-                  onChange={handleChange}
-                  style={styles.radioInput}
-                />
-                <span>Owner</span>
-              </label>
-              <label style={styles.radioOption}>
-                <input
-                  type="radio"
-                  name="userType"
-                  value="Agent"
-                  checked={selectedValue === "Agent"}
-                  onChange={handleChange}
-                  style={styles.radioInput}
-                />
-                <span>Agent</span>
-              </label>
-            </div>
-          </div>
-        </div>
-        {}
-        <div className="col-12">
           <div className="tp-sign-in-input-box">
             <div className="tp-sign-in-input p-relative">
               <input
@@ -300,33 +213,6 @@ export default function SignUpForm() {
             <ErrorMessage message={errors?.phone?.message || ""} />
           </div>
         </div>
-        {showRen === true ? (
-          <div>
-            <div className="col-12">
-              <div className="tp-sign-in-input-box">
-                <div className="tp-sign-in-input p-relative">
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={10}
-                    placeholder="Enter REN / PEA number"
-                    onInput={(e: React.FormEvent<HTMLInputElement>) => {
-                      const target = e.currentTarget;
-                      target.value = target.value.toUpperCase().replace(/\s/g, "");
-                    }}
-                    {...register("renNumber")}
-                  />
-                  <i>
-                    <AuthUserSvg />
-                  </i>
-                </div>
-                <ErrorMessage message={errors?.renNumber?.message || ""} />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div></div>
-        )}
         <div className="col-12">
           <div className="tp-sign-in-input-box">
             <div className="tp-sign-in-input p-relative">
