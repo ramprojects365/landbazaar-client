@@ -17,39 +17,16 @@ import { API_BASE_URL } from "@/config/constants";
 
 // Amenity groupings — mirror the FE display groups for categorising on submit
 const AMENITY_GROUPS = {
-  lifestyle: [
-    "Swimming Pool",
-    "Gymnasium",
-    "Playground",
-    "BBQ Area",
-    "Function Room",
-    "Games Room",
-    "Sky Garden",
-    "Reading Room",
-    "Lounge",
-  ],
-  facilities: [
-    "Covered Parking",
-    "Visitor Parking",
-    "Service Lift",
-    "Surau / Prayer Room",
-    "Parcel Locker",
-    "Laundry Room",
-    "Cafeteria",
-  ],
-  security: [
-    "24-hour Security",
-    "CCTV Surveillance",
-    "Access Card System",
-    "Fire Alarm System",
-    "Emergency Exit",
-  ],
+  lifestyle: [] as string[],
+  facilities: [] as string[],
+  security: [] as string[],
 };
 const normalizeListingType = (value: any): string => {
   const v = String(value || "").trim().toLowerCase();
 
-  if (v.includes("rent")) return "Rent";
-  if (v.includes("sale") || v.includes("sell")) return "Sale";
+  if (v.includes("rent")) return "rent";
+  if (v.includes("lease")) return "lease";
+  if (v.includes("sale") || v.includes("sell")) return "sale";
 
   return "";
 };
@@ -122,11 +99,15 @@ function groupAmenities(flat: string[] = []) {
   for (const amenity of flat) {
     if (AMENITY_GROUPS.lifestyle.includes(amenity)) {
       result.lifestyle.push(amenity);
-    } else if (AMENITY_GROUPS.facilities.includes(amenity)) {
-      result.facilities.push(amenity);
-    } else if (AMENITY_GROUPS.security.includes(amenity)) {
-      result.security.push(amenity);
+      continue;
     }
+
+    if (AMENITY_GROUPS.security.includes(amenity)) {
+      result.security.push(amenity);
+      continue;
+    }
+
+    result.facilities.push(amenity);
   }
   return result;
 }
@@ -186,6 +167,9 @@ export default function AddPropertyPage() {
       propertyType: "",
       propertyName: "",
       tenure: "",
+      areaUnit: "",
+      pricePerUnit: "",
+      totalPrice: "",
       title: "",
       description: "",
       location: "",
@@ -194,7 +178,7 @@ export default function AddPropertyPage() {
       streetName: "",
       cityName: "",
       stateName: "",
-      countryName: "Malaysia",
+      countryName: "",
       pinCode: "",
       landmark: "",
       price: "",
@@ -206,6 +190,16 @@ export default function AddPropertyPage() {
       availability: "",
       negotiable: "",
       floorLevel: "",
+      cornerPlot: "",
+      roadWidth: "",
+      surveyNumber: "",
+      approvalTypes: [],
+      soilType: "",
+      clearTitle: "",
+      loanFacility: "",
+      registrationReady: "",
+      contactPersonName: "",
+      contactNumber: "",
       propertyAge: undefined,
       yearOfCompletion: undefined,
       carParkAllocation: "",
@@ -279,6 +273,9 @@ export default function AddPropertyPage() {
             propertyType: propertyData.propertyType || "",
             propertyName: propertyData.propertyName || propertyData.title || "",
             tenure: propertyData.tenure || "",
+            areaUnit: propertyData.areaUnit || "",
+            pricePerUnit: formatWholeNumberInput(propertyData.pricePerUnit),
+            totalPrice: formatWholeNumberInput(propertyData.totalPrice || propertyData.price || propertyData.monthlyRent),
             title: propertyData.title || propertyData.propertyName || "",
             description: propertyData.description || "",
 
@@ -292,7 +289,7 @@ export default function AddPropertyPage() {
             pinCode: propertyData.pincode || propertyData.pinCode || "",
             landmark: propertyData.landmark || "",
 
-            price: formatWholeNumberInput(propertyData.price || propertyData.monthlyRent),
+            price: formatWholeNumberInput(propertyData.totalPrice || propertyData.price || propertyData.monthlyRent),
             builtUpArea: formatWholeNumberInput(
               propertyData.buildupArea || propertyData.builtUpArea || propertyData.livingArea
             ),
@@ -303,6 +300,18 @@ export default function AddPropertyPage() {
             availability: normalizeAvailability(propertyData.availability),
             negotiable: propertyData.negotiable ? "Yes" : "No",
             floorLevel: normalizeFloorLevel(propertyData.floorLevel),
+            cornerPlot: propertyData.cornerPlot || "",
+            roadWidth: propertyData.roadWidth || "",
+            surveyNumber: propertyData.surveyNumber || "",
+            approvalTypes: Array.isArray(propertyData.approvalTypes)
+              ? propertyData.approvalTypes
+              : [],
+            soilType: propertyData.soilType || "",
+            clearTitle: propertyData.clearTitle || "",
+            loanFacility: propertyData.loanFacility || "",
+            registrationReady: propertyData.registrationReady || "",
+            contactPersonName: propertyData.contactPersonName || "",
+            contactNumber: propertyData.contactNumber || "",
             propertyAge: getAgeRangeFromYear(propertyData.yearOfBuild),
             yearOfCompletion: propertyData.yearOfCompletion,
             carParkAllocation: propertyData.carParkAllocation || "",
@@ -472,7 +481,7 @@ export default function AddPropertyPage() {
           (a): a is string => typeof a === "string",
         );
         const isSaleListing = data.listingType === "sale";
-        const isRentListing = data.listingType === "rent";
+        const isLeaseListing = data.listingType === "lease";
 
         // Convert property age range to actual year of build
         const getYearFromAgeRange = (
@@ -501,7 +510,10 @@ export default function AddPropertyPage() {
           listingType: data.listingType,
           propertyType: data.propertyType,
           propertyName: data.propertyName,
-          tenure: isSaleListing ? data.tenure || "" : "",
+          tenure: data.tenure || "",
+          areaUnit: data.areaUnit || "",
+          pricePerUnit: data.pricePerUnit ? parseFloat(data.pricePerUnit) : null,
+          totalPrice: data.totalPrice ? parseFloat(data.totalPrice) : null,
           title: data.title,
           description: data.description,
           location: data.location,
@@ -520,10 +532,20 @@ export default function AddPropertyPage() {
           furnishing: data.furnishing,
           availability: data.availability,
           floorLevel: data.floorLevel?.toString(),
+          cornerPlot: data.cornerPlot || "",
+          roadWidth: data.roadWidth || "",
+          surveyNumber: data.surveyNumber || "",
+          approvalTypes: data.approvalTypes || [],
+          soilType: data.soilType || "",
+          clearTitle: data.clearTitle || "",
+          loanFacility: data.loanFacility || "",
+          registrationReady: data.registrationReady || "",
+          contactPersonName: data.contactPersonName || "",
+          contactNumber: data.contactNumber ? `+91${data.contactNumber}` : "",
           status: "active",
 
           // Remapped numeric fields (FE stores as string from input/select)
-          price: parseFloat(data.price),
+          price: parseFloat(data.totalPrice || data.price),
           buildupArea: data.builtUpArea ? parseFloat(data.builtUpArea) : null,
           landSize: data.landSize ? parseFloat(data.landSize) : null,
           bedrooms: data.bedRooms ? parseInt(data.bedRooms, 10) : null,
@@ -546,13 +568,13 @@ export default function AddPropertyPage() {
           facingDirection: isSaleListing ? data.facingDirection || "" : "",
           renovationStatus: isSaleListing ? data.renovationStatus || "" : "",
 
-          // RENT-specific fields
-          depositAmount: isRentListing && data.depositAmount
+          // LEASE-specific fields
+          depositAmount: isLeaseListing && data.depositAmount
             ? parseFloat(data.depositAmount)
             : null,
-          minimumRentalPeriod: isRentListing ? data.minimumRentalPeriod || "" : "",
-          petPolicy: isRentListing ? data.petPolicy || "" : "",
-          preferredTenantType: isRentListing ? data.preferredTenantType || "" : "",
+          minimumRentalPeriod: isLeaseListing ? data.minimumRentalPeriod || "" : "",
+          petPolicy: isLeaseListing ? data.petPolicy || "" : "",
+          preferredTenantType: isLeaseListing ? data.preferredTenantType || "" : "",
 
           // Strata property fields
           maintenanceFee: isSaleListing && data.maintenanceFee

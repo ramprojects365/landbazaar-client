@@ -10,7 +10,6 @@ import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function HeroBannerOne() {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [activeTab] = useState("rent");
   const toggleFilter = () => setIsFilterVisible((prev) => !prev);
   const handleSorting = () => {};
   const { t } = useTranslation();
@@ -60,12 +59,23 @@ export default function HeroBannerOne() {
                   data-wow-duration="1s"
                   data-wow-delay=".7s"
                 >
-                  <HeroBannerTabContent
-                    id="search"
-                    isActive={true}
-                    onSortChange={handleSorting}
-                    toggleFilter={toggleFilter}
-                  />
+                  <div className="row">
+                    <div className="tab-content" id="nav-tabContent">
+                      <HeroBannerTabContent
+                        id="land"
+                        isActive
+                        onSortChange={handleSorting}
+                        toggleFilter={toggleFilter}
+                      />
+                    </div>
+                  </div>
+                  <section
+                    className={`tp-from-filter ${
+                      isFilterVisible ? "show" : "hidden"
+                    }`}
+                  >
+                    {/* <BannerFromFilter /> */}
+                  </section>
                 </div>
                 {/* CTA Button */}
                 <div className="text-center mt-4">

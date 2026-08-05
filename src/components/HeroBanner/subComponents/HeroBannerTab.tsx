@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
+import { LAND_CITIES, LAND_TYPES } from "@/config/landOptions";
 
 type SearchItem = {
   id: string;
@@ -68,7 +69,6 @@ const MOCK_SUGGESTIONS: SearchItem[] = [
 
 export default function HeroBannerTabContent({
   id,
-  isActive,
 }: ITabContentProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
