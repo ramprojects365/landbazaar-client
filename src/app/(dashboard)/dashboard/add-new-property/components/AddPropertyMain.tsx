@@ -704,7 +704,7 @@ export default function AddPropertyPage() {
               console.log("🔘 Button disabled:", isLoading);
             }}
           >
-            {isEditMode ? "Update Property" : "Add Property"}
+            {isEditMode ? "Update Land" : "Add Land"}
           </button>
         </div>
       </form>

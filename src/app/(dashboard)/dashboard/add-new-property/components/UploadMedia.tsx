@@ -7,15 +7,15 @@ import "../property.css";
 
 type PropertyImageCategory =
   | "other"
-  | "living_room"
-  | "bedroom"
-  | "bathroom"
-  | "kitchen"
-  | "dining_area"
-  | "balcony"
-  | "exterior"
+  | "plot_view"
+  | "boundary_wall"
+  | "approach_road"
+  | "farm_land"
+  | "agricultural_land"
+  | "open_plot"
+  | "corner_plot"
   | "facilities"
-  | "floor_plan";
+  | "location_map";
 
 interface PropertyImageItem {
   id: string;
@@ -31,19 +31,19 @@ interface PropertyImageItem {
 
 const categories: Array<{ value: PropertyImageCategory; label: string }> = [
   { value: "other", label: "Other" },
-  { value: "living_room", label: "Living Room" },
-  { value: "bedroom", label: "Bedroom" },
-  { value: "bathroom", label: "Bathroom" },
-  { value: "kitchen", label: "Kitchen" },
-  { value: "dining_area", label: "Dining Area" },
-  { value: "balcony", label: "Balcony" },
-  { value: "exterior", label: "Exterior" },
+  { value: "plot_view", label: "Plot View" },
+  { value: "boundary_wall", label: "Boundary Wall" },
+  { value: "approach_road", label: "Approach Road" },
+  { value: "farm_land", label: "Farm Land" },
+  { value: "agricultural_land", label: "Agricultural Land" },
+  { value: "open_plot", label: "Open Plot" },
+  { value: "corner_plot", label: "Corner Plot" },
   { value: "facilities", label: "Facilities" },
-  { value: "floor_plan", label: "Floor Plan" },
+  { value: "location_map", label: "Location Map" },
 ];
 
 const quickCategories = categories.filter((category) =>
-  ["other", "living_room", "bedroom", "bathroom", "kitchen", "balcony", "exterior"].includes(
+  ["other", "plot_view", "boundary_wall", "approach_road", "farm_land", "agricultural_land", "open_plot"].includes(
     category.value,
   ),
 );
@@ -414,8 +414,8 @@ export default function UploadMedia() {
           </span>
 
           <p>
-            Upload property photos, set the cover image, and label every room.
-            <br /> Other images can use custom names like Store Room or Backyard.
+            Upload land photos, set the cover image, and label every view.
+            <br /> Other images can use custom names like Plot View or Boundary Wall.
           </p>
           {isLocalUploadMode ? (
             <p className="property-upload-local-note">
@@ -425,8 +425,8 @@ export default function UploadMedia() {
         </div>
 
         <p className="property-upload-hint">
-          Examples: Store Room, Maid Room, Prayer Room, Backyard, Laundry Area, Study Room,
-          Walk-in Wardrobe.
+          Examples: Plot View, Boundary Wall, Approach Road, Farm Land View, Agricultural Land,
+          Open Plot, Corner Plot, East-Facing Plot, Near Main Road, Water Facility.
         </p>
 
         <input
@@ -508,7 +508,7 @@ export default function UploadMedia() {
                         <input
                           type="text"
                           value={image.customPlaceName}
-                          placeholder="Example: Store Room, Backyard"
+                          placeholder="Example: Plot View, Boundary Wall"
                           onChange={(event) =>
                             updateImage(image.id, {
                               customPlaceName: event.target.value,
