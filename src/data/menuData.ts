@@ -40,19 +40,19 @@ const menu_data_one = [
     previewImg: false,
     submenu: [
       {
-        id: 1,
+        id: 5,
         label: "Main Road",
         url: "/search",
         img: "",
       },
       {
-        id: 2,
+        id: 6,
         label: "Industrial",
         url: "/search",
         img: "",
       },
       {
-        id: 2,
+        id: 7,
         label: "Highway",
         url: "/search",
         img: "",
@@ -67,19 +67,19 @@ const menu_data_one = [
     previewImg: false,
     submenu: [
       {
-        id: 1,
+        id: 8,
         label: "Agricultural",
         url: "/search",
         img: "",
       },
       {
-        id: 2,
+        id: 9,
         label: "Farmhouses",
         url: "/search",
         img: "",
       },
       {
-        id: 2,
+        id: 10,
         label: "Weekend Eco-Plots",
         url: "/search",
         img: "",
@@ -91,10 +91,10 @@ const menu_data_one = [
     label: "Services",
     url: "#",
     submenu: [
-      { id: 1, label: "Dharani Title Check", url: "/property-advisor" },
-      { id: 2, label: "egal Verification", url: "/property-advisor" },
-      { id: 3, label: "EC Verification", url: "/home-loan" },
-      { id: 4, label: "Site Visit Scheduler", url: "/interior-design" },
+      { id: 11, label: "Dharani Title Check", url: "/property-advisor" },
+      { id: 12, label: "Legal Verification", url: "/property-advisor" },
+      { id: 13, label: "EC Verification", url: "/home-loan" },
+      { id: 14, label: "Site Visit Scheduler", url: "/interior-design" },
     ],
   },
   {
@@ -102,10 +102,10 @@ const menu_data_one = [
     label: "More",
     url: "#",
     submenu: [
-      { id: 1, label: "About", url: "/about" },
-      { id: 2, label: "Pricing", url: "/pricing" },
-      { id: 3, label: "Contact", url: "/contact" },
-      { id: 4, label: "Faq", url: "/faq" },
+      { id: 15, label: "About", url: "/about" },
+      { id: 16, label: "Pricing", url: "/pricing" },
+      { id: 17, label: "Contact", url: "/contact" },
+      { id: 18, label: "Faq", url: "/faq" },
     ],
   },
 ];

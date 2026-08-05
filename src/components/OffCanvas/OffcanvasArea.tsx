@@ -149,7 +149,7 @@ export default function OffcanvasArea() {
                   <i className="fa-solid fa-phone"></i>
                 </div>
                 <div className="offcanvas__contact-content-content">
-                  <Link href="tel:01310-069824"> +60 11 2636 8426</Link>
+                  <Link href="tel:+919849967236"> +91 9849967236</Link>
                 </div>
               </div>
             </div>

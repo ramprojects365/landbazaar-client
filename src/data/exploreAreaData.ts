@@ -30,7 +30,8 @@ const neighbourhoodsData: INeighbourhoodProperty[] = [
   {
     id: 6,
     name: "Malacca",
-    image: "/assets/img/blog/best-places-to-buy-property-in-Selangor.png",
+    image:
+      "/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png",
     count: 25,
   },
 ];
