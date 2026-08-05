@@ -13,7 +13,9 @@ export const metadata: Metadata = {
     title: "Best Places to Buy Property in Selangor (2026)",
     description:
       "Explore the top locations for property investment in Selangor with expert insights on growth potential and lifestyle benefits.",
-    images: ["/assets/img/blog/best-places-to-buy-property-in-Selangor.png"],
+    images: [
+      "/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png",
+    ],
     type: "article",
   },
 };
@@ -302,8 +304,7 @@ export default function BestPlacesSelangorBlog() {
 
                     <p className="mb-30">
                       Explore the latest property listings in Selangor today
-                      with LandWay and discover your next home with
-                      confidence.
+                      with LandWay and discover your next home with confidence.
                     </p>
 
                     <div

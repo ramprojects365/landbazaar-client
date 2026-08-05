@@ -23,54 +23,16 @@ export default function PropertyDetails() {
         <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Facing</label>
-              <div className="tp-property-tabs-select tp-select">
-                <select {...register("facingDirection")} className="listDropDown">
-                  <option value="">Select</option>
-                  {LAND_FACING_DIRECTIONS.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <label>Layout Name (Optional)</label>
+              <input
+                className="textBox"
+                type="text"
+                placeholder="Example: Green Valley Venture"
+                {...register("propertyName")}
+              />
             </div>
           </div>
 
-          <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Corner Plot</label>
-              <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <input type="radio" value="Yes" {...register("cornerPlot")} />
-                  <span>Yes</span>
-                </label>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <input type="radio" value="No" {...register("cornerPlot")} />
-                  <span>No</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Road Width</label>
-              <div className="tp-property-tabs-select tp-select">
-                <select {...register("roadWidth")} className="listDropDown">
-                  <option value="">Select</option>
-                  {ROAD_WIDTH_OPTIONS.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
               <label>Survey Number</label>
@@ -100,18 +62,6 @@ export default function PropertyDetails() {
               </select>
             </div>
           </div>
-
-          <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Layout Name (Optional)</label>
-              <input
-                className="textBox"
-                type="text"
-                placeholder="Example: Green Valley Venture"
-                {...register("propertyName")}
-              />
-            </div>
-          </div>
         </div>
 
         <div className="row">
@@ -127,6 +77,56 @@ export default function PropertyDetails() {
                     </option>
                   ))}
                 </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-lg-4">
+            <div className="tp-dashboard-new-input">
+              <label>Road Width</label>
+              <div className="tp-property-tabs-select tp-select">
+                <select {...register("roadWidth")} className="listDropDown">
+                  <option value="">Select</option>
+                  {ROAD_WIDTH_OPTIONS.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-lg-4">
+            <div className="tp-dashboard-new-input">
+              <label>Facing</label>
+              <div className="tp-property-tabs-select tp-select">
+                <select {...register("facingDirection")} className="listDropDown">
+                  <option value="">Select</option>
+                  {LAND_FACING_DIRECTIONS.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-lg-4">
+            <div className="tp-dashboard-new-input">
+              <label>Corner Plot</label>
+              <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <input type="radio" value="Yes" {...register("cornerPlot")} />
+                  <span>Yes</span>
+                </label>
+                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <input type="radio" value="No" {...register("cornerPlot")} />
+                  <span>No</span>
+                </label>
               </div>
             </div>
           </div>

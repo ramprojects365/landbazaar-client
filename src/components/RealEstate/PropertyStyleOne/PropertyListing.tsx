@@ -127,7 +127,7 @@ export default function PropertyListing() {
   const keyword = keywordParam || q || address;
 
   // ── Sidebar filter params (PropertyFilterWidget) ─────────────────
-  const propertyType = queryLandType || searchParams.get("propertyType") || "All";
+  const propertyType = landType || searchParams.get("propertyType") || "All";
   const minPriceStr = searchParams.get("minPrice") || "Any";
   const maxPriceStr = searchParams.get("maxPrice") || "Any";
   const bedroomsFilter = searchParams.get("bedrooms") || "All";
@@ -222,7 +222,7 @@ export default function PropertyListing() {
     keyword,
     type,
     city,
-    queryLandType,
+    landType,
     propertyName,
     propertyType,
     minPriceStr,

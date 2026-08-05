@@ -20,11 +20,12 @@ export default function FooterContact() {
         </div>
         <div className="tp-footer-widget-content">
           <p>
-            Malaysia's premier real estate platform for KL, Selangor, Cheras,
-            Puchong & Klang Valley. Find your perfect property with LandWay.
+            India&apos;s trusted marketplace for lands and plots — starting in
+            Hyderabad and Telangana. Buy or sell open plots, farm land, and
+            agricultural land with LandWay.
           </p>
           <div className="tp-footer-widget-contact">
-            <Link className="tp-footer-phone-link" href="tel:+601126368426">
+            <Link className="tp-footer-phone-link" href="tel:+919849967236">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +39,7 @@ export default function FooterContact() {
                     fill="currentColor"
                   ></path>
                 </svg>{" "}
-                +60 11 2636 8426
+                +91 9849967236
               </span>
             </Link>
             <p>support@landway.com</p>
