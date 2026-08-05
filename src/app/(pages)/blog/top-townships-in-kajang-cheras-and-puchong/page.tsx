@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
-  title: "Top Townships in Kajang, Cheras, and Puchong | PropertyLa Malaysia",
+  metadataBase: new URL("https://landway.com"),
+  title: "Top Townships in Kajang, Cheras, and Puchong | LandWay Malaysia",
   description:
     "Explore the best townships in Kajang, Cheras, and Puchong. Discover family-friendly developments with excellent amenities, connectivity, and investment potential.",
   keywords:

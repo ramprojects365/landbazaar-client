@@ -21,14 +21,14 @@ const ContactHomeFour = () => {
               <div className="contact-whatsapp-cta contact-whatsapp-cta--pricing">
                 <span className="tp-section-title-pre">Quick enquiry</span>
                 <h4 className="tp-section-title">
-                  Chat with PropertyLa on WhatsApp.
+                  Chat with LandWay on WhatsApp.
                 </h4>
                 <p>
                   Tell us what you need and our team will help you choose the right next step.
                 </p>
                 <WhatsAppButton
                   phoneNumber="601121149066"
-                  message="Hi PropertyLa, I would like to ask about pricing and partnership options."
+                  message="Hi LandWay, I would like to ask about pricing and partnership options."
                   className="tp-contact-btn pricing-contact-form-section__btn"
                 />
               </div>

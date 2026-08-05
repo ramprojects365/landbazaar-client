@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
-  title: "Best Areas to Buy Property in Selangor | PropertyLa Malaysia",
+  metadataBase: new URL("https://landway.com"),
+  title: "Best Areas to Buy Property in Selangor | LandWay Malaysia",
   description:
     "Discover the top areas to buy property in Selangor. From Shah Alam to Subang Jaya, explore locations with strong growth potential, excellent amenities, and good connectivity.",
   keywords:

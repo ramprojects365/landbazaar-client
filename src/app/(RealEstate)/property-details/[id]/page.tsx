@@ -35,10 +35,10 @@ export async function generateMetadata(
       item.description?.trim() ||
         "View detailed property information in Malaysia. Find apartments for rent, houses for sale, condos, landed properties, and bungalows in Kuala Lumpur, Selangor, Penang, Johor and other major areas.";
     const imageUrl = getCoverImageUrl(item.images);
-    const canonicalUrl = `https://propertyla.com.my/property-details/${id}`;
+    const canonicalUrl = `https://landway.com/property-details/${id}`;
 
     return {
-      metadataBase: new URL("https://propertyla.com.my"),
+      metadataBase: new URL("https://landway.com"),
       title,
       description,
       alternates: { canonical: canonicalUrl },
@@ -46,7 +46,7 @@ export async function generateMetadata(
         title,
         description,
         url: canonicalUrl,
-        siteName: "PropertyLa",
+        siteName: "LandWay",
         type: "website",
         images: imageUrl
           ? [
@@ -65,7 +65,7 @@ export async function generateMetadata(
     };
   } catch {
     return {
-      metadataBase: new URL("https://propertyla.com.my"),
+      metadataBase: new URL("https://landway.com"),
       title: `Property Details - ${id}`,
     };
   }

@@ -2,7 +2,7 @@ import InteriorPartnersSlider from "@/components/InteriorDesign/InteriorPartners
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Interior Design Partners Malaysia | PropertyLa",
+  title: "Interior Design Partners Malaysia | LandWay",
   description:
     "Meet trusted interior designers and studios in Malaysia. Browse partner profiles, portfolios, and contact teams for residential and commercial fit-outs.",
 };

@@ -1,3 +1,3 @@
-# propertyla-client
+# landway-client
 
-Property Website in Malaysia
+LandWay (landway.com) — India's land & plot marketplace.

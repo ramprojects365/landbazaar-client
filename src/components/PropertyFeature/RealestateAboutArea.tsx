@@ -119,7 +119,7 @@ export default function RealestateAboutArea() {
       <div className="container">
         <div className="tp-realstate-heading text-center mb-40">
           <span className="tp-section-title-pre">Featured homes</span>
-          <h3 className="tp-section-title">Fresh picks on PropertyLa</h3>
+          <h3 className="tp-section-title">Fresh picks on LandWay</h3>
         </div>
 
         <div className="about-featured-properties__grid">

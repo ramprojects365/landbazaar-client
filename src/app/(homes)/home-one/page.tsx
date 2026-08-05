@@ -30,7 +30,7 @@ export default function HomeOnePage() {
       <section className="home-trust-section">
         <div className="container">
           <div className="home-trust-section__inner">
-            <span className="tp-section-title-pre">Why PropertyLa</span>
+            <span className="tp-section-title-pre">Why LandWay</span>
             <h3 className="tp-section-title">{t("home.whyChoosePropertyLa")}</h3>
             <TrustBadges />
           </div>

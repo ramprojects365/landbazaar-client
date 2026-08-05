@@ -72,7 +72,7 @@ export default function ProgressArea({
               <div className="tp-progress-item-shape">
                 <Image
                   src={progressThumb2}
-                  alt="PropertyLa progress statistics"
+                  alt="LandWay progress statistics"
                 />
               </div>
             </div>

@@ -6,24 +6,24 @@ import { Metadata } from "next";
 import "./contact-page.scss";
 
 export const metadata: Metadata = {
-  title: "Contact PropertyLa | Malaysia Real Estate Agents & Property Services",
+  title: "Contact LandWay | Malaysia Real Estate Agents & Property Services",
   description:
-    "Get in touch with PropertyLa experts for Malaysian real estate. Contact our agents for apartments, condos, landed houses, and bungalows in Kuala Lumpur, Selangor, Penang, Johor and nationwide. Browse property-for-sale/klang-valley and investment-property-malaysia listings. Your trusted alternative to iProperty and PropertyGuru.",
-  metadataBase: new URL("https://propertyla.com.my"),
+    "Get in touch with LandWay experts for Malaysian real estate. Contact our agents for apartments, condos, landed houses, and bungalows in Kuala Lumpur, Selangor, Penang, Johor and nationwide. Browse property-for-sale/klang-valley and investment-property-malaysia listings. Your trusted alternative to iProperty and PropertyGuru.",
+  metadataBase: new URL("https://landway.com"),
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact PropertyLa | Malaysia Real Estate Agents & Property Services",
-    description: "Get in touch with PropertyLa experts for Malaysian real estate. Contact our agents for apartments, condos, landed houses, and bungalows in Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
-    url: "https://propertyla.com.my/contact",
-    siteName: "PropertyLa",
+    title: "Contact LandWay | Malaysia Real Estate Agents & Property Services",
+    description: "Get in touch with LandWay experts for Malaysian real estate. Contact our agents for apartments, condos, landed houses, and bungalows in Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
+    url: "https://landway.com/contact",
+    siteName: "LandWay",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Contact PropertyLa | Malaysia Real Estate Agents & Property Services",
-    description: "Get in touch with PropertyLa experts for Malaysian real estate. Contact our agents for apartments, condos, landed houses, and bungalows in Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
+    title: "Contact LandWay | Malaysia Real Estate Agents & Property Services",
+    description: "Get in touch with LandWay experts for Malaysian real estate. Contact our agents for apartments, condos, landed houses, and bungalows in Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
   },
 };
 

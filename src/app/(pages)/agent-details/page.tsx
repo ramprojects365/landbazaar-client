@@ -3,7 +3,7 @@ import TrustedAgents from "@/components/TrustedAgents/TrustedAgents";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Real Estate Agent Details | PropertyLa Malaysia",
+  title: "Real Estate Agent Details | LandWay Malaysia",
   description:
     "View detailed profiles of real estate agents in Malaysia. Find experienced property agents specializing in residential, commercial, and investment properties across Kuala Lumpur, Selangor, Penang and more.",
 };

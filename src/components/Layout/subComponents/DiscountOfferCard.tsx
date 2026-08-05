@@ -11,7 +11,7 @@ export default function DiscountOfferCard({ wrapperCls }: IPropsWrapperCls) {
             <div className={`${wrapperCls ? wrapperCls : "tp-team-details-widget"} mb-40`}>
                 <div className="tp-team-details-discount p-relative">
                     <div className="tp-team-details-discount-thumb">
-                        <Image style={{width:"100%", height:"auto"}} src={detailsThumb} alt="PropertyLa discount offer for property listings" />
+                        <Image style={{width:"100%", height:"auto"}} src={detailsThumb} alt="LandWay discount offer for property listings" />
                     </div>
                     <div className="tp-team-details-discount-content">
                         <h4>Get 70% discount <br />

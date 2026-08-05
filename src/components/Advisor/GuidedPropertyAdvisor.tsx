@@ -409,7 +409,7 @@ export default function GuidedPropertyAdvisor({
         <h1>
           {popupMode
             ? "Find a better match."
-            : "Let PropertyLa guide you to a better-fit home."}
+            : "Let LandWay guide you to a better-fit home."}
         </h1>
         {!popupMode && (
           <>
@@ -711,7 +711,7 @@ export default function GuidedPropertyAdvisor({
               <h2>Finding your best match</h2>
               <p>
                 Scanning your location, budget, and rooms against live
-                PropertyLa projects.
+                LandWay projects.
               </p>
               <div className="guided-advisor__modal-steps">
                 <span>Brief understood</span>

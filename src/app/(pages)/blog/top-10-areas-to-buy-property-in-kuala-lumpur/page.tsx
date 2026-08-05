@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
-  title: "Top 10 Areas to Buy Property in Kuala Lumpur | PropertyLa Malaysia",
+  metadataBase: new URL("https://landway.com"),
+  title: "Top 10 Areas to Buy Property in Kuala Lumpur | LandWay Malaysia",
   description:
     "Explore the best neighborhoods to invest in Kuala Lumpur property. From KLCC to Mont Kiara, discover prime locations with strong appreciation potential and excellent amenities.",
   keywords:

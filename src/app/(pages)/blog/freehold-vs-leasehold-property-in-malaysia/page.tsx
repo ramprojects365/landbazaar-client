@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
-  title: "Freehold vs Leasehold Property in Malaysia | PropertyLa",
+  metadataBase: new URL("https://landway.com"),
+  title: "Freehold vs Leasehold Property in Malaysia | LandWay",
   description:
     "Understand the differences between freehold and leasehold property in Malaysia. Learn about ownership rights, tenure periods, and which type suits your investment goals.",
   keywords:

@@ -4,24 +4,24 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Property Blog | Property La Malaysia",
+  title: "Property Blog | LandWay Malaysia",
   description:
-    "Read Property La articles about Malaysian property buying, stamp duty, Selangor locations, foreign investors, and common homebuyer mistakes.",
-  metadataBase: new URL("https://propertyla.com.my"),
+    "Read LandWay articles about Malaysian property buying, stamp duty, Selangor locations, foreign investors, and common homebuyer mistakes.",
+  metadataBase: new URL("https://landway.com"),
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
-    title: "Property Blog | Property La Malaysia",
-    description: "Read Property La articles about Malaysian property buying, stamp duty, Selangor locations, foreign investors, and common homebuyer mistakes.",
-    url: "https://propertyla.com.my/blog",
-    siteName: "PropertyLa",
+    title: "Property Blog | LandWay Malaysia",
+    description: "Read LandWay articles about Malaysian property buying, stamp duty, Selangor locations, foreign investors, and common homebuyer mistakes.",
+    url: "https://landway.com/blog",
+    siteName: "LandWay",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Property Blog | Property La Malaysia",
-    description: "Read Property La articles about Malaysian property buying, stamp duty, Selangor locations, foreign investors, and common homebuyer mistakes.",
+    title: "Property Blog | LandWay Malaysia",
+    description: "Read LandWay articles about Malaysian property buying, stamp duty, Selangor locations, foreign investors, and common homebuyer mistakes.",
   },
 };
 

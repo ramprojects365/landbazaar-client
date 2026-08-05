@@ -12,7 +12,7 @@ export const testimonials_home: ITestimonialIDT[] = [
   {
     id: 1,
     description:
-      "PropertyLa made it so easy to find my dream condo in Kuala Lumpur. I found and moved into my new place in less than two weeks.",
+      "LandWay made it so easy to find my dream condo in Kuala Lumpur. I found and moved into my new place in less than two weeks.",
     image: userImg1,
     name: "Amira Dep",
     role: "Kuala Lumpur",
@@ -20,7 +20,7 @@ export const testimonials_home: ITestimonialIDT[] = [
   {
     id: 2,
     description:
-      "As a first-time homebuyer, I was nervous, but PropertyLa's detailed listings and location insights helped me make an informed choice.",
+      "As a first-time homebuyer, I was nervous, but LandWay's detailed listings and location insights helped me make an informed choice.",
     image: userImg2,
     name: "Wang Lee",
     role: "Penang",
@@ -49,7 +49,7 @@ export const testimonial_three_data: ITestimonialIDT[] = [
     image: image1,
     name: "Aina Rahman",
     description:
-      "PropertyLa helped me compare condos around KL and shortlist places that matched my budget without wasting weekends.",
+      "LandWay helped me compare condos around KL and shortlist places that matched my budget without wasting weekends.",
   },
   {
     id: 6,

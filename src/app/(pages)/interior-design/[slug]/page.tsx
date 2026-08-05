@@ -18,10 +18,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { slug } = await props.params;
   const d = getInteriorDesignerBySlug(slug);
   if (!d) {
-    return { title: "Interior designer | PropertyLa" };
+    return { title: "Interior designer | LandWay" };
   }
   return {
-    title: `${d.name} — ${d.companyName} | PropertyLa Interior`,
+    title: `${d.name} — ${d.companyName} | LandWay Interior`,
     description: d.tagline,
   };
 }

@@ -6,13 +6,13 @@ import "swiper/css/bundle";
 import "./globals.scss";
 import RootProviders from "./RootProviders";
 
-const siteUrl = "https://landbazaar.com/";
+const siteUrl = "https://landway.com/";
 const siteTitle =
-  "LandBazaar India | Buy & Sell Lands and Plots";
+  "LandWay India | Buy & Sell Lands and Plots";
 const siteDescription =
-  "LandBazaar is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.";
+  "LandWay is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.";
 const siteLogo =
-  "https://landbazaar.com/assets/img/logo/logo-icon-blue.png";
+  "https://landway.com/assets/img/logo/logo-icon-blue.png";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -31,19 +31,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landbazaar.com"),
+  metadataBase: new URL("https://landway.com"),
 
   title: {
     default: siteTitle,
-    template: "%s | LandBazaar",
+    template: "%s | LandWay",
   },
 
   description: siteDescription,
 
-  applicationName: "LandBazaar",
+  applicationName: "LandWay",
 
   keywords: [
-    "LandBazaar",
+    "LandWay",
     "India land",
     "India plots",
     "agricultural land India",
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     "Hyderabad plots",
   ],
 
-  authors: [{ name: "LandBazaar" }],
-  creator: "LandBazaar",
-  publisher: "LandBazaar",
+  authors: [{ name: "LandWay" }],
+  creator: "LandWay",
+  publisher: "LandWay",
 
   alternates: {
     canonical: siteUrl,
@@ -68,13 +68,13 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
     url: siteUrl,
-    siteName: "LandBazaar",
+    siteName: "LandWay",
     images: [
       {
         url: siteLogo,
         width: 512,
         height: 512,
-        alt: "LandBazaar Logo",
+        alt: "LandWay Logo",
       },
     ],
     locale: "en_IN",
@@ -108,15 +108,15 @@ export default function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "LandBazaar",
-    alternateName: ["LandBazaar India", "LandBazaar Land & Plots"],
+    name: "LandWay",
+    alternateName: ["LandWay India", "LandWay Land & Plots"],
     url: siteUrl,
   };
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "LandBazaar",
+    name: "LandWay",
     url: siteUrl,
     logo: siteLogo,
   };

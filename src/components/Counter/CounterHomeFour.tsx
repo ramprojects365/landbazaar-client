@@ -10,7 +10,7 @@ export const CounterData: ICounterDT[] = [
     description: (
       <>
         <p>
-          Real estate users already have <br /> used our Property La
+          Real estate users already have <br /> used our LandWay
         </p>
       </>
     ),
@@ -49,7 +49,7 @@ export default function CounterHomeFour() {
           <div className="col-lg-12">
             <div className="tp-counter-4-heading text-center mb-50">
               <span className="tp-section-title-pre">
-                WHY CHOOSE Property La
+                WHY CHOOSE LandWay
               </span>
               <h4 className="tp-section-title">
                 Trusted real estate company <br />

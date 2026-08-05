@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
-  title: "How Much Salary Do You Need to Buy a House in Malaysia? | PropertyLa",
+  metadataBase: new URL("https://landway.com"),
+  title: "How Much Salary Do You Need to Buy a House in Malaysia? | LandWay",
   description:
     "Calculate the minimum salary required to buy a house in Malaysia. Learn about income requirements, loan eligibility, and affordability factors for different property types and locations.",
   keywords:

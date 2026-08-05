@@ -4,9 +4,9 @@ import ReviewItem from "./components/ReviewSingleItem";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Reviews | PropertyLa Malaysia Dashboard",
+  title: "My Reviews | LandWay Malaysia Dashboard",
   description:
-    "View and manage your property reviews on PropertyLa. Track your feedback on Malaysia real estate agents, properties, and services.",
+    "View and manage your property reviews on LandWay. Track your feedback on Malaysia real estate agents, properties, and services.",
   robots: "noindex, nofollow",
 };
 

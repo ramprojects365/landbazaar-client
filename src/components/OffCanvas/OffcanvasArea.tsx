@@ -61,14 +61,14 @@ export default function OffcanvasArea() {
             <div className="offcanvas__top mb-40" onClick={toggleOffcanvas}>
               <div className="offcanvas__logo">
                 <Link href="/">
-                  <Image className="logo-header" src={logo} alt="PropertyLa" />
+                  <Image className="logo-header" src={logo} alt="LandWay" />
                   {/* <>
                     <span className="logo-icon-white">Property</span>{" "}
                     <span className="logo-icon-white">La</span>
                     <Image
                       className="logo-header"
                       src={logoIcon}
-                      alt="PropertyLa"
+                      alt="LandWay"
                     />
                   </> */}
                 </Link>
@@ -140,7 +140,7 @@ export default function OffcanvasArea() {
                 <div className="offcanvas__contact-content-content">
                   <Link href="mailto:needhelp@company.com">
                     {" "}
-                    support@propertyla.com.my{" "}
+                    support@landway.com{" "}
                   </Link>
                 </div>
               </div>

@@ -68,7 +68,7 @@ export default function PropertyAgentPage() {
         const fallbackAgent: AgentData = {
           id: slugFromPath,
           username: slugFromPath,
-          email: "agent@propertyla.com.my",
+          email: "agent@landway.com",
           phoneNumber: "+601126368426",
           fullName: slugFromPath
             .replace(/-/g, " ")
@@ -118,7 +118,7 @@ export default function PropertyAgentPage() {
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      `Hi ${agent.fullName || agent.username}, I found your profile on PropertyLa and would like to inquire about property services.`,
+      `Hi ${agent.fullName || agent.username}, I found your profile on LandWay and would like to inquire about property services.`,
     );
     window.open(
       `https://wa.me/${agent.phoneNumber.replace(/\D/g, "")}?text=${message}`,
