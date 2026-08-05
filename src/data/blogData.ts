@@ -1,11 +1,10 @@
 import { IBlogDT } from "@/types/blog-d-t";
 import blogThumb1 from "../../public/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
-import blogThumb2 from "../../public/assets/img/blog/best-places-to-buy-property-in-Selangor.png";
-import blogThumb3 from "../../public/assets/img/blog/Stamp-Duty-in-Malaysia-Property.png";
+import blogThumb2 from "../../public/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
+import blogThumb3 from "../../public/assets/img/blog/verify-land-records-telangana-dharani-registration-portal.png";
 import blogThumb4 from "../../public/assets/img/blog/hmda-vs-dtcp-vs-rera-whats-the-difference-and-which-is-safer.png";
-import blogThumb5 from "../../public/assets/img/blog/how-to-sell-your-house-faster-in-malaysia.png";
-import blogThumb6 from "../../public/assets/img/blog/top-10-areas-to-buy-property-in-kuala-lumpur.png";
-import blogThumb7 from "../../public/assets/img/blog/complete-guide-to-buying-your-first-home-in-malaysia.png";
+import blogThumb6 from "../../public/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
+import blogThumb7 from "../../public/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
 
 export const blogData: IBlogDT[] = [
   {
@@ -38,7 +37,7 @@ export const blogData: IBlogDT[] = [
     readTime: "6 min read",
     title:
       "How to Verify Land Records on the Telangana Dharani / Registration Portal",
-    slug: "Stamp-Duty-in-Malaysia-Property",
+    slug: "verify-land-records-telangana-dharani-registration-portal",
     authorName: "LandBazaar",
     authorRole: "Land Guide",
     delay: ".7s",
@@ -108,105 +107,6 @@ export const blogData: IBlogDT[] = [
     title:
       "HHow to Get a Plot Loan in Hyderabad: Bank Eligibility & Interest Rates",
     slug: "hidden-costs-when-buying-a-property-in-malaysia",
-    authorName: "LandBazaar",
-    authorRole: "Land Guide",
-    delay: ".7s",
-  },
-  {
-    id: 10,
-    image: blogThumb5,
-    category: "LandWay",
-    readTime: "6 min read",
-    title: "How to Sell Your House Faster in Malaysia",
-    slug: "how-to-sell-your-house-faster-in-malaysia",
-    authorName: "LandBazaar",
-    authorRole: "Land Guide",
-    delay: ".7s",
-  },
-  {
-    id: 11,
-    image: blogThumb3,
-    category: "LandWay",
-    readTime: "7 min read",
-    title: "Freehold vs Leasehold Property in Malaysia",
-    slug: "freehold-vs-leasehold-property-in-malaysia",
-    authorName: "LandBazaar",
-    authorRole: "Land Guide",
-    delay: ".7s",
-  },
-  {
-    id: 12,
-    image: blogThumb3,
-    category: "LandWay",
-    readTime: "6 min read",
-    title: "How to Increase Your Property Value Before Selling",
-    slug: "how-to-increase-your-property-value-before-selling",
-    authorName: "LandBazaar",
-    authorRole: "Land Guide",
-    delay: ".7s",
-  },
-  {
-    id: 13,
-    image: blogThumb3,
-    category: "LandWay",
-    readTime: "9 min read",
-    title: "Property Investment Guide for Beginners in Malaysia",
-    slug: "property-investment-guide-for-beginners",
-    authorName: "LandBazaar",
-    authorRole: "Land Investment Guide",
-    delay: ".7s",
-  },
-  {
-    id: 14,
-    image: blogThumb3,
-    category: "LandWay",
-    readTime: "7 min read",
-    title: "Understanding SPA (Sale and Purchase Agreement) in Malaysia",
-    slug: "understanding-spa-sale-and-purchase-agreement",
-    authorName: "LandBazaar",
-    authorRole: "Legal Guide",
-    delay: ".7s",
-  },
-  {
-    id: 15,
-    image: blogThumb3,
-    category: "LandWay",
-    readTime: "6 min read",
-    title: "Top Condo Projects Near KLCC",
-    slug: "top-condo-projects-near-klcc",
-    authorName: "LandBazaar",
-    authorRole: "Land Guide",
-    delay: ".7s",
-  },
-  {
-    id: 16,
-    image: blogThumb3,
-    category: "LandWay",
-    readTime: "6 min read",
-    title: "Top Townships in Kajang, Cheras, and Puchong",
-    slug: "top-townships-in-kajang-cheras-and-puchong",
-    authorName: "LandBazaar",
-    authorRole: "Land Guide",
-    delay: ".7s",
-  },
-  {
-    id: 17,
-    image: blogThumb3,
-    category: "LandWay",
-    readTime: "7 min read",
-    title: "Best Areas to Buy Property in Selangor",
-    slug: "best-areas-to-buy-property-in-selangor",
-    authorName: "LandBazaar",
-    authorRole: "Land Guide",
-    delay: ".7s",
-  },
-  {
-    id: 18,
-    image: blogThumb3,
-    category: "LandWay",
-    readTime: "6 min read",
-    title: "Best New Property Launches in Malaysia (2026)",
-    slug: "best-new-property-launches-in-malaysia",
     authorName: "LandBazaar",
     authorRole: "Land Guide",
     delay: ".7s",

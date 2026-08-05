@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import logoIconBlue from "../../../public/assets/img/logo/logo-icon-blue.png";
-import logoIconWhite from "../../../public/assets/img/logo/logo-icon-white.png";
+//import logoIconBlue from "../../../public/assets/img/logo/logo-icon-blue.png";
+//import logoIconWhite from "../../../public/assets/img/logo/logo-icon-white.png";
+import logo from "../../../public/assets/img/logo/logo.png";
 import ProfileDropdown from "./ProfileDropdown";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
 import useGlobalContext from "@/hooks/useContext";
@@ -36,7 +37,8 @@ export default function HeaderOne() {
         <div className="col-xl-2 col-lg-4 col-md-3 col-7">
           <div className="tp-header-top-pad">
             <Link href="/">
-              {sticky ? (
+              <Image className="logo-header" src={logo} alt="image" />
+              {/* {sticky ? (
                 <>
                   <span className="logo-icon-black">Property</span>{" "}
                   <span className="logo-icon-black">La</span>
@@ -56,7 +58,7 @@ export default function HeaderOne() {
                     alt="image"
                   />
                 </>
-              )}
+              )} */}
             </Link>
           </div>
         </div>

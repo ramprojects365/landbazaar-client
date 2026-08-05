@@ -1,12 +1,12 @@
 "use client";
-import logoIcon from "../../../public/assets/img/logo/logo-icon-blue.png";
+import logo from "../../../public/assets/img/logo/logo.png";
 import UserSvg from "@/components/SVG/UserSvg";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
 import useGlobalContext from "@/hooks/useContext";
 import NavMenus from "../subComponents/NavMenus";
 import useSticky from "@/hooks/useSticky";
 import ProfileDropdown from "./ProfileDropdown";
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { requireAuth } from "@/utils/auth";
@@ -40,7 +40,8 @@ export default function CommonHeader({ wrapClass = "" }) {
         <div className="col-xl-2 col-lg-4 col-md-3 col-6">
           <div className="tp-header-top-pad">
             <Link href="/">
-              {sticky ? (
+              <Image className="logo-header" src={logo} alt="PropertyLa" />
+              {/* {sticky ? (
                 <>
                   <span className="logo-icon-black">Property</span>{" "}
                   <span className="logo-icon-black">La</span>
@@ -52,7 +53,7 @@ export default function CommonHeader({ wrapClass = "" }) {
                   <span className="logo-icon-black">La</span>
                   <Image className="logo-header" src={logoIcon} alt="PropertyLa" />
                 </>
-              )}
+              )} */}
             </Link>
           </div>
         </div>

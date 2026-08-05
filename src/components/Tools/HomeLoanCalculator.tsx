@@ -53,11 +53,7 @@ function calculateLegalFees(amount: number): number {
 const percent = (value: number, min: number, max: number) =>
   `${((value - min) / (max - min)) * 100}%`;
 
-export default function HomeLoanCalculator({
-  variant = "page",
-}: {
-  variant?: "page" | "home";
-}) {
+export default function HomeLoanCalculator() {
   const [projectType, setProjectType] = useState<ProjectType>("new");
   const [propertyPrice, setPropertyPrice] = useState(500_000);
   const [downPaymentPercent, setDownPaymentPercent] = useState(10);
@@ -187,56 +183,40 @@ export default function HomeLoanCalculator({
   );
 
   return (
-    <main className={`home-loan-page ${variant === "home" ? "home-loan-page--home" : ""}`}>
-      {variant === "page" && (
-        <section className="home-loan-page__hero">
-          <div className="container">
-            <div className="home-loan-page__hero-grid">
-              <div className="home-loan-page__hero-copy">
-                <span>
-                  <Banknote size={17} />
-                  Home loan planning
-                </span>
-                <h1>Estimate your Malaysia mortgage before you buy.</h1>
-                <p>
-                  Check monthly repayments, upfront costs, stamp duty, legal fees,
-                  and mortgage insurance in one simple Property La calculator.
-                </p>
-              </div>
-              <div className="home-loan-page__hero-note">
-                <CheckCircle2 size={22} />
-                <div>
-                  <strong>Buyer-friendly estimate</strong>
-                  <p>
-                    Use this as a planning guide before speaking with a bank or
-                    property consultant.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="mortgage-calculator" id="mortgage-calculator">
+    <main className="home-loan-page">
+      <section className="home-loan-page__hero">
         <div className="container">
-          <div className="mortgage-calculator__heading">
-            {variant === "home" && (
+          <div className="home-loan-page__hero-grid">
+            <div className="home-loan-page__hero-copy">
               <span>
                 <Banknote size={17} />
                 Home loan planning
               </span>
-            )}
-            <h2>
-              {variant === "home"
-                ? "Estimate your monthly loan."
-                : "Mortgage calculator"}
-            </h2>
-            <p>
-              {variant === "home"
-                ? "Plan repayments and upfront costs before you enquire."
-                : "Estimate your monthly payments and upfront costs"}
-            </p>
+              <h1>Estimate your Malaysia mortgage before you buy.</h1>
+              <p>
+                Check monthly repayments, upfront costs, stamp duty, legal fees,
+                and mortgage insurance in one simple Property La calculator.
+              </p>
+            </div>
+            <div className="home-loan-page__hero-note">
+              <CheckCircle2 size={22} />
+              <div>
+                <strong>Buyer-friendly estimate</strong>
+                <p>
+                  Use this as a planning guide before speaking with a bank or
+                  property consultant.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mortgage-calculator" id="mortgage-calculator">
+        <div className="container">
+          <div className="mortgage-calculator__heading">
+            <h2>Mortgage calculator</h2>
+            <p>Estimate your monthly payments and upfront costs</p>
           </div>
 
           <div className="mortgage-calculator__shell">
