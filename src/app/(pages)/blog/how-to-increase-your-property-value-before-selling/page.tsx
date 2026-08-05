@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
-  title: "How to Increase Your Property Value Before Selling | PropertyLa",
+  metadataBase: new URL("https://landway.com"),
+  title: "How to Increase Your Property Value Before Selling | LandWay",
   description:
     "Learn proven strategies to increase your property value before selling in Malaysia. Discover renovations, staging tips, and improvements that offer the best ROI.",
   keywords:

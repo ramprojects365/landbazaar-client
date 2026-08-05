@@ -195,7 +195,7 @@ export default function HomeLoanCalculator() {
               <h1>Estimate your Malaysia mortgage before you buy.</h1>
               <p>
                 Check monthly repayments, upfront costs, stamp duty, legal fees,
-                and mortgage insurance in one simple Property La calculator.
+                and mortgage insurance in one simple LandWay calculator.
               </p>
             </div>
             <div className="home-loan-page__hero-note">

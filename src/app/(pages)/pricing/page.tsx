@@ -6,24 +6,24 @@ import ProgressArea from "@/components/Progress/ProgressArea";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "PropertyLa Pricing Plans | Real Estate Advertising Rates in Malaysia",
+  title: "LandWay Pricing Plans | Real Estate Advertising Rates in Malaysia",
   description:
-    "View PropertyLa's affordable pricing plans for property listings and advertising in Malaysia. Choose the best package for selling, renting, or promoting your real estate properties.",
-  metadataBase: new URL("https://propertyla.com.my"),
+    "View LandWay's affordable pricing plans for property listings and advertising in Malaysia. Choose the best package for selling, renting, or promoting your real estate properties.",
+  metadataBase: new URL("https://landway.com"),
   alternates: {
     canonical: "/pricing",
   },
   openGraph: {
-    title: "PropertyLa Pricing Plans | Real Estate Advertising Rates in Malaysia",
-    description: "View PropertyLa's affordable pricing plans for property listings and advertising in Malaysia. Choose the best package for selling, renting, or promoting your real estate properties.",
-    url: "https://propertyla.com.my/pricing",
-    siteName: "PropertyLa",
+    title: "LandWay Pricing Plans | Real Estate Advertising Rates in Malaysia",
+    description: "View LandWay's affordable pricing plans for property listings and advertising in Malaysia. Choose the best package for selling, renting, or promoting your real estate properties.",
+    url: "https://landway.com/pricing",
+    siteName: "LandWay",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "PropertyLa Pricing Plans | Real Estate Advertising Rates in Malaysia",
-    description: "View PropertyLa's affordable pricing plans for property listings and advertising in Malaysia. Choose the best package for selling, renting, or promoting your real estate properties.",
+    title: "LandWay Pricing Plans | Real Estate Advertising Rates in Malaysia",
+    description: "View LandWay's affordable pricing plans for property listings and advertising in Malaysia. Choose the best package for selling, renting, or promoting your real estate properties.",
   },
 };
 

@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sign Up - PropertyLa Malaysia | Create Your Real Estate Account",
+  title: "Sign Up - LandWay Malaysia | Create Your Real Estate Account",
   description:
-    "Create your PropertyLa account to browse Malaysian properties, save favorites, manage listings, and connect with verified real estate agents. Free registration for buyers, sellers, and property investors in Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
+    "Create your LandWay account to browse Malaysian properties, save favorites, manage listings, and connect with verified real estate agents. Free registration for buyers, sellers, and property investors in Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
 };
 
 export default function SignUp() {

@@ -4,9 +4,9 @@ import ProtectedRoute from "@/components/Auth/ProtectedRoute";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Add New Property | PropertyLa Malaysia Dashboard",
+  title: "Add New Property | LandWay Malaysia Dashboard",
   description:
-    "List your property for sale or rent on PropertyLa Malaysia. Upload details, photos, and reach thousands of buyers and renters in Kuala Lumpur, Selangor, Penang, Johor and nationwide. Easy property listing management for agents and owners.",
+    "List your property for sale or rent on LandWay Malaysia. Upload details, photos, and reach thousands of buyers and renters in Kuala Lumpur, Selangor, Penang, Johor and nationwide. Easy property listing management for agents and owners.",
   robots: "noindex, nofollow",
 };
 

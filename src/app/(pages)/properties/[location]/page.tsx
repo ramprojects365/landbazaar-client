@@ -31,8 +31,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${title} Properties | PropertyLa`,
-    description: `Browse properties for sale and rent in ${title} on PropertyLa.`,
+    title: `${title} Properties | LandWay`,
+    description: `Browse properties for sale and rent in ${title} on LandWay.`,
   };
 }
 

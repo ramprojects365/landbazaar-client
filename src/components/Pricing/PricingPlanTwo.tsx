@@ -52,7 +52,7 @@ export default function PricingPlanTwo() {
                         </span>
                         <h3>Only pay when you need more.</h3>
                         <p>
-                            Your monthly subscription gives you access to Property La platform
+                            Your monthly subscription gives you access to LandWay platform
                             features and includes starter credits. AI usage is pay-as-you-go
                             beyond that, so light users stay lean and active teams can scale.
                         </p>

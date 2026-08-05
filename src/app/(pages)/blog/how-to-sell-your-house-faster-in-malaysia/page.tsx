@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
-  title: "How to Sell Your House Faster in Malaysia | PropertyLa",
+  metadataBase: new URL("https://landway.com"),
+  title: "How to Sell Your House Faster in Malaysia | LandWay",
   description:
     "Expert tips to sell your property quickly in Malaysia. Learn about staging, pricing strategies, marketing, and legal processes to accelerate your home sale.",
   keywords:

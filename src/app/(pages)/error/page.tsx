@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Page Not Found | PropertyLa Malaysia Real Estate",
+  title: "Page Not Found | LandWay Malaysia Real Estate",
   description:
-    "The page you're looking for doesn't exist on PropertyLa. Return to our homepage to continue searching for properties, agents, and real estate services in Malaysia.",
+    "The page you're looking for doesn't exist on LandWay. Return to our homepage to continue searching for properties, agents, and real estate services in Malaysia.",
 };
 
 export default function Error() {

@@ -5,9 +5,9 @@ import { propertyData } from "@/data/propertyData";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Favorites | PropertyLa Malaysia Dashboard",
+  title: "My Favorites | LandWay Malaysia Dashboard",
   description:
-    "View and manage your favorite property listings on PropertyLa. Access saved properties for sale and rent in Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
+    "View and manage your favorite property listings on LandWay. Access saved properties for sale and rent in Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
   robots: "noindex, nofollow",
 };
 

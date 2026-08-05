@@ -39,4 +39,4 @@ export const IS_DEVELOPMENT =
 export const IS_PRODUCTION = ENVIRONMENT === "production";
 
 // Other constants
-export const APP_NAME = "PropertyLa";
+export const APP_NAME = "LandWay";

@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
-  title: "Hidden Costs When Buying a Property in Malaysia | PropertyLa",
+  metadataBase: new URL("https://landway.com"),
+  title: "Hidden Costs When Buying a Property in Malaysia | LandWay",
   description:
     "Discover the hidden costs of buying property in Malaysia beyond the purchase price. Learn about stamp duty, legal fees, renovation costs, and other expenses to budget for.",
   keywords:

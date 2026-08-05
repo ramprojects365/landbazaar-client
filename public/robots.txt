@@ -1,4 +1,4 @@
-# PropertyLa Malaysia - Robots.txt
+# LandWay India - Robots.txt
 # Allow all crawlers to access the site
 
 User-agent: *
@@ -16,4 +16,4 @@ Disallow: /verify
 Disallow: /api/
 
 # Sitemap location
-Sitemap: https://propertyla.com.my/sitemap.xml
+Sitemap: https://landway.com/sitemap.xml

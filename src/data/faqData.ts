@@ -3,21 +3,21 @@ import { IFAQItemDT } from "@/types/custom-interface";
 export const faqItemsData: IFAQItemDT[] = [
   {
     id: "flush-collapseOne",
-    question: "What is PropertyLa?",
+    question: "What is LandWay?",
     answer:
-      "PropertyLa is a Malaysia property platform that helps users search for properties for sale and rent across Kuala Lumpur, Selangor, and other locations. Users can browse listings, connect with agents, explore new launches, and discover property-related information.",
+      "LandWay is a Malaysia property platform that helps users search for properties for sale and rent across Kuala Lumpur, Selangor, and other locations. Users can browse listings, connect with agents, explore new launches, and discover property-related information.",
     isOpen: false,
   },
   {
     id: "flush-collapseTwo",
-    question: "Is PropertyLa free to use?",
+    question: "Is LandWay free to use?",
     answer:
-      "Yes. Searching for properties, viewing listings, and contacting agents on PropertyLa is completely free for property seekers.",
+      "Yes. Searching for properties, viewing listings, and contacting agents on LandWay is completely free for property seekers.",
     isOpen: true,
   },
   {
     id: "flush-collapseThree",
-    question: "What types of properties are available on PropertyLa?",
+    question: "What types of properties are available on LandWay?",
     answer:
       "Condominiums,Apartments,Landed houses,Commercial properties,Residential land,New launch projects,Rental properties",
     isOpen: false,
@@ -26,7 +26,7 @@ export const faqItemsData: IFAQItemDT[] = [
     id: "flush-collapseFour",
     question: "Can property owners and agents post listings?",
     answer:
-      "Yes. Both property owners and registered property agents can post property listings on PropertyLa.",
+      "Yes. Both property owners and registered property agents can post property listings on LandWay.",
     isOpen: false,
   },
 ];
@@ -79,27 +79,27 @@ export const faqTabItemsTwo: FaqTab[] = [
     content: [
       {
         id: "q1",
-        question: "What is PropertyLa?",
+        question: "What is LandWay?",
         answer:
-          "PropertyLa is a Malaysia property platform that helps users search for properties for sale and rent across Kuala Lumpur, Selangor, and other locations. Users can browse listings, connect with agents, explore new launches, and discover property-related information.",
+          "LandWay is a Malaysia property platform that helps users search for properties for sale and rent across Kuala Lumpur, Selangor, and other locations. Users can browse listings, connect with agents, explore new launches, and discover property-related information.",
       },
       {
         id: "q2",
-        question: "Is PropertyLa free to use?",
+        question: "Is LandWay free to use?",
         answer:
-          "Yes. Searching for properties, viewing listings, and contacting agents on PropertyLa is completely free for property seekers.",
+          "Yes. Searching for properties, viewing listings, and contacting agents on LandWay is completely free for property seekers.",
       },
       {
         id: "q3",
-        question: "What types of properties are available on PropertyLa?",
+        question: "What types of properties are available on LandWay?",
         answer:
-          "PropertyLa features:\n\nCondominiums\nApartments\nLanded houses\nCommercial properties\nResidential land\nNew launch projects\nRental properties",
+          "LandWay features:\n\nCondominiums\nApartments\nLanded houses\nCommercial properties\nResidential land\nNew launch projects\nRental properties",
       },
       {
         id: "q4",
         question: "Can property owners and agents post listings?",
         answer:
-          "Yes. Both property owners and registered property agents can post property listings on PropertyLa.",
+          "Yes. Both property owners and registered property agents can post property listings on LandWay.",
       },
       {
         id: "q5",
@@ -111,7 +111,7 @@ export const faqTabItemsTwo: FaqTab[] = [
         id: "q6",
         question: "How can I verify if a property agent is genuine?",
         answer:
-          "You can verify property agents through the official LPPEH Malaysia portal using their REN, REA, or PEA number. PropertyLa may also display verified agent badges for approved users.",
+          "You can verify property agents through the official LPPEH Malaysia portal using their REN, REA, or PEA number. LandWay may also display verified agent badges for approved users.",
       },
       {
         id: "q7",
@@ -135,7 +135,7 @@ export const faqTabItemsTwo: FaqTab[] = [
         id: "q10",
         question: "How can I avoid fake property listings?",
         answer:
-          "Users should:\n\nVerify REN numbers\nAvoid paying deposits before viewing\nConfirm property details carefully\nMeet agents physically when possible\n\nPropertyLa encourages verified listings and trusted agents to improve user safety and trust.",
+          "Users should:\n\nVerify REN numbers\nAvoid paying deposits before viewing\nConfirm property details carefully\nMeet agents physically when possible\n\nLandWay encourages verified listings and trusted agents to improve user safety and trust.",
       },
     ],
   },

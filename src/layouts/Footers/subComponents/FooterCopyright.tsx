@@ -8,7 +8,7 @@ export default function FooterCopyright() {
       <div className="row align-items-center gy-3">
         <div className="col-lg-5">
           <div className="tp-footer-copyright">
-            <p>© {getCurrentYear()} PropertyLa. All rights reserved.</p>
+            <p>© {getCurrentYear()} LandWay. All rights reserved.</p>
           </div>
         </div>
         <div className="col-lg-7">
@@ -17,7 +17,7 @@ export default function FooterCopyright() {
               <Link href="/terms-and-conditions">Terms and Conditions</Link>
               <Link href="/privacy-policy">Privacy Policy</Link>
             </div>
-            <div className="tp-footer-social-line" aria-label="PropertyLa social media">
+            <div className="tp-footer-social-line" aria-label="LandWay social media">
               <FooterSocialLinks />
             </div>
           </div>

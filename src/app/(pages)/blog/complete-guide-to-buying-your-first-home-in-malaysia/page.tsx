@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://propertyla.com.my"),
-  title: "Complete Guide to Buying Your First Home in Malaysia | PropertyLa",
+  metadataBase: new URL("https://landway.com"),
+  title: "Complete Guide to Buying Your First Home in Malaysia | LandWay",
   description:
     "Step-by-step guide for first-time homebuyers in Malaysia. Learn about eligibility, financing, hidden costs, legal processes, and tips to make your dream home a reality.",
   keywords:

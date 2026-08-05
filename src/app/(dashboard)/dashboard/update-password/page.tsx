@@ -3,9 +3,9 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Update Password | PropertyLa Malaysia Dashboard",
+  title: "Update Password | LandWay Malaysia Dashboard",
   description:
-    "Update your PropertyLa account password securely. Change your password to keep your Malaysia real estate account protected.",
+    "Update your LandWay account password securely. Change your password to keep your Malaysia real estate account protected.",
   robots: "noindex, nofollow",
 };
 

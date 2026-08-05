@@ -10,18 +10,18 @@ export default function FooterContact() {
       <div className="tp-footer-widget tp-footer-col-1 mb-50">
         <div className="tp-footer-logo mb-35">
           <Link href="/">
-            <Image className="logo-header" src={logo} alt="PropertyLa" />
+            <Image className="logo-header" src={logo} alt="LandWay" />
             {/* <>
               <span className="logo-icon-white">Property</span>{" "}
               <span className="logo-icon-white">La</span>
-              <Image className="logo-header" src={logoIcon} alt="PropertyLa" />
+              <Image className="logo-header" src={logoIcon} alt="LandWay" />
             </> */}
           </Link>
         </div>
         <div className="tp-footer-widget-content">
           <p>
             Malaysia's premier real estate platform for KL, Selangor, Cheras,
-            Puchong & Klang Valley. Find your perfect property with PropertyLa.
+            Puchong & Klang Valley. Find your perfect property with LandWay.
           </p>
           <div className="tp-footer-widget-contact">
             <Link className="tp-footer-phone-link" href="tel:+601126368426">
@@ -41,7 +41,7 @@ export default function FooterContact() {
                 +60 11 2636 8426
               </span>
             </Link>
-            <p>support@propertyla.com.my</p>
+            <p>support@landway.com</p>
           </div>
         </div>
       </div>

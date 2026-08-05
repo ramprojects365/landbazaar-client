@@ -26,18 +26,18 @@ export default function DashboardHeader() {
         <div className="col-xl-2 col-lg-4 col-md-3 col-6">
           <div className="tp-header-top-pad">
             <Link href="/">
-              <Image className="logo-header" src={logo} alt="PropertyLa" />
+              <Image className="logo-header" src={logo} alt="LandWay" />
               {/* {sticky ? (
                 <>
                   <span className="logo-icon-black">Property</span>{" "}
                   <span className="logo-icon-black">La</span>
-                  <Image className="logo-header" src={logoIcon} alt="PropertyLa" />
+                  <Image className="logo-header" src={logoIcon} alt="LandWay" />
                 </>
               ) : (
                 <>
                   <span className="logo-icon-black">Property</span>{" "}
                   <span className="logo-icon-black">La</span>
-                  <Image className="logo-header" src={logoIcon} alt="PropertyLa" />
+                  <Image className="logo-header" src={logoIcon} alt="LandWay" />
                 </>
               )} */}
             </Link>

@@ -2,24 +2,24 @@ import FaqArea from "@/components/FAQ/FaqArea";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions | PropertyLa Malaysia Real Estate",
+  title: "Frequently Asked Questions | LandWay Malaysia Real Estate",
   description:
-    "Find answers to common questions about buying, selling, and renting properties in Malaysia. Learn about PropertyLa's services, property search, agent verification, and real estate transactions. Explore condo-for-rent/kuala-lumpur, apartment-for-rent/selangor, and new-property-malaysia options.",
-  metadataBase: new URL("https://propertyla.com.my"),
+    "Find answers to common questions about buying, selling, and renting properties in Malaysia. Learn about LandWay's services, property search, agent verification, and real estate transactions. Explore condo-for-rent/kuala-lumpur, apartment-for-rent/selangor, and new-property-malaysia options.",
+  metadataBase: new URL("https://landway.com"),
   alternates: {
     canonical: "/faq",
   },
   openGraph: {
-    title: "Frequently Asked Questions | PropertyLa Malaysia Real Estate",
-    description: "Find answers to common questions about buying, selling, and renting properties in Malaysia. Learn about PropertyLa's services, property search, agent verification, and real estate transactions.",
-    url: "https://propertyla.com.my/faq",
-    siteName: "PropertyLa",
+    title: "Frequently Asked Questions | LandWay Malaysia Real Estate",
+    description: "Find answers to common questions about buying, selling, and renting properties in Malaysia. Learn about LandWay's services, property search, agent verification, and real estate transactions.",
+    url: "https://landway.com/faq",
+    siteName: "LandWay",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Frequently Asked Questions | PropertyLa Malaysia Real Estate",
-    description: "Find answers to common questions about buying, selling, and renting properties in Malaysia. Learn about PropertyLa's services, property search, agent verification, and real estate transactions.",
+    title: "Frequently Asked Questions | LandWay Malaysia Real Estate",
+    description: "Find answers to common questions about buying, selling, and renting properties in Malaysia. Learn about LandWay's services, property search, agent verification, and real estate transactions.",
   },
 };
 
