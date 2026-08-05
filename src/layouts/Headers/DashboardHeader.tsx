@@ -1,6 +1,7 @@
 "use client";
 
-import logoIcon from "../../../public/assets/img/logo/logo-icon-blue.png";
+//import logoIcon from "../../../public/assets/img/logo/logo-icon-blue.png";
+import logo from "../../../public/assets/img/logo/logo.png";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
 import UserSvg from "@/components/SVG/UserSvg";
 import useGlobalContext from "@/hooks/useContext";
@@ -25,7 +26,8 @@ export default function DashboardHeader() {
         <div className="col-xl-2 col-lg-4 col-md-3 col-6">
           <div className="tp-header-top-pad">
             <Link href="/">
-              {sticky ? (
+              <Image className="logo-header" src={logo} alt="PropertyLa" />
+              {/* {sticky ? (
                 <>
                   <span className="logo-icon-black">Property</span>{" "}
                   <span className="logo-icon-black">La</span>
@@ -37,7 +39,7 @@ export default function DashboardHeader() {
                   <span className="logo-icon-black">La</span>
                   <Image className="logo-header" src={logoIcon} alt="PropertyLa" />
                 </>
-              )}
+              )} */}
             </Link>
           </div>
         </div>

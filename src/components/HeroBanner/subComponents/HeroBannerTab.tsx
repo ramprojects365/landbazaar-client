@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
 
@@ -18,8 +18,53 @@ const placeholderExamples = [
   "Try plots in Visakhapatnam",
 ];
 
-const CITIES = ["Hyderabad", "Visakhapatnam"];
+const CITIES = ["All", "Hyderabad", "Visakhapatnam"];
 const LAND_TYPES = ["All", "Farm Lands", "Agriculture Lands"];
+
+const MOCK_SUGGESTIONS: SearchItem[] = [
+  {
+    id: "1",
+    displayText: "Green Valley Farm",
+    displayType: "Farm Lands",
+    displayDescription: "Shamirpet, Hyderabad",
+    cityName: "Hyderabad",
+  },
+  {
+    id: "2",
+    displayText: "Sunrise Agriculture Plot",
+    displayType: "Agriculture Lands",
+    displayDescription: "Gachibowli, Hyderabad",
+    cityName: "Hyderabad",
+  },
+  {
+    id: "3",
+    displayText: "Coastal Farm Estate",
+    displayType: "Farm Lands",
+    displayDescription: "Bheemunipatnam, Visakhapatnam",
+    cityName: "Visakhapatnam",
+  },
+  {
+    id: "4",
+    displayText: "Hillside Agriculture Land",
+    displayType: "Agriculture Lands",
+    displayDescription: "Anandapuram, Visakhapatnam",
+    cityName: "Visakhapatnam",
+  },
+  {
+    id: "5",
+    displayText: "Orchard Meadows",
+    displayType: "Farm Lands",
+    displayDescription: "Medchal, Hyderabad",
+    cityName: "Hyderabad",
+  },
+  {
+    id: "6",
+    displayText: "Riverbank Plot",
+    displayType: "Agriculture Lands",
+    displayDescription: "Madhurawada, Visakhapatnam",
+    cityName: "Visakhapatnam",
+  },
+];
 
 export default function HeroBannerTabContent({
   id,
@@ -27,7 +72,7 @@ export default function HeroBannerTabContent({
 }: ITabContentProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [city, setCity] = useState("Hyderabad");
+  const [city, setCity] = useState("All");
   const [landType, setLandType] = useState("All");
   const [suggestions, setSuggestions] = useState<SearchItem[]>([]);
   const [open, setOpen] = useState(false);
@@ -43,20 +88,20 @@ export default function HeroBannerTabContent({
   const landTypeDropdownRef = useRef<HTMLDivElement>(null);
 
   const runSearch = (value: string) => {
-    if (!value.trim()) return;
-    const params = new URLSearchParams({
-      q: value.trim(),
-    });
+    const params = new URLSearchParams();
+    if (value.trim()) {
+      params.set("q", value.trim());
+    }
     if (city?.trim() && city !== "All") {
-      params.append("city", city.trim());
+      params.set("city", city.trim());
     }
     if (landType?.trim() && landType !== "All") {
-      params.append("landType", landType.trim());
+      params.set("landType", landType.trim());
     }
-    router.push(`/search?${params}`);
+    const queryString = params.toString();
+    router.push(queryString ? `/search?${queryString}` : "/search");
   };
 
-  // Search button handler
   const handleSearch = () => {
     runSearch(query);
   };
@@ -65,7 +110,7 @@ export default function HeroBannerTabContent({
     if (e.key === "Enter") handleSearch();
   };
 
-  // Live suggestions from API
+  // Live suggestions from mock data (replace with API later)
   useEffect(() => {
     if (!query.trim()) {
       setSuggestions([]);
@@ -74,54 +119,32 @@ export default function HeroBannerTabContent({
       setLoading(false);
       return;
     }
+
     setLoading(true);
     setSearched(false);
-    const timer = setTimeout(async () => {
-      try {
-        const API_BASE =
-          process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-        const res = await fetch(
-          `${API_BASE}/api/properties/search?q=${encodeURIComponent(query)}`,
-        );
-        if (!res.ok) {
-          setSuggestions([]);
-          setOpen(true);
-          setSearched(true);
-          setLoading(false);
-          return;
-        }
-        const data = await res.json();
-        const items: SearchItem[] = (data?.data || []).map(
-          (p: {
-            id?: string;
-            title?: string;
-            propertyName?: string;
-            propertyType?: string;
-            cityName?: string;
-            streetName?: string;
-          }) => ({
-            id: p.id || "",
-            displayText: p.propertyName || p.title || "",
-            displayType: p.propertyType || "Property",
-            displayDescription: [p.streetName, p.cityName]
-              .filter(Boolean)
-              .join(", "),
-            cityName: p.cityName,
-          }),
-        );
-        setSuggestions(items);
-        setOpen(true);
-        setSearched(true);
-        setLoading(false);
-      } catch {
-        setSuggestions([]);
-        setOpen(true);
-        setSearched(true);
-        setLoading(false);
-      }
-    }, 400);
+    const timer = setTimeout(() => {
+      const normalizedQuery = query.trim().toLowerCase();
+      const items = MOCK_SUGGESTIONS.filter((item) => {
+        const matchesQuery =
+          item.displayText.toLowerCase().includes(normalizedQuery) ||
+          item.displayDescription.toLowerCase().includes(normalizedQuery) ||
+          item.displayType.toLowerCase().includes(normalizedQuery);
+        const matchesCity =
+          city === "All" ||
+          item.cityName?.toLowerCase() === city.toLowerCase();
+        const matchesLandType =
+          landType === "All" ||
+          item.displayType.toLowerCase() === landType.toLowerCase();
+        return matchesQuery && matchesCity && matchesLandType;
+      });
+      setSuggestions(items);
+      setOpen(true);
+      setSearched(true);
+      setLoading(false);
+    }, 250);
+
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [query, city, landType]);
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -181,21 +204,219 @@ export default function HeroBannerTabContent({
     return () => clearTimeout(timer);
   }, []);
 
+  const dropdownTriggerStyle: CSSProperties = {
+    background: "transparent",
+    color: "#333",
+    border: "none",
+    padding: "4px 0",
+    fontSize: "14px",
+    fontWeight: 500,
+    cursor: "pointer",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "6px",
+  };
+
+  const dropdownMenuStyle: CSSProperties = {
+    position: "absolute",
+    top: "calc(100% + 8px)",
+    left: 0,
+    minWidth: "180px",
+    background: "#fff",
+    border: "1px solid #e5e7eb",
+    borderRadius: "8px",
+    boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+    zIndex: 1000,
+    maxHeight: "220px",
+    overflowY: "auto",
+  };
+
+  const dropdownOptionStyle: CSSProperties = {
+    width: "100%",
+    padding: "10px 14px",
+    border: "none",
+    background: "#fff",
+    cursor: "pointer",
+    textAlign: "left",
+    fontSize: "14px",
+    color: "#333",
+  };
+
   return (
-    <div className="tp-hero-tab-box">
+    <div
+      className="tp-hero-tab-box"
+      style={{
+        padding: "14px 16px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
+      }}
+    >
+      {/* Top row: City + Land Type */}
       <div
-        className="row g-0 align-items-stretch"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "20px",
+          flexWrap: "wrap",
+        }}
+      >
+        <div ref={cityDropdownRef} style={{ position: "relative" }}>
+          <button
+            type="button"
+            onClick={() => {
+              setCityDropdownOpen(!cityDropdownOpen);
+              setLandTypeDropdownOpen(false);
+            }}
+            style={dropdownTriggerStyle}
+            aria-expanded={cityDropdownOpen}
+            aria-label="Select city"
+          >
+            <span>{city === "All" ? "City" : city}</span>
+            <i
+              className="far fa-chevron-down"
+              style={{
+                fontSize: "12px",
+                color: "#333",
+                transition: "transform 0.2s ease",
+                transform: cityDropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                display: "inline-block",
+              }}
+            />
+          </button>
+          {cityDropdownOpen && (
+            <div style={dropdownMenuStyle}>
+              {CITIES.map((cityOption) => (
+                <button
+                  key={cityOption}
+                  type="button"
+                  onClick={() => {
+                    setCity(cityOption);
+                    setCityDropdownOpen(false);
+                  }}
+                  style={{
+                    ...dropdownOptionStyle,
+                    background:
+                      city === cityOption ? "rgba(0, 59, 92, 0.08)" : "#fff",
+                    fontWeight: city === cityOption ? 600 : 400,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 59, 92, 0.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background =
+                      city === cityOption ? "rgba(0, 59, 92, 0.08)" : "#fff";
+                  }}
+                >
+                  {cityOption === "All" ? "All Cities" : cityOption}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div ref={landTypeDropdownRef} style={{ position: "relative" }}>
+          <button
+            type="button"
+            onClick={() => {
+              setLandTypeDropdownOpen(!landTypeDropdownOpen);
+              setCityDropdownOpen(false);
+            }}
+            style={dropdownTriggerStyle}
+            aria-expanded={landTypeDropdownOpen}
+            aria-label="Select land type"
+          >
+            <span>{landType === "All" ? "Land Type" : landType}</span>
+            <i
+              className="far fa-chevron-down"
+              style={{
+                fontSize: "12px",
+                color: "#333",
+                transition: "transform 0.2s ease",
+                transform: landTypeDropdownOpen
+                  ? "rotate(180deg)"
+                  : "rotate(0deg)",
+                display: "inline-block",
+              }}
+            />
+          </button>
+          {landTypeDropdownOpen && (
+            <div style={dropdownMenuStyle}>
+              {LAND_TYPES.map((typeOption) => (
+                <button
+                  key={typeOption}
+                  type="button"
+                  onClick={() => {
+                    setLandType(typeOption);
+                    setLandTypeDropdownOpen(false);
+                  }}
+                  style={{
+                    ...dropdownOptionStyle,
+                    background:
+                      landType === typeOption
+                        ? "rgba(0, 59, 92, 0.08)"
+                        : "#fff",
+                    fontWeight: landType === typeOption ? 600 : 400,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 59, 92, 0.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background =
+                      landType === typeOption
+                        ? "rgba(0, 59, 92, 0.08)"
+                        : "#fff";
+                  }}
+                >
+                  {typeOption === "All" ? "All Land Types" : typeOption}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Bottom row: search icon + field + button */}
+      <div
         ref={wrapperRef}
         style={{
           position: "relative",
+          display: "flex",
+          alignItems: "stretch",
+          gap: "10px",
           width: "100%",
-          marginLeft: 0,
-          marginRight: 0,
-          boxSizing: "border-box",
         }}
       >
-        {/* Search Input */}
-        <div className="col-9 col-sm-10">
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            height: "52px",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "0 14px",
+            background: "#fff",
+            minWidth: 0,
+          }}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+            style={{ flexShrink: 0 }}
+          >
+            <circle cx="11" cy="11" r="7" stroke="#9ca3af" strokeWidth="2" />
+            <path
+              d="M20 20L16.5 16.5"
+              stroke="#9ca3af"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
           <input
             type="text"
             value={query}
@@ -206,53 +427,71 @@ export default function HeroBannerTabContent({
             onKeyDown={handleKeyDown}
             placeholder={typedPlaceholder}
             style={{
-              width: "100%",
-              height: "52px",
+              flex: 1,
+              height: "100%",
               border: "none",
-              borderRadius: "8px 0 0 8px",
-              padding: "0 16px",
-              fontSize: "15px",
               outline: "none",
-              background: "#fff",
+              fontSize: "15px",
+              background: "transparent",
+              minWidth: 0,
+              color: "#222",
             }}
           />
         </div>
 
-        {/* Search Button */}
-        <div className="col-3 col-sm-2">
-          <button
-            type="button"
-            onClick={handleSearch}
-            style={{
-              width: "100%",
-              height: "52px",
-              background: "#003B5C",
-              color: "#fff",
-              border: "none",
-              borderRadius: "8px 8px 8px 8px",
-              fontSize: "15px",
-              fontWeight: 600,
-              cursor: "pointer",
-              whiteSpace: "nowrap",
-              boxShadow: "0 4px 15px rgba(0, 59, 92, 0.3)",
-              transition: "all 0.3s ease",
-            }}
-            onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-              e.currentTarget.style.background = "#0056b3";
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow =
-                "0 6px 20px rgba(0, 59, 92, 0.4)";
-            }}
-            onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-              e.currentTarget.style.background = "#003B5C";
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow =
-                "0 4px 15px rgba(0, 59, 92, 0.3)";
-            }}
+        <button
+          type="button"
+          onClick={handleSearch}
+          style={{
+            flexShrink: 0,
+            height: "52px",
+            minWidth: "120px",
+            padding: "0 22px",
+            background: "#003B5C",
+            color: "#fff",
+            border: "none",
+            borderRadius: "8px",
+            fontSize: "15px",
+            fontWeight: 600,
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
+            boxShadow: "0 4px 15px rgba(0, 59, 92, 0.3)",
+            transition: "all 0.3s ease",
+          }}
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.currentTarget.style.background = "#0056b3";
+            e.currentTarget.style.transform = "translateY(-2px)";
+            e.currentTarget.style.boxShadow =
+              "0 6px 20px rgba(0, 59, 92, 0.4)";
+          }}
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.currentTarget.style.background = "#003B5C";
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow =
+              "0 4px 15px rgba(0, 59, 92, 0.3)";
+          }}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
           >
-            Search
-          </button>
-        </div>
+            <circle cx="11" cy="11" r="7" stroke="#fff" strokeWidth="2" />
+            <path
+              d="M20 20L16.5 16.5"
+              stroke="#fff"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+          Search
+        </button>
 
         {/* Suggestions Dropdown */}
         {open &&
@@ -261,7 +500,7 @@ export default function HeroBannerTabContent({
             <div
               style={{
                 position: "absolute",
-                top: "calc(100% + 12px)",
+                top: "calc(100% + 8px)",
                 left: 0,
                 width: "100%",
                 background: "#fff",
@@ -369,204 +608,6 @@ export default function HeroBannerTabContent({
               ))}
             </div>
           )}
-      </div>
-
-      {/* Filter Dropdowns - Outside search bar */}
-      <div
-        className="row g-2"
-        style={{ marginTop: "8px", marginLeft: "7px", marginRight: "-5px" }}
-      >
-        {/* City Dropdown */}
-        <div className="col-6" ref={cityDropdownRef}>
-          <div
-            style={{
-              position: "relative",
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setCityDropdownOpen(!cityDropdownOpen)}
-              style={{
-                width: "100%",
-                height: "44px",
-                background: "#fff",
-                color: "#333",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                padding: "0 16px",
-                fontSize: "14px",
-                fontWeight: 500,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.currentTarget.style.borderColor = "#003B5C";
-              }}
-              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.currentTarget.style.borderColor = "#ddd";
-              }}
-            >
-              <span>{city}</span>
-              <span
-                style={{
-                  fontSize: "10px",
-                  transition: "transform 0.3s ease",
-                  transform: cityDropdownOpen
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-                }}
-              >
-                ▼
-              </span>
-            </button>
-            {cityDropdownOpen && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "calc(100% + 4px)",
-                  left: 0,
-                  width: "100%",
-                  background: "#fff",
-                  border: "1px solid #ddd",
-                  borderRadius: "8px",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                  zIndex: 1000,
-                  maxHeight: "200px",
-                  overflowY: "auto",
-                }}
-              >
-                {CITIES.map((cityOption) => (
-                  <button
-                    key={cityOption}
-                    type="button"
-                    onClick={() => {
-                      setCity(cityOption);
-                      setCityDropdownOpen(false);
-                    }}
-                    style={{
-                      width: "100%",
-                      padding: "10px 16px",
-                      border: "none",
-                      background: "#fff",
-                      cursor: "pointer",
-                      textAlign: "left",
-                      fontSize: "14px",
-                      color: "#333",
-                      transition: "background 0.2s ease",
-                    }}
-                    onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                      e.currentTarget.style.background = "#f5f6ff";
-                    }}
-                    onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                      e.currentTarget.style.background = "#fff";
-                    }}
-                  >
-                    {cityOption}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Land Type Dropdown */}
-        <div className="col-6" ref={landTypeDropdownRef}>
-          <div
-            style={{
-              position: "relative",
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setLandTypeDropdownOpen(!landTypeDropdownOpen)}
-              style={{
-                width: "100%",
-                height: "44px",
-                background: "#fff",
-                color: "#333",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                padding: "0 16px",
-                fontSize: "14px",
-                fontWeight: 500,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.currentTarget.style.borderColor = "#003B5C";
-              }}
-              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.currentTarget.style.borderColor = "#ddd";
-              }}
-            >
-              <span>{landType}</span>
-              <span
-                style={{
-                  fontSize: "10px",
-                  transition: "transform 0.3s ease",
-                  transform: landTypeDropdownOpen
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-                }}
-              >
-                ▼
-              </span>
-            </button>
-            {landTypeDropdownOpen && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "calc(100% + 4px)",
-                  left: 0,
-                  width: "100%",
-                  background: "#fff",
-                  border: "1px solid #ddd",
-                  borderRadius: "8px",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                  zIndex: 1000,
-                  maxHeight: "200px",
-                  overflowY: "auto",
-                }}
-              >
-                {LAND_TYPES.map((typeOption) => (
-                  <button
-                    key={typeOption}
-                    type="button"
-                    onClick={() => {
-                      setLandType(typeOption);
-                      setLandTypeDropdownOpen(false);
-                    }}
-                    style={{
-                      width: "100%",
-                      padding: "10px 16px",
-                      border: "none",
-                      background: "#fff",
-                      cursor: "pointer",
-                      textAlign: "left",
-                      fontSize: "14px",
-                      color: "#333",
-                      transition: "background 0.2s ease",
-                    }}
-                    onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                      e.currentTarget.style.background = "#f5f6ff";
-                    }}
-                    onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                      e.currentTarget.style.background = "#fff";
-                    }}
-                  >
-                    {typeOption}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
       </div>
     </div>
   );
