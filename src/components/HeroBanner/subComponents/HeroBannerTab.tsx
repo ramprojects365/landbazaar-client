@@ -19,8 +19,21 @@ const placeholderExamples = [
   "Try plots in Visakhapatnam",
 ];
 
-const CITIES = ["All", "Hyderabad", "Visakhapatnam", "Vijayawada", "Amaravati", "Kakinada"];
-const LAND_TYPES = ["All", "Farm Lands", "Agriculture Lands", "Plots", "Commercial Lands"];
+const CITIES = [
+  "All",
+  "Hyderabad",
+  "Visakhapatnam",
+  "Vijayawada",
+  "Amaravati",
+  "Kakinada",
+];
+const LAND_TYPES = [
+  "All",
+  "Farm Lands",
+  "Agriculture Lands",
+  "Plots",
+  "Commercial Lands",
+];
 
 const MOCK_SUGGESTIONS: SearchItem[] = [
   {
@@ -67,9 +80,7 @@ const MOCK_SUGGESTIONS: SearchItem[] = [
   },
 ];
 
-export default function HeroBannerTabContent({
-  id,
-}: ITabContentProps) {
+export default function HeroBannerTabContent({ id }: ITabContentProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [city, setCity] = useState("All");
@@ -130,8 +141,7 @@ export default function HeroBannerTabContent({
           item.displayDescription.toLowerCase().includes(normalizedQuery) ||
           item.displayType.toLowerCase().includes(normalizedQuery);
         const matchesCity =
-          city === "All" ||
-          item.cityName?.toLowerCase() === city.toLowerCase();
+          city === "All" || item.cityName?.toLowerCase() === city.toLowerCase();
         const matchesLandType =
           landType === "All" ||
           item.displayType.toLowerCase() === landType.toLowerCase();
@@ -435,6 +445,7 @@ export default function HeroBannerTabContent({
               background: "transparent",
               minWidth: 0,
               color: "#222",
+              paddingLeft: "0px",
             }}
           />
         </div>
@@ -465,14 +476,12 @@ export default function HeroBannerTabContent({
           onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.currentTarget.style.background = "#0056b3";
             e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.boxShadow =
-              "0 6px 20px rgba(0, 59, 92, 0.4)";
+            e.currentTarget.style.boxShadow = "0 6px 20px rgba(0, 59, 92, 0.4)";
           }}
           onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.currentTarget.style.background = "#003B5C";
             e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow =
-              "0 4px 15px rgba(0, 59, 92, 0.3)";
+            e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 59, 92, 0.3)";
           }}
         >
           <svg

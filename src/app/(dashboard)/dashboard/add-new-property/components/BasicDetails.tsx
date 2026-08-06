@@ -5,11 +5,7 @@ import { PropertyFormData } from "@/schemas/validationSchema";
 import ErrorMessage from "../../../../../components/Form/ErrorMassage";
 import "../property.css";
 import { useState, useEffect } from "react";
-import {
-  AREA_UNITS,
-  LAND_TYPES,
-  LISTING_TYPES,
-} from "@/config/landOptions";
+import { AREA_UNITS, LAND_TYPES, LISTING_TYPES } from "@/config/landOptions";
 
 export default function BasicDetails() {
   const {
@@ -33,7 +29,12 @@ export default function BasicDetails() {
   useEffect(() => {
     const area = Number(landArea);
     const unitPrice = Number(pricePerUnit);
-    if (Number.isFinite(area) && Number.isFinite(unitPrice) && area > 0 && unitPrice > 0) {
+    if (
+      Number.isFinite(area) &&
+      Number.isFinite(unitPrice) &&
+      area > 0 &&
+      unitPrice > 0
+    ) {
       const computed = String(Math.round(area * unitPrice));
       if (!totalPrice) {
         setValue("totalPrice", computed, { shouldValidate: true });
@@ -42,7 +43,9 @@ export default function BasicDetails() {
     }
   }, [landArea, pricePerUnit, totalPrice, setValue]);
 
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     const value = e.target.value;
     if (value.length <= 5000) {
       setValue("description", value);
@@ -57,7 +60,7 @@ export default function BasicDetails() {
         <div className="row">
           <div className="col-lg-12">
             <div className="tp-dashboard-new-input">
-              <label>Listing Title</label>
+              <label>Property Title</label>
               <input
                 className="textBox"
                 type="text"
@@ -71,7 +74,14 @@ export default function BasicDetails() {
           </div>
           <div className="col-lg-12">
             <div className="tp-dashboard-new-input">
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "6px",
+                }}
+              >
                 <label style={{ marginBottom: "0" }}>Description</label>
                 <div
                   style={{
@@ -169,10 +179,15 @@ export default function BasicDetails() {
                 placeholder="Example: 200"
                 {...register("landSize")}
                 onInput={(e) => {
-                  e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "");
+                  e.currentTarget.value = e.currentTarget.value.replace(
+                    /\D/g,
+                    "",
+                  );
                 }}
               />
-              {errors?.landSize && <ErrorMessage message={errors?.landSize?.message || ""} />}
+              {errors?.landSize && (
+                <ErrorMessage message={errors?.landSize?.message || ""} />
+              )}
             </div>
           </div>
           <div className="col-lg-4">
@@ -185,7 +200,10 @@ export default function BasicDetails() {
                 placeholder="Example: 25000"
                 {...register("pricePerUnit")}
                 onInput={(e) => {
-                  e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "");
+                  e.currentTarget.value = e.currentTarget.value.replace(
+                    /\D/g,
+                    "",
+                  );
                 }}
               />
               {errors?.pricePerUnit && (
@@ -219,11 +237,15 @@ export default function BasicDetails() {
             <div className="tp-dashboard-new-input">
               <label>Price Negotiable</label>
               <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
                   <input type="radio" value="Yes" {...register("negotiable")} />
                   <span>Yes</span>
                 </label>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
                   <input type="radio" value="No" {...register("negotiable")} />
                   <span>No</span>
                 </label>
