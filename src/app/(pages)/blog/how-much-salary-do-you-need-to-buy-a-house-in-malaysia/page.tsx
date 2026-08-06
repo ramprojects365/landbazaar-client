@@ -71,7 +71,7 @@ export default function SalaryForHouse() {
                       </h5>
                       <p style={{ color: "#155724", margin: 0 }}>
                         If your monthly loan installment is RM2,000, you should
-                        ideally earn at least RM6,667 per month (RM2,000 ÷
+                        ideally earn at least RM6,667 per month (INR2,000 ÷
                         0.30).
                       </p>
                     </div>

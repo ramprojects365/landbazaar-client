@@ -82,7 +82,7 @@ export default function PropertyFilterWidget() {
         <div className="tp-team-contact-select tp-select">
           <NiceSelect
             options={[
-              { value: "Any", label: "Min Price (RM)" },
+              { value: "Any", label: "Min Price (INR)" },
               { value: "100k", label: "100k" },
               { value: "200k", label: "200k" },
               { value: "300k", label: "300k" },
@@ -99,7 +99,7 @@ export default function PropertyFilterWidget() {
         <div className="tp-team-contact-select tp-select">
           <NiceSelect
             options={[
-              { value: "Any", label: "Max Price (RM)" },
+              { value: "Any", label: "Max Price (INR)" },
               { value: "700k", label: "700k" },
               { value: "800k", label: "800k" },
               { value: "900k", label: "900k" },

@@ -169,9 +169,9 @@ export default function BestAreasSelangor() {
                       </h5>
                       <p style={{ color: "#856404", margin: 0 }}>
                         Property prices in Selangor vary significantly: PJ
-                        (RM800-1,500 psf), Subang Jaya (RM600-1,000 psf), Shah
-                        Alam (RM400-700 psf), Puchong (RM350-600 psf), Klang
-                        (RM300-500 psf).
+                        (INR800-1,500 psf), Subang Jaya (INR600-1,000 psf), Shah
+                        Alam (INR400-700 psf), Puchong (INR350-600 psf), Klang
+                        (INR300-500 psf).
                       </p>
                     </div>
 
