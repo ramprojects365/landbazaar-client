@@ -1,5 +1,3 @@
-import BathsroomTwoSvg from "@/components/SVG/PropertySvg/BathsroomTwoSvg";
-import BedroomsTwoSvg from "@/components/SVG/PropertySvg/BedroomsTwoSvg";
 import LivingTwoSvg from "@/components/SVG/PropertySvg/LivingTwoSvg";
 import MapMarkerSvg from "@/components/SVG/PropertySvg/MapMarkerIcon";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
@@ -12,8 +10,14 @@ interface propertyProps {
   item: IFeaturedPropertyDT;
 }
 
+function getImageSrc(image: IFeaturedPropertyDT["image"]): string {
+  if (typeof image === "string") return image;
+  return image?.src || "/assets/img/rent/rent-thumb-1.jpg";
+}
+
 function PropertySingleCardTwo({ item }: propertyProps) {
   const detailsHref = `/property-details/${item.id}`;
+  const imageSrc = getImageSrc(item.image);
 
   return (
     <div
@@ -26,20 +30,15 @@ function PropertySingleCardTwo({ item }: propertyProps) {
       <div className="tp-rent-item p-relative">
         <div className="tp-rent-thumb p-relative">
           <Link href={detailsHref}>
-            {typeof item.image === "string" ? (
-              <img
-                src={item.image}
-                alt={item.title || "Property for sale or rent in Malaysia"}
-                style={{ width: "100%", height: "250px", objectFit: "cover" }}
-              />
-            ) : (
-              <Image src={item.image} alt={item.title || "Property for sale or rent in Malaysia"} loading="lazy" />
-            )}
+            <img
+              src={imageSrc}
+              alt={item.title || "Land or plot for sale"}
+              style={{ width: "100%", height: "250px", objectFit: "cover" }}
+            />
           </Link>
 
           {item.showTags && (
             <div className="tp-rent-tags">
-              {item.isForRent && <Link href={detailsHref}>FOR RENT</Link>}
               {item.isForSale && (
                 <Link className="two" href={detailsHref}>
                   FOR SALE
@@ -56,15 +55,18 @@ function PropertySingleCardTwo({ item }: propertyProps) {
             <div className="tp-rent-user d-flex align-items-center">
               <div className="tp-rent-user-thumb">
                 <Image
-                  src={item.userImage || "/assets/img/team/team-details/user.png"}
-                  alt={item.userName || "User"}
+                  src={
+                    item.userImage || "/assets/img/team/team-details/user.png"
+                  }
+                  alt={item.userName || "Seller"}
                   width={40}
                   height={40}
                 />
               </div>
               <div className="tp-rent-user-content">
-                <h5 className="tp-rent-user-content-title">{item.userName || "—"}</h5>
-                <span>{item.userRole || "—"}</span>
+                <h5 className="tp-rent-user-content-title">
+                  {item.userName || "—"}
+                </h5>
               </div>
             </div>
           </div>
@@ -82,26 +84,17 @@ function PropertySingleCardTwo({ item }: propertyProps) {
             <div className="tp-rent-meta-item">
               <div className="tp-rent-meta-content d-flex">
                 <span>
-                  <BedroomsTwoSvg />
-                </span>
-                <p>{item.bedrooms} Bed</p>
-              </div>
-            </div>
-            <div className="tp-rent-meta-item">
-              <div className="tp-rent-meta-content d-flex">
-                <span>
-                  <BathsroomTwoSvg />
-                </span>
-                <p>{item.bathrooms} Baths</p>
-              </div>
-            </div>
-            <div className="tp-rent-meta-item">
-              <div className="tp-rent-meta-content d-flex">
-                <span>
                   <LivingTwoSvg />
                 </span>
-                <p>{item.livingArea}</p>
+                <p>{item.bedrooms}</p>
               </div>
+              <p>Land Size</p>
+            </div>
+            <div className="tp-rent-meta-item">
+              <div className="tp-rent-meta-content d-flex">
+                <p>{item.bathrooms || "Land"}</p>
+              </div>
+              <p>Land Type</p>
             </div>
           </div>
           <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">

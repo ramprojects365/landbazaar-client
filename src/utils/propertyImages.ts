@@ -30,7 +30,9 @@ export const getPropertyImageUrl = (image: unknown): string | null => {
   return typeof url === "string" && url.trim() ? url : null;
 };
 
-export const getPropertyImageItem = (image: unknown): PropertyImageDisplayItem | null => {
+export const getPropertyImageItem = (
+  image: unknown,
+): PropertyImageDisplayItem | null => {
   const url = getPropertyImageUrl(image);
   if (!url) return null;
 
@@ -48,28 +50,41 @@ export const getPropertyImageItem = (image: unknown): PropertyImageDisplayItem |
     caption,
     displayPlace,
     isCover: Boolean(item.isCover),
-    order: item.order,
+    order: typeof item.order === "number" ? item.order : undefined,
   };
 };
 
-export const getPropertyImageItems = (images: unknown): PropertyImageDisplayItem[] => {
+/** Cover first, then by order ascending. */
+export const sortPropertyImages = (
+  images: PropertyImageDisplayItem[],
+): PropertyImageDisplayItem[] => {
+  return [...images].sort((a, b) => {
+    if (a.isCover && !b.isCover) return -1;
+    if (!a.isCover && b.isCover) return 1;
+    return (a.order ?? 9999) - (b.order ?? 9999);
+  });
+};
+
+export const getPropertyImageItems = (
+  images: unknown,
+): PropertyImageDisplayItem[] => {
   if (!Array.isArray(images)) return [];
 
-  return images
+  const items = images
     .map(getPropertyImageItem)
     .filter((image): image is PropertyImageDisplayItem => Boolean(image));
+
+  return sortPropertyImages(items);
 };
 
 export const getPropertyImageUrls = (images: unknown): string[] => {
   return getPropertyImageItems(images).map((image) => image.url);
 };
 
+/** Prefer isCover image; otherwise first by order. */
 export const getCoverImageUrl = (images: unknown): string | null => {
-  if (!Array.isArray(images) || images.length === 0) return null;
-
-  const cover = images.find(
-    (image) => image && typeof image === "object" && !Array.isArray(image) && Boolean((image as PropertyImageLike).isCover),
-  );
-
-  return getPropertyImageUrl(cover) || getPropertyImageUrl(images[0]);
+  const items = getPropertyImageItems(images);
+  if (items.length === 0) return null;
+  const cover = items.find((image) => image.isCover);
+  return cover?.url || items[0].url;
 };

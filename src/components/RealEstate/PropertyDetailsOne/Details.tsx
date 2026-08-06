@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { BathroomsSvg, BedroomsSvg, LivingSvg } from "@/components/SVG";
+import { LivingSvg } from "@/components/SVG";
 import DetailsReusableArea from "./subComponents/DetailsReusableArea";
 import PropertyDetailsSlider from "./subComponents/PropertySlider";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
@@ -10,6 +10,11 @@ import { formatPrice } from "@/components/Utils/formatPrice";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { toast } from "sonner";
 import { recordPropertyView } from "@/services/propertyService";
+import {
+  formatLandSize,
+  formatStreetCity,
+  parseTotalPrice,
+} from "@/utils/mapApiProperty";
 
 type ApiProperty = {
   id: string;
@@ -24,11 +29,18 @@ type ApiProperty = {
   pincode?: string;
   landmark?: string;
   price?: number | string;
+  totalPrice?: number | string;
+  landSize?: number | string;
+  areaUnit?: string;
   buildupArea?: number | string;
   bedrooms?: number | string;
   bathrooms?: number | string;
-  images?: string[];
+  images?: unknown[];
   status?: string;
+  facingDirection?: string;
+  cornerPlot?: string;
+  roadWidth?: string;
+  surveyNumber?: string;
   amenities?: {
     lifestyle?: string[];
     facilities?: string[];
@@ -58,40 +70,24 @@ type ApiProperty = {
 };
 
 function mapToDisplay(item: ApiProperty): IFeaturedPropertyDT {
-  const address = [
-    item.propertyName,
-    item.streetName,
-    item.cityName,
-    item.state,
-  ]
-    .filter(Boolean)
-    .join(", ");
-  const beds = parseInt(String(item.bedrooms ?? 0), 10);
-  const baths = parseInt(String(item.bathrooms ?? 0), 10);
-  const area = parseFloat(String(item.buildupArea ?? 0));
-  const livingArea =
-    area > 0
-      ? Number.isInteger(area)
-        ? `${area} Sq Ft`
-        : `${area.toFixed(1)} Sq Ft`
-      : "N/A";
+  const landSizeLabel = formatLandSize(item.landSize, item.areaUnit);
   return {
-    id: 0,
+    id: item.id,
     title: item.propertyName || item.title || "Property",
-    address: address || "Address not available",
+    address: formatStreetCity(item.streetName, item.cityName),
     linkUrl: "property-details",
     image: "" as unknown as IFeaturedPropertyDT["image"],
     showTags: true,
     isForRent: item.listingType === "rent",
     isForSale: item.listingType === "sale",
     isFeatured: false,
-    bedrooms: beds > 0 ? String(beds) : "0",
-    bathrooms: baths > 0 ? String(baths) : "0",
-    livingArea,
-    price: parseFloat(String(item.price ?? 0)) || 0,
-    user: item.user, // Add user field to display data
+    bedrooms: landSizeLabel,
+    bathrooms: "",
+    livingArea: "",
+    price: parseTotalPrice(item.totalPrice, item.price),
+    user: item.user,
     description: item.description,
-    quantity: 0
+    quantity: 0,
   };
 }
 
@@ -302,30 +298,16 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
                   {display.address}
                 </span>
 
-                <div className="tp-property-details-info mt-3">
+                <div className="tp-property-details-info mt-3 d-flex flex-wrap gap-3 align-items-center">
                   <span>
-                    <BedroomsSvg /> {display.bedrooms} Bed
-                  </span>
-                  <span style={{ margin: "0 12px" }}>
-                    <BathroomsSvg /> {display.bathrooms} Bath
+                    <LivingSvg /> <strong>Land Size:</strong> {display.bedrooms}
                   </span>
                   <span>
-                    <LivingSvg /> {display.livingArea}
+                    <strong>Total Price:</strong> {formatPrice(display.price, false)}
                   </span>
-                  {apiProperty.furnishing && (
-                    <span
-                      style={{
-                        marginLeft: "12px",
-                        color: "#888",
-                        fontSize: "14px",
-                      }}
-                    >
-                      ·{" "}
-                      {apiProperty.furnishing === "Fully"
-                        ? "Fully Furnished"
-                        : apiProperty.furnishing === "Partially"
-                          ? "Partially Furnished"
-                          : apiProperty.furnishing}
+                  {apiProperty.facingDirection && (
+                    <span style={{ color: "#888", fontSize: "14px" }}>
+                      Facing {apiProperty.facingDirection}
                     </span>
                   )}
                 </div>

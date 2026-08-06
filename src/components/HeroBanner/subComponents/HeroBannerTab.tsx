@@ -83,7 +83,7 @@ const MOCK_SUGGESTIONS: SearchItem[] = [
 export default function HeroBannerTabContent({ id }: ITabContentProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [city, setCity] = useState("All");
+  const [city, setCity] = useState("Hyderabad");
   const [landType, setLandType] = useState("All");
   const [suggestions, setSuggestions] = useState<SearchItem[]>([]);
   const [open, setOpen] = useState(false);

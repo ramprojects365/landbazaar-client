@@ -1,17 +1,18 @@
 "use client";
-import { BathroomsSvg, BedroomsSvg, LivingSvg } from "../SVG";
+import { LivingSvg } from "../SVG";
 import { IFeatureListProps } from "@/types/custom-interface";
-//import { IFeaturedPropertyDT } from "@/types/property-d-t";
-//import { useDispatch } from "react-redux";
-//import { cart_product } from "@/redux/slices/cartSlice";
 import { formatPrice } from "../Utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
 
+function getImageSrc(image: IFeatureListProps["item"]["image"]): string {
+  if (typeof image === "string") return image;
+  return (image as { src?: string })?.src || "/assets/img/rent/rent-thumb-1.jpg";
+}
+
 export default function PropertySingleCard({ item }: IFeatureListProps) {
-  //const dispatch = useDispatch();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -20,13 +21,7 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
   const detailsHref = fromUrl
     ? `/${item.linkUrl}/${item.id}?from=${createCleanFromUrl(fromUrl)}`
     : `/${item.linkUrl}/${item.id}`;
-
-  //handle add to cart
-  // const handleAddToCart = (product: IFeaturedPropertyDT) => {
-  //   if (product) {
-  //     dispatch(cart_product(product));
-  //   }
-  // };
+  const imageSrc = getImageSrc(item.image);
 
   return (
     <div
@@ -43,13 +38,9 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
       >
         <Link href={detailsHref}>
           <img
-            src={
-              typeof item.image === "string"
-                ? item.image
-                : (item.image as { src: string }).src
-            }
-            style={{ width: "100%", height: "310px" }}
-            alt={item.title}
+            src={imageSrc}
+            style={{ width: "100%", height: "310px", objectFit: "cover" }}
+            alt={item.title || "Land or plot for sale"}
           />
         </Link>
         <div className="tp-rent-user-wrap d-flex align-items-center justify-content-between">
@@ -57,35 +48,28 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
             <div className="tp-rent-user-thumb">
               <Image
                 src={item.userImage || "/assets/img/team/team-details/user.png"}
-                alt={item.userName || "User"}
+                alt={item.userName || "Seller"}
                 width={40}
                 height={40}
               />
             </div>
             <div className="tp-rent-user-content">
-              <h5 className="tp-rent-user-content-title">{item.userName || "—"}</h5>
-              <span>{item.userRole || "—"}</span>
+              <h5 className="tp-rent-user-content-title">
+                {item.userName || "—"}
+              </h5>
             </div>
           </div>
-          {/* <div className="tp-rent-option d-flex">
-            <button onClick={() => handleAddToCart(item)}>
-              <span>
-                <CartSvg />
-              </span>
-            </button>
-          </div> */}
         </div>
         {item.showTags && (
           <div className="tp-rent-tags">
-            {item.isForRent === true ? <Link href="#">FOR RENT</Link> : ""}{" "}
-            {item.isForSale === true ? <Link href="#">FOR SALE</Link> : ""}{" "}
-            {item.isFeatured === true ? (
-              <Link className="two" href="#">
+            {item.isForSale ? (
+              <Link href={detailsHref}>FOR SALE</Link>
+            ) : null}{" "}
+            {item.isFeatured ? (
+              <Link className="two" href={detailsHref}>
                 FEATURED
               </Link>
-            ) : (
-              ""
-            )}
+            ) : null}
           </div>
         )}
       </div>
@@ -100,29 +84,23 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <span>
-                <BedroomsSvg />
+                <LivingSvg />
               </span>
               <p>{item.bedrooms}</p>
             </div>
-            <p>Bedrooms</p>
+            <p>Land Size</p>
           </div>
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
-              <span>
-                <BathroomsSvg />
-              </span>
-              <p>{item.bathrooms}</p>
+              <p>{item.bathrooms || "Land"}</p>
             </div>
-            <p>Bathrooms</p>
+            <p>Land Type</p>
           </div>
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
-              <span>
-                <LivingSvg />
-              </span>
-              <p>1</p>
+              <p>{formatPrice(item.price, false)}</p>
             </div>
-            <p>Living Area</p>
+            <p>Total Price</p>
           </div>
         </div>
         <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">

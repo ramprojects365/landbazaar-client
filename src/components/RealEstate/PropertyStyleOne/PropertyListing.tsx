@@ -6,7 +6,7 @@ import { StaticImageData } from "next/image";
 import PropertySingleCard from "@/components/Common/PropertySingleCard";
 import { propertyData } from "@/data/propertyData";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
-import { getCoverImageUrl } from "@/utils/propertyImages";
+import { mapApiPropertyToCard } from "@/utils/mapApiProperty";
 
 type Property = IFeaturedPropertyDT;
 
@@ -28,11 +28,15 @@ type ApiProperty = {
   cityName?: string;
   state?: string;
   price?: number | string;
+  totalPrice?: number | string;
+  landSize?: number | string;
+  areaUnit?: string;
   buildupArea?: number | string;
   bedrooms?: number | string;
   bathrooms?: number | string;
   images?: unknown[];
   status?: string;
+  contactPersonName?: string;
   user?: {
     id?: string;
     username?: string;
@@ -51,55 +55,10 @@ type ApiProperty = {
 };
 
 function mapApiProperty(item: ApiProperty, index: number): Property {
-  let image: StaticImageData;
-  const coverImage = getCoverImageUrl(item.images);
-  if (coverImage) {
-    image = coverImage as unknown as StaticImageData;
-  } else {
-    image = localImagePool[index % localImagePool.length];
-  }
-
-  const address = [
-    item.propertyName,
-    item.streetName,
-    item.cityName,
-    item.state,
-  ]
-    .filter(Boolean)
-    .join(", ");
-
-  const beds = parseInt(String(item.bedrooms ?? 0), 10);
-  const baths = parseInt(String(item.bathrooms ?? 0), 10);
-  const area = parseFloat(String(item.buildupArea ?? 0));
-
-  let livingAreaDisplay = "N/A";
-  if (area > 0) {
-    livingAreaDisplay = Number.isInteger(area)
-      ? `${area} Sq Ft`
-      : `${area.toFixed(1)} Sq Ft`;
-  }
-
-  return {
-    id: item.id as unknown as number, // real UUID — used in the details page link
-    title: item.propertyName || item.title || "Property",
-    address: address || "Address not available",
-    linkUrl: "property-details",
-    image,
-    showTags: true,
-    isForRent: item.listingType === "rent",
-    isForSale: item.listingType === "sale",
-    isFeatured: false,
-    bedrooms: beds > 0 ? String(beds) : "0",
-    bathrooms: baths > 0 ? String(baths) : "0",
-    livingArea: livingAreaDisplay,
-    price: parseFloat(String(item.price ?? 0)) || 0,
-    description: item.description,
-    quantity: 0,
-    userImage: item.user?.profileImage || undefined,
-    userName: item.user?.fullName || undefined,
-    userRole: item.user?.companyName || item.user?.designation || undefined,
-    user: item.user,
-  };
+  return mapApiPropertyToCard(
+    item,
+    localImagePool[index % localImagePool.length],
+  );
 }
 
 /** Convert "100k" / "1M" / "500000" price strings into a plain number, or undefined. */
