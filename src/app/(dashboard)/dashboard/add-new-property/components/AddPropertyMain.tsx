@@ -8,7 +8,6 @@ import LocationDetails from "./LocationDetails";
 import PropertyDetails from "./PropertyDetails";
 import AmenitiesDetails from "./AmenitiesDetails";
 import UploadMedia from "./UploadMedia";
-import FloorPlan from "./FloorPlan";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { getPropertyById } from "@/services/propertyService";
@@ -178,7 +177,6 @@ export default function AddPropertyPage() {
       streetName: "",
       cityName: "",
       stateName: "",
-      countryName: "",
       pinCode: "",
       landmark: "",
       price: "",
@@ -212,7 +210,6 @@ export default function AddPropertyPage() {
       maintenanceFee: "",
       sinkingFund: "",
       bumiLotStatus: "",
-      floorPlan: "",
       amenities: [],
     },
     mode: "onSubmit",
@@ -237,7 +234,6 @@ export default function AddPropertyPage() {
       propertyData.streetName,
       propertyData.cityName || propertyData.city,
       propertyData.state || propertyData.stateName,
-      propertyData.county || propertyData.countryName,
       propertyData.pincode || propertyData.pinCode,
     ]
       .filter((part) => typeof part === "string" && part.trim().length > 0)
@@ -285,7 +281,6 @@ export default function AddPropertyPage() {
             streetName: propertyData.streetName || "",
             cityName: propertyData.cityName || propertyData.city || "",
             stateName: propertyData.state || propertyData.stateName || "",
-            countryName: propertyData.county || propertyData.countryName || "",
             pinCode: propertyData.pincode || propertyData.pinCode || "",
             landmark: propertyData.landmark || "",
 
@@ -336,9 +331,6 @@ export default function AddPropertyPage() {
 
             // Malaysian market fields
             bumiLotStatus: propertyData.bumiLotStatus || "",
-
-            // Floor Plan
-            floorPlan: propertyData.floorPlan || "",
 
             amenities: Array.isArray(propertyData.amenities)
               ? propertyData.amenities
@@ -557,7 +549,6 @@ export default function AddPropertyPage() {
 
           // Remapped name fields
           state: data.stateName,
-          county: data.countryName,
           pincode: data.pinCode,
 
           // Convert "Yes"/"No" negotiable to boolean
@@ -584,9 +575,6 @@ export default function AddPropertyPage() {
 
           // Malaysian market fields
           bumiLotStatus: isSaleListing ? data.bumiLotStatus || "" : "",
-
-          // Floor Plan
-          floorPlan: isSaleListing ? data.floorPlan || "" : "",
 
           // Group flat amenities array into {lifestyle, facilities, security}
           amenities: groupAmenities(flatAmenities),
@@ -692,7 +680,6 @@ export default function AddPropertyPage() {
         <PropertyDetails />
         <AmenitiesDetails />
         <UploadMedia />
-        {currentListingType === "sale" && <FloorPlan />}
         <div className="tp-dashboard-new-btn">
           <button
             type="submit"

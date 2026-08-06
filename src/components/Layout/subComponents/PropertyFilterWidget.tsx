@@ -1,29 +1,18 @@
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import NiceSelect from "@/components/UI/NiceSelect";
-import "rc-slider/assets/index.css";
-import Slider from "rc-slider";
+import { LAND_CITIES, LAND_TYPES } from "@/config/landOptions";
 
 export default function PropertyFilterWidget() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [sizeRange, setSizeRange] = useState<[number, number]>([100, 3000]);
-  const [propertyType, setPropertyType] = useState("All");
+  const [propertyType, setPropertyType] = useState(
+    searchParams.get("propertyType") || searchParams.get("landType") || "All",
+  );
+  const [city, setCity] = useState(searchParams.get("city") || "Hyderabad");
   const [minPrice, setMinPrice] = useState("Any");
   const [maxPrice, setMaxPrice] = useState("Any");
-  const [bedrooms, setBedrooms] = useState("All");
-  const [propertyStatus, setPropertyStatus] = useState("All");
-
-  const handleSizeChange = (values: number | number[]) => {
-    if (Array.isArray(values)) {
-      if (values.length === 2) {
-        setSizeRange([values[0], values[1]]);
-      }
-    } else {
-      setSizeRange([values, values]);
-    }
-  };
 
   const handleUpdateList = () => {
     // Preserve keyword and listing-type from the current URL
@@ -38,7 +27,11 @@ export default function PropertyFilterWidget() {
     // Carry over search-bar params unchanged
     if (existingQ) filterParams.set("q", existingQ);
     if (existingType) filterParams.set("type", existingType);
-    if (existingCity) filterParams.set("city", existingCity);
+    if (city.trim()) {
+      filterParams.set("city", city.trim());
+    } else if (existingCity) {
+      filterParams.set("city", existingCity);
+    }
     if (existingPropertyName)
       filterParams.set("propertyName", existingPropertyName);
 
@@ -47,10 +40,6 @@ export default function PropertyFilterWidget() {
       filterParams.set("propertyType", propertyType);
     if (minPrice !== "Any") filterParams.set("minPrice", minPrice);
     if (maxPrice !== "Any") filterParams.set("maxPrice", maxPrice);
-    if (bedrooms !== "All") filterParams.set("bedrooms", bedrooms);
-    if (propertyStatus !== "All") filterParams.set("status", propertyStatus);
-    filterParams.set("minSize", String(sizeRange[0]));
-    filterParams.set("maxSize", String(sizeRange[1]));
 
     router.push(`/search?${filterParams.toString()}`);
   };
@@ -61,21 +50,27 @@ export default function PropertyFilterWidget() {
         <div className="tp-team-contact-select tp-select">
           <NiceSelect
             options={[
-              { value: "All", label: "All Residential" },
-              { value: "Apartment", label: "Apartment" },
-              { value: "Bungalow", label: "Bungalow" },
-              { value: "Condominium", label: "Condominium" },
-              { value: "Landed House", label: "Landed House" },
-              { value: "Office", label: "Office" },
-              { value: "Serviced Residence", label: "Serviced Residence" },
-              { value: "Factory", label: "Factory" },
-              { value: "Warehouse", label: "Warehouse" },
-              { value: "Land", label: "Land" },
-              { value: "Shop Lot", label: "Shop Lot" },
+              { value: "Hyderabad", label: "Hyderabad" },
+              ...LAND_CITIES.filter((item) => item !== "Hyderabad").map((item) => ({
+                value: item,
+                label: item,
+              })),
+            ]}
+            defaultCurrent={Math.max(LAND_CITIES.indexOf(city), 0)}
+            onChange={(option) => setCity(option.value as string)}
+            name="City"
+            cls="select wide"
+          />
+        </div>
+        <div className="tp-team-contact-select tp-select">
+          <NiceSelect
+            options={[
+              { value: "All", label: "All" },
+              ...LAND_TYPES.map((item) => ({ value: item, label: item })),
             ]}
             defaultCurrent={0}
             onChange={(option) => setPropertyType(option.value as string)}
-            name="Sorting"
+            name="Land Type"
             cls="select wide"
           />
         </div>
@@ -92,7 +87,7 @@ export default function PropertyFilterWidget() {
             ]}
             defaultCurrent={0}
             onChange={(option) => setMinPrice(option.value as string)}
-            name="Sorting"
+            name="Min Price"
             cls="select wide"
           />
         </div>
@@ -109,71 +104,9 @@ export default function PropertyFilterWidget() {
             ]}
             defaultCurrent={0}
             onChange={(option) => setMaxPrice(option.value as string)}
-            name="Sorting"
+            name="Max Price"
             cls="select wide"
           />
-        </div>
-        <div className="tp-team-contact-select tp-select">
-          <NiceSelect
-            options={[
-              { value: "All", label: "Bed rooms" },
-              { value: "Studio", label: "Studio" },
-              { value: "1", label: "1" },
-              { value: "2", label: "2" },
-              { value: "3", label: "3" },
-              { value: "4", label: "4" },
-              { value: "5", label: "5" },
-            ]}
-            defaultCurrent={0}
-            onChange={(option) => setBedrooms(option.value as string)}
-            name="Sorting"
-            cls="select wide"
-          />
-        </div>
-        <div className="tp-team-contact-select tp-select">
-          <NiceSelect
-            options={[
-              { value: "All", label: "Show Properties" },
-              { value: "Subsale", label: "Subsale" },
-              { value: "New Launch", label: "New Launch" },
-              { value: "Auction", label: "Auction" },
-            ]}
-            defaultCurrent={0}
-            onChange={(option) => setPropertyStatus(option.value as string)}
-            name="Sorting"
-            cls="select wide"
-          />
-        </div>
-        <div className="tp-from-range-box">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="tp-from-range">
-                <div className="tp-property-filter-item-2">
-                  <div className="tp-property-widget-filter p-relative">
-                    <span className="tp-property-widget-filter-title">
-                      Built-up Size
-                    </span>
-                    <span className="input-range">
-                      <input
-                        type="text"
-                        value={`${sizeRange[0]} - ${sizeRange[1]} sq ft`}
-                        readOnly
-                      />
-                    </span>
-                    <Slider
-                      className="custom-slider"
-                      range
-                      min={0}
-                      max={1000}
-                      value={sizeRange}
-                      onChange={handleSizeChange}
-                      step={1}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         {/* slider range */}
         {/* <RangeFilter /> */}

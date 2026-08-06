@@ -39,6 +39,8 @@ const meaningfulText = (
     .matches(/[A-Za-z]/, `${field} must include letters`)
     .matches(/[A-Za-z0-9]/, `${field} cannot be only special characters`);
 
+  const PASSWORD_ALNUM_6 = /^[A-Za-z0-9]{6,}$/;
+
 //Sign Up form validation schema
 export const signUpSchema = yup.object().shape({
   displayname: personName("Enter display name"),
@@ -47,8 +49,10 @@ export const signUpSchema = yup.object().shape({
   password: yup
     .string()
     .required("Enter password")
-    .min(4, "Password must be at least 4 characters")
-    .matches(/^[A-Za-z0-9]+$/, "Password must be alphanumeric only"),
+    .matches(
+      PASSWORD_ALNUM_6,
+      "Password must be at least 6 characters and alphanumeric only",
+    ),
   confirmPassword: yup
     .string()
     .required("Please same password again")
@@ -61,7 +65,10 @@ export const signInSchema = yup.object().shape({
   password: yup
     .string()
     .required("Enter password")
-    .min(4, "Password must be at least 4 characters"),
+    .matches(
+      PASSWORD_ALNUM_6,
+      "Password must be at least 6 characters and alphanumeric only",
+    ),
 });
 
 //Forgot form validation schema
@@ -73,10 +80,9 @@ export const resetPasswordSchema = yup.object().shape({
   password: yup
     .string()
     .required("Enter password")
-    .min(8, "Password must be at least 8 characters")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      "Password must contain uppercase, lowercase and number",
+      PASSWORD_ALNUM_6,
+      "Password must be at least 6 characters and alphanumeric only",
     ),
   confirmPassword: yup
     .string()
@@ -159,7 +165,6 @@ export const propertySchema = yup.object({
     .max(30, "Village / Area must be 30 characters or less"),
   cityName: yup.string().required("City name is required"),
   stateName: yup.string().required("State is required"),
-  countryName: yup.string().required("District is required"),
   pinCode: yup
     .string()
     .optional()
@@ -243,7 +248,6 @@ export const propertySchema = yup.object({
   sinkingFund: yup.string().optional(),
   bumiLotStatus: yup.string().optional(),
   renovationStatus: yup.string().optional(),
-  floorPlan: yup.string().optional(),
   amenities: yup
     .array()
     .of(yup.string())
@@ -317,11 +321,20 @@ export const profileSchema = yup.object().shape({
 
 //Change password validation schema
 export const changePasswordSchema = yup.object().shape({
-  oldPassword: yup.string().required("Old password is required"),
+  oldPassword: yup
+    .string()
+    .required("Old password is required")
+    .matches(
+      PASSWORD_ALNUM_6,
+      "Old password must be at least 6 characters and alphanumeric only",
+    ),
   newPassword: yup
     .string()
     .required("New password is required")
-    .min(6, "At least 6 characters"),
+    .matches(
+      PASSWORD_ALNUM_6,
+      "New password must be at least 6 characters and alphanumeric only",
+    ),
   confirmPassword: yup
     .string()
     .required("Please confirm your password")
