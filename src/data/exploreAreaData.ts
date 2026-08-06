@@ -11,7 +11,7 @@ const neighbourhoodsData: INeighbourhoodProperty[] = [
   {
     id: 3,
     name: "Port Dickson",
-    image: "/assets/img/banner/bg-4.jpg",
+    image: "/assets/img/banner/bg-3.png",
     count: 25,
   },
   {

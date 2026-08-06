@@ -28,7 +28,7 @@ const propertyImg2 = propertyImg1;
 const propertyImg3 = propertyImg1;
 const propertyImg4 = propertyImg1;
 //home three property image
-import propertyImg5 from "../../public/assets/img/banner/bg-4.png";
+import propertyImg5 from "../../public/assets/img/banner/bg-3.png";
 const propertyImg6 = propertyImg5;
 const propertyImg7 = propertyImg5;
 //author image - use existing team image

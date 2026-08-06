@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 const bannerImages = [
   "/assets/img/banner/bg-1.png",
   "/assets/img/banner/bg-2.png",
-  "/assets/img/banner/bg-4.png",
-  "/assets/img/banner/bg-4.png",
+  "/assets/img/banner/bg-3.png",
 ];
 
 export default function BannerSlider() {

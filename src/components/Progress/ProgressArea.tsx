@@ -1,5 +1,5 @@
 import progressThumb2 from "../../../public/assets/img/banner/bg-2.png";
-import progressThumb from "../../../public/assets/img/banner/bg-4.png";
+import progressThumb from "../../../public/assets/img/banner/bg-3.png";
 import AnimatedCounter from "../Counter/AnimatedCounter";
 import { ProgressData } from "@/types/custom-interface";
 import Image from "next/image";
@@ -70,10 +70,7 @@ export default function ProgressArea({
                 </div>
               </div>
               <div className="tp-progress-item-shape">
-                <Image
-                  src={progressThumb2}
-                  alt="LandWay progress statistics"
-                />
+                <Image src={progressThumb2} alt="LandWay progress statistics" />
               </div>
             </div>
           </div>
