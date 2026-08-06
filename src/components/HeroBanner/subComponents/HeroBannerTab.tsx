@@ -19,8 +19,8 @@ const placeholderExamples = [
   "Try plots in Visakhapatnam",
 ];
 
-const CITIES = ["All", "Hyderabad", "Visakhapatnam"];
-const LAND_TYPES = ["All", "Farm Lands", "Agriculture Lands"];
+const CITIES = ["All", "Hyderabad", "Visakhapatnam", "Vijayawada", "Amaravati", "Kakinada"];
+const LAND_TYPES = ["All", "Farm Lands", "Agriculture Lands", "Plots", "Commercial Lands"];
 
 const MOCK_SUGGESTIONS: SearchItem[] = [
   {

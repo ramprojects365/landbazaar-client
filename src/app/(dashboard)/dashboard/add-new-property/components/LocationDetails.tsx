@@ -6,11 +6,7 @@ import ErrorMessage from "../../../../../components/Form/ErrorMassage";
 import PlaceSearch, {
   PlaceResult,
 } from "../../../../../components/HeroBanner/subComponents/PlaceSearch";
-import {
-  LAND_CITIES,
-  LAND_DISTRICTS,
-  LAND_STATES,
-} from "@/config/landOptions";
+import { LAND_CITIES, LAND_DISTRICTS, LAND_STATES } from "@/config/landOptions";
 
 export default function LocationDetails() {
   const {
@@ -40,7 +36,7 @@ export default function LocationDetails() {
                 className="textBox"
                 type="text"
                 {...register("streetName")}
-                placeholder="Example: Kukutpally"
+                placeholder="Ex: Shad Nagar"
               />
               {errors?.streetName && (
                 <ErrorMessage message={errors?.streetName?.message || ""} />
@@ -73,7 +69,7 @@ export default function LocationDetails() {
         <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>City / Town</label>
+              <label>City</label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("cityName")} className="listDropDown">
                   <option value="">Select</option>
@@ -134,7 +130,7 @@ export default function LocationDetails() {
                 className="textBox"
                 type="text"
                 inputMode="numeric"
-                placeholder="6 digit pin code"
+                placeholder="Ex: 533005"
                 {...register("pinCode")}
                 onInput={(e) => {
                   e.currentTarget.value = e.currentTarget.value.replace(

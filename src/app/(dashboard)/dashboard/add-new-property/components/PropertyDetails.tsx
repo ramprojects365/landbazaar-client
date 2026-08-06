@@ -27,7 +27,7 @@ export default function PropertyDetails() {
               <input
                 className="textBox"
                 type="text"
-                placeholder="Example: Green Valley Venture"
+                placeholder="Ex: Green Valley Venture"
                 {...register("propertyName")}
               />
             </div>
@@ -39,7 +39,7 @@ export default function PropertyDetails() {
               <input
                 className="textBox"
                 type="text"
-                placeholder="Example: 124/A"
+                placeholder="Ex: 124/A"
                 {...register("surveyNumber")}
               />
             </div>
@@ -101,7 +101,10 @@ export default function PropertyDetails() {
             <div className="tp-dashboard-new-input">
               <label>Facing</label>
               <div className="tp-property-tabs-select tp-select">
-                <select {...register("facingDirection")} className="listDropDown">
+                <select
+                  {...register("facingDirection")}
+                  className="listDropDown"
+                >
                   <option value="">Select</option>
                   {LAND_FACING_DIRECTIONS.map((item) => (
                     <option key={item} value={item}>
@@ -119,11 +122,15 @@ export default function PropertyDetails() {
             <div className="tp-dashboard-new-input">
               <label>Corner Plot</label>
               <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
                   <input type="radio" value="Yes" {...register("cornerPlot")} />
                   <span>Yes</span>
                 </label>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
                   <input type="radio" value="No" {...register("cornerPlot")} />
                   <span>No</span>
                 </label>
@@ -135,11 +142,15 @@ export default function PropertyDetails() {
             <div className="tp-dashboard-new-input">
               <label>Clear Title</label>
               <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
                   <input type="radio" value="Yes" {...register("clearTitle")} />
                   <span>Yes</span>
                 </label>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
                   <input type="radio" value="No" {...register("clearTitle")} />
                   <span>No</span>
                 </label>
@@ -151,13 +162,25 @@ export default function PropertyDetails() {
             <div className="tp-dashboard-new-input">
               <label>Loan Facility</label>
               <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <input type="radio" value="Available" {...register("loanFacility")} />
-                  <span>Available</span>
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
+                  <input
+                    type="radio"
+                    value="Yes"
+                    {...register("loanFacility")}
+                  />
+                  <span>yes</span>
                 </label>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <input type="radio" value="Not Available" {...register("loanFacility")} />
-                  <span>Not Available</span>
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
+                  <input
+                    type="radio"
+                    value="No"
+                    {...register("loanFacility")}
+                  />
+                  <span>No</span>
                 </label>
               </div>
             </div>
@@ -169,12 +192,24 @@ export default function PropertyDetails() {
             <div className="tp-dashboard-new-input">
               <label>Registration Ready</label>
               <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <input type="radio" value="Yes" {...register("registrationReady")} />
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
+                  <input
+                    type="radio"
+                    value="Yes"
+                    {...register("registrationReady")}
+                  />
                   <span>Yes</span>
                 </label>
-                <label style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <input type="radio" value="No" {...register("registrationReady")} />
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
+                  <input
+                    type="radio"
+                    value="No"
+                    {...register("registrationReady")}
+                  />
                   <span>No</span>
                 </label>
               </div>
@@ -190,15 +225,17 @@ export default function PropertyDetails() {
         <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Contact Person Name</label>
+              <label>Contact Person</label>
               <input
                 className="textBox"
                 type="text"
-                placeholder="Enter contact person name"
+                placeholder="Mr. Ram"
                 {...register("contactPersonName")}
               />
               {errors?.contactPersonName && (
-                <ErrorMessage message={errors?.contactPersonName?.message || ""} />
+                <ErrorMessage
+                  message={errors?.contactPersonName?.message || ""}
+                />
               )}
             </div>
           </div>
@@ -213,7 +250,9 @@ export default function PropertyDetails() {
                 placeholder="Enter 10 digit number"
                 {...register("contactNumber")}
                 onInput={(e) => {
-                  e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "").slice(0, 10);
+                  e.currentTarget.value = e.currentTarget.value
+                    .replace(/\D/g, "")
+                    .slice(0, 10);
                 }}
               />
               {errors?.contactNumber && (
