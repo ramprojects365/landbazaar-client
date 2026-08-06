@@ -14,66 +14,16 @@ import {
   formatLandSize,
   formatStreetCity,
   parseTotalPrice,
+  type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
 
-type ApiProperty = {
-  id: string;
-  title: string;
-  description?: string;
-  listingType?: string;
-  propertyType?: string;
-  propertyName?: string;
-  streetName?: string;
-  cityName?: string;
-  state?: string;
-  pincode?: string;
-  landmark?: string;
-  price?: number | string;
-  totalPrice?: number | string;
-  landSize?: number | string;
-  areaUnit?: string;
-  buildupArea?: number | string;
-  bedrooms?: number | string;
-  bathrooms?: number | string;
-  images?: unknown[];
-  status?: string;
-  facingDirection?: string;
-  cornerPlot?: string;
-  roadWidth?: string;
-  surveyNumber?: string;
-  amenities?: {
-    lifestyle?: string[];
-    facilities?: string[];
-    security?: string[];
-  };
-  user?: {
-    id?: string;
-    username?: string;
-    email?: string;
-    phoneNumber?: string;
-    userType?: string | null;
-    profileImage?: string;
-    fullName?: string | null;
-    bio?: string | null;
-    companyName?: string | null;
-    designation?: string | null;
-    experienceYears?: number | null;
-    emailVerified?: boolean;
-    createdAt?: string;
-    updatedAt?: string;
-  };
-  furnishing?: string;
-  availability?: string;
-  negotiable?: boolean;
-  yearOfBuild?: number;
-  tenure?: string;
-};
+type ApiProperty = ApiPropertyFields;
 
 function mapToDisplay(item: ApiProperty): IFeaturedPropertyDT {
   const landSizeLabel = formatLandSize(item.landSize, item.areaUnit);
   return {
     id: item.id,
-    title: item.propertyName || item.title || "Property",
+    title: item.propertyName?.trim() || item.title?.trim() || "Land listing",
     address: formatStreetCity(item.streetName, item.cityName),
     linkUrl: "property-details",
     image: "" as unknown as IFeaturedPropertyDT["image"],
@@ -82,9 +32,10 @@ function mapToDisplay(item: ApiProperty): IFeaturedPropertyDT {
     isForSale: item.listingType === "sale",
     isFeatured: false,
     bedrooms: landSizeLabel,
-    bathrooms: "",
+    bathrooms: item.propertyType?.trim() || "—",
     livingArea: "",
     price: parseTotalPrice(item.totalPrice, item.price),
+    userName: item.contactPersonName?.trim() || undefined,
     user: item.user,
     description: item.description,
     quantity: 0,

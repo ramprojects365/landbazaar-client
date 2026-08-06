@@ -26,26 +26,31 @@ interface UserContactCardProps {
     createdAt?: string;
     updatedAt?: string;
   };
+  /** From property API: contactPersonName */
+  contactPersonName?: string;
+  /** From property API: contactNumber */
+  contactNumber?: string;
 }
 
-export default function UserContactCard({ user }: UserContactCardProps) {
-  // Use dynamic data if available, otherwise fallback to default
-  const agentName = user?.username || "";
-  const agentPhone = user?.phoneNumber || "";
+export default function UserContactCard({
+  user,
+  contactPersonName,
+  contactNumber,
+}: UserContactCardProps) {
+  const agentName =
+    contactPersonName?.trim() || user?.fullName || user?.username || "";
+  const agentPhone = contactNumber?.trim() || user?.phoneNumber || "";
   const agentEmail = user?.email || "";
   const agentImage =
     user?.profileImage || "/assets/img/team/team-details/user.png";
-  const agentWhatsAppNumberLabel = user?.phoneNumber || "";
+  const agentWhatsAppNumberLabel = agentPhone;
   const agentWhatsAppNumber = agentWhatsAppNumberLabel.replace(/\D/g, "");
-  const whatsappNumber = agentWhatsAppNumber || "601121149066";
+  const whatsappNumber = agentWhatsAppNumber || "919849967236";
   const renVerified =
     user?.renVerified === true || user?.renStatus === "verified";
   const renStatusLabel =
     user?.renStatusLabel || (renVerified ? "Verified" : "Not verified");
-  const contactRole =
-    user?.userType?.trim().toLowerCase() === "owner"
-      ? "Owner"
-      : "Property Consultant";
+  const contactRole = "Land seller";
 
   const handleWhatsAppClick = () => {
     const url = window.location.href;
