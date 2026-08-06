@@ -1,6 +1,4 @@
 import {
-  BathroomSvg,
-  BedRoomSvg,
   HomeSvg,
   MessageSvgTwo,
   SquareFeetSvg,
@@ -15,57 +13,53 @@ interface PropertyDetail {
 }
 
 interface Props {
-  //id?: string;
   propertyType?: string;
-  bedrooms?: string;
-  bathrooms?: string;
-  livingArea?: string;
-  yearOfBuild?: number;
-  furnishing?: string;
+  landSize?: string;
   listingType?: string;
-  floorLevel?: string;
+  facingDirection?: string;
+  cornerPlot?: string;
+  roadWidth?: string;
+  surveyNumber?: string;
+  clearTitle?: string;
+  loanFacility?: string;
 }
 
 export default function PropertyDetailsBox({
-  //id,
   propertyType,
-  bedrooms,
-  bathrooms,
-  livingArea,
-  yearOfBuild,
-  furnishing,
+  landSize,
   listingType,
-  floorLevel,
+  facingDirection,
+  cornerPlot,
+  roadWidth,
+  surveyNumber,
+  clearTitle,
+  loanFacility,
 }: Props) {
   const details: PropertyDetail[] = [
     {
       icon: <HomeSvg />,
       label: "Listing",
-      value: listingType
-        ? listingType.charAt(0).toUpperCase() + listingType.slice(1)
-        : "—",
+      value:
+        listingType === "sale"
+          ? "For Sale"
+          : listingType === "rent"
+            ? "For Rent"
+            : listingType
+              ? listingType.charAt(0).toUpperCase() + listingType.slice(1)
+              : "—",
     },
-    { icon: <MessageSvgTwo />, label: "Type", value: propertyType || "—" },
-    { icon: <BedRoomSvg />, label: "Bedrooms", value: bedrooms || "—" },
-    { icon: <BathroomSvg />, label: "Bathrooms", value: bathrooms || "—" },
-    { icon: <SquareFeetSvg />, label: "Built-up", value: livingArea || "—" },
+    { icon: <MessageSvgTwo />, label: "Land Type", value: propertyType || "—" },
+    { icon: <SquareFeetSvg />, label: "Land Size", value: landSize || "—" },
     {
       icon: <YearBuiltIconSvg />,
-      label: "Year Built",
-      value: yearOfBuild ? String(yearOfBuild) : "—",
+      label: "Facing",
+      value: facingDirection || "—",
     },
-    {
-      icon: <HomeSvg />,
-      label: "Furnishing",
-      value: furnishing
-        ? furnishing === "Fully"
-          ? "Fully Furnished"
-          : furnishing === "Partially"
-            ? "Partially Furnished"
-            : furnishing
-        : "—",
-    },
-    { icon: <HomeSvg />, label: "Floor", value: floorLevel || "—" },
+    { icon: <HomeSvg />, label: "Corner Plot", value: cornerPlot || "—" },
+    { icon: <HomeSvg />, label: "Road Width", value: roadWidth || "—" },
+    { icon: <HomeSvg />, label: "Survey No.", value: surveyNumber || "—" },
+    { icon: <HomeSvg />, label: "Clear Title", value: clearTitle || "—" },
+    { icon: <HomeSvg />, label: "Loan", value: loanFacility || "—" },
   ];
 
   return (

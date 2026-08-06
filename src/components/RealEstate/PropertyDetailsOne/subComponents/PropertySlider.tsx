@@ -17,7 +17,9 @@ interface Props {
   images?: unknown[];
 }
 
-const fallbackItems: PropertyImageDisplayItem[] = fallbackImages.map((url) => ({ url }));
+const fallbackItems: PropertyImageDisplayItem[] = fallbackImages.map((url) => ({
+  url,
+}));
 
 const getImageLabel = (image: PropertyImageDisplayItem) =>
   image.caption || image.displayPlace || "";
@@ -33,16 +35,21 @@ export default function PropertyDetailsSlider({ images }: Props) {
     return list.length > 0 ? list : fallbackItems;
   }, [images]);
 
-  const extraCount = imageItems.length > 5 ? imageItems.length - 5 : 0;
+  const galleryItems = imageItems;
+  const extraCount = galleryItems.length > 5 ? galleryItems.length - 5 : 0;
+
   const modalItems = useMemo(() => {
-    if (imageItems.length >= 5) return imageItems;
-    return [...imageItems, ...fallbackItems, ...fallbackItems].slice(0, 5);
-  }, [imageItems]);
+    const apiItems = getPropertyImageItems(images);
+    if (apiItems.length > 0) return apiItems;
+    return [...fallbackItems, ...fallbackItems].slice(0, 5);
+  }, [images]);
 
   const openAt = (index: number) => {
     setStartIndex(index);
     setIsOpen(true);
   };
+
+  const sideTiles = galleryItems.slice(1, 5);
 
   return (
     <div className="tp-property-details-gallery">
@@ -52,31 +59,43 @@ export default function PropertyDetailsSlider({ images }: Props) {
           className="tp-pdg-tile tp-pdg-main"
           onClick={() => openAt(0)}
         >
-          <img src={modalItems[0].url} alt={getImageLabel(modalItems[0]) || "property-image-1"} />
-          {getImageLabel(modalItems[0]) ? (
-            <span className="tp-pdg-label">{getImageLabel(modalItems[0])}</span>
-          ) : null}
+          <img
+            src={galleryItems[0].url}
+            alt={getImageLabel(galleryItems[0]) || "Land cover image"}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+          {getImageLabel(galleryItems[0]) ? (
+            <span className="tp-pdg-label">{getImageLabel(galleryItems[0])}</span>
+          ) : (
+            <span className="tp-pdg-label">Cover</span>
+          )}
         </button>
         <div className="tp-pdg-side">
-          {modalItems.slice(1, 5).map((item, idx) => {
-            const absoluteIndex = idx + 1;
-            const isLastVisible = idx === 3;
-            const label = getImageLabel(item);
-            return (
-              <button
-                key={`${item.url}-${idx}`}
-                type="button"
-                className="tp-pdg-tile"
-                onClick={() => openAt(absoluteIndex)}
-              >
-                <img src={item.url} alt={label || `property-image-${absoluteIndex + 1}`} />
-                {label ? <span className="tp-pdg-label">{label}</span> : null}
-                {isLastVisible && extraCount > 0 && (
-                  <span className="tp-pdg-more">{`+ ${extraCount} more images`}</span>
-                )}
-              </button>
-            );
-          })}
+          {(sideTiles.length > 0 ? sideTiles : fallbackItems.slice(0, 4)).map(
+            (item, idx) => {
+              const absoluteIndex = idx + 1;
+              const isLastVisible = idx === 3;
+              const label = getImageLabel(item);
+              return (
+                <button
+                  key={`${item.url}-${idx}`}
+                  type="button"
+                  className="tp-pdg-tile"
+                  onClick={() => openAt(Math.min(absoluteIndex, galleryItems.length - 1))}
+                >
+                  <img
+                    src={item.url}
+                    alt={label || `Land image ${absoluteIndex + 1}`}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                  {label ? <span className="tp-pdg-label">{label}</span> : null}
+                  {isLastVisible && extraCount > 0 && (
+                    <span className="tp-pdg-more">{`+ ${extraCount} more`}</span>
+                  )}
+                </button>
+              );
+            },
+          )}
         </div>
       </div>
 
@@ -114,7 +133,10 @@ export default function PropertyDetailsSlider({ images }: Props) {
               {modalItems.map((item, i) => (
                 <SwiperSlide key={`${item.url}-${i}`}>
                   <div className="tp-pdg-modal-slide">
-                    <img src={item.url} alt={getImageLabel(item) || `property-image-${i + 1}`} />
+                    <img
+                      src={item.url}
+                      alt={getImageLabel(item) || `Land image ${i + 1}`}
+                    />
                     {getImageLabel(item) ? (
                       <div className="tp-pdg-modal-caption">
                         <span>{getImageLabel(item)}</span>

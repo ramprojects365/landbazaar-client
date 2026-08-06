@@ -2,18 +2,18 @@
 import { useEffect, useState } from "react";
 import { formatPrice } from "@/components/Utils/formatPrice";
 import { IRecentlyViewedItem } from "@/types/custom-interface";
-import Image from "next/image";
 import Link from "next/link";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { usePathname, useSearchParams } from "next/navigation";
 import { getCoverImageUrl } from "@/utils/propertyImages";
+import { parseTotalPrice } from "@/utils/mapApiProperty";
 
 interface Property {
   id: string;
   title?: string;
   propertyName?: string;
-  price?: number;
-  monthlyRent?: number;
+  price?: number | string;
+  totalPrice?: number | string;
   images?: unknown[];
   imageUrl?: string;
   listingType?: string;
@@ -41,22 +41,21 @@ export default function RecentlyViewedProperties() {
 
         const data = await res.json();
         const recentProperties: Property[] = data?.data || [];
-
-        // Ensure we only take the first 3 properties
         const limitedProperties = recentProperties.slice(0, 3);
 
-        // Transform API data to match IRecentlyViewedItem interface
         const transformedProperties: IRecentlyViewedItem[] =
           limitedProperties.map((property) => {
-            const title = property.propertyName || property.title || "Property";
-            const priceNum =
-              Number(property.monthlyRent || property.price || 0) || 0;
+            const title =
+              property.propertyName || property.title || "Land listing";
+            const priceNum = parseTotalPrice(
+              property.totalPrice,
+              property.price,
+            );
             const image =
               property.imageUrl ||
               getCoverImageUrl(property.images) ||
               "/assets/img/rent/property/recent-1.jpg";
 
-            // Create property details link with from parameter
             const fromUrl =
               pathname === "/search"
                 ? `/search?${searchParams.toString()}`
@@ -65,14 +64,11 @@ export default function RecentlyViewedProperties() {
               ? `/property-details/${property.id}?from=${createCleanFromUrl(fromUrl)}`
               : `/property-details/${property.id}`;
 
-            const rentSuffix =
-              property.listingType === "rent" ? "/mo" : "";
-
             return {
               image,
               link,
               title,
-              price: `${formatPrice(priceNum, false)}${rentSuffix}`,
+              price: formatPrice(priceNum, false),
             };
           });
 
@@ -90,7 +86,7 @@ export default function RecentlyViewedProperties() {
   if (loading) {
     return (
       <div className="tp-property-filter-wrap mb-40">
-        <h4 className="tp-team-details-item-title">Recently viewed</h4>
+        <h4 className="tp-team-details-item-title">Recent lands</h4>
         <div className="text-center py-3">
           <div
             className="spinner-border spinner-border-sm text-primary"
@@ -106,15 +102,15 @@ export default function RecentlyViewedProperties() {
   if (properties.length === 0) {
     return (
       <div className="tp-property-filter-wrap mb-40">
-        <h4 className="tp-team-details-item-title">Recently viewed</h4>
-        <p className="text-muted">No recent properties found</p>
+        <h4 className="tp-team-details-item-title">Recent lands</h4>
+        <p className="text-muted">No recent listings found</p>
       </div>
     );
   }
 
   return (
     <div className="tp-property-filter-wrap mb-40">
-      <h4 className="tp-team-details-item-title">Recently viewed</h4>
+      <h4 className="tp-team-details-item-title">Recent lands</h4>
       {properties.map((property, index) => (
         <div
           className="tp-property-recent-post d-flex align-items-center mb-30"
@@ -125,12 +121,17 @@ export default function RecentlyViewedProperties() {
             style={{ width: "25%" }}
           >
             <Link href={property.link}>
-              <Image
-                src={property.image}
-                alt={property.title || "Property listing in Malaysia"}
+              <img
+                src={
+                  typeof property.image === "string"
+                    ? property.image
+                    : (property.image as { src?: string })?.src ||
+                      "/assets/img/rent/property/recent-1.jpg"
+                }
+                alt={property.title || "Land listing"}
                 width={80}
                 height={80}
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", width: 80, height: 80 }}
               />
             </Link>
           </div>

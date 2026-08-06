@@ -4,8 +4,8 @@ import { propertyData } from "@/data/propertyData";
 import React, { useEffect, useMemo, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { StaticImageData } from "next/image";
-import { getCoverImageUrl } from "@/utils/propertyImages";
 import { useTranslation } from "@/contexts/LanguageContext";
+import { mapApiPropertyToCard } from "@/utils/mapApiProperty";
 
 // Import Swiper components and Pagination module
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -21,12 +21,16 @@ type ApiProperty = {
   cityName?: string;
   state?: string;
   price?: number | string;
+  totalPrice?: number | string;
+  landSize?: number | string;
+  areaUnit?: string;
   buildupArea?: number | string;
   bedrooms?: number | string;
   bathrooms?: number | string;
   images?: unknown[];
   createdAt?: string;
   updatedAt?: string;
+  contactPersonName?: string;
   user?: {
     id?: string;
     username?: string;
@@ -84,42 +88,9 @@ export default function PropertyHome() {
         });
 
         const top = sorted.slice(0, 8);
-        const mapped: IFeaturedPropertyDT[] = top.map((p, idx) => {
-          const address = [p.streetName, p.cityName, p.state]
-            .filter(Boolean)
-            .join(", ");
-          const beds = parseInt(String(p.bedrooms ?? 0), 10);
-          const baths = parseInt(String(p.bathrooms ?? 0), 10);
-          const area = parseFloat(String(p.buildupArea ?? 0));
-          const livingArea =
-            area > 0
-              ? Number.isInteger(area)
-                ? `${area} Sq Ft`
-                : `${area.toFixed(1)} Sq Ft`
-              : "N/A";
-          const image =
-            getCoverImageUrl(p.images) || localImagePool[idx % localImagePool.length];
-          return {
-            id: p.id as unknown as number,
-            title: p.propertyName || p.title || "Property",
-            address: address || "Address not available",
-            linkUrl: "property-details",
-            image,
-            showTags: true,
-            isForRent: p.listingType === "rent",
-            isForSale: p.listingType === "sale",
-            isFeatured: false,
-            bedrooms: beds > 0 ? String(beds) : "0",
-            bathrooms: baths > 0 ? String(baths) : "0",
-            livingArea,
-            price: parseFloat(String(p.price ?? 0)) || 0,
-            quantity: 0,
-            userImage: p.user?.profileImage || undefined,
-            userName: p.user?.fullName || undefined,
-            userRole: p.user?.companyName || p.user?.designation || undefined,
-            user: p.user,
-          };
-        });
+        const mapped: IFeaturedPropertyDT[] = top.map((p, idx) =>
+          mapApiPropertyToCard(p, localImagePool[idx % localImagePool.length]),
+        );
 
         setItems(mapped);
       } catch {
@@ -170,7 +141,7 @@ export default function PropertyHome() {
                 >
                   {(items.length > 0 ? items : propertyData.slice(0, 5)).map(
                     (item) => (
-                      <SwiperSlide key={item.id}>
+                      <SwiperSlide key={String(item.id)}>
                         <PropertySingleCardTwo item={item} />
                       </SwiperSlide>
                     ),

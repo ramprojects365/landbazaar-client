@@ -4,6 +4,7 @@ import DiscountOfferCard from "@/components/Layout/subComponents/DiscountOfferCa
 import RecentlyViewedProperties from "./RecentlyViewedItem";
 import AmenitiesCategories from "./AmenitiesCategories";
 import PropertyDetailsBox from "./PropertyDetailsBox";
+import { formatLandSize } from "@/utils/mapApiProperty";
 
 interface ApiProperty {
   id?: string;
@@ -13,6 +14,8 @@ interface ApiProperty {
   bedrooms?: number | string;
   bathrooms?: number | string;
   buildupArea?: number | string;
+  landSize?: number | string;
+  areaUnit?: string;
   yearOfBuild?: number;
   furnishing?: string;
   propertyName?: string;
@@ -22,6 +25,12 @@ interface ApiProperty {
   state?: string;
   pincode?: string;
   landmark?: string;
+  facingDirection?: string;
+  cornerPlot?: string;
+  roadWidth?: string;
+  surveyNumber?: string;
+  clearTitle?: string;
+  loanFacility?: string;
   amenities?: {
     lifestyle?: string[];
     facilities?: string[];
@@ -54,18 +63,9 @@ export default function DetailsReusableArea({
   spacingClass,
   property,
 }: IProps) {
-  const beds = parseInt(String(property?.bedrooms ?? 0), 10);
-  const baths = parseInt(String(property?.bathrooms ?? 0), 10);
-  const area = parseFloat(String(property?.buildupArea ?? 0));
-  const livingArea =
-    area > 0
-      ? Number.isInteger(area)
-        ? `${area} Sq Ft`
-        : `${area.toFixed(1)} Sq Ft`
-      : undefined;
+  const landSize = formatLandSize(property?.landSize, property?.areaUnit);
 
   const address = [
-    property?.propertyName,
     property?.streetName,
     property?.cityName,
     property?.state,
@@ -78,10 +78,8 @@ export default function DetailsReusableArea({
     <section className={`tp-property-details-ptb pb-120 ${spacingClass ?? ""}`}>
       <div className="container">
         <div className="row">
-          {/* ── Left column ──────────────────────────────────── */}
           <div className="col-lg-8">
             <div className="tp-property-details-left">
-              {/* Description */}
               <div className="tp-property-details-box box-1 mb-30">
                 <h3 className="tp-property-details-box-title">Description</h3>
                 <div className="tp-property-details-box-desc">
@@ -93,29 +91,26 @@ export default function DetailsReusableArea({
                 </div>
               </div>
 
-              {/* Overview */}
               <div className="tp-property-details-box box-2 mb-30">
                 <h3 className="tp-property-details-box-title">Overview</h3>
                 <PropertyDetailsBox
-                  //id={property?.id}
                   propertyType={property?.propertyType}
-                  bedrooms={beds > 0 ? String(beds) : undefined}
-                  bathrooms={baths > 0 ? String(baths) : undefined}
-                  livingArea={livingArea}
-                  yearOfBuild={property?.yearOfBuild}
-                  furnishing={property?.furnishing}
+                  landSize={landSize !== "—" ? landSize : undefined}
                   listingType={property?.listingType}
-                  floorLevel={property?.floorLevel}
+                  facingDirection={property?.facingDirection}
+                  cornerPlot={property?.cornerPlot}
+                  roadWidth={property?.roadWidth}
+                  surveyNumber={property?.surveyNumber}
+                  clearTitle={property?.clearTitle}
+                  loanFacility={property?.loanFacility}
                 />
               </div>
 
-              {/* Amenities */}
               <div className="tp-property-details-box box-4 mb-30">
                 <h3 className="tp-property-details-box-title">Amenities</h3>
                 <AmenitiesCategories amenities={property?.amenities} />
               </div>
 
-              {/* Address */}
               {address && (
                 <div className="tp-property-details-box box-6 mb-30">
                   <h3 className="tp-property-details-box-title">Address</h3>
@@ -132,7 +127,6 @@ export default function DetailsReusableArea({
             </div>
           </div>
 
-          {/* ── Right sidebar ─────────────────────────────────── */}
           <div className="col-lg-4">
             <div className="tp-property-details-right">
               <UserContactCard user={property?.user} />
