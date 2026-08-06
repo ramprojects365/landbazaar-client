@@ -50,13 +50,7 @@ export const SOIL_TYPES = [
   "Rocky Soil",
 ];
 
-export const LAND_STATES = [
-  "Telangana",
-  "Andhra Pradesh",
-  "Karnataka",
-  "Tamil Nadu",
-  "Maharashtra",
-];
+export const LAND_STATES = ["Andhra Pradesh", "Telangana"];
 
 export const LAND_DISTRICTS = [
   "Rangareddy",
@@ -73,7 +67,8 @@ export const LAND_CITIES = [
   "Hyderabad",
   "Visakhapatnam",
   "Vijayawada",
-  "Warangal",
+  "Amaravati",
+  "Kakinada",
 ];
 
 export const OTHER_FACILITIES = [

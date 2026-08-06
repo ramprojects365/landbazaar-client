@@ -20,9 +20,8 @@ export default function FooterContact() {
         </div>
         <div className="tp-footer-widget-content">
           <p>
-            India&apos;s trusted marketplace for lands and plots — starting in
-            Hyderabad and Telangana. Buy or sell open plots, farm land, and
-            agricultural land with LandWay.
+            India&apos;s trusted marketplace for lands and plots. Buy or sell
+            open plots, farm land, and agricultural land with LandWay.
           </p>
           <div className="tp-footer-widget-contact">
             <Link className="tp-footer-phone-link" href="tel:+919849967236">
