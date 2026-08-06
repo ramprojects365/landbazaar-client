@@ -43,7 +43,8 @@ export default function PropertyListing() {
   const q = searchParams.get("q") || "";
   const type = searchParams.get("type") || "";
   const city = searchParams.get("city") || "";
-  const landType = searchParams.get("landType") || "";
+  const queryPropertyType =
+    searchParams.get("propertyType") || searchParams.get("landType") || "";
   const propertyName = searchParams.get("propertyName") || "";
   // Homepage sends "address" — treat it as keyword fallback
   const address = searchParams.get("address") || "";
@@ -55,9 +56,6 @@ export default function PropertyListing() {
   const propertyType = landType || searchParams.get("propertyType") || "All";
   const minPriceStr = searchParams.get("minPrice") || "Any";
   const maxPriceStr = searchParams.get("maxPrice") || "Any";
-  const bedroomsFilter = searchParams.get("bedrooms") || "All";
-  const minSize = parseInt(searchParams.get("minSize") || "0", 10);
-  const maxSize = parseInt(searchParams.get("maxSize") || "10000", 10);
 
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(false);
@@ -77,23 +75,23 @@ export default function PropertyListing() {
 
         if (keyword.trim()) {
           // ── Text search: /api/properties/search ─────────────────
-          // Accepts: q, type (listingType), city, propertyName, landType
+          // Accepts: q, type (listingType), city, propertyName, propertyType
           const params = new URLSearchParams();
           params.set("q", keyword.trim());
           if (type) params.set("type", type);
           if (city.trim()) params.set("city", city.trim());
-          if (landType.trim() && landType !== "All") params.set("landType", landType.trim());
+          if (propertyType.trim() && propertyType !== "All") {
+            params.set("propertyType", propertyType.trim());
+          }
           if (propertyName.trim())
             params.set("propertyName", propertyName.trim());
           url = `${API_BASE}/api/properties/search?${params}`;
         } else {
           // ── Filter-only: /api/properties ────────────────────────
-          // Accepts: listingType, propertyType, cityName,
-          //          minPrice, maxPrice, minBedrooms, maxBedrooms, minArea, landType
+          // Accepts: listingType, propertyType, cityName, minPrice, maxPrice
           const params = new URLSearchParams();
           if (type) params.set("listingType", type);
           if (city.trim()) params.set("cityName", city.trim());
-          if (landType.trim() && landType !== "All") params.set("landType", landType.trim());
           if (propertyType && propertyType !== "All") {
             params.set("propertyType", propertyType);
           }
@@ -101,11 +99,6 @@ export default function PropertyListing() {
           const maxP = parsePriceParam(maxPriceStr);
           if (minP !== undefined) params.set("minPrice", String(minP));
           if (maxP !== undefined) params.set("maxPrice", String(maxP));
-          if (bedroomsFilter !== "All" && bedroomsFilter !== "Studio") {
-            params.set("minBedrooms", bedroomsFilter);
-            params.set("maxBedrooms", bedroomsFilter);
-          }
-          if (minSize > 0) params.set("minArea", String(minSize));
           url = `${API_BASE}/api/properties?${params}`;
         }
 
@@ -152,27 +145,16 @@ export default function PropertyListing() {
     propertyType,
     minPriceStr,
     maxPriceStr,
-    bedroomsFilter,
-    minSize,
-    maxSize,
   ]);
 
   const activeFilters: { label: string; value: string }[] = [];
-  if (keyword) activeFilters.push({ label: "Search", value: keyword });
-  if (type) activeFilters.push({ label: "Type", value: type });
   if (city) activeFilters.push({ label: "City", value: city });
-  if (propertyName)
-    activeFilters.push({ label: "Property", value: propertyName });
   if (propertyType !== "All")
-    activeFilters.push({ label: "Category", value: propertyType });
+    activeFilters.push({ label: "Land Type", value: propertyType });
   if (minPriceStr !== "Any")
     activeFilters.push({ label: "Min Price", value: minPriceStr });
   if (maxPriceStr !== "Any")
     activeFilters.push({ label: "Max Price", value: maxPriceStr });
-  if (bedroomsFilter !== "All")
-    activeFilters.push({ label: "Bedrooms", value: bedroomsFilter });
-  if (minSize > 0)
-    activeFilters.push({ label: "Min Size", value: `${minSize} sq ft` });
 
   return (
     <div className="tab-content" id="myTabContent">

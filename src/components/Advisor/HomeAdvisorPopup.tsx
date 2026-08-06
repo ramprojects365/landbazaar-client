@@ -8,6 +8,8 @@ import useGlobalContext from "@/hooks/useContext";
 const POPUP_SEEN_KEY = "propertyla-home-advisor-seen";
 
 export default function HomeAdvisorPopup() {
+  return null;
+
   const { openOffcanvas } = useGlobalContext();
   const [open, setOpen] = useState(false);
   const [showResume, setShowResume] = useState(false);

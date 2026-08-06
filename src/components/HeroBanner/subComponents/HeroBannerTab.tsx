@@ -2,7 +2,10 @@
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
-import { LAND_CITIES, LAND_TYPES } from "@/config/landOptions";
+import {
+  LAND_CITIES,
+  LAND_TYPES as LAND_TYPE_VALUES,
+} from "@/config/landOptions";
 
 type SearchItem = {
   id: string;
@@ -154,6 +157,7 @@ export default function HeroBannerTabContent({ id }: ITabContentProps) {
     }, 250);
 
     return () => clearTimeout(timer);
+  }, [query, city, landType]);
   }, [query, city, landType]);
 
   // Close dropdowns on outside click

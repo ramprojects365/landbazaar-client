@@ -67,7 +67,7 @@ export default function LocationDetails() {
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-12">
             <div className="tp-dashboard-new-input">
               <label>City</label>
               <div className="tp-property-tabs-select tp-select">
@@ -82,24 +82,6 @@ export default function LocationDetails() {
               </div>
               {errors?.cityName && (
                 <ErrorMessage message={errors?.cityName?.message || ""} />
-              )}
-            </div>
-          </div>
-          <div className="col-lg-6">
-            <div className="tp-dashboard-new-input">
-              <label>District</label>
-              <div className="tp-property-tabs-select tp-select">
-                <select {...register("countryName")} className="listDropDown">
-                  <option value="">Select</option>
-                  {LAND_DISTRICTS.map((district) => (
-                    <option key={district} value={district}>
-                      {district}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              {errors?.countryName && (
-                <ErrorMessage message={errors?.countryName?.message || ""} />
               )}
             </div>
           </div>

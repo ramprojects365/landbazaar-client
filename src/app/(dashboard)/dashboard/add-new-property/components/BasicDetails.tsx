@@ -20,6 +20,7 @@ export default function BasicDetails() {
   const landArea = watch("landSize") || "";
   const pricePerUnit = watch("pricePerUnit") || "";
   const totalPrice = watch("totalPrice") || "";
+  const currentPrice = watch("price") || "";
   const [charCount, setCharCount] = useState(0);
 
   useEffect(() => {
@@ -36,12 +37,22 @@ export default function BasicDetails() {
       unitPrice > 0
     ) {
       const computed = String(Math.round(area * unitPrice));
-      if (!totalPrice) {
+      if (totalPrice !== computed) {
         setValue("totalPrice", computed, { shouldValidate: true });
+      }
+      if (currentPrice !== computed) {
         setValue("price", computed, { shouldValidate: true });
       }
+      return;
     }
-  }, [landArea, pricePerUnit, totalPrice, setValue]);
+
+    if (totalPrice) {
+      setValue("totalPrice", "", { shouldValidate: true });
+    }
+    if (currentPrice) {
+      setValue("price", "", { shouldValidate: true });
+    }
+  }, [landArea, pricePerUnit, totalPrice, currentPrice, setValue]);
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
@@ -220,11 +231,7 @@ export default function BasicDetails() {
                 inputMode="numeric"
                 placeholder="Auto calculated"
                 {...register("totalPrice")}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "");
-                  setValue("totalPrice", value, { shouldValidate: true });
-                  setValue("price", value, { shouldValidate: true });
-                }}
+                readOnly
               />
               {errors?.totalPrice && (
                 <ErrorMessage message={errors?.totalPrice?.message || ""} />
