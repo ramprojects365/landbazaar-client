@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-
-const LISTING_TYPES = ["", "rent", "buy", "new"];
+import { LISTING_TYPES } from "@/config/landOptions";
 
 export default function SearchRefineBar() {
   const router = useRouter();
@@ -74,7 +73,7 @@ export default function SearchRefineBar() {
             <input
               type="text"
               style={inputStyle}
-              placeholder="Ex. luxury, studio..."
+              placeholder="Ex. falm lands"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
             />
@@ -82,11 +81,11 @@ export default function SearchRefineBar() {
 
           {/* Property Name */}
           <div className="col-xl-3 col-lg-6 col-md-6 property-search-refine__field">
-            <label style={labelStyle}>Property Name</label>
+            <label style={labelStyle}>Property Title</label>
             <input
               type="text"
               style={inputStyle}
-              placeholder="Ex. Susana Sentral"
+              placeholder="Ex. Open plot available at Shad Nagar"
               value={propertyName}
               onChange={(e) => setPropertyName(e.target.value)}
             />
@@ -94,11 +93,11 @@ export default function SearchRefineBar() {
 
           {/* City */}
           <div className="col-xl-2 col-lg-4 col-md-6 property-search-refine__field">
-            <label style={labelStyle}>City</label>
+            <label style={labelStyle}>Area</label>
             <input
               type="text"
               style={inputStyle}
-              placeholder="Ex. Kuala Lumpur"
+              placeholder="Ex. Shad nagar"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
@@ -115,9 +114,7 @@ export default function SearchRefineBar() {
               >
                 {LISTING_TYPES.map((t) => (
                   <option key={t} value={t}>
-                    {t === ""
-                      ? "All Types"
-                      : t.charAt(0).toUpperCase() + t.slice(1)}
+                    t.charAt(0).toUpperCase() + t.slice(1)
                   </option>
                 ))}
               </select>
