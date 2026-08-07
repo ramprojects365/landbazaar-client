@@ -2,6 +2,7 @@ import PropertyDetailsOneArea from "@/components/RealEstate/PropertyDetailsOne/D
 import Wrapper from "@/layouts/Wrapper";
 import { PageParamsProps } from "@/types/custom-interface";
 import { getCoverImageUrl } from "@/utils/propertyImages";
+import { API_BASE_URL } from "@/config/constants";
 import type { Metadata } from "next";
 
 type ApiPropertyMeta = {
@@ -24,9 +25,7 @@ export async function generateMetadata(
   }
 
   try {
-    const base =
-      process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-    const res = await fetch(`${base}/api/properties/${id}`);
+    const res = await fetch(`${API_BASE_URL}/properties/${id}`);
     const json = await res.json();
     const item: ApiPropertyMeta = json?.data ?? json;
 

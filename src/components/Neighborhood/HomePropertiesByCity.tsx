@@ -8,6 +8,7 @@ import { useTranslation } from "@/contexts/LanguageContext";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import React, { useEffect, useMemo, useState } from "react";
 import type { StaticImageData } from "next/image";
+import { API_BASE_URL } from "@/config/constants";
 
 type ApiProperty = {
   id: string;
@@ -49,9 +50,7 @@ function HomePropertiesByCity() {
   useEffect(() => {
     const run = async () => {
       try {
-        const API_BASE =
-          process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-        const res = await fetch(`${API_BASE}/api/properties`, {
+        const res = await fetch(`${API_BASE_URL}/properties`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });

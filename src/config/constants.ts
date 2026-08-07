@@ -19,16 +19,16 @@ export const API_BASE_URL = (() => {
     case "production":
       return process.env.NEXT_PUBLIC_API_BASE
         ? `${process.env.NEXT_PUBLIC_API_BASE}/api`
-        : "http://159.223.92.101:3008/api";
+        : "https://cheerful-beauty-production-7eb0.up.railway.app/api";
     case "development":
       return process.env.NEXT_PUBLIC_API_BASE
         ? `${process.env.NEXT_PUBLIC_API_BASE}/api`
-        : "http://localhost:3008/api";
+        : "https://cheerful-beauty-production-7eb0.up.railway.app/api";
     case "local":
     default:
       return process.env.NEXT_PUBLIC_API_BASE
         ? `${process.env.NEXT_PUBLIC_API_BASE}/api`
-        : "http://localhost:3008/api";
+        : "https://cheerful-beauty-production-7eb0.up.railway.app/api";
   }
 })();
 
