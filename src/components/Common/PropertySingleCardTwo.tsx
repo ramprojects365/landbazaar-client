@@ -1,6 +1,6 @@
 import MapMarkerSvg from "@/components/SVG/PropertySvg/MapMarkerIcon";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
-import { formatPrice } from "../Utils/formatPrice";
+import { formatTotalPriceDisplay } from "../Utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -98,7 +98,7 @@ function PropertySingleCardTwo({ item }: propertyProps) {
               </Link>
             </div>
             <div className="tp-rent-price">
-              <span>{formatPrice(item.price, false)}</span>
+              <span>{formatTotalPriceDisplay(item.price)}</span>
             </div>
           </div>
         </div>

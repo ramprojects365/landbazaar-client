@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { formatPrice } from "@/components/Utils/formatPrice";
+import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { IRecentlyViewedItem } from "@/types/custom-interface";
 import Link from "next/link";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
@@ -67,7 +67,7 @@ export default function RecentlyViewedProperties() {
               image,
               link,
               title,
-              price: formatPrice(priceNum, false),
+              price: formatTotalPriceDisplay(priceNum),
             };
           });
 

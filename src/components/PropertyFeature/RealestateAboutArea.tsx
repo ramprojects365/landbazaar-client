@@ -5,7 +5,7 @@ import BathroomsSvg from "../SVG/PropertySvg/BathroomsSvg";
 import BedroomsSvg from "../SVG/PropertySvg/BedroomsSvg";
 import LivingSvg from "../SVG/PropertySvg/LivingSvg";
 import { RentMetaItemProps } from "@/types/property-d-t";
-import { formatPrice } from "../Utils/formatPrice";
+import { formatTotalPriceDisplay } from "../Utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -172,7 +172,7 @@ export default function RealestateAboutArea() {
                     ))}
                   </div>
                   <div className="about-featured-card__footer">
-                    <strong>{formatPrice(property.price || 0, false)}</strong>
+                    <strong>{formatTotalPriceDisplay(property.price || 0)}</strong>
                     <Link href={`/property-details/${property.id}`}>View</Link>
                   </div>
                 </div>

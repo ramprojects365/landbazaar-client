@@ -6,7 +6,6 @@ import DetailsReusableArea from "./subComponents/DetailsReusableArea";
 import PropertyDetailsSlider from "./subComponents/PropertySlider";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { IdProps } from "@/types/custom-interface";
-import { formatPrice } from "@/components/Utils/formatPrice";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { toast } from "sonner";
 import { recordPropertyView } from "@/services/propertyService";
@@ -15,6 +14,7 @@ import {
   mapApiPropertyToCard,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
+import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { API_BASE_URL } from "@/config/constants";
 
 type ApiProperty = ApiPropertyFields;
@@ -235,7 +235,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
                   </span>
                   <span>
                     <strong>Total Price:</strong>{" "}
-                    {formatPrice(display.price, false)}
+                    {formatTotalPriceDisplay(display.price)}
                   </span>
                   {pricePerUnitLabel !== "—" && (
                     <span style={{ color: "#888", fontSize: "14px" }}>
@@ -288,7 +288,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
                 </div>
 
                 <h4 className="tp-property-details-icon-price">
-                  {formatPrice(display.price, false)}
+                  {formatTotalPriceDisplay(display.price)}
                   {apiProperty.listingType === "rent" && (
                     <span
                       style={{

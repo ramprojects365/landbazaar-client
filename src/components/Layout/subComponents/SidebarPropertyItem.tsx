@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import rentThumb from "../../../../public/assets/img/rent/rent-thumb-1.jpg";
 import { LivingSvg } from "@/components/SVG";
-import { formatPrice } from "@/components/Utils/formatPrice";
+import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -142,7 +142,7 @@ export default function SidebarPropertyItem({
                       <h5 className="tp-rent-user-content-title">
                         <Link href={detailsHref}>{latest.title}</Link>
                       </h5>
-                      <span>{formatPrice(latest.price, false)}</span>
+                      <span>{formatTotalPriceDisplay(latest.price)}</span>
                     </div>
                   </div>
                 </div>

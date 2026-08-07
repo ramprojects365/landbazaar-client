@@ -1,7 +1,7 @@
 "use client";
 import { LivingSvg } from "../SVG";
 import { IFeatureListProps } from "@/types/custom-interface";
-import { formatPrice } from "../Utils/formatPrice";
+import { formatTotalPriceDisplay } from "../Utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -98,7 +98,7 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
           </div>
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
-              <p>{formatPrice(item.price, false)}</p>
+              <p>{formatTotalPriceDisplay(item.price)}</p>
             </div>
             <p>Total Price</p>
           </div>
@@ -110,7 +110,7 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
             </Link>
           </div>
           <div className="tp-rent-price">
-            <span>{formatPrice(item.price, false)}</span>
+            <span>{formatTotalPriceDisplay(item.price)}</span>
           </div>
         </div>
       </div>
