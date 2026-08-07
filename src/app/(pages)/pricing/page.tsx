@@ -2,7 +2,6 @@ import BreadcrumbArea from "@/components/Breadcrumb/BreadcrumbArea";
 import ContactHomeFour from "@/components/Contact/ContactHomeFour";
 import CounterHomeFour from "@/components/Counter/CounterHomeFour";
 import PricingPlanTwo from "@/components/Pricing/PricingPlanTwo";
-import ProgressArea from "@/components/Progress/ProgressArea";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

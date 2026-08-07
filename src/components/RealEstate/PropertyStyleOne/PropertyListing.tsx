@@ -54,7 +54,7 @@ export default function PropertyListing() {
   const keyword = keywordParam || q || address;
 
   // ── Sidebar filter params (PropertyFilterWidget) ─────────────────
-  const propertyType = landType || searchParams.get("propertyType") || "All";
+  const propertyType = queryPropertyType || "All";
   const minPriceStr = searchParams.get("minPrice") || "Any";
   const maxPriceStr = searchParams.get("maxPrice") || "Any";
 

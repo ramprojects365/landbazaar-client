@@ -2,10 +2,6 @@
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
-import {
-  LAND_CITIES,
-  LAND_TYPES as LAND_TYPE_VALUES,
-} from "@/config/landOptions";
 import "./hero-banner-tab.css";
 
 function SearchIcon({ stroke = "#fff" }: { stroke?: string }) {
@@ -104,7 +100,7 @@ const MOCK_SUGGESTIONS: SearchItem[] = [
   },
 ];
 
-export default function HeroBannerTabContent({ id }: ITabContentProps) {
+export default function HeroBannerTabContent({}: ITabContentProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [city, setCity] = useState("Hyderabad");

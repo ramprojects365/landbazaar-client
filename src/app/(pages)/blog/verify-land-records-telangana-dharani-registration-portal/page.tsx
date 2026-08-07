@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
