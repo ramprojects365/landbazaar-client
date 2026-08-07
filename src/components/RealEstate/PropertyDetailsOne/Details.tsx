@@ -11,36 +11,12 @@ import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { toast } from "sonner";
 import { recordPropertyView } from "@/services/propertyService";
 import {
-  formatLandSize,
-  formatStreetCity,
-  parseTotalPrice,
+  formatPricePerUnit,
+  mapApiPropertyToCard,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
 
 type ApiProperty = ApiPropertyFields;
-
-function mapToDisplay(item: ApiProperty): IFeaturedPropertyDT {
-  const landSizeLabel = formatLandSize(item.landSize, item.areaUnit);
-  return {
-    id: item.id,
-    title: item.propertyName?.trim() || item.title?.trim() || "Land listing",
-    address: formatStreetCity(item.streetName, item.cityName),
-    linkUrl: "property-details",
-    image: "" as unknown as IFeaturedPropertyDT["image"],
-    showTags: true,
-    isForRent: item.listingType === "rent",
-    isForSale: item.listingType === "sale",
-    isFeatured: false,
-    bedrooms: landSizeLabel,
-    bathrooms: item.propertyType?.trim() || "—",
-    livingArea: "",
-    price: parseTotalPrice(item.totalPrice, item.price),
-    userName: item.contactPersonName?.trim() || undefined,
-    user: item.user,
-    description: item.description,
-    quantity: 0,
-  };
-}
 
 export default function PropertyDetailsOneArea({ id }: IdProps) {
   const searchParams = useSearchParams();
@@ -89,7 +65,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
         const json = await res.json();
         const item: ApiProperty = json?.data ?? json;
         setApiProperty(item);
-        setDisplay(mapToDisplay(item));
+        setDisplay(mapApiPropertyToCard(item, ""));
       } catch {
         setError("Property not found.");
       } finally {
@@ -194,6 +170,11 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
     );
   }
 
+  const pricePerUnitLabel = formatPricePerUnit(
+    apiProperty.pricePerUnit,
+    apiProperty.areaUnit,
+  );
+
   return (
     <>
       <section className="tp-property-details-area pb-130">
@@ -254,8 +235,14 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
                     <LivingSvg /> <strong>Land Size:</strong> {display.bedrooms}
                   </span>
                   <span>
-                    <strong>Total Price:</strong> {formatPrice(display.price, false)}
+                    <strong>Total Price:</strong>{" "}
+                    {formatPrice(display.price, false)}
                   </span>
+                  {pricePerUnitLabel !== "—" && (
+                    <span style={{ color: "#888", fontSize: "14px" }}>
+                      {pricePerUnitLabel}
+                    </span>
+                  )}
                   {apiProperty.facingDirection && (
                     <span style={{ color: "#888", fontSize: "14px" }}>
                       Facing {apiProperty.facingDirection}

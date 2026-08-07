@@ -1,5 +1,6 @@
 import { StaticImageData } from "next/image";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
+import { formatPrice } from "@/components/Utils/formatPrice";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 
 /**
@@ -24,18 +25,13 @@ export type ApiPropertyFields = {
   latitude?: number;
   longitude?: number;
   price?: number | string;
-  buildupArea?: number | string | null;
   landSize?: number | string | null;
   areaUnit?: string;
   pricePerUnit?: number | string | null;
   totalPrice?: number | string | null;
   furnishing?: string;
-  bedrooms?: number | string | null;
-  bathrooms?: number | string | null;
   availability?: string;
   floorLevel?: string;
-  yearOfBuild?: number | null;
-  yearOfCompletion?: number | null;
   carParkAllocation?: string;
   facingDirection?: string;
   cornerPlot?: string;
@@ -53,8 +49,6 @@ export type ApiPropertyFields = {
   minimumRentalPeriod?: string;
   petPolicy?: string;
   preferredTenantType?: string;
-  maintenanceFee?: number | string | null;
-  sinkingFund?: number | string | null;
   bumiLotStatus?: string;
   negotiable?: boolean;
   amenities?: {
@@ -104,6 +98,19 @@ export function parseTotalPrice(
   if (Number.isFinite(total) && total > 0) return total;
   const fallback = parseFloat(String(price ?? ""));
   return Number.isFinite(fallback) && fallback > 0 ? fallback : 0;
+}
+
+/** Format price per unit with area unit, e.g. "₹10,000,000 / Acre". */
+export function formatPricePerUnit(
+  pricePerUnit?: number | string | null,
+  areaUnit?: string | null,
+): string {
+  const value = parseFloat(String(pricePerUnit ?? ""));
+  if (!Number.isFinite(value) || value <= 0) return "—";
+  const unit = areaUnit?.trim();
+  return unit
+    ? `${formatPrice(value, false)} / ${unit}`
+    : formatPrice(value, false);
 }
 
 function resolveImageSrc(

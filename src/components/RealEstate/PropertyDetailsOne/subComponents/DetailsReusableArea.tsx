@@ -4,59 +4,15 @@ import DiscountOfferCard from "@/components/Layout/subComponents/DiscountOfferCa
 import RecentlyViewedProperties from "./RecentlyViewedItem";
 import AmenitiesCategories from "./AmenitiesCategories";
 import PropertyDetailsBox from "./PropertyDetailsBox";
-import { formatLandSize } from "@/utils/mapApiProperty";
-
-interface ApiProperty {
-  id?: string;
-  description?: string;
-  listingType?: string;
-  propertyType?: string;
-  bedrooms?: number | string;
-  bathrooms?: number | string;
-  buildupArea?: number | string;
-  landSize?: number | string;
-  areaUnit?: string;
-  yearOfBuild?: number;
-  furnishing?: string;
-  propertyName?: string;
-  floorLevel?: string;
-  streetName?: string;
-  cityName?: string;
-  state?: string;
-  pincode?: string;
-  landmark?: string;
-  facingDirection?: string;
-  cornerPlot?: string;
-  roadWidth?: string;
-  surveyNumber?: string;
-  clearTitle?: string;
-  loanFacility?: string;
-  amenities?: {
-    lifestyle?: string[];
-    facilities?: string[];
-    security?: string[];
-  };
-  user?: {
-    username?: string;
-    email?: string;
-    phoneNumber?: string;
-    userType?: string | null;
-    profileImage?: string;
-    fullName?: string | null;
-    bio?: string | null;
-    companyName?: string | null;
-    designation?: string | null;
-    experienceYears?: number | null;
-    renNumber?: string | null;
-    renStatus?: string | null;
-    renVerified?: boolean;
-    renStatusLabel?: string;
-  };
-}
+import {
+  formatLandSize,
+  formatPricePerUnit,
+  type ApiPropertyFields,
+} from "@/utils/mapApiProperty";
 
 interface IProps {
   spacingClass?: string;
-  property?: ApiProperty;
+  property?: ApiPropertyFields;
 }
 
 export default function DetailsReusableArea({
@@ -64,6 +20,10 @@ export default function DetailsReusableArea({
   property,
 }: IProps) {
   const landSize = formatLandSize(property?.landSize, property?.areaUnit);
+  const pricePerUnit = formatPricePerUnit(
+    property?.pricePerUnit,
+    property?.areaUnit,
+  );
 
   const address = [
     property?.streetName,
@@ -97,12 +57,17 @@ export default function DetailsReusableArea({
                   propertyType={property?.propertyType}
                   landSize={landSize !== "—" ? landSize : undefined}
                   listingType={property?.listingType}
+                  tenure={property?.tenure}
+                  pricePerUnit={pricePerUnit !== "—" ? pricePerUnit : undefined}
                   facingDirection={property?.facingDirection}
                   cornerPlot={property?.cornerPlot}
                   roadWidth={property?.roadWidth}
                   surveyNumber={property?.surveyNumber}
+                  approvalTypes={property?.approvalTypes}
+                  soilType={property?.soilType}
                   clearTitle={property?.clearTitle}
                   loanFacility={property?.loanFacility}
+                  registrationReady={property?.registrationReady}
                 />
               </div>
 
@@ -121,6 +86,11 @@ export default function DetailsReusableArea({
                         <strong>Landmark:</strong> {property.landmark}
                       </p>
                     )}
+                    {property?.location && (
+                      <p>
+                        <strong>Location:</strong> {property.location}
+                      </p>
+                    )}
                   </div>
                 </div>
               )}
@@ -129,7 +99,11 @@ export default function DetailsReusableArea({
 
           <div className="col-lg-4">
             <div className="tp-property-details-right">
-              <UserContactCard user={property?.user} />
+              <UserContactCard
+                user={property?.user}
+                contactPersonName={property?.contactPersonName}
+                contactNumber={property?.contactNumber}
+              />
               <SidebarPropertyItem />
               <RecentlyViewedProperties />
               <DiscountOfferCard wrapperCls="tp-property-filter-wrap" />

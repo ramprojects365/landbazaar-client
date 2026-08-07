@@ -57,9 +57,7 @@ export default function DashboardProperty() {
     try {
       await deleteProperty(id);
 
-      setProperties((prev) =>
-        prev.filter((p) => p.id !== id)
-      );
+      setProperties((prev) => prev.filter((p) => p.id !== id));
     } catch (err: any) {
       console.error(err);
       setError(err?.response?.data?.message || "Delete failed");
@@ -82,8 +80,8 @@ export default function DashboardProperty() {
         const base = process.env.NEXT_PUBLIC_API_BASE;
         const res = await fetch(`${base}/api/properties/my-properties`, {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         if (!res.ok) {
@@ -112,7 +110,9 @@ export default function DashboardProperty() {
               quantity: 1,
               bedrooms: String(property.bedrooms || 0),
               bathrooms: String(property.bathrooms || 0),
-              livingArea: String(property.livingArea || property.buildupArea || 0),
+              livingArea: String(
+                property.livingArea || property.buildupArea || 0,
+              ),
               city: property.cityName || "",
               state: property.state || property.stateName || "",
               isForRent: property.listingType === "rent",
@@ -169,7 +169,10 @@ export default function DashboardProperty() {
                 !error &&
                 properties.map((property) => (
                   <div className="col-12" key={property.id}>
-                    <DashboardPropertyItem property={property} onDelete={handleDelete} />
+                    <DashboardPropertyItem
+                      property={property}
+                      onDelete={handleDelete}
+                    />
                   </div>
                 ))}
             </div>

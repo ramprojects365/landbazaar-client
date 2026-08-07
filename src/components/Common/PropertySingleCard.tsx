@@ -9,7 +9,9 @@ import { createCleanFromUrl } from "@/utils/urlEncoding";
 
 function getImageSrc(image: IFeatureListProps["item"]["image"]): string {
   if (typeof image === "string") return image;
-  return (image as { src?: string })?.src || "/assets/img/rent/rent-thumb-1.jpg";
+  return (
+    (image as { src?: string })?.src || "/assets/img/rent/rent-thumb-1.jpg"
+  );
 }
 
 export default function PropertySingleCard({ item }: IFeatureListProps) {
@@ -62,9 +64,7 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
         </div>
         {item.showTags && (
           <div className="tp-rent-tags">
-            {item.isForSale ? (
-              <Link href={detailsHref}>FOR SALE</Link>
-            ) : null}{" "}
+            {item.isForSale ? <Link href={detailsHref}>FOR SALE</Link> : null}{" "}
             {item.isFeatured ? (
               <Link className="two" href={detailsHref}>
                 FEATURED
