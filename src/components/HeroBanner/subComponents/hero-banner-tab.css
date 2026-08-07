@@ -12,10 +12,11 @@
   align-items: center;
   gap: 10px;
   height: 52px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 0 14px;
-  background: #fff;
+  border: none;
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+  background: transparent;
   min-width: 0;
 }
 
@@ -29,6 +30,7 @@
   min-width: 0;
   color: #222;
   padding-left: 0;
+  padding-right: 0;
 }
 
 .hero-search-btn {
