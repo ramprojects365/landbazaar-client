@@ -12,9 +12,9 @@ function AmenitiesChecklist() {
   return (
     <div className="col-12">
       <p>Facilities:</p>
-      <ul>
+      <div className="row">
         {OTHER_FACILITIES.map((amenity, index) => (
-          <li key={index}>
+          <div key={index} className="col-12 col-lg-4">
             <div className="tp-contact-input-remeber property">
               <input
                 id={`amenity-facility-${index}`}
@@ -24,9 +24,9 @@ function AmenitiesChecklist() {
               />
               <label htmlFor={`amenity-facility-${index}`}>{amenity}</label>
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

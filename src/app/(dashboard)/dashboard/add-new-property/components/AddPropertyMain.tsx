@@ -6,6 +6,7 @@ import { propertySchema, PropertyFormData } from "@/schemas/validationSchema";
 import BasicDetails from "./BasicDetails";
 import LocationDetails from "./LocationDetails";
 import PropertyDetails from "./PropertyDetails";
+import ContactDetails from "./ContactDetails";
 import AmenitiesDetails from "./AmenitiesDetails";
 import UploadMedia from "./UploadMedia";
 import { toast } from "sonner";
@@ -21,7 +22,9 @@ const AMENITY_GROUPS = {
   security: [] as string[],
 };
 const normalizeListingType = (value: any): string => {
-  const v = String(value || "").trim().toLowerCase();
+  const v = String(value || "")
+    .trim()
+    .toLowerCase();
 
   if (v.includes("rent")) return "rent";
   if (v.includes("lease")) return "lease";
@@ -31,17 +34,22 @@ const normalizeListingType = (value: any): string => {
 };
 
 const normalizeFurnishing = (value: any): string => {
-  const v = String(value || "").trim().toLowerCase();
+  const v = String(value || "")
+    .trim()
+    .toLowerCase();
 
   if (v.includes("full")) return "Fully";
   if (v.includes("partial")) return "Partially";
-  if (v.includes("unfurnished") || v.includes("un furnished")) return "Unfurnished";
+  if (v.includes("unfurnished") || v.includes("un furnished"))
+    return "Unfurnished";
 
   return "Unfurnished";
 };
 
 const normalizeAvailability = (value: any): string => {
-  const v = String(value || "").trim().toLowerCase();
+  const v = String(value || "")
+    .trim()
+    .toLowerCase();
 
   if (v.includes("immediate")) return "Immediate";
   if (v.includes("next")) return "Next month";
@@ -112,7 +120,7 @@ function groupAmenities(flat: string[] = []) {
 }
 const getValue = (...values: any[]) => {
   return values.find(
-    (value) => value !== undefined && value !== null && value !== ""
+    (value) => value !== undefined && value !== null && value !== "",
   );
 };
 
@@ -122,7 +130,7 @@ const normalizeImages = (propertyData: any): any[] => {
     propertyData.imageUrls,
     propertyData.imageUrl,
     propertyData.image,
-    []
+    [],
   );
 
   const arr = Array.isArray(rawImages) ? rawImages : [rawImages];
@@ -271,11 +279,16 @@ export default function AddPropertyPage() {
             tenure: propertyData.tenure || "",
             areaUnit: propertyData.areaUnit || "",
             pricePerUnit: formatWholeNumberInput(propertyData.pricePerUnit),
-            totalPrice: formatWholeNumberInput(propertyData.totalPrice || propertyData.price || propertyData.monthlyRent),
+            totalPrice: formatWholeNumberInput(
+              propertyData.totalPrice ||
+                propertyData.price ||
+                propertyData.monthlyRent,
+            ),
             title: propertyData.title || propertyData.propertyName || "",
             description: propertyData.description || "",
 
-            location: propertyData.location || buildLocationFallback(propertyData),
+            location:
+              propertyData.location || buildLocationFallback(propertyData),
             latitude: propertyData.latitude ?? null,
             longitude: propertyData.longitude ?? null,
             streetName: propertyData.streetName || "",
@@ -284,14 +297,24 @@ export default function AddPropertyPage() {
             pinCode: propertyData.pincode || propertyData.pinCode || "",
             landmark: propertyData.landmark || "",
 
-            price: formatWholeNumberInput(propertyData.totalPrice || propertyData.price || propertyData.monthlyRent),
+            price: formatWholeNumberInput(
+              propertyData.totalPrice ||
+                propertyData.price ||
+                propertyData.monthlyRent,
+            ),
             builtUpArea: formatWholeNumberInput(
-              propertyData.buildupArea || propertyData.builtUpArea || propertyData.livingArea
+              propertyData.buildupArea ||
+                propertyData.builtUpArea ||
+                propertyData.livingArea,
             ),
 
             furnishing: normalizeFurnishing(propertyData.furnishing),
-            bedRooms: normalizeBedrooms(propertyData.bedrooms || propertyData.bedRooms),
-            bathRooms: normalizeBathrooms(propertyData.bathrooms || propertyData.bathRooms),
+            bedRooms: normalizeBedrooms(
+              propertyData.bedrooms || propertyData.bedRooms,
+            ),
+            bathRooms: normalizeBathrooms(
+              propertyData.bathrooms || propertyData.bathRooms,
+            ),
             availability: normalizeAvailability(propertyData.availability),
             negotiable: propertyData.negotiable ? "Yes" : "No",
             floorLevel: normalizeFloorLevel(propertyData.floorLevel),
@@ -369,7 +392,7 @@ export default function AddPropertyPage() {
             window.dispatchEvent(
               new CustomEvent("property-images-loaded", {
                 detail: { images: normalizedImages },
-              })
+              }),
             );
           }
 
@@ -432,13 +455,21 @@ export default function AddPropertyPage() {
                       order: img.order,
                       category: img.category || "other",
                       customPlaceName: img.customPlaceName || "",
-                      displayPlace: img.displayPlace || img.customPlaceName || img.category || "Other",
-                      caption: img.caption || img.displayPlace || img.customPlaceName || "",
+                      displayPlace:
+                        img.displayPlace ||
+                        img.customPlaceName ||
+                        img.category ||
+                        "Other",
+                      caption:
+                        img.caption ||
+                        img.displayPlace ||
+                        img.customPlaceName ||
+                        "",
                       isCover: Boolean(img.isCover),
                     };
                   })
                   .filter(Boolean);
-            } catch { }
+            } catch {}
           }
         }
 
@@ -504,18 +535,24 @@ export default function AddPropertyPage() {
           propertyName: data.propertyName,
           tenure: data.tenure || "",
           areaUnit: data.areaUnit || "",
-          pricePerUnit: data.pricePerUnit ? parseFloat(data.pricePerUnit) : null,
+          pricePerUnit: data.pricePerUnit
+            ? parseFloat(data.pricePerUnit)
+            : null,
           totalPrice: data.totalPrice ? parseFloat(data.totalPrice) : null,
           title: data.title,
           description: data.description,
           location: data.location,
           latitude:
-            data.latitude === undefined || data.latitude === null || Number.isNaN(data.latitude)
+            data.latitude === undefined ||
+            data.latitude === null ||
+            Number.isNaN(data.latitude)
               ? null
               : data.latitude,
 
           longitude:
-            data.longitude === undefined || data.longitude === null || Number.isNaN(data.longitude)
+            data.longitude === undefined ||
+            data.longitude === null ||
+            Number.isNaN(data.longitude)
               ? null
               : data.longitude,
           streetName: data.streetName,
@@ -543,9 +580,10 @@ export default function AddPropertyPage() {
           bedrooms: data.bedRooms ? parseInt(data.bedRooms, 10) : null,
           bathrooms: data.bathRooms ? parseInt(data.bathRooms, 10) : null,
           yearOfBuild: getYearFromAgeRange(data.propertyAge) || null,
-          yearOfCompletion: isSaleListing && data.yearOfCompletion
-            ? parseInt(String(data.yearOfCompletion), 10)
-            : null,
+          yearOfCompletion:
+            isSaleListing && data.yearOfCompletion
+              ? parseInt(String(data.yearOfCompletion), 10)
+              : null,
 
           // Remapped name fields
           state: data.stateName,
@@ -560,18 +598,27 @@ export default function AddPropertyPage() {
           renovationStatus: isSaleListing ? data.renovationStatus || "" : "",
 
           // LEASE-specific fields
-          depositAmount: isLeaseListing && data.depositAmount
-            ? parseFloat(data.depositAmount)
-            : null,
-          minimumRentalPeriod: isLeaseListing ? data.minimumRentalPeriod || "" : "",
+          depositAmount:
+            isLeaseListing && data.depositAmount
+              ? parseFloat(data.depositAmount)
+              : null,
+          minimumRentalPeriod: isLeaseListing
+            ? data.minimumRentalPeriod || ""
+            : "",
           petPolicy: isLeaseListing ? data.petPolicy || "" : "",
-          preferredTenantType: isLeaseListing ? data.preferredTenantType || "" : "",
+          preferredTenantType: isLeaseListing
+            ? data.preferredTenantType || ""
+            : "",
 
           // Strata property fields
-          maintenanceFee: isSaleListing && data.maintenanceFee
-            ? parseFloat(data.maintenanceFee)
-            : null,
-          sinkingFund: isSaleListing && data.sinkingFund ? parseFloat(data.sinkingFund) : null,
+          maintenanceFee:
+            isSaleListing && data.maintenanceFee
+              ? parseFloat(data.maintenanceFee)
+              : null,
+          sinkingFund:
+            isSaleListing && data.sinkingFund
+              ? parseFloat(data.sinkingFund)
+              : null,
 
           // Malaysian market fields
           bumiLotStatus: isSaleListing ? data.bumiLotStatus || "" : "",
@@ -590,9 +637,10 @@ export default function AddPropertyPage() {
 
         console.log(localStorage.getItem("authToken"));
         const authHeader = `Bearer ${rawToken ?? ""}`;
-        const propertyUrl = isEditMode && editPropertyId
-          ? `${API_BASE_URL}/properties/${editPropertyId}`
-          : `${API_BASE_URL}/properties`;
+        const propertyUrl =
+          isEditMode && editPropertyId
+            ? `${API_BASE_URL}/properties/${editPropertyId}`
+            : `${API_BASE_URL}/properties`;
         const res = await fetch(propertyUrl, {
           method: isEditMode ? "PUT" : "POST",
           headers: {
@@ -653,13 +701,10 @@ export default function AddPropertyPage() {
       )}
       <form
         className="tp-dashboard-add-property-form"
-        onSubmit={handleSubmit(
-          onSubmit,
-          (errors) => {
-            console.log("❌ FORM VALIDATION ERRORS:", errors);
-            toast.error("Please fix required fields before updating.");
-          }
-        )}
+        onSubmit={handleSubmit(onSubmit, (errors) => {
+          console.log("❌ FORM VALIDATION ERRORS:", errors);
+          toast.error("Please fix required fields before updating.");
+        })}
       >
         {errors.root && (
           <div
@@ -678,6 +723,7 @@ export default function AddPropertyPage() {
         <BasicDetails />
         <LocationDetails />
         <PropertyDetails />
+        <ContactDetails />
         <AmenitiesDetails />
         <UploadMedia />
         <div className="tp-dashboard-new-btn">
@@ -691,7 +737,7 @@ export default function AddPropertyPage() {
               console.log("🔘 Button disabled:", isLoading);
             }}
           >
-            {isEditMode ? "Update Land" : "Add Land"}
+            {isEditMode ? "Update Property" : "Add Property"}
           </button>
         </div>
       </form>

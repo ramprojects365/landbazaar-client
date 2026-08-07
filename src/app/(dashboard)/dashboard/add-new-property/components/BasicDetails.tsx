@@ -76,7 +76,7 @@ export default function BasicDetails() {
                 className="textBox"
                 type="text"
                 {...register("title")}
-                placeholder="HMDA Approved 200 Sq. Yard Plot for Sale in Shadnagar"
+                placeholder="HMDA Approved 200 Square Yard Plot for Sale in Shadnagar"
               />
               {errors?.title && (
                 <ErrorMessage message={errors?.title?.message || ""} />
