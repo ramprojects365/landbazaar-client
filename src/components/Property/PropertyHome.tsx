@@ -9,6 +9,7 @@ import {
   mapApiPropertyToCard,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
+import { API_BASE_URL } from "@/config/constants";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -29,15 +30,17 @@ export default function PropertyHome() {
   useEffect(() => {
     const run = async () => {
       try {
-        const API_BASE =
-          process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-        const res = await fetch(`${API_BASE}/api/properties`, {
+        const res = await fetch(`${API_BASE_URL}/properties`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
         if (!res.ok) return;
         const json = await res.json();
-        const list: ApiPropertyFields[] = json?.data ?? json ?? [];
+        const list: ApiPropertyFields[] = Array.isArray(json?.data)
+          ? json.data
+          : Array.isArray(json)
+            ? json
+            : [];
 
         const sorted = [...list].sort((a, b) => {
           const aTime = new Date(a.createdAt || a.updatedAt || 0).getTime();

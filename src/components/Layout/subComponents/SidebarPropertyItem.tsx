@@ -9,6 +9,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
+import { API_BASE_URL } from "@/config/constants";
 
 interface IPropsWrapperCls {
   wrapperCls?: string;
@@ -41,9 +42,7 @@ export default function SidebarPropertyItem({
   useEffect(() => {
     const run = async () => {
       try {
-        const API_BASE =
-          process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-        const res = await fetch(`${API_BASE}/api/properties`, {
+        const res = await fetch(`${API_BASE_URL}/properties`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });

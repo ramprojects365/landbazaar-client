@@ -15,6 +15,7 @@ import {
   mapApiPropertyToCard,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
+import { API_BASE_URL } from "@/config/constants";
 
 type ApiProperty = ApiPropertyFields;
 
@@ -58,9 +59,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
       setLoading(true);
       setError("");
       try {
-        const base =
-          process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-        const res = await fetch(`${base}/api/properties/${id}`);
+        const res = await fetch(`${API_BASE_URL}/properties/${id}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
         const item: ApiProperty = json?.data ?? json;

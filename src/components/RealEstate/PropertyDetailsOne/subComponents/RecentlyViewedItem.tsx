@@ -7,6 +7,7 @@ import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { usePathname, useSearchParams } from "next/navigation";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { parseTotalPrice } from "@/utils/mapApiProperty";
+import { API_BASE_URL } from "@/config/constants";
 
 interface Property {
   id: string;
@@ -28,10 +29,8 @@ export default function RecentlyViewedProperties() {
   useEffect(() => {
     const fetchRecentProperties = async () => {
       try {
-        const API_BASE =
-          process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
         const res = await fetch(
-          `${API_BASE}/api/properties?limit=3&sort=createdAt&order=desc`,
+          `${API_BASE_URL}/properties?limit=3&sort=createdAt&order=desc`,
         );
 
         if (!res.ok) {

@@ -10,6 +10,7 @@ import {
   mapApiPropertyToCard,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
+import { API_BASE_URL } from "@/config/constants";
 
 type Property = IFeaturedPropertyDT;
 
@@ -69,8 +70,6 @@ export default function PropertyListing() {
       setResultCount(null);
 
       try {
-        const API_BASE =
-          process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
         let url: string;
 
         if (keyword.trim()) {
@@ -85,7 +84,7 @@ export default function PropertyListing() {
           }
           if (propertyName.trim())
             params.set("propertyName", propertyName.trim());
-          url = `${API_BASE}/api/properties/search?${params}`;
+          url = `${API_BASE_URL}/properties/search?${params}`;
         } else {
           // ── Filter-only: /api/properties ────────────────────────
           // Accepts: listingType, propertyType, cityName, minPrice, maxPrice
@@ -99,7 +98,7 @@ export default function PropertyListing() {
           const maxP = parsePriceParam(maxPriceStr);
           if (minP !== undefined) params.set("minPrice", String(minP));
           if (maxP !== undefined) params.set("maxPrice", String(maxP));
-          url = `${API_BASE}/api/properties?${params}`;
+          url = `${API_BASE_URL}/properties?${params}`;
         }
 
         const response = await fetch(url, {
