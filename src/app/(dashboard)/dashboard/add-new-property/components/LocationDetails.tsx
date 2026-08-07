@@ -6,7 +6,7 @@ import ErrorMessage from "../../../../../components/Form/ErrorMassage";
 import PlaceSearch, {
   PlaceResult,
 } from "../../../../../components/HeroBanner/subComponents/PlaceSearch";
-import { LAND_CITIES, LAND_DISTRICTS, LAND_STATES } from "@/config/landOptions";
+import { LAND_CITIES, LAND_STATES } from "@/config/landOptions";
 
 export default function LocationDetails() {
   const {
@@ -67,7 +67,7 @@ export default function LocationDetails() {
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-12">
+          <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
               <label>City</label>
               <div className="tp-property-tabs-select tp-select">
@@ -85,8 +85,6 @@ export default function LocationDetails() {
               )}
             </div>
           </div>
-        </div>
-        <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
               <label>State</label>
@@ -105,6 +103,8 @@ export default function LocationDetails() {
               )}
             </div>
           </div>
+        </div>
+        <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
               <label>Pin Code</label>

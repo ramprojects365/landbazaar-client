@@ -2,19 +2,64 @@
 
 import { useFormContext } from "react-hook-form";
 import { PropertyFormData } from "@/schemas/validationSchema";
-import ErrorMessage from "../../../../../components/Form/ErrorMassage";
 import {
   APPROVAL_TYPES,
   LAND_FACING_DIRECTIONS,
   ROAD_WIDTH_OPTIONS,
   SOIL_TYPES,
 } from "@/config/landOptions";
+import { UseFormRegister } from "react-hook-form";
+
+const inlineRadioRowStyle = {
+  display: "flex",
+  alignItems: "center",
+  gap: "16px",
+  flexWrap: "wrap" as const,
+};
+
+const inlineRadioOptionsStyle = {
+  display: "flex",
+  alignItems: "center",
+  gap: "16px",
+};
+
+const inlineRadioOptionStyle = {
+  display: "flex",
+  alignItems: "center",
+  gap: "6px",
+  marginBottom: 0,
+};
+
+function YesNoRadioRow({
+  label,
+  field,
+  register,
+}: {
+  label: string;
+  field: "cornerPlot" | "clearTitle" | "loanFacility" | "registrationReady";
+  register: UseFormRegister<PropertyFormData>;
+}) {
+  return (
+    <div className="tp-dashboard-new-input">
+      <div style={inlineRadioRowStyle}>
+        <label style={{ marginBottom: 0, whiteSpace: "nowrap" }}>{label}</label>
+        <div style={inlineRadioOptionsStyle}>
+          <label style={inlineRadioOptionStyle}>
+            <input type="radio" value="Yes" {...register(field)} />
+            <span>Yes</span>
+          </label>
+          <label style={inlineRadioOptionStyle}>
+            <input type="radio" value="No" {...register(field)} />
+            <span>No</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function PropertyDetails() {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext<PropertyFormData>();
+  const { register } = useFormContext<PropertyFormData>();
 
   return (
     <div className="tp-dashboard-new-property mb-15">
@@ -119,146 +164,37 @@ export default function PropertyDetails() {
 
         <div className="row">
           <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Corner Plot</label>
-              <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label
-                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
-                >
-                  <input type="radio" value="Yes" {...register("cornerPlot")} />
-                  <span>Yes</span>
-                </label>
-                <label
-                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
-                >
-                  <input type="radio" value="No" {...register("cornerPlot")} />
-                  <span>No</span>
-                </label>
-              </div>
-            </div>
+            <YesNoRadioRow
+              label="Corner Plot"
+              field="cornerPlot"
+              register={register}
+            />
           </div>
 
           <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Clear Title</label>
-              <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label
-                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
-                >
-                  <input type="radio" value="Yes" {...register("clearTitle")} />
-                  <span>Yes</span>
-                </label>
-                <label
-                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
-                >
-                  <input type="radio" value="No" {...register("clearTitle")} />
-                  <span>No</span>
-                </label>
-              </div>
-            </div>
+            <YesNoRadioRow
+              label="Clear Title"
+              field="clearTitle"
+              register={register}
+            />
           </div>
 
           <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Loan Facility</label>
-              <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label
-                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
-                >
-                  <input
-                    type="radio"
-                    value="Yes"
-                    {...register("loanFacility")}
-                  />
-                  <span>yes</span>
-                </label>
-                <label
-                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
-                >
-                  <input
-                    type="radio"
-                    value="No"
-                    {...register("loanFacility")}
-                  />
-                  <span>No</span>
-                </label>
-              </div>
-            </div>
+            <YesNoRadioRow
+              label="Loan Facility"
+              field="loanFacility"
+              register={register}
+            />
           </div>
         </div>
 
         <div className="row">
           <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Registration Ready</label>
-              <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
-                <label
-                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
-                >
-                  <input
-                    type="radio"
-                    value="Yes"
-                    {...register("registrationReady")}
-                  />
-                  <span>Yes</span>
-                </label>
-                <label
-                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
-                >
-                  <input
-                    type="radio"
-                    value="No"
-                    {...register("registrationReady")}
-                  />
-                  <span>No</span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <h5 className="tp-dashboard-new-title" style={{ marginTop: "20px" }}>
-        Contact Details
-      </h5>
-      <div className="tp-dashboard-new-property-box">
-        <div className="row">
-          <div className="col-lg-6">
-            <div className="tp-dashboard-new-input">
-              <label>Contact Person</label>
-              <input
-                className="textBox"
-                type="text"
-                placeholder="Mr. Ram"
-                {...register("contactPersonName")}
-              />
-              {errors?.contactPersonName && (
-                <ErrorMessage
-                  message={errors?.contactPersonName?.message || ""}
-                />
-              )}
-            </div>
-          </div>
-
-          <div className="col-lg-6">
-            <div className="tp-dashboard-new-input">
-              <label>Contact Number (+91)</label>
-              <input
-                className="textBox"
-                type="text"
-                inputMode="numeric"
-                placeholder="Enter 10 digit number"
-                {...register("contactNumber")}
-                onInput={(e) => {
-                  e.currentTarget.value = e.currentTarget.value
-                    .replace(/\D/g, "")
-                    .slice(0, 10);
-                }}
-              />
-              {errors?.contactNumber && (
-                <ErrorMessage message={errors?.contactNumber?.message || ""} />
-              )}
-            </div>
+            <YesNoRadioRow
+              label="Registration Ready"
+              field="registrationReady"
+              register={register}
+            />
           </div>
         </div>
       </div>
