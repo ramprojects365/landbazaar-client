@@ -20,6 +20,12 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import apiClient from "@/config/axios";
+import {
+  PHONE_NUMBER_LABEL,
+  PHONE_NUMBER_PLACEHOLDER,
+  formatPhoneWithCountryCode,
+  sanitizePhoneDigits,
+} from "@/utils/phoneInput";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,25 +41,7 @@ export default function SignUpForm() {
     resolver: yupResolver(signUpSchema),
   });
 
-  const formatNum = (phone: string): string => {
-    if (!phone) return "";
-
-    const num = phone.replace(/\D/g, "");
-
-    if (num.startsWith("60")) {
-      return `+${num}`;
-    }
-
-    if (num.startsWith("6")) {
-      return `+${num}`;
-    }
-
-    if (num.startsWith("0")) {
-      return `+6${num}`;
-    }
-
-    return `+60${num}`;
-  };
+  const formatNum = formatPhoneWithCountryCode;
 
   const onSubmit = async (data: ISignUpFormData) => {
     const requestBody = {
@@ -188,21 +176,34 @@ export default function SignUpForm() {
         </div>
         <div className="col-12">
           <div className="tp-sign-in-input-box">
+            <label
+              htmlFor="signup-phone"
+              style={{
+                display: "block",
+                marginBottom: "8px",
+                fontSize: "14px",
+                fontWeight: 500,
+              }}
+            >
+              {PHONE_NUMBER_LABEL}
+            </label>
             <div className="tp-sign-in-input p-relative">
               <input
+                id="signup-phone"
                 type="text"
                 inputMode="numeric"
-                maxLength={12}
-                placeholder="Enter phone number"
+                maxLength={10}
+                placeholder={PHONE_NUMBER_PLACEHOLDER}
                 onInput={(e: React.FormEvent<HTMLInputElement>) => {
-                  const target = e.currentTarget;
-                  target.value = target.value.replace(/\D/g, "");
+                  e.currentTarget.value = sanitizePhoneDigits(
+                    e.currentTarget.value,
+                  );
                 }}
                 {...register("phone", {
                   required: "Phone number is required",
                   pattern: {
-                    value: /^[0-9]{10,12}$/,
-                    message: "Phone number must be between 10 and 12 digits",
+                    value: /^[0-9]{10}$/,
+                    message: "Phone number must be exactly 10 digits",
                   },
                 })}
               />

@@ -20,6 +20,19 @@
   box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
 }
 
+.listDropDown--multiple {
+  height: auto;
+  min-height: 180px;
+  padding: 10px;
+  appearance: auto;
+  background-image: none;
+}
+
+.listDropDown--multiple option {
+  padding: 10px 12px 12px;
+  line-height: 1.5;
+}
+
 .textBox {
   height: 45px !important;
 }

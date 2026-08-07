@@ -16,7 +16,7 @@ const strictPhone = (requiredMessage = "Phone number is required") =>
     .string()
     .trim()
     .required(requiredMessage)
-    .matches(/^[0-9]{10,12}$/, "Phone number must be 10 to 12 digits");
+    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits");
 
 const personName = (requiredMessage = "Name is required") =>
   yup

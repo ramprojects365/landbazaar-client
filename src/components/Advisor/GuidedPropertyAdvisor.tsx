@@ -26,6 +26,12 @@ import {
   AdvisorContact,
 } from "./advisor-utils";
 import { createOrLoginPropertyFitLead } from "@/services/propertyService";
+import {
+  PHONE_NUMBER_LABEL,
+  PHONE_NUMBER_PLACEHOLDER,
+  formatPhoneWithCountryCode,
+  sanitizePhoneDigits,
+} from "@/utils/phoneInput";
 import "./guided-property-advisor.scss";
 
 type AdvisorStep = keyof AdvisorAnswers;
@@ -309,7 +315,10 @@ export default function GuidedPropertyAdvisor({
     setDefaultPassword("");
 
     try {
-      const response = await createOrLoginPropertyFitLead(contact);
+      const response = await createOrLoginPropertyFitLead({
+        ...contact,
+        phone: formatPhoneWithCountryCode(contact.phone),
+      });
       const loggedIn = saveAuthFromResponse(response);
       const password =
         response?.data?.defaultPassword || response?.defaultPassword || "";
@@ -477,17 +486,19 @@ export default function GuidedPropertyAdvisor({
           {!answerStep ? (
             <div className="guided-advisor__contact-form">
               <label>
-                Phone
+                {PHONE_NUMBER_LABEL}
                 <input
                   type="tel"
+                  inputMode="numeric"
+                  maxLength={10}
                   value={contact.phone}
                   onChange={(event) =>
                     setContact((current) => ({
                       ...current,
-                      phone: event.target.value,
+                      phone: sanitizePhoneDigits(event.target.value),
                     }))
                   }
-                  placeholder="+60"
+                  placeholder={PHONE_NUMBER_PLACEHOLDER}
                 />
               </label>
               <label>

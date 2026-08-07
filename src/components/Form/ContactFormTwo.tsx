@@ -5,6 +5,12 @@ import { contactSchema } from "@/schemas/validationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "./ErrorMassage";
+import {
+  PHONE_NUMBER_LABEL,
+  PHONE_NUMBER_PLACEHOLDER,
+  formatPhoneWithCountryCode,
+  sanitizePhoneDigits,
+} from "@/utils/phoneInput";
 import { toast } from "sonner";
 import apiClient from "@/config/axios";
 
@@ -26,9 +32,7 @@ export default function ContactFormTwo() {
   };
 
   const handlePhoneInput = (event: React.FormEvent<HTMLInputElement>) => {
-    event.currentTarget.value = event.currentTarget.value
-      .replace(/\D/g, "")
-      .slice(0, 12);
+    event.currentTarget.value = sanitizePhoneDigits(event.currentTarget.value);
   };
 
   const onSubmit = async (values: IContactFormTwoData) => {
@@ -36,7 +40,7 @@ export default function ContactFormTwo() {
       await apiClient.post("/contact", {
         name: values.name,
         email: values.email,
-        phone: values.number,
+        phone: formatPhoneWithCountryCode(values.number),
         subject: values.subject,
         message: values.message,
         source: "Contact page form",
@@ -87,14 +91,26 @@ export default function ContactFormTwo() {
             </div>
             <div className="col-xl-6 col-lg-6">
               <div className="tp-sign-in-input-box">
+                <label
+                  htmlFor="contact-form-two-phone"
+                  style={{
+                    display: "block",
+                    marginBottom: "8px",
+                    fontSize: "14px",
+                    fontWeight: 500,
+                  }}
+                >
+                  {PHONE_NUMBER_LABEL}
+                </label>
                 <div className="tp-contact-input p-relative">
                   <input
+                    id="contact-form-two-phone"
                     type="tel"
                     inputMode="numeric"
                     pattern="[0-9]*"
-                    maxLength={12}
+                    maxLength={10}
                     {...register("number")}
-                    placeholder="Phone number"
+                    placeholder={PHONE_NUMBER_PLACEHOLDER}
                     onInput={handlePhoneInput}
                   />
                   <ErrorMessage message={errors?.number?.message || ""} />

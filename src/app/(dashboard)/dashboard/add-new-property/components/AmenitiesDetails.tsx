@@ -11,7 +11,6 @@ function AmenitiesChecklist() {
 
   return (
     <div className="col-12">
-      <p>Facilities:</p>
       <div className="row">
         {OTHER_FACILITIES.map((amenity, index) => (
           <div key={index} className="col-12 col-lg-4">

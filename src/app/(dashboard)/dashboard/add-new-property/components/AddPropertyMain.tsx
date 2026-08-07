@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { getPropertyById } from "@/services/propertyService";
 import { useSearchParams } from "next/navigation";
 import { API_BASE_URL } from "@/config/constants";
+import { stripCountryCodeForDisplay } from "@/utils/phoneInput";
 
 // Amenity groupings — mirror the FE display groups for categorising on submit
 const AMENITY_GROUPS = {
@@ -196,14 +197,14 @@ export default function AddPropertyPage() {
       availability: "",
       negotiable: "",
       floorLevel: "",
-      cornerPlot: "",
+      cornerPlot: "Yes",
       roadWidth: "",
       surveyNumber: "",
       approvalTypes: [],
       soilType: "",
-      clearTitle: "",
-      loanFacility: "",
-      registrationReady: "",
+      clearTitle: "Yes",
+      loanFacility: "Yes",
+      registrationReady: "Yes",
       contactPersonName: "",
       contactNumber: "",
       propertyAge: undefined,
@@ -318,18 +319,18 @@ export default function AddPropertyPage() {
             availability: normalizeAvailability(propertyData.availability),
             negotiable: propertyData.negotiable ? "Yes" : "No",
             floorLevel: normalizeFloorLevel(propertyData.floorLevel),
-            cornerPlot: propertyData.cornerPlot || "",
+            cornerPlot: propertyData.cornerPlot || "Yes",
             roadWidth: propertyData.roadWidth || "",
             surveyNumber: propertyData.surveyNumber || "",
             approvalTypes: Array.isArray(propertyData.approvalTypes)
               ? propertyData.approvalTypes
               : [],
             soilType: propertyData.soilType || "",
-            clearTitle: propertyData.clearTitle || "",
-            loanFacility: propertyData.loanFacility || "",
-            registrationReady: propertyData.registrationReady || "",
+            clearTitle: propertyData.clearTitle || "Yes",
+            loanFacility: propertyData.loanFacility || "Yes",
+            registrationReady: propertyData.registrationReady || "Yes",
             contactPersonName: propertyData.contactPersonName || "",
-            contactNumber: propertyData.contactNumber || "",
+            contactNumber: stripCountryCodeForDisplay(propertyData.contactNumber),
             propertyAge: getAgeRangeFromYear(propertyData.yearOfBuild),
             yearOfCompletion: propertyData.yearOfCompletion,
             carParkAllocation: propertyData.carParkAllocation || "",
