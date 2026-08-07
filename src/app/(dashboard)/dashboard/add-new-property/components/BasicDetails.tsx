@@ -6,6 +6,7 @@ import ErrorMessage from "../../../../../components/Form/ErrorMassage";
 import "../property.css";
 import { useState, useEffect } from "react";
 import { AREA_UNITS, LAND_TYPES, LISTING_TYPES } from "@/config/landOptions";
+import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 
 export default function BasicDetails() {
   const {
@@ -224,14 +225,17 @@ export default function BasicDetails() {
           </div>
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Total Price (₹)</label>
+              <label>Total Price</label>
+              <input type="hidden" {...register("totalPrice")} />
               <input
                 className="textBox"
                 type="text"
-                inputMode="numeric"
-                placeholder="Auto calculated"
-                {...register("totalPrice")}
                 readOnly
+                value={
+                  totalPrice ? formatTotalPriceDisplay(totalPrice) : ""
+                }
+                placeholder="Auto calculated"
+                style={{ background: "#f6f6f6", cursor: "default" }}
               />
               {errors?.totalPrice && (
                 <ErrorMessage message={errors?.totalPrice?.message || ""} />
