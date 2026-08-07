@@ -13,7 +13,7 @@ function BlogItemHome({
   slug,
 }: IBlogDT) {
   return (
-    <div className="tp-blog-item p-relative mb-30 wow fadeInUp h-100">
+    <div className="tp-blog-item p-relative wow fadeInUp h-100">
       <div
         data-wow-duration="1s"
         data-wow-delay={delay}

@@ -1,7 +1,6 @@
 import aboutIcon1 from "../../../public/assets/img/testimonial/star_icon.png";
 import aboutIcon2 from "../../../public/assets/img/testimonial/star_icon.png";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function ReusableAboutArea() {
   return (

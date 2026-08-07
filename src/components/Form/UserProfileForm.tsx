@@ -269,10 +269,6 @@ setIsAgentProfile(isAgent);
             (profile.renStatus === "verified" ? "Verified" : "Not verified"),
           available: profile.renStatus !== undefined || Boolean(profile.renNumber),
         });
-        const accountStatus = (profile.status || profile.userStatus || "active")
-          .trim()
-          .toLowerCase();
-
       } catch (err: unknown) {
         const error = err as { response?: { status?: number } };
         if (error?.response?.status !== 401) {

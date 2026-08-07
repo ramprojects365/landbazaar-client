@@ -1,5 +1,5 @@
 import PricingCard from "./subComponents/PricingCard";
-import { Bot, CheckCircle2, Coins, MessageCircle, RefreshCw, Sparkles } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 const pricingPlans = [
     { name: "Basic Plan", price: "Free", delay: ".3s" },

@@ -16,7 +16,6 @@ export default function BasicDetails() {
     watch,
   } = useFormContext<PropertyFormData>();
 
-  const listingType = watch("listingType");
   const description = watch("description") || "";
   const landArea = watch("landSize") || "";
   const pricePerUnit = watch("pricePerUnit") || "";

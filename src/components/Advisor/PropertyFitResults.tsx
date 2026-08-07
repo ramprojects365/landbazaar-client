@@ -3,12 +3,8 @@
 import { MouseEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  Bell,
-  CheckCircle2,
   Clock3,
-  Mail,
   Sparkles,
-  UserPlus,
 } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import PropertySingleCard from "@/components/Common/PropertySingleCard";
@@ -85,10 +81,7 @@ type ApiProperty = {
   };
 };
 
-const mapApiProperty = (
-  item: ApiProperty,
-  index: number,
-): IFeaturedPropertyDT => {
+const mapApiProperty = (item: ApiProperty): IFeaturedPropertyDT => {
   const image =
     getCoverImageUrl(item.images) ||
     "/assets/img/rent/property/property-details-thumb-1.png";
@@ -135,11 +128,8 @@ export default function PropertyFitResults() {
     useState<StoredAdvisorResults | null>(null);
   const [properties, setProperties] = useState<IFeaturedPropertyDT[]>([]);
   const [loading, setLoading] = useState(true);
-  const [statusMessage, setStatusMessage] = useState("");
   const [apiUsed, setApiUsed] = useState(false);
-  const [autoRegistered, setAutoRegistered] = useState(false);
   const [fallbackUsed, setFallbackUsed] = useState(false);
-  const [agentNotificationCount, setAgentNotificationCount] = useState(0);
 
   useEffect(() => {
     const saved = window.localStorage.getItem(ADVISOR_RESULTS_KEY);
@@ -168,7 +158,6 @@ export default function PropertyFitResults() {
 
     const loadMatches = async () => {
       setLoading(true);
-      setStatusMessage("");
 
       try {
         const response = (await getPropertyFitMatches(
@@ -177,15 +166,12 @@ export default function PropertyFitResults() {
         )) as PropertyFitMatchResponse;
         const data = Array.isArray(response?.data) ? response.data : [];
         const mapped = data.map(mapApiProperty);
-        const notifiedAgents = response?.agentNotificationCount ?? 0;
 
         if (!active) return;
 
         setProperties(mapped);
         setApiUsed(true);
-        setAutoRegistered(Boolean(response?.autoRegistered));
         setFallbackUsed(Boolean(response?.fallbackUsed));
-        setAgentNotificationCount(notifiedAgents);
         if (response?.auth?.token && response?.auth?.user) {
           const user = response.auth.user;
           window.localStorage.setItem("authToken", response.auth.token);
@@ -198,26 +184,12 @@ export default function PropertyFitResults() {
             user.fullName || user.username || user.email || "",
           );
         }
-        setStatusMessage(
-          mapped.length
-            ? response?.fallbackUsed
-              ? "No exact match yet. Our agent will reach out with better options."
-              : response?.autoLoggedIn
-                ? `Your search is saved. We notified ${notifiedAgents} matching agent${notifiedAgents === 1 ? "" : "s"}.`
-                : response?.existingEmailIgnored
-                  ? `That email already exists, so we skipped account setup and notified ${notifiedAgents} matching agent${notifiedAgents === 1 ? "" : "s"}.`
-                  : `We notified ${notifiedAgents} matching agent${notifiedAgents === 1 ? "" : "s"} for this brief.`
-            : "No exact match yet. Our agent will reach out with better options.",
-        );
       } catch (error) {
         console.error("Property fit match error:", error);
         if (!active) return;
         setProperties([]);
         setApiUsed(false);
         setFallbackUsed(false);
-        setStatusMessage(
-          "We could not reach the property database. Our agent will connect shortly.",
-        );
       } finally {
         if (active) setLoading(false);
       }
@@ -239,9 +211,6 @@ export default function PropertyFitResults() {
     }
 
     if (!storedResults || !apiUsed) {
-      setStatusMessage(
-        "View captured locally. Agent notification will run once backend is connected.",
-      );
       return;
     }
 
@@ -251,18 +220,10 @@ export default function PropertyFitResults() {
         contact: storedResults.contact,
         propertyUrl: `${window.location.origin}/property-details/${property.id}`,
       });
-      setStatusMessage(`Agent notification sent for ${property.title}.`);
     } catch (error) {
       console.error("Property view notification error:", error);
-      setStatusMessage(
-        "Could not notify the agent yet, but the property view was captured.",
-      );
     }
   };
-
-  const contactReady = Boolean(
-    storedResults?.contact.phone || storedResults?.contact.email,
-  );
 
   return (
     <main className="property-fit-page">

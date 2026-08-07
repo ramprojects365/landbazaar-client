@@ -21,6 +21,11 @@ function formatScaledAmount(amount: number): string {
   return String(rounded).replace(/\.0$/, "");
 }
 
+function pluralizeUnit(amount: number, singular: string, plural: string): string {
+  const formatted = formatScaledAmount(amount);
+  return `${formatted} ${amount > 1 ? plural : singular}`;
+}
+
 /**
  * Display total price in Indian units for UI only.
  * Backend continues to store/send the raw numeric amount.
@@ -32,10 +37,10 @@ export function formatTotalPriceDisplay(
   if (value <= 0) return "—";
 
   if (value < 100_000) {
-    return `${formatScaledAmount(value / 1_000)} thousands`;
+    return pluralizeUnit(value / 1_000, "thousand", "thousands");
   }
   if (value <= 10_000_000) {
-    return `${formatScaledAmount(value / 100_000)} lakhs`;
+    return pluralizeUnit(value / 100_000, "lakh", "lakhs");
   }
-  return `${formatScaledAmount(value / 10_000_000)} crores`;
+  return pluralizeUnit(value / 10_000_000, "crore", "crores");
 }

@@ -23,7 +23,7 @@ export default function BlogSlider({
     <div className={`tp-blog-slider ${className}`}>
       <div className="tp-blog-slider-active swiper">
         <div
-          className="pb-60 wow fadeInUp"
+          className="wow fadeInUp"
           data-wow-duration="1s"
           data-wow-delay=".7s"
         >

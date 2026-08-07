@@ -226,13 +226,9 @@ export default function AddPropertyPage() {
 
   const {
     handleSubmit,
-    reset,
     setValue,
-    setError,
-    watch,
     formState: { errors },
   } = methods;
-  const currentListingType = watch("listingType");
   const searchParams = useSearchParams();
   const editPropertyId = searchParams.get("edit");
   const [isEditMode, setIsEditMode] = useState(false);
@@ -728,16 +724,7 @@ export default function AddPropertyPage() {
         <AmenitiesDetails />
         <UploadMedia />
         <div className="tp-dashboard-new-btn">
-          <button
-            type="submit"
-            className="add"
-            disabled={isLoading}
-            onClick={(e) => {
-              console.log("🔘 Button clicked");
-              console.log("🔘 isLoading:", isLoading);
-              console.log("🔘 Button disabled:", isLoading);
-            }}
-          >
+          <button type="submit" className="add" disabled={isLoading}>
             {isEditMode ? "Update Property" : "Add Property"}
           </button>
         </div>
