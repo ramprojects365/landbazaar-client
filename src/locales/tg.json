@@ -1,12 +1,12 @@
 {
   "common": {
-    "property": "Hartanah",
-    "properties": "Hartanah",
-    "rent": "Sewa",
-    "buy": "Beli",
-    "land": "Tanah",
-    "myProfile": "Profil Saya",
-    "logout": "Log Keluar"
+    "property": "Property",
+    "properties": "Properties",
+    "rent": "Rent",
+    "buy": "Buy",
+    "land": "Land",
+    "myProfile": "My Profile",
+    "logout": "Logout"
   },
   "header": {
     "postPropertyText": "Post Property",
@@ -18,13 +18,13 @@
     "searchDescription": "ఖాళీ స్థలాలు, వ్యవసాయ భూములు మరియు వాణిజ్య స్థలాల కోసం వెతకండి."
   },
   "home": {
-    "featuredListings": "Senarai Pilihan",
-    "propertyForSellAndRent": "Hartanah untuk dijual dan disewa",
-    "propertiesByCity": "HARTANAH MENGIKUT BANDAR",
-    "exploreNeighbourhoods": "Terokai kawasan sekitar",
-    "trustedPartners": "Rakan Kongsi Dipercayai",
-    "meetPropertyConsultants": "Temui perunding hartanah yang disahkan dan berpengalaman kami",
-    "latestArticleAndNews": "Artikel dan berita terkini kami",
-    "whyChoosePropertyLa": "Mengapa Pilih LandWay?"
+    "featuredListings": "Premium Land Listings",
+    "propertyForSellAndRent": "Featured Land Opportunities",
+    "propertiesByCity": "Browse by Location",
+    "exploreNeighbourhoods": "Explore Lands Across Cities",
+    "trustedPartners": "Trusted Land Sellers",
+    "meetPropertyConsultants": "Meet our verified and experienced land sellers",
+    "latestArticleAndNews": "Latest Land Insights & News",
+    "whyChoosePropertyLa": "Why Choose LandWay?"
   }
 }
