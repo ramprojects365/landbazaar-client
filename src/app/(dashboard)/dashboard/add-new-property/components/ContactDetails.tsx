@@ -3,6 +3,11 @@
 import { useFormContext } from "react-hook-form";
 import { PropertyFormData } from "@/schemas/validationSchema";
 import ErrorMessage from "../../../../../components/Form/ErrorMassage";
+import {
+  CONTACT_NUMBER_LABEL,
+  PHONE_NUMBER_PLACEHOLDER,
+  sanitizePhoneDigits,
+} from "@/utils/phoneInput";
 
 export default function ContactDetails() {
   const {
@@ -34,17 +39,17 @@ export default function ContactDetails() {
 
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Contact Number (+91)</label>
+              <label>{CONTACT_NUMBER_LABEL}</label>
               <input
                 className="textBox"
                 type="text"
                 inputMode="numeric"
-                placeholder="Enter 10 digit number"
+                placeholder={PHONE_NUMBER_PLACEHOLDER}
                 {...register("contactNumber")}
                 onInput={(e) => {
-                  e.currentTarget.value = e.currentTarget.value
-                    .replace(/\D/g, "")
-                    .slice(0, 10);
+                  e.currentTarget.value = sanitizePhoneDigits(
+                    e.currentTarget.value,
+                  );
                 }}
               />
               {errors?.contactNumber && (

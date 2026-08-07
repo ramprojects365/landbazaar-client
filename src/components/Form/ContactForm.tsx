@@ -8,6 +8,12 @@ import { IContactFormValues } from "@/types/blog-d-t";
 import { contactTwoSchema } from "@/schemas/validationSchema";
 import apiClient from "@/config/axios";
 import ErrorMessage from "./ErrorMassage";
+import {
+  PHONE_NUMBER_LABEL,
+  PHONE_NUMBER_PLACEHOLDER,
+  formatPhoneWithCountryCode,
+  sanitizePhoneDigits,
+} from "@/utils/phoneInput";
 
 interface ContactFormProps {
   btnClass?: string;
@@ -33,9 +39,7 @@ export default function ContactForm({
   };
 
   const handlePhoneInput = (event: React.FormEvent<HTMLInputElement>) => {
-    event.currentTarget.value = event.currentTarget.value
-      .replace(/\D/g, "")
-      .slice(0, 12);
+    event.currentTarget.value = sanitizePhoneDigits(event.currentTarget.value);
   };
 
   const onSubmit = async (values: IContactFormValues) => {
@@ -43,7 +47,7 @@ export default function ContactForm({
       await apiClient.post("/contact", {
         name: `${values.firstName} ${values.lastName}`.trim(),
         email: values.email,
-        phone: values.phone,
+        phone: formatPhoneWithCountryCode(values.phone),
         message: values.caseDetails,
         source: "About contact form",
       });
@@ -103,14 +107,26 @@ export default function ContactForm({
         </div>
 
         <div className="col-lg-6">
+          <label
+            htmlFor="contact-form-phone"
+            style={{
+              display: "block",
+              marginBottom: "8px",
+              fontSize: "14px",
+              fontWeight: 500,
+            }}
+          >
+            {PHONE_NUMBER_LABEL}
+          </label>
           <div className="tp-contact-input">
             <input
+              id="contact-form-phone"
               type="tel"
               inputMode="numeric"
               pattern="[0-9]*"
-              maxLength={12}
+              maxLength={10}
               {...register("phone")}
-              placeholder="Phone number"
+              placeholder={PHONE_NUMBER_PLACEHOLDER}
               onInput={handlePhoneInput}
             />
             {errors?.phone && <ErrorMessage message={errors?.phone.message} />}

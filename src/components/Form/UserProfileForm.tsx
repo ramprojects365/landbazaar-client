@@ -8,6 +8,13 @@ import { toast } from "sonner";
 import apiClient from "@/config/axios";
 import UserSvg from "@/components/SVG/UserSvg";
 import { BadgeAlert, BadgeCheck } from "lucide-react";
+import {
+  PHONE_NUMBER_LABEL,
+  PHONE_NUMBER_PLACEHOLDER,
+  formatPhoneWithCountryCode,
+  sanitizePhoneDigits,
+  stripCountryCodeForDisplay,
+} from "@/utils/phoneInput";
 
 const PROFILE_IMAGE_ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const PROFILE_IMAGE_ACCEPT = PROFILE_IMAGE_ACCEPTED_TYPES.join(",");
@@ -131,15 +138,7 @@ export default function UserProfileForm() {
     resolver: yupResolver(profileSchema),
   });
 
-  const formatNum = (phone: string): string => {
-    if (!phone) return "";
-    const num = phone.replace(/\D/g, "");
-
-    if (num.startsWith("60")) return `+${num}`;
-    if (num.startsWith("6")) return `+${num}`;
-    if (num.startsWith("0")) return `+6${num}`;
-    return `+60${num}`;
-  };
+  const formatNum = formatPhoneWithCountryCode;
 
   // ── GET /api/users/profile — fetch and bind data on mount ──
   useEffect(() => {
@@ -221,7 +220,7 @@ setIsAgentProfile(isAgent);
           profile.mobile ||
           profile.mobileNumber ||
           "";
-        const phone = phoneRaw.replace(/\D/g, "");
+        const phone = stripCountryCodeForDisplay(phoneRaw);
         const email =
           profile.email || profile.emailAddress || profile.mail || "";
 
@@ -593,16 +592,17 @@ setIsAgentProfile(isAgent);
 
               <div className="col-lg-6">
                 <div className="tp-dashboard-new-input">
-                  <label>Phone Number</label>
+                  <label>{PHONE_NUMBER_LABEL}</label>
                   <input
                     {...registerProfile("phone")}
                     type="text"
                     inputMode="numeric"
-                    maxLength={12}
-                    placeholder="Enter phone number"
+                    maxLength={10}
+                    placeholder={PHONE_NUMBER_PLACEHOLDER}
                     onInput={(e: React.FormEvent<HTMLInputElement>) => {
-                      const target = e.currentTarget;
-                      target.value = target.value.replace(/\D/g, "");
+                      e.currentTarget.value = sanitizePhoneDigits(
+                        e.currentTarget.value,
+                      );
                     }}
                   />
                   <ErrorMessage message={profileErrors.phone?.message || ""} />

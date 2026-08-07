@@ -9,6 +9,7 @@ import {
   SOIL_TYPES,
 } from "@/config/landOptions";
 import { UseFormRegister } from "react-hook-form";
+import "../property.css";
 
 const inlineRadioRowStyle = {
   display: "flex",
@@ -96,8 +97,7 @@ export default function PropertyDetails() {
               <select
                 {...register("approvalTypes")}
                 multiple
-                className="listDropDown"
-                style={{ minHeight: "120px" }}
+                className="listDropDown listDropDown--multiple"
               >
                 {APPROVAL_TYPES.map((item) => (
                   <option key={item} value={item}>
