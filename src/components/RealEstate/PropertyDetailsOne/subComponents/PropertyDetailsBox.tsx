@@ -16,25 +16,40 @@ interface Props {
   propertyType?: string;
   landSize?: string;
   listingType?: string;
+  tenure?: string;
+  pricePerUnit?: string;
   facingDirection?: string;
   cornerPlot?: string;
   roadWidth?: string;
   surveyNumber?: string;
+  approvalTypes?: string[];
+  soilType?: string;
   clearTitle?: string;
   loanFacility?: string;
+  registrationReady?: string;
 }
 
 export default function PropertyDetailsBox({
   propertyType,
   landSize,
   listingType,
+  tenure,
+  pricePerUnit,
   facingDirection,
   cornerPlot,
   roadWidth,
   surveyNumber,
+  approvalTypes,
+  soilType,
   clearTitle,
   loanFacility,
+  registrationReady,
 }: Props) {
+  const approvalLabel =
+    approvalTypes && approvalTypes.length > 0
+      ? approvalTypes.join(", ")
+      : undefined;
+
   const details: PropertyDetail[] = [
     {
       icon: <HomeSvg />,
@@ -50,6 +65,8 @@ export default function PropertyDetailsBox({
     },
     { icon: <MessageSvgTwo />, label: "Land Type", value: propertyType || "—" },
     { icon: <SquareFeetSvg />, label: "Land Size", value: landSize || "—" },
+    { icon: <SquareFeetSvg />, label: "Price / Unit", value: pricePerUnit || "—" },
+    { icon: <HomeSvg />, label: "Tenure", value: tenure?.trim() || "—" },
     {
       icon: <YearBuiltIconSvg />,
       label: "Facing",
@@ -58,8 +75,15 @@ export default function PropertyDetailsBox({
     { icon: <HomeSvg />, label: "Corner Plot", value: cornerPlot || "—" },
     { icon: <HomeSvg />, label: "Road Width", value: roadWidth || "—" },
     { icon: <HomeSvg />, label: "Survey No.", value: surveyNumber || "—" },
+    { icon: <HomeSvg />, label: "Approvals", value: approvalLabel || "—" },
+    { icon: <HomeSvg />, label: "Soil Type", value: soilType || "—" },
     { icon: <HomeSvg />, label: "Clear Title", value: clearTitle || "—" },
     { icon: <HomeSvg />, label: "Loan", value: loanFacility || "—" },
+    {
+      icon: <HomeSvg />,
+      label: "Registration",
+      value: registrationReady || "—",
+    },
   ];
 
   return (

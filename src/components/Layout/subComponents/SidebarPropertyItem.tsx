@@ -8,10 +8,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { getCoverImageUrl } from "@/utils/propertyImages";
-import {
-  formatLandSize,
-  parseTotalPrice,
-} from "@/utils/mapApiProperty";
+import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
 
 interface IPropsWrapperCls {
   wrapperCls?: string;

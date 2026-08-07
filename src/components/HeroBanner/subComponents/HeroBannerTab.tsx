@@ -158,7 +158,6 @@ export default function HeroBannerTabContent({ id }: ITabContentProps) {
 
     return () => clearTimeout(timer);
   }, [query, city, landType]);
-  }, [query, city, landType]);
 
   // Close dropdowns on outside click
   useEffect(() => {

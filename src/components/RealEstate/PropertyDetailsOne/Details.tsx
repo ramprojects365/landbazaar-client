@@ -11,85 +11,12 @@ import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { toast } from "sonner";
 import { recordPropertyView } from "@/services/propertyService";
 import {
-  formatLandSize,
-  formatStreetCity,
-  parseTotalPrice,
+  formatPricePerUnit,
+  mapApiPropertyToCard,
+  type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
 
-type ApiProperty = {
-  id: string;
-  title: string;
-  description?: string;
-  listingType?: string;
-  propertyType?: string;
-  propertyName?: string;
-  streetName?: string;
-  cityName?: string;
-  state?: string;
-  pincode?: string;
-  landmark?: string;
-  price?: number | string;
-  totalPrice?: number | string;
-  landSize?: number | string;
-  areaUnit?: string;
-  buildupArea?: number | string;
-  bedrooms?: number | string;
-  bathrooms?: number | string;
-  images?: unknown[];
-  status?: string;
-  facingDirection?: string;
-  cornerPlot?: string;
-  roadWidth?: string;
-  surveyNumber?: string;
-  amenities?: {
-    lifestyle?: string[];
-    facilities?: string[];
-    security?: string[];
-  };
-  user?: {
-    id?: string;
-    username?: string;
-    email?: string;
-    phoneNumber?: string;
-    userType?: string | null;
-    profileImage?: string;
-    fullName?: string | null;
-    bio?: string | null;
-    companyName?: string | null;
-    designation?: string | null;
-    experienceYears?: number | null;
-    emailVerified?: boolean;
-    createdAt?: string;
-    updatedAt?: string;
-  };
-  furnishing?: string;
-  availability?: string;
-  negotiable?: boolean;
-  yearOfBuild?: number;
-  tenure?: string;
-};
-
-function mapToDisplay(item: ApiProperty): IFeaturedPropertyDT {
-  const landSizeLabel = formatLandSize(item.landSize, item.areaUnit);
-  return {
-    id: item.id,
-    title: item.propertyName || item.title || "Property",
-    address: formatStreetCity(item.streetName, item.cityName),
-    linkUrl: "property-details",
-    image: "" as unknown as IFeaturedPropertyDT["image"],
-    showTags: true,
-    isForRent: item.listingType === "rent",
-    isForSale: item.listingType === "sale",
-    isFeatured: false,
-    bedrooms: landSizeLabel,
-    bathrooms: "",
-    livingArea: "",
-    price: parseTotalPrice(item.totalPrice, item.price),
-    user: item.user,
-    description: item.description,
-    quantity: 0,
-  };
-}
+type ApiProperty = ApiPropertyFields;
 
 export default function PropertyDetailsOneArea({ id }: IdProps) {
   const searchParams = useSearchParams();
@@ -138,7 +65,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
         const json = await res.json();
         const item: ApiProperty = json?.data ?? json;
         setApiProperty(item);
-        setDisplay(mapToDisplay(item));
+        setDisplay(mapApiPropertyToCard(item, ""));
       } catch {
         setError("Property not found.");
       } finally {
@@ -243,6 +170,11 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
     );
   }
 
+  const pricePerUnitLabel = formatPricePerUnit(
+    apiProperty.pricePerUnit,
+    apiProperty.areaUnit,
+  );
+
   return (
     <>
       <section className="tp-property-details-area pb-130">
@@ -303,8 +235,14 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
                     <LivingSvg /> <strong>Land Size:</strong> {display.bedrooms}
                   </span>
                   <span>
-                    <strong>Total Price:</strong> {formatPrice(display.price, false)}
+                    <strong>Total Price:</strong>{" "}
+                    {formatPrice(display.price, false)}
                   </span>
+                  {pricePerUnitLabel !== "—" && (
+                    <span style={{ color: "#888", fontSize: "14px" }}>
+                      {pricePerUnitLabel}
+                    </span>
+                  )}
                   {apiProperty.facingDirection && (
                     <span style={{ color: "#888", fontSize: "14px" }}>
                       Facing {apiProperty.facingDirection}

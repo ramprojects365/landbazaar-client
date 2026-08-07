@@ -6,53 +6,19 @@ import { StaticImageData } from "next/image";
 import PropertySingleCard from "@/components/Common/PropertySingleCard";
 import { propertyData } from "@/data/propertyData";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
-import { mapApiPropertyToCard } from "@/utils/mapApiProperty";
+import {
+  mapApiPropertyToCard,
+  type ApiPropertyFields,
+} from "@/utils/mapApiProperty";
 
 type Property = IFeaturedPropertyDT;
 
-// Pool of local fallback images cycled when API returns no images
 const localImagePool: StaticImageData[] = propertyData
   .filter((p) => p.image)
   .map((p) => p.image as StaticImageData)
   .slice(0, 20);
 
-// Raw shape returned by the backend Property entity
-type ApiProperty = {
-  id: string;
-  title: string;
-  description?: string;
-  listingType?: string;
-  propertyType?: string;
-  propertyName?: string;
-  streetName?: string;
-  cityName?: string;
-  state?: string;
-  price?: number | string;
-  totalPrice?: number | string;
-  landSize?: number | string;
-  areaUnit?: string;
-  buildupArea?: number | string;
-  bedrooms?: number | string;
-  bathrooms?: number | string;
-  images?: unknown[];
-  status?: string;
-  contactPersonName?: string;
-  user?: {
-    id?: string;
-    username?: string;
-    email?: string;
-    phoneNumber?: string;
-    profileImage?: string;
-    fullName?: string | null;
-    bio?: string | null;
-    companyName?: string | null;
-    designation?: string | null;
-    experienceYears?: number | null;
-    emailVerified?: boolean;
-    createdAt?: string;
-    updatedAt?: string;
-  };
-};
+type ApiProperty = ApiPropertyFields;
 
 function mapApiProperty(item: ApiProperty, index: number): Property {
   return mapApiPropertyToCard(
@@ -144,7 +110,17 @@ export default function PropertyListing() {
         if (!response.ok) throw new Error(`API error: ${response.status}`);
 
         const data = await response.json();
-        const results: ApiProperty[] = data?.data || data || [];
+        let results: ApiProperty[] = data?.data || data || [];
+
+        // Client-side size post-filter (only needed for text search,
+        // since the filter endpoint handles minArea server-side)
+        if (keyword.trim() && (minSize > 0 || maxSize < 10000)) {
+          results = results.filter((item) => {
+            const area = parseFloat(String(item.landSize ?? 0));
+            if (area <= 0) return true;
+            return area >= minSize && area <= maxSize;
+          });
+        }
 
         const mapped = results.map((item, idx) => mapApiProperty(item, idx));
         setProperties(mapped);

@@ -1,4 +1,3 @@
-import LivingTwoSvg from "@/components/SVG/PropertySvg/LivingTwoSvg";
 import MapMarkerSvg from "@/components/SVG/PropertySvg/MapMarkerIcon";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { formatPrice } from "../Utils/formatPrice";
@@ -83,18 +82,13 @@ function PropertySingleCardTwo({ item }: propertyProps) {
           <div className="tp-rent-meta-list d-flex justify-content-between align-items-center">
             <div className="tp-rent-meta-item">
               <div className="tp-rent-meta-content d-flex">
-                <span>
-                  <LivingTwoSvg />
-                </span>
                 <p>{item.bedrooms}</p>
               </div>
-              <p>Land Size</p>
             </div>
             <div className="tp-rent-meta-item">
               <div className="tp-rent-meta-content d-flex">
                 <p>{item.bathrooms || "Land"}</p>
               </div>
-              <p>Land Type</p>
             </div>
           </div>
           <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">

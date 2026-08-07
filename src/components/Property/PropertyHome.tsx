@@ -5,48 +5,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { StaticImageData } from "next/image";
 import { useTranslation } from "@/contexts/LanguageContext";
-import { mapApiPropertyToCard } from "@/utils/mapApiProperty";
+import {
+  mapApiPropertyToCard,
+  type ApiPropertyFields,
+} from "@/utils/mapApiProperty";
 
-// Import Swiper components and Pagination module
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-
-type ApiProperty = {
-  id: string;
-  title?: string;
-  propertyName?: string;
-  listingType?: string;
-  propertyType?: string;
-  streetName?: string;
-  cityName?: string;
-  state?: string;
-  price?: number | string;
-  totalPrice?: number | string;
-  landSize?: number | string;
-  areaUnit?: string;
-  buildupArea?: number | string;
-  bedrooms?: number | string;
-  bathrooms?: number | string;
-  images?: unknown[];
-  createdAt?: string;
-  updatedAt?: string;
-  contactPersonName?: string;
-  user?: {
-    id?: string;
-    username?: string;
-    email?: string;
-    phoneNumber?: string;
-    profileImage?: string;
-    fullName?: string | null;
-    bio?: string | null;
-    companyName?: string | null;
-    designation?: string | null;
-    experienceYears?: number | null;
-    emailVerified?: boolean;
-    createdAt?: string;
-    updatedAt?: string;
-  };
-};
 
 export default function PropertyHome() {
   const [items, setItems] = useState<IFeaturedPropertyDT[]>([]);
@@ -72,7 +37,7 @@ export default function PropertyHome() {
         });
         if (!res.ok) return;
         const json = await res.json();
-        const list: ApiProperty[] = json?.data ?? json ?? [];
+        const list: ApiPropertyFields[] = json?.data ?? json ?? [];
 
         const sorted = [...list].sort((a, b) => {
           const aTime = new Date(a.createdAt || a.updatedAt || 0).getTime();
@@ -106,8 +71,12 @@ export default function PropertyHome() {
         <div className="row">
           <div className="col-lg-12">
             <div className="tp-rent-heading text-center mb-50">
-              <span className="tp-section-title-pre">{t("home.featuredListings")}</span>
-              <h3 className="tp-section-title">{t("home.propertyForSellAndRent")}</h3>
+              <span className="tp-section-title-pre">
+                {t("home.featuredListings")}
+              </span>
+              <h3 className="tp-section-title">
+                {t("home.propertyForSellAndRent")}
+              </h3>
             </div>
           </div>
         </div>

@@ -51,25 +51,11 @@ export const GaragesOptions = [
   { value: "Office", label: "Office" },
 ];
 
-export const CountryOptions = [
-  { value: "", label: "Short by" },
-  { value: "Office", label: "Russia" },
-  { value: "Villa", label: "United States" },
-  { value: "Studio", label: "United Kingdom" },
-];
-
 export const PropertyTypeOptions = [
   { value: "apartment", label: "Apartment" },
   { value: "villa", label: "Villa" },
   { value: "studio", label: "Studio" },
   { value: "office", label: "Office" },
-];
-
-export const CountryTypeOptions = [
-  { value: "NewYork", label: "New York US" },
-  { value: "BerlinGermany", label: "Berlin Germany" },
-  { value: "ParisFrance", label: "Paris France" },
-  { value: "TokiyoJapan", label: "Tokiyo Japan" },
 ];
 export const propertyStates = [
   { value: "Kuala Lumpur", label: "Kuala Lumpur" },
