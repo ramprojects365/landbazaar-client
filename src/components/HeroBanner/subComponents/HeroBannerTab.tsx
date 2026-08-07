@@ -6,6 +6,27 @@ import {
   LAND_CITIES,
   LAND_TYPES as LAND_TYPE_VALUES,
 } from "@/config/landOptions";
+import "./hero-banner-tab.css";
+
+function SearchIcon({ stroke = "#fff" }: { stroke?: string }) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="11" cy="11" r="7" stroke={stroke} strokeWidth="2" />
+      <path
+        d="M20 20L16.5 16.5"
+        stroke={stroke}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 type SearchItem = {
   id: string;
@@ -390,30 +411,8 @@ export default function HeroBannerTabContent({ id }: ITabContentProps) {
       </div>
 
       {/* Bottom row: search icon + field + button */}
-      <div
-        ref={wrapperRef}
-        style={{
-          position: "relative",
-          display: "flex",
-          alignItems: "stretch",
-          gap: "10px",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            height: "52px",
-            border: "1px solid #e5e7eb",
-            borderRadius: "8px",
-            padding: "0 14px",
-            background: "#fff",
-            minWidth: 0,
-          }}
-        >
+      <div ref={wrapperRef} className="hero-search-row">
+        <div className="hero-search-input-wrap">
           <svg
             width="18"
             height="18"
@@ -432,6 +431,7 @@ export default function HeroBannerTabContent({ id }: ITabContentProps) {
           </svg>
           <input
             type="text"
+            className="hero-search-input"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -439,70 +439,26 @@ export default function HeroBannerTabContent({ id }: ITabContentProps) {
             }}
             onKeyDown={handleKeyDown}
             placeholder={typedPlaceholder}
-            style={{
-              flex: 1,
-              height: "100%",
-              border: "none",
-              outline: "none",
-              fontSize: "15px",
-              background: "transparent",
-              minWidth: 0,
-              color: "#222",
-              paddingLeft: "0px",
-            }}
           />
         </div>
 
         <button
           type="button"
           onClick={handleSearch}
-          style={{
-            flexShrink: 0,
-            height: "52px",
-            minWidth: "120px",
-            padding: "0 22px",
-            background: "#003B5C",
-            color: "#fff",
-            border: "none",
-            borderRadius: "8px",
-            fontSize: "15px",
-            fontWeight: 600,
-            cursor: "pointer",
-            whiteSpace: "nowrap",
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-            boxShadow: "0 4px 15px rgba(0, 59, 92, 0.3)",
-            transition: "all 0.3s ease",
-          }}
-          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-            e.currentTarget.style.background = "#0056b3";
-            e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.boxShadow = "0 6px 20px rgba(0, 59, 92, 0.4)";
-          }}
-          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-            e.currentTarget.style.background = "#003B5C";
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 59, 92, 0.3)";
-          }}
+          className="hero-search-btn hero-search-btn--desktop"
+          aria-label="Search properties"
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-          >
-            <circle cx="11" cy="11" r="7" stroke="#fff" strokeWidth="2" />
-            <path
-              d="M20 20L16.5 16.5"
-              stroke="#fff"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
+          <SearchIcon />
           Search
+        </button>
+
+        <button
+          type="button"
+          onClick={handleSearch}
+          className="hero-search-btn hero-search-btn--mobile"
+          aria-label="Search properties"
+        >
+          <SearchIcon />
         </button>
 
         {/* Suggestions Dropdown */}
