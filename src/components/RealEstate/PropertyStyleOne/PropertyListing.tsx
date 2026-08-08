@@ -12,6 +12,7 @@ import {
 } from "@/utils/mapApiProperty";
 import { API_BASE_URL } from "@/config/constants";
 import { formatFilterPriceLabel } from "@/components/Utils/formatPrice";
+import { parseIndianPriceValue } from "@/utils/priceParsing";
 
 type Property = IFeaturedPropertyDT;
 
@@ -34,6 +35,8 @@ function parsePriceParam(price: string): number | undefined {
   if (!price || price === "Any") return undefined;
   if (price.toLowerCase().includes("k")) return parseFloat(price) * 1_000;
   if (price.toLowerCase().includes("m")) return parseFloat(price) * 1_000_000;
+  const indianValue = parseIndianPriceValue(price);
+  if (indianValue !== null) return indianValue;
   const n = parseFloat(price);
   return isNaN(n) ? undefined : n;
 }
@@ -114,7 +117,9 @@ export default function PropertyListing() {
 
         // Client-side size post-filter (only needed for text search,
         // since the filter endpoint handles minArea server-side)
-        if (keyword.trim() && (minSize > 0 || maxSize < 10000)) {
+        const minSize = 0;
+        const maxSize = Number.POSITIVE_INFINITY;
+        if (keyword.trim() && (minSize > 0 || maxSize < Number.POSITIVE_INFINITY)) {
           results = results.filter((item) => {
             const area = parseFloat(String(item.landSize ?? 0));
             if (area <= 0) return true;
@@ -127,9 +132,9 @@ export default function PropertyListing() {
         setResultCount(mapped.length);
       } catch (err) {
         console.error("Error fetching properties:", err);
-        // Only use mock data as a last-resort fallback when API is completely unreachable
-        setProperties(propertyData.slice(0, 8) as Property[]);
-        setResultCount(null);
+        setError("We couldn’t load properties right now. Please try again shortly.");
+        setProperties([]);
+        setResultCount(0);
       } finally {
         setLoading(false);
       }
@@ -254,6 +259,17 @@ export default function PropertyListing() {
             </p>
             <p style={{ color: "#888" }}>
               Try adjusting your filters or search terms.
+            </p>
+          </div>
+        )}
+
+        {!loading && !error && properties.length === 0 && resultCount === 0 && (
+          <div className="text-center py-5" style={{ border: "1px dashed #d6dbe1", borderRadius: "10px" }}>
+            <p style={{ fontSize: "16px", color: "#555" }}>
+              We couldn’t find any matching properties yet.
+            </p>
+            <p style={{ color: "#888" }}>
+              Try a broader keyword, a different city, or remove a filter.
             </p>
           </div>
         )}

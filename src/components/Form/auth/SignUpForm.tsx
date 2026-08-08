@@ -47,6 +47,7 @@ export default function SignUpForm() {
       username: data.displayname,
       email: data.email,
       phone_number: formatNum(data.phone),
+      phoneNumber: formatNum(data.phone),
       password: data.password,
       confirmPassword: data.confirmPassword,
       remember: data.remember,
@@ -62,9 +63,12 @@ export default function SignUpForm() {
       try {
         console.log("Registration response:", response);
         const registeredEmail = response?.data?.data?.email ?? data.email;
+        const userId = response?.data?.data?.userId || response?.data?.data?.id;
         if (registeredEmail) {
           localStorage.setItem("registeredEmail", registeredEmail);
-          localStorage.setItem("user_id", response?.data?.data?.userId);
+          localStorage.setItem("email", registeredEmail);
+          localStorage.setItem("user_id", userId || "");
+          localStorage.setItem("userId", userId || "");
           localStorage.setItem("username", response?.data?.data?.username);
           localStorage.setItem(
             "loginUserDisplayName",

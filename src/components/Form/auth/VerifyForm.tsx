@@ -28,8 +28,10 @@ export default function VerifyForm() {
     const otp = data.emailOtp?.trim();
     if (!otp) return;
 
-    const user_id = localStorage.getItem("user_id");
-    if (!user_id) {
+    const userId = localStorage.getItem("user_id") || localStorage.getItem("userId");
+    const email = localStorage.getItem("registeredEmail") || localStorage.getItem("email") || undefined;
+
+    if (!userId && !email) {
       toast.error("Session expired. Please sign up again.");
       router.push("/sign-up");
       return;
@@ -37,7 +39,9 @@ export default function VerifyForm() {
 
     try {
       await apiClient.post("/auth/verify-otp", {
-        user_id,
+        user_id: userId,
+        userId,
+        email,
         otp,
       });
 

@@ -15,6 +15,7 @@ import { getPropertyById } from "@/services/propertyService";
 import { useSearchParams } from "next/navigation";
 import { API_BASE_URL } from "@/config/constants";
 import { stripCountryCodeForDisplay } from "@/utils/phoneInput";
+import { parseIndianPriceValue } from "@/utils/priceParsing";
 
 // Amenity groupings — mirror the FE display groups for categorising on submit
 const AMENITY_GROUPS = {
@@ -527,6 +528,14 @@ export default function AddPropertyPage() {
           }
         };
 
+        const parseNumberValue = (value: unknown): number | null => {
+          if (value === undefined || value === null || value === "") return null;
+          const parsed = parseIndianPriceValue(value);
+          if (parsed !== null) return parsed;
+          const numeric = Number(value);
+          return Number.isFinite(numeric) ? numeric : null;
+        };
+
         const payload = {
           // Pass-through fields that match between FE and BE
           listingType: data.listingType,
@@ -534,10 +543,8 @@ export default function AddPropertyPage() {
           propertyName: data.propertyName,
           tenure: data.tenure || "",
           areaUnit: data.areaUnit || "",
-          pricePerUnit: data.pricePerUnit
-            ? parseFloat(data.pricePerUnit)
-            : null,
-          totalPrice: data.totalPrice ? parseFloat(data.totalPrice) : null,
+          pricePerUnit: parseNumberValue(data.pricePerUnit),
+          totalPrice: parseNumberValue(data.totalPrice),
           title: data.title,
           description: data.description,
           location: data.location,
@@ -573,9 +580,9 @@ export default function AddPropertyPage() {
           status: "active",
 
           // Remapped numeric fields (FE stores as string from input/select)
-          price: parseFloat(data.totalPrice || data.price),
-          buildupArea: data.builtUpArea ? parseFloat(data.builtUpArea) : null,
-          landSize: data.landSize ? parseFloat(data.landSize) : null,
+          price: parseNumberValue(data.totalPrice || data.price),
+          buildupArea: parseNumberValue(data.builtUpArea),
+          landSize: parseNumberValue(data.landSize),
           bedrooms: data.bedRooms ? parseInt(data.bedRooms, 10) : null,
           bathrooms: data.bathRooms ? parseInt(data.bathRooms, 10) : null,
           yearOfBuild: getYearFromAgeRange(data.propertyAge) || null,
@@ -599,7 +606,7 @@ export default function AddPropertyPage() {
           // LEASE-specific fields
           depositAmount:
             isLeaseListing && data.depositAmount
-              ? parseFloat(data.depositAmount)
+              ? parseNumberValue(data.depositAmount)
               : null,
           minimumRentalPeriod: isLeaseListing
             ? data.minimumRentalPeriod || ""
@@ -612,11 +619,11 @@ export default function AddPropertyPage() {
           // Strata property fields
           maintenanceFee:
             isSaleListing && data.maintenanceFee
-              ? parseFloat(data.maintenanceFee)
+              ? parseNumberValue(data.maintenanceFee)
               : null,
           sinkingFund:
             isSaleListing && data.sinkingFund
-              ? parseFloat(data.sinkingFund)
+              ? parseNumberValue(data.sinkingFund)
               : null,
 
           // Malaysian market fields
