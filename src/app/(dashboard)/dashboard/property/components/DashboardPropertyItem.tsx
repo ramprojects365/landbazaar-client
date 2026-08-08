@@ -7,6 +7,7 @@ import {
   PropertyEditSvg,
 } from "@/components/SVG";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
+import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 import { deleteProperty } from "@/services/propertyService";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import Image from "next/image";
@@ -21,6 +22,7 @@ interface IProps {
 
 export default function DashboardPropertyItem({ property, onDelete }: IProps) {
   const [loading, setLoading] = useState(false);
+  const listingFlag = resolveListingTypeFlag(property);
   const handleDelete = async (id: string | number) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this property?",
@@ -59,16 +61,11 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
             unoptimized
           />
         </Link>
-        {property.showTags && (
+        {property.showTags && listingFlag && (
           <div className="tp-rent-tags">
-            {property.isForRent === true ? <Link href="#">FOR RENT</Link> : ""}{" "}
-            {property.isForSale === true ? (
-              <Link className="two" href="#">
-                FOR SALE
-              </Link>
-            ) : (
-              ""
-            )}
+            <Link className="two" href="#">
+              {listingFlag}
+            </Link>
             {property.isFeatured === true ? (
               <Link className="two" href="#">
                 FEATURED

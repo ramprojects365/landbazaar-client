@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
+import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 
 function getImageSrc(image: IFeatureListProps["item"]["image"]): string {
   if (typeof image === "string") return image;
@@ -24,6 +25,7 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
     ? `/${item.linkUrl}/${item.id}?from=${createCleanFromUrl(fromUrl)}`
     : `/${item.linkUrl}/${item.id}`;
   const imageSrc = getImageSrc(item.image);
+  const listingFlag = resolveListingTypeFlag(item);
 
   return (
     <div
@@ -64,7 +66,7 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
         </div>
         {item.showTags && (
           <div className="tp-rent-tags">
-            {item.isForSale ? <Link href={detailsHref}>FOR SALE</Link> : null}{" "}
+            {listingFlag ? <Link href={detailsHref}>{listingFlag}</Link> : null}{" "}
             {item.isFeatured ? (
               <Link className="two" href={detailsHref}>
                 FEATURED

@@ -6,6 +6,7 @@ import BedroomsSvg from "../SVG/PropertySvg/BedroomsSvg";
 import LivingSvg from "../SVG/PropertySvg/LivingSvg";
 import { RentMetaItemProps } from "@/types/property-d-t";
 import { formatTotalPriceDisplay } from "../Utils/formatPrice";
+import { getListingTypeLabel } from "@/utils/mapApiProperty";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -155,7 +156,7 @@ export default function RealestateAboutArea() {
                     unoptimized
                   />
                   {property.listingType && (
-                    <span>{property.listingType === "rent" ? "For rent" : "For sale"}</span>
+                    <span>{getListingTypeLabel(property.listingType)}</span>
                   )}
                 </Link>
 
