@@ -26,18 +26,28 @@
   border-color: #003b5c;
 }
 
+.hero-search-input-wrap input[type="text"],
 .hero-search-input {
   flex: 1;
-  height: 100%;
-  border: none;
+  height: 100% !important;
+  width: auto;
+  border: none !important;
   outline: none;
+  box-shadow: none !important;
   font-size: 15px;
   background: transparent;
   min-width: 0;
   color: #222;
-  padding-left: 0;
-  padding-right: 0;
-  border-radius: var(--hero-search-radius);
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  line-height: normal;
+}
+
+.hero-search-input-wrap input[type="text"]:focus,
+.hero-search-input:focus {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none;
 }
 
 .hero-search-btn {

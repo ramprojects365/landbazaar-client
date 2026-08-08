@@ -319,6 +319,27 @@
   background-color: var(--tp-common-white);
 }
 
+/* Hero search: remove global theme input border inside the search field */
+.tp-hero-tab-box .hero-search-input-wrap input.hero-search-input,
+.tp-hero-tab-box .hero-search-input-wrap input[type="text"] {
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  height: 100% !important;
+  width: auto;
+  line-height: normal;
+  background: transparent;
+}
+
+.tp-hero-tab-box .hero-search-input-wrap input.hero-search-input:focus,
+.tp-hero-tab-box .hero-search-input-wrap input[type="text"]:focus {
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 .tp-hero-tab-search button {
   border-radius: 8px;
 }
