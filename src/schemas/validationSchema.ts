@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { PHONE_DIGITS_PATTERN, PHONE_VALIDATION_MESSAGE } from "@/utils/phoneInput";
 
 const strictEmail = (requiredMessage = "Enter email") =>
   yup
@@ -16,7 +17,7 @@ const strictPhone = (requiredMessage = "Phone number is required") =>
     .string()
     .trim()
     .required(requiredMessage)
-    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits");
+    .matches(PHONE_DIGITS_PATTERN, PHONE_VALIDATION_MESSAGE);
 
 const personName = (requiredMessage = "Name is required") =>
   yup
@@ -223,7 +224,7 @@ export const propertySchema = yup.object({
   contactNumber: yup
     .string()
     .required("Contact number is required")
-    .matches(/^[0-9]{10}$/, "Contact number must be 10 digits"),
+    .matches(PHONE_DIGITS_PATTERN, PHONE_VALIDATION_MESSAGE),
   propertyAge: yup
     .number()
     .typeError("Year of build must be a number")

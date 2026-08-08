@@ -555,6 +555,14 @@
   color: #6f5600;
 }
 
+.guided-advisor__contact-form .guided-advisor__field-error {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #dc3545;
+  font-size: 13px;
+}
+
 .guided-advisor__options button {
   min-height: 48px;
   border: 1px solid #dbe7ea;

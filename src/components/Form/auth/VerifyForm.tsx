@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import axios from "axios";
 import apiClient from "@/config/axios";
 
 interface FormData {
@@ -24,47 +25,46 @@ export default function VerifyForm() {
   });
 
   const onSubmit = async (data: FormData) => {
-    // prefer using react-hook-form data instead of querying DOM
     const otp = data.emailOtp?.trim();
+    if (!otp) return;
 
-    if (otp) {
-      try {
-        // read the registered email saved at registration (fallback to the previous hardcoded email)
-        const user_id = localStorage.getItem("user_id");
+    const user_id = localStorage.getItem("user_id");
+    if (!user_id) {
+      toast.error("Session expired. Please sign up again.");
+      router.push("/sign-up");
+      return;
+    }
 
-        const res = await apiClient.post("/auth/verify-otp", {
-          user_id,
-          otp,
-        });
+    try {
+      await apiClient.post("/auth/verify-otp", {
+        user_id,
+        otp,
+      });
 
-        if (!res.ok) {
-          const errBody = (await res
-            .json()
-            .catch(() => ({ message: res.statusText }))) as
-            | { error?: string; message?: string }
-            | undefined;
+      toast.success("OTP verified successfully");
+      router.push("/sign-in");
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const responseData = err.response?.data as
+          | { error?: string; message?: string }
+          | undefined;
+        const serverMessage =
+          responseData?.error || responseData?.message || "";
 
-          const serverMessage = errBody?.error || errBody?.message || "";
-          if (
-            res.status === 400 ||
-            serverMessage.toLowerCase().includes("otp") ||
-            serverMessage.toLowerCase().includes("invalid") ||
-            serverMessage.toLowerCase().includes("expired")
-          ) {
-            toast.error("OTP does not match, please check the email.");
-          } else {
-            toast.error(serverMessage || "Verification failed");
-          }
-          return;
+        if (
+          err.response?.status === 400 ||
+          serverMessage.toLowerCase().includes("otp") ||
+          serverMessage.toLowerCase().includes("invalid") ||
+          serverMessage.toLowerCase().includes("expired")
+        ) {
+          toast.error("OTP does not match, please check the email.");
+        } else {
+          toast.error(serverMessage || "Verification failed");
         }
-
-        await res.json().catch(() => null);
-        toast.success("OTP verified successfully");
-        // on successful verification you can navigate or mark verified
-        router.push("/sign-in");
-      } catch {
-        toast.error("OTP does not match, please check the email.");
+        return;
       }
+
+      toast.error("OTP does not match, please check the email.");
     }
   };
 
