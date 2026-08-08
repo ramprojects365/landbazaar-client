@@ -29,6 +29,7 @@ import { createOrLoginPropertyFitLead } from "@/services/propertyService";
 import {
   PHONE_NUMBER_PLACEHOLDER,
   formatPhoneWithCountryCode,
+  getPhoneValidationError,
   sanitizePhoneDigits,
 } from "@/utils/phoneInput";
 import "./guided-property-advisor.scss";
@@ -209,6 +210,7 @@ export default function GuidedPropertyAdvisor({
   const [loading, setLoading] = useState(false);
   const [leadLoading, setLeadLoading] = useState(false);
   const [leadMessage, setLeadMessage] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const [defaultPassword, setDefaultPassword] = useState("");
   const [showReminder, setShowReminder] = useState(false);
   const customInputRef = useRef<HTMLInputElement>(null);
@@ -309,6 +311,13 @@ export default function GuidedPropertyAdvisor({
   const createLeadLogin = async () => {
     if (!autoRegisterReady) return { ok: true, password: "" };
 
+    const phoneValidationError = getPhoneValidationError(contact.phone);
+    if (phoneValidationError) {
+      setPhoneError(phoneValidationError);
+      return { ok: false, password: "" };
+    }
+    setPhoneError("");
+
     setLeadLoading(true);
     setLeadMessage("");
     setDefaultPassword("");
@@ -356,6 +365,13 @@ export default function GuidedPropertyAdvisor({
     if (!canContinue) return;
 
     if (step.key === "contact") {
+      const phoneValidationError = getPhoneValidationError(contact.phone);
+      if (phoneValidationError) {
+        setPhoneError(phoneValidationError);
+        return;
+      }
+      setPhoneError("");
+
       const leadReady = await createLeadLogin();
       if (!leadReady.ok) return;
     }
@@ -364,6 +380,13 @@ export default function GuidedPropertyAdvisor({
   };
 
   const handleFindMatches = async () => {
+    const phoneValidationError = getPhoneValidationError(contact.phone);
+    if (phoneValidationError) {
+      setPhoneError(phoneValidationError);
+      return;
+    }
+    setPhoneError("");
+
     let createdPassword = defaultPassword;
     if (autoRegisterReady && !localStorage.getItem("authToken")) {
       const leadReady = await createLeadLogin();
@@ -489,14 +512,16 @@ export default function GuidedPropertyAdvisor({
                 inputMode="numeric"
                 maxLength={10}
                 value={contact.phone}
-                onChange={(event) =>
-                  setContact((current) => ({
-                    ...current,
-                    phone: sanitizePhoneDigits(event.target.value),
-                  }))
-                }
+                onChange={(event) => {
+                  const phone = sanitizePhoneDigits(event.target.value);
+                  setContact((current) => ({ ...current, phone }));
+                  setPhoneError(getPhoneValidationError(phone) ?? "");
+                }}
                 placeholder={PHONE_NUMBER_PLACEHOLDER}
               />
+              {phoneError && (
+                <p className="guided-advisor__field-error">{phoneError}</p>
+              )}
               <label>
                 Email
                 <input

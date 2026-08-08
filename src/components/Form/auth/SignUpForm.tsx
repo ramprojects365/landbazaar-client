@@ -187,13 +187,7 @@ export default function SignUpForm() {
                     e.currentTarget.value,
                   );
                 }}
-                {...register("phone", {
-                  required: "Phone number is required",
-                  pattern: {
-                    value: /^[0-9]{10}$/,
-                    message: "Phone number must be exactly 10 digits",
-                  },
-                })}
+                {...register("phone")}
               />
               <i>
                 <AuthPhoneSvg />

@@ -4,6 +4,7 @@
   align-items: stretch;
   gap: 10px;
   width: 100%;
+  --hero-search-radius: 8px;
 }
 
 .hero-search-input-wrap {
@@ -12,12 +13,17 @@
   align-items: center;
   gap: 10px;
   height: 52px;
-  border: none;
-  border-radius: 0;
-  padding-left: 0;
-  padding-right: 0;
-  background: transparent;
+  border: 1px solid #dbe3e8;
+  border-radius: var(--hero-search-radius);
+  padding-left: 14px;
+  padding-right: 14px;
+  background: #fff;
   min-width: 0;
+  transition: border-color 0.2s ease;
+}
+
+.hero-search-input-wrap:focus-within {
+  border-color: #003b5c;
 }
 
 .hero-search-input {
@@ -31,6 +37,7 @@
   color: #222;
   padding-left: 0;
   padding-right: 0;
+  border-radius: var(--hero-search-radius);
 }
 
 .hero-search-btn {
@@ -39,7 +46,7 @@
   background: #003b5c;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--hero-search-radius);
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
