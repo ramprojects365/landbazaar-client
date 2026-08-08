@@ -1,6 +1,4 @@
-export const PHONE_NUMBER_LABEL = "Phone Number (+91)";
-export const CONTACT_NUMBER_LABEL = "Contact Number (+91)";
-export const PHONE_NUMBER_PLACEHOLDER = "Enter 10 digit number";
+export const PHONE_NUMBER_PLACEHOLDER = "Enter phone number";
 
 export function sanitizePhoneDigits(value: string, maxLength = 10): string {
   return value.replace(/\D/g, "").slice(0, maxLength);

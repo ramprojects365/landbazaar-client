@@ -6,7 +6,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "./ErrorMassage";
 import {
-  PHONE_NUMBER_LABEL,
   PHONE_NUMBER_PLACEHOLDER,
   formatPhoneWithCountryCode,
   sanitizePhoneDigits,
@@ -91,17 +90,6 @@ export default function ContactFormTwo() {
             </div>
             <div className="col-xl-6 col-lg-6">
               <div className="tp-sign-in-input-box">
-                <label
-                  htmlFor="contact-form-two-phone"
-                  style={{
-                    display: "block",
-                    marginBottom: "8px",
-                    fontSize: "14px",
-                    fontWeight: 500,
-                  }}
-                >
-                  {PHONE_NUMBER_LABEL}
-                </label>
                 <div className="tp-contact-input p-relative">
                   <input
                     id="contact-form-two-phone"

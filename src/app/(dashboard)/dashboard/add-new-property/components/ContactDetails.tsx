@@ -4,7 +4,6 @@ import { useFormContext } from "react-hook-form";
 import { PropertyFormData } from "@/schemas/validationSchema";
 import ErrorMessage from "../../../../../components/Form/ErrorMassage";
 import {
-  CONTACT_NUMBER_LABEL,
   PHONE_NUMBER_PLACEHOLDER,
   sanitizePhoneDigits,
 } from "@/utils/phoneInput";
@@ -39,7 +38,6 @@ export default function ContactDetails() {
 
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>{CONTACT_NUMBER_LABEL}</label>
               <input
                 className="textBox"
                 type="text"

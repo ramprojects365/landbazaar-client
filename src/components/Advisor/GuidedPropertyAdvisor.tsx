@@ -27,7 +27,6 @@ import {
 } from "./advisor-utils";
 import { createOrLoginPropertyFitLead } from "@/services/propertyService";
 import {
-  PHONE_NUMBER_LABEL,
   PHONE_NUMBER_PLACEHOLDER,
   formatPhoneWithCountryCode,
   sanitizePhoneDigits,
@@ -485,22 +484,19 @@ export default function GuidedPropertyAdvisor({
 
           {!answerStep ? (
             <div className="guided-advisor__contact-form">
-              <label>
-                {PHONE_NUMBER_LABEL}
-                <input
-                  type="tel"
-                  inputMode="numeric"
-                  maxLength={10}
-                  value={contact.phone}
-                  onChange={(event) =>
-                    setContact((current) => ({
-                      ...current,
-                      phone: sanitizePhoneDigits(event.target.value),
-                    }))
-                  }
-                  placeholder={PHONE_NUMBER_PLACEHOLDER}
-                />
-              </label>
+              <input
+                type="tel"
+                inputMode="numeric"
+                maxLength={10}
+                value={contact.phone}
+                onChange={(event) =>
+                  setContact((current) => ({
+                    ...current,
+                    phone: sanitizePhoneDigits(event.target.value),
+                  }))
+                }
+                placeholder={PHONE_NUMBER_PLACEHOLDER}
+              />
               <label>
                 Email
                 <input
