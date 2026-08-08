@@ -103,11 +103,7 @@ export default function DetailsReusableArea({
 
           <div className="col-lg-4">
             <div className="tp-property-details-right">
-              <UserContactCard
-                user={property?.user}
-                contactPersonName={property?.contactPersonName}
-                contactNumber={property?.contactNumber}
-              />
+              <UserContactCard user={property?.user} />
               <SidebarPropertyItem />
               <RecentlyViewedProperties />
               <DiscountOfferCard wrapperCls="tp-property-filter-wrap" />

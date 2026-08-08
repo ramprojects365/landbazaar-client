@@ -60,6 +60,12 @@ function PropertySingleCardTwo({ item }: propertyProps) {
                   alt={item.userName || "Seller"}
                   width={40}
                   height={40}
+                  style={{ borderRadius: "50%", objectFit: "cover" }}
+                  unoptimized={
+                    typeof item.userImage === "string" &&
+                    (item.userImage.startsWith("http") ||
+                      item.userImage.startsWith("/uploads"))
+                  }
                 />
               </div>
               <div className="tp-rent-user-content">

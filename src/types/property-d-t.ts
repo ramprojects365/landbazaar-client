@@ -32,8 +32,10 @@ export interface IFeaturedPropertyDT {
     id?: string;
     username?: string;
     email?: string;
+    phone?: string;
     phoneNumber?: string;
     profileImage?: string;
+    profileImageUrl?: string;
     fullName?: string | null;
     bio?: string | null;
     companyName?: string | null;

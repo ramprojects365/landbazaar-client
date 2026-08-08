@@ -2,50 +2,24 @@
 
 import { SocialLinksThree } from "@/components/UI/SocialLinks";
 import { CallThreeSvg, TeamEmailSvg } from "@/components/SVG";
+import {
+  ProfileUserLike,
+  resolveUserDisplayProfile,
+} from "@/utils/userProfileDisplay";
 import Image from "next/image";
 import Link from "next/link";
 
 interface UserContactCardProps {
-  user?: {
-    id?: string;
-    username?: string;
-    email?: string;
-    phoneNumber?: string;
-    userType?: string | null;
-    profileImage?: string;
-    fullName?: string | null;
-    bio?: string | null;
-    companyName?: string | null;
-    designation?: string | null;
-    experienceYears?: number | null;
-    renNumber?: string | null;
-    renStatus?: string | null;
-    renVerified?: boolean;
-    renStatusLabel?: string;
-    emailVerified?: boolean;
-    createdAt?: string;
-    updatedAt?: string;
-  };
-  /** From property API: contactPersonName */
-  contactPersonName?: string;
-  /** From property API: contactNumber */
-  contactNumber?: string;
+  user?: ProfileUserLike;
 }
 
-export default function UserContactCard({
-  user,
-  contactPersonName,
-  contactNumber,
-}: UserContactCardProps) {
-  const agentName =
-    contactPersonName?.trim() || user?.fullName || user?.username || "";
-  const agentPhone = contactNumber?.trim() || user?.phoneNumber || "";
-  const agentEmail = user?.email || "";
-  const agentImage =
-    user?.profileImage || "/assets/img/team/team-details/user.png";
-  const agentWhatsAppNumberLabel = agentPhone;
-  const agentWhatsAppNumber = agentWhatsAppNumberLabel.replace(/\D/g, "");
-  const whatsappNumber = agentWhatsAppNumber || "919849967236";
+export default function UserContactCard({ user }: UserContactCardProps) {
+  const profile = resolveUserDisplayProfile(user);
+  const agentName = profile.name;
+  const agentPhone = profile.phone;
+  const agentEmail = profile.email;
+  const agentImage = profile.profileImage;
+  const whatsappNumber = profile.whatsappDigits;
   const renVerified =
     user?.renVerified === true || user?.renStatus === "verified";
   const renStatusLabel =
@@ -53,6 +27,8 @@ export default function UserContactCard({
   const contactRole = "Land seller";
 
   const handleWhatsAppClick = () => {
+    if (!whatsappNumber) return;
+
     const url = window.location.href;
     const message = encodeURIComponent(
       `Hi, I am interested in this property and would like to know more ${url}`,
@@ -64,26 +40,22 @@ export default function UserContactCard({
     );
   };
 
-  // Create clean agent profile URL with full user data
   const getAgentProfileUrl = () => {
     if (!user) return `/property-agent/david-hussy-2987852`;
 
-    // Use user ID or create a slug from name
     const slug: string = user.username || "";
     const cleanSlug = slug
       .toLowerCase()
       .replace(/\s+/g, "-")
       .replace(/[^a-z0-9-]/g, "");
 
-    // Serialize user data to pass to agent page
-    // Use actual API data if available, otherwise use defaults
     const userData = {
       id: user.id || cleanSlug,
       username: user.username || "",
       email: user.email || "",
-      phoneNumber: user.phoneNumber || "",
+      phoneNumber: user.phoneNumber || user.phone || "",
       userType: user.userType || "",
-      profileImage: user.profileImage || "",
+      profileImage: user.profileImage || user.profileImageUrl || "",
       fullName: user.fullName || user.username || "",
       designation: user.designation || "Real Estate Agent",
       experienceYears: user.experienceYears || 5,
@@ -100,11 +72,9 @@ export default function UserContactCard({
       updatedAt: user.updatedAt || new Date().toISOString(),
     };
 
-    // Encode with Unicode support using encodeURIComponent + btoa
     const jsonString = JSON.stringify(userData);
     const encodedData = btoa(encodeURIComponent(jsonString));
-    const finalUrl = `/property-agent/${cleanSlug}?data=${encodedData}`;
-    return finalUrl;
+    return `/property-agent/${cleanSlug}?data=${encodedData}`;
   };
 
   return (
@@ -116,10 +86,14 @@ export default function UserContactCard({
               <div className="tp-team-details-info-user-thumb">
                 <Image
                   src={agentImage}
-                  alt={agentName}
+                  alt={agentName || "Land seller"}
                   width={50}
                   height={50}
                   style={{ borderRadius: "50%", objectFit: "cover" }}
+                  unoptimized={
+                    agentImage.startsWith("http") ||
+                    agentImage.startsWith("/uploads")
+                  }
                 />
               </div>
               <div className="tp-team-details-info-user-content">
@@ -141,44 +115,9 @@ export default function UserContactCard({
                       gap: 5,
                     }}
                   >
-                    <span>{agentName}</span>
-                    {/* {renVerified ? (
-                      <BadgeCheck
-                        size={15}
-                        strokeWidth={2.7}
-                        color="#fff"
-                        fill="#0095F6"
-                        aria-label="Verified REN/PEA"
-                      />
-                    ) : (
-                      <BadgeAlert
-                        size={15}
-                        strokeWidth={2.5}
-                        color="#ffd77a"
-                        aria-label="REN/PEA not verified"
-                      />
-                    )} */}
+                    <span>{agentName || "—"}</span>
                   </span>
                 </Link>
-                {/* <div
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 5,
-                    marginTop: 3,
-                    color: renVerified ? "#8FD9FF" : "#ffd77a",
-                    fontSize: 11,
-                    fontWeight: 700,
-                    lineHeight: 1,
-                  }}
-                >
-                  {renVerified ? (
-                    <BadgeCheck size={13} strokeWidth={2.5} />
-                  ) : (
-                    <BadgeAlert size={13} strokeWidth={2.5} />
-                  )}
-                  <span>{renStatusLabel}</span>
-                </div> */}
                 <p>{contactRole}</p>
               </div>
             </div>
@@ -188,32 +127,37 @@ export default function UserContactCard({
           </div>
           <div className="tp-team-details-info-content text-center">
             <div className="tp-team-details-info-contact">
-              <Link href={`tel:${agentWhatsAppNumber}`}>
-                <span>
-                  <CallThreeSvg width="16" height="16" />
-                </span>
-                {agentPhone}
-              </Link>
-              <Link href={`mailto:${agentEmail}`}>
-                <span>
-                  <TeamEmailSvg />
-                </span>
-                {agentEmail}
-              </Link>
+              {agentPhone ? (
+                <Link href={`tel:${whatsappNumber || agentPhone}`}>
+                  <span>
+                    <CallThreeSvg width="16" height="16" />
+                  </span>
+                  {agentPhone}
+                </Link>
+              ) : null}
+              {agentEmail ? (
+                <Link href={`mailto:${agentEmail}`}>
+                  <span>
+                    <TeamEmailSvg />
+                  </span>
+                  {agentEmail}
+                </Link>
+              ) : null}
             </div>
             <div className="tp-header-dashboard-btn d-md-block">
               <button
                 type="button"
                 onClick={handleWhatsAppClick}
+                disabled={!whatsappNumber}
                 style={{
-                  backgroundColor: "#25D366",
+                  backgroundColor: whatsappNumber ? "#25D366" : "#9ca3af",
                   color: "#fff",
                   border: "none",
                   borderRadius: "8px",
                   padding: "12px 24px",
                   fontSize: "16px",
                   fontWeight: 600,
-                  cursor: "pointer",
+                  cursor: whatsappNumber ? "pointer" : "not-allowed",
                   minHeight: "48px",
                   display: "inline-flex",
                   alignItems: "center",
@@ -221,10 +165,12 @@ export default function UserContactCard({
                   transition: "all 0.3s ease",
                 }}
                 onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  if (!whatsappNumber) return;
                   e.currentTarget.style.backgroundColor = "#128C7E";
                   e.currentTarget.style.transform = "translateY(-2px)";
                 }}
                 onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  if (!whatsappNumber) return;
                   e.currentTarget.style.backgroundColor = "#25D366";
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
