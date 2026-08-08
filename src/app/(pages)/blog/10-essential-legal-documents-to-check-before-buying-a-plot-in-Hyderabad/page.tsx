@@ -508,7 +508,7 @@ export default function LegalDocumentsBlog() {
                 </div>
 
                 {/* Recent Posts */}
-                <RecentPosts currentSlug="/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad" />
+                <RecentPosts currentSlug="10-essential-legal-documents-to-check-before-buying-a-plot-in-hyderabad" />
               </div>
             </div>
           </div>

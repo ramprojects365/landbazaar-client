@@ -78,12 +78,12 @@ export default function PropertyFilterWidget() {
           <NiceSelect
             options={[
               { value: "Any", label: "Min Price (INR)" },
-              { value: "100k", label: "100k" },
-              { value: "200k", label: "200k" },
-              { value: "300k", label: "300k" },
-              { value: "400k", label: "400k" },
-              { value: "500k", label: "500k" },
-              { value: "600k", label: "600k" },
+              { value: "100k", label: "INR 100k" },
+              { value: "200k", label: "INR 200k" },
+              { value: "300k", label: "INR 300k" },
+              { value: "400k", label: "INR 400k" },
+              { value: "500k", label: "INR 500k" },
+              { value: "600k", label: "INR 600k" },
             ]}
             defaultCurrent={0}
             onChange={(option) => setMinPrice(option.value as string)}
@@ -95,12 +95,12 @@ export default function PropertyFilterWidget() {
           <NiceSelect
             options={[
               { value: "Any", label: "Max Price (INR)" },
-              { value: "700k", label: "700k" },
-              { value: "800k", label: "800k" },
-              { value: "900k", label: "900k" },
-              { value: "1M", label: "1M" },
-              { value: "2M", label: "2M" },
-              { value: "3M", label: "3M" },
+              { value: "700k", label: "INR 700k" },
+              { value: "800k", label: "INR 800k" },
+              { value: "900k", label: "INR 900k" },
+              { value: "1M", label: "INR 1M" },
+              { value: "2M", label: "INR 2M" },
+              { value: "3M", label: "INR 3M" },
             ]}
             defaultCurrent={0}
             onChange={(option) => setMaxPrice(option.value as string)}

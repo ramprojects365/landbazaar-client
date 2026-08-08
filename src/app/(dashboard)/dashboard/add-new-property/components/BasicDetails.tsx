@@ -203,7 +203,7 @@ export default function BasicDetails() {
           </div>
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Price Per Unit (₹)</label>
+              <label>Price Per Unit (INR)</label>
               <input
                 className="textBox"
                 type="text"
