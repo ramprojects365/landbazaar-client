@@ -1,6 +1,7 @@
 import MapMarkerSvg from "@/components/SVG/PropertySvg/MapMarkerIcon";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { formatTotalPriceDisplay } from "../Utils/formatPrice";
+import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -17,6 +18,7 @@ function getImageSrc(image: IFeaturedPropertyDT["image"]): string {
 function PropertySingleCardTwo({ item }: propertyProps) {
   const detailsHref = `/property-details/${item.id}`;
   const imageSrc = getImageSrc(item.image);
+  const listingFlag = resolveListingTypeFlag(item);
 
   return (
     <div
@@ -36,13 +38,11 @@ function PropertySingleCardTwo({ item }: propertyProps) {
             />
           </Link>
 
-          {item.showTags && (
+          {item.showTags && listingFlag && (
             <div className="tp-rent-tags">
-              {item.isForSale && (
-                <Link className="two" href={detailsHref}>
-                  FOR SALE
-                </Link>
-              )}
+              <Link className="two" href={detailsHref}>
+                {listingFlag}
+              </Link>
               {item.isFeatured && (
                 <Link className="two" href={detailsHref}>
                   FEATURED

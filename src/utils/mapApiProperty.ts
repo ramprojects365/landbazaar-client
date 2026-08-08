@@ -64,6 +64,60 @@ export type ApiPropertyFields = {
   user?: IFeaturedPropertyDT["user"];
 };
 
+function normalizeListingTypeValue(listingType?: string | null): string {
+  return listingType?.trim().toLowerCase() || "";
+}
+
+/** Uppercase badge label for cards, e.g. "FOR SALE" | "FOR LEASE". */
+export function getListingTypeFlag(
+  listingType?: string | null,
+): string | null {
+  const type = normalizeListingTypeValue(listingType);
+  if (type === "sale") return "FOR SALE";
+  if (type === "lease") return "FOR LEASE";
+  if (type === "rent") return "FOR RENT";
+  return null;
+}
+
+/** Title-case label for detail pages, e.g. "For Sale" | "For Lease". */
+export function getListingTypeLabel(listingType?: string | null): string {
+  const type = normalizeListingTypeValue(listingType);
+  if (type === "sale") return "For Sale";
+  if (type === "lease") return "For Lease";
+  if (type === "rent") return "For Rent";
+  if (type) return type.charAt(0).toUpperCase() + type.slice(1);
+  return "—";
+}
+
+export function getListingTypeBadgeStyle(listingType?: string | null): {
+  background: string;
+  color: string;
+} {
+  const type = normalizeListingTypeValue(listingType);
+  if (type === "rent") {
+    return { background: "#e8f4fd", color: "#1a73e8" };
+  }
+  if (type === "lease") {
+    return { background: "#fff3e0", color: "#e65100" };
+  }
+  return { background: "#eefbee", color: "#2e7d32" };
+}
+
+/** Resolve badge from listingType or legacy isFor* flags on card models. */
+export function resolveListingTypeFlag(item: {
+  listingType?: string | null;
+  isForSale?: boolean;
+  isForRent?: boolean;
+  isForLease?: boolean;
+}): string | null {
+  const fromType = getListingTypeFlag(item.listingType);
+  if (fromType) return fromType;
+  if (item.isForSale) return "FOR SALE";
+  if (item.isForLease) return "FOR LEASE";
+  if (item.isForRent) return "FOR RENT";
+  return null;
+}
+
 /** Format land size with unit, e.g. "2 Acre" or "200 Square Yard". */
 export function formatLandSize(
   landSize?: number | string | null,
@@ -133,11 +187,13 @@ function resolveImageSrc(
  * - userName ← contactPersonName
  * - image ← images[] cover (isCover)
  * - isForSale ← listingType === "sale"
+ * - isForLease ← listingType === "lease"
  */
 export function mapApiPropertyToCard(
   item: ApiPropertyFields,
   fallbackImage: StaticImageData | string,
 ): IFeaturedPropertyDT {
+  const listingType = normalizeListingTypeValue(item.listingType);
   const coverImage = getCoverImageUrl(item.images);
   const landSizeLabel = formatLandSize(item.landSize, item.areaUnit);
   const total = parseTotalPrice(item.totalPrice, item.price);
@@ -150,8 +206,10 @@ export function mapApiPropertyToCard(
     linkUrl: "property-details",
     image: resolveImageSrc(coverImage, fallbackImage),
     showTags: true,
-    isForRent: item.listingType === "rent",
-    isForSale: item.listingType === "sale",
+    listingType: listingType || undefined,
+    isForRent: listingType === "rent",
+    isForSale: listingType === "sale",
+    isForLease: listingType === "lease",
     isFeatured: false,
     bedrooms: landSizeLabel,
     bathrooms: item.propertyType?.trim() || "—",

@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import rentThumb from "../../../../public/assets/img/rent/rent-thumb-1.jpg";
-import { LivingSvg } from "@/components/SVG";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { getListingTypeFlag } from "@/utils/mapApiProperty";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
@@ -108,7 +108,7 @@ export default function SidebarPropertyItem({
         className={`${wrapperCls ? wrapperCls : "tp-team-details-widget"} mb-40`}
       >
         <div className={customClass ? customClass : ""}>
-          <h4 className="tp-team-details-item-title">Recent Lands</h4>
+          <h4 className="tp-team-details-item-title">Featured Lands</h4>
           {latest ? (
             <div className="sidebar-recent-property">
               <div className="tp-rent-thumb p-relative">
@@ -133,7 +133,7 @@ export default function SidebarPropertyItem({
                 </Link>
                 <div className="tp-rent-tags">
                   <Link href={detailsHref}>
-                    {latest.listingType === "sale" ? "FOR SALE" : "FOR SALE"}
+                    {getListingTypeFlag(latest.listingType) || "FOR SALE"}
                   </Link>
                 </div>
                 <div className="tp-rent-user-wrap d-flex align-items-center justify-content-between">
@@ -151,18 +151,13 @@ export default function SidebarPropertyItem({
               <div className="tp-rent-meta-list team-details d-flex justify-content-between align-items-center">
                 <div className="tp-rent-meta-item">
                   <div className="tp-rent-meta-content d-flex">
-                    <span>
-                      <LivingSvg />
-                    </span>
                     <p>{latest.landSize}</p>
                   </div>
-                  <p>Land Size</p>
                 </div>
                 <div className="tp-rent-meta-item">
                   <div className="tp-rent-meta-content d-flex">
                     <p>{latest.propertyType}</p>
                   </div>
-                  <p>Land Type</p>
                 </div>
               </div>
             </div>

@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { recordPropertyView } from "@/services/propertyService";
 import {
   formatPricePerUnit,
+  getListingTypeBadgeStyle,
+  getListingTypeLabel,
   mapApiPropertyToCard,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
@@ -189,25 +191,20 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
             <div className="col-lg-8">
               <div className="tp-property-details-heading mb-40">
                 <div className="mb-2 d-flex gap-2 flex-wrap">
-                  <span
-                    style={{
-                      background:
-                        apiProperty.listingType === "rent"
-                          ? "#e8f4fd"
-                          : "#eefbee",
-                      color:
-                        apiProperty.listingType === "rent"
-                          ? "#1a73e8"
-                          : "#2e7d32",
-                      borderRadius: "20px",
-                      padding: "4px 14px",
-                      fontSize: "13px",
-                      fontWeight: 600,
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    For {apiProperty.listingType === "rent" ? "Rent" : "Sale"}
-                  </span>
+                  {apiProperty.listingType && (
+                    <span
+                      style={{
+                        ...getListingTypeBadgeStyle(apiProperty.listingType),
+                        borderRadius: "20px",
+                        padding: "4px 14px",
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {getListingTypeLabel(apiProperty.listingType)}
+                    </span>
+                  )}
                   {apiProperty.propertyType && (
                     <span
                       style={{

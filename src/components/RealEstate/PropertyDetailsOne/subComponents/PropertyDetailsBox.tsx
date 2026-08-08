@@ -4,6 +4,7 @@ import {
   SquareFeetSvg,
   YearBuiltIconSvg,
 } from "@/components/SVG";
+import { getListingTypeLabel } from "@/utils/mapApiProperty";
 import { ReactNode } from "react";
 
 interface PropertyDetail {
@@ -54,14 +55,7 @@ export default function PropertyDetailsBox({
     {
       icon: <HomeSvg />,
       label: "Listing",
-      value:
-        listingType === "sale"
-          ? "For Sale"
-          : listingType === "rent"
-            ? "For Rent"
-            : listingType
-              ? listingType.charAt(0).toUpperCase() + listingType.slice(1)
-              : "—",
+      value: getListingTypeLabel(listingType),
     },
     { icon: <MessageSvgTwo />, label: "Land Type", value: propertyType || "—" },
     { icon: <SquareFeetSvg />, label: "Land Size", value: landSize || "—" },
