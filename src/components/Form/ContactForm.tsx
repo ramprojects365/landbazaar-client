@@ -9,7 +9,6 @@ import { contactTwoSchema } from "@/schemas/validationSchema";
 import apiClient from "@/config/axios";
 import ErrorMessage from "./ErrorMassage";
 import {
-  PHONE_NUMBER_LABEL,
   PHONE_NUMBER_PLACEHOLDER,
   formatPhoneWithCountryCode,
   sanitizePhoneDigits,
@@ -107,17 +106,6 @@ export default function ContactForm({
         </div>
 
         <div className="col-lg-6">
-          <label
-            htmlFor="contact-form-phone"
-            style={{
-              display: "block",
-              marginBottom: "8px",
-              fontSize: "14px",
-              fontWeight: 500,
-            }}
-          >
-            {PHONE_NUMBER_LABEL}
-          </label>
           <div className="tp-contact-input">
             <input
               id="contact-form-phone"

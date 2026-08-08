@@ -9,7 +9,6 @@ import apiClient from "@/config/axios";
 import UserSvg from "@/components/SVG/UserSvg";
 import { BadgeAlert, BadgeCheck } from "lucide-react";
 import {
-  PHONE_NUMBER_LABEL,
   PHONE_NUMBER_PLACEHOLDER,
   formatPhoneWithCountryCode,
   sanitizePhoneDigits,
@@ -588,7 +587,6 @@ setIsAgentProfile(isAgent);
 
               <div className="col-lg-6">
                 <div className="tp-dashboard-new-input">
-                  <label>{PHONE_NUMBER_LABEL}</label>
                   <input
                     {...registerProfile("phone")}
                     type="text"

@@ -21,7 +21,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import apiClient from "@/config/axios";
 import {
-  PHONE_NUMBER_LABEL,
   PHONE_NUMBER_PLACEHOLDER,
   formatPhoneWithCountryCode,
   sanitizePhoneDigits,
@@ -176,17 +175,6 @@ export default function SignUpForm() {
         </div>
         <div className="col-12">
           <div className="tp-sign-in-input-box">
-            <label
-              htmlFor="signup-phone"
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontSize: "14px",
-                fontWeight: 500,
-              }}
-            >
-              {PHONE_NUMBER_LABEL}
-            </label>
             <div className="tp-sign-in-input p-relative">
               <input
                 id="signup-phone"
