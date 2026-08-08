@@ -2,6 +2,7 @@ import { StaticImageData } from "next/image";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { formatPrice } from "@/components/Utils/formatPrice";
 import { getCoverImageUrl } from "@/utils/propertyImages";
+import { resolveUserDisplayProfile } from "@/utils/userProfileDisplay";
 
 /**
  * Shape of a property item from GET /api/properties (and property-by-id).
@@ -184,7 +185,7 @@ function resolveImageSrc(
  * - bedrooms slot ← landSize + areaUnit
  * - bathrooms slot ← propertyType
  * - price ← totalPrice (fallback price)
- * - userName ← contactPersonName
+ * - userName / userImage ← property owner's profile (registration / profile page)
  * - image ← images[] cover (isCover)
  * - isForSale ← listingType === "sale"
  * - isForLease ← listingType === "lease"
@@ -197,7 +198,7 @@ export function mapApiPropertyToCard(
   const coverImage = getCoverImageUrl(item.images);
   const landSizeLabel = formatLandSize(item.landSize, item.areaUnit);
   const total = parseTotalPrice(item.totalPrice, item.price);
-  const contactName = item.contactPersonName?.trim() || "";
+  const ownerProfile = resolveUserDisplayProfile(item.user);
 
   return {
     id: item.id,
@@ -219,8 +220,8 @@ export function mapApiPropertyToCard(
     price: total,
     description: item.description,
     quantity: 0,
-    userImage: item.user?.profileImage || undefined,
-    userName: contactName || undefined,
+    userImage: ownerProfile.profileImage,
+    userName: ownerProfile.name || undefined,
     userRole: undefined,
     user: item.user,
   };
