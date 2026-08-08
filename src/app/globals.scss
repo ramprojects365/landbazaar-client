@@ -465,6 +465,40 @@
   border-radius: 8px 8px 8px 8px !important;
 }
 
+.user-contact-card .tp-team-details-info-user-social {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.user-contact-card .tp-team-details-info-user-social a:not(:last-child) {
+  margin-right: 0;
+}
+
+.user-contact-card .tp-team-details-info-user-social,
+.user-contact-card .tp-team-details-info-content {
+  text-align: left;
+}
+
+.user-contact-card .tp-team-details-info-contact a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  text-align: left;
+}
+
+.user-contact-card .tp-team-details-info-contact a span {
+  margin-right: 0;
+}
+
+.user-contact-card__actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .tp-sign-in-register-box {
   border-radius: 8px;
 }

@@ -79,7 +79,7 @@ export default function UserContactCard({ user }: UserContactCardProps) {
 
   return (
     <>
-      <div className="tp-team-details-widget mb-40">
+      <div className="tp-team-details-widget mb-40 user-contact-card">
         <div className="tp-team-details-info-box">
           <div className="tp-team-details-info-top">
             <div className="tp-team-details-info-user d-flex align-items-center">
@@ -121,11 +121,11 @@ export default function UserContactCard({ user }: UserContactCardProps) {
                 <p>{contactRole}</p>
               </div>
             </div>
-            <div className="tp-team-details-info-user-social text-center">
+            <div className="tp-team-details-info-user-social text-start">
               <SocialLinksThree />
             </div>
           </div>
-          <div className="tp-team-details-info-content text-center">
+          <div className="tp-team-details-info-content text-start">
             <div className="tp-team-details-info-contact">
               {agentPhone ? (
                 <Link href={`tel:${whatsappNumber || agentPhone}`}>
@@ -144,7 +144,7 @@ export default function UserContactCard({ user }: UserContactCardProps) {
                 </Link>
               ) : null}
             </div>
-            <div className="tp-header-dashboard-btn d-md-block">
+            <div className="user-contact-card__actions">
               <button
                 type="button"
                 onClick={handleWhatsAppClick}
