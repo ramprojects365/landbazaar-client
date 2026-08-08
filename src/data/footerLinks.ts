@@ -1,3 +1,5 @@
+import { LAND_CITIES, LAND_TYPES } from "@/config/landOptions";
+
 export const quickLinks = [
   { label: "About Us", href: "/about" },
   { label: "Properties", href: "/search" },
@@ -6,18 +8,12 @@ export const quickLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-export const locationLinks = [
-  { label: "Hyderabad", href: "/properties/kuala-lumpur" },
-  { label: "Visakhapatnam", href: "/properties/selangor" },
-  { label: "Vijayawada", href: "/properties/penang" },
-  { label: "Amaravati", href: "/properties/johor" },
-  { label: "Kakinada", href: "/properties/perak" },
-];
+export const locationLinks = LAND_CITIES.map((city) => ({
+  label: city,
+  href: `/search?city=${encodeURIComponent(city)}`,
+}));
 
-export const landTypeLinks = [
-  { label: "Residential Plots", href: "/search" },
-  { label: "Agricultural Lands", href: "/search" },
-  { label: "Commercial Lands", href: "/search" },
-  { label: "Farm Lands", href: "/search" },
-  { label: "Gated Community Lands", href: "/search" },
-];
+export const landTypeLinks = LAND_TYPES.map((type) => ({
+  label: type,
+  href: `/search?propertyType=${encodeURIComponent(type)}`,
+}));

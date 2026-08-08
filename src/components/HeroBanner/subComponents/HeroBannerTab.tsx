@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
+import { LAND_CITIES, LAND_TYPES as LAND_TYPE_OPTIONS } from "@/config/landOptions";
 import "./hero-banner-tab.css";
 
 function SearchIcon({ stroke = "#fff" }: { stroke?: string }) {
@@ -39,62 +40,49 @@ const placeholderExamples = [
   "Try plots in Visakhapatnam",
 ];
 
-const CITIES = [
-  "All",
-  "Hyderabad",
-  "Visakhapatnam",
-  "Vijayawada",
-  "Amaravati",
-  "Kakinada",
-];
-const LAND_TYPES = [
-  "All",
-  "Farm Lands",
-  "Agriculture Lands",
-  "Plots",
-  "Commercial Lands",
-];
+const CITIES = ["All", ...LAND_CITIES];
+const LAND_TYPES = ["All", ...LAND_TYPE_OPTIONS];
 
 const MOCK_SUGGESTIONS: SearchItem[] = [
   {
     id: "1",
     displayText: "Green Valley Farm",
-    displayType: "Farm Lands",
+    displayType: "Farm Land",
     displayDescription: "Shamirpet, Hyderabad",
     cityName: "Hyderabad",
   },
   {
     id: "2",
     displayText: "Sunrise Agriculture Plot",
-    displayType: "Agriculture Lands",
+    displayType: "Agricultural Land",
     displayDescription: "Gachibowli, Hyderabad",
     cityName: "Hyderabad",
   },
   {
     id: "3",
     displayText: "Coastal Farm Estate",
-    displayType: "Farm Lands",
+    displayType: "Farm Land",
     displayDescription: "Bheemunipatnam, Visakhapatnam",
     cityName: "Visakhapatnam",
   },
   {
     id: "4",
     displayText: "Hillside Agriculture Land",
-    displayType: "Agriculture Lands",
+    displayType: "Agricultural Land",
     displayDescription: "Anandapuram, Visakhapatnam",
     cityName: "Visakhapatnam",
   },
   {
     id: "5",
     displayText: "Orchard Meadows",
-    displayType: "Farm Lands",
+    displayType: "Farm Land",
     displayDescription: "Medchal, Hyderabad",
     cityName: "Hyderabad",
   },
   {
     id: "6",
     displayText: "Riverbank Plot",
-    displayType: "Agriculture Lands",
+    displayType: "Agricultural Land",
     displayDescription: "Madhurawada, Visakhapatnam",
     cityName: "Visakhapatnam",
   },

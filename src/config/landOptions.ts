@@ -1,13 +1,13 @@
 export const LAND_TYPES = [
-  "Open plot",
-  "Farm Land",
-  "Commercial Plot",
   "Agricultural Land",
-  "Residential Plot",
+  "Commercial Plot",
+  "DTCP Approved Plot",
+  "Farm Land",
   "Gated Community Plot",
   "HMDA Approved Plot",
-  "DTCP Approved Plot",
-];
+  "Open plot",
+  "Residential Plot",
+].sort((a, b) => a.localeCompare(b));
 
 export const LISTING_TYPES = ["sale", "lease"] as const;
 
@@ -50,26 +50,33 @@ export const SOIL_TYPES = [
   "Rocky Soil",
 ];
 
-export const LAND_STATES = ["Andhra Pradesh", "Telangana"];
+export const LAND_STATES = ["Andhra Pradesh", "Telangana"].sort((a, b) =>
+  a.localeCompare(b),
+);
 
 export const LAND_DISTRICTS = [
-  "Rangareddy",
-  "Medchal-Malkajgiri",
-  "Sangareddy",
-  "Yadadri",
   "Hyderabad",
+  "Karimnagar",
+  "Medchal-Malkajgiri",
   "Nalgonda",
   "Nizamabad",
-  "Karimnagar",
-];
+  "Rangareddy",
+  "Sangareddy",
+  "Yadadri",
+].sort((a, b) => a.localeCompare(b));
 
 export const LAND_CITIES = [
-  "Hyderabad",
-  "Visakhapatnam",
-  "Vijayawada",
   "Amaravati",
+  "Guntur",
+  "Hyderabad",
   "Kakinada",
-];
+  "Kurnool",
+  "Rajahmundry",
+  "Tirupati",
+  "Vijayawada",
+  "Visakhapatnam",
+  "Warangal",
+].sort((a, b) => a.localeCompare(b));
 
 export const OTHER_FACILITIES = [
   "CC Road",
