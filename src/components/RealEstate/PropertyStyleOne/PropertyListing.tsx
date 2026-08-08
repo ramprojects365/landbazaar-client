@@ -140,7 +140,6 @@ export default function PropertyListing() {
     keyword,
     type,
     city,
-    landType,
     propertyName,
     propertyType,
     minPriceStr,

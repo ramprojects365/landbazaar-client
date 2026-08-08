@@ -1,4 +1,4 @@
-import { LAND_CITIES, LAND_TYPES } from "@/config/landOptions";
+import { LAND_CITIES } from "@/config/landOptions";
 
 export const quickLinks = [
   { label: "About Us", href: "/about" },
@@ -13,7 +13,11 @@ export const locationLinks = LAND_CITIES.map((city) => ({
   href: `/search?city=${encodeURIComponent(city)}`,
 }));
 
-export const landTypeLinks = LAND_TYPES.map((type) => ({
-  label: type,
-  href: `/search?propertyType=${encodeURIComponent(type)}`,
-}));
+/** Footer land-type links (display labels; search stays on /search). */
+export const landTypeLinks = [
+  { label: "Agricultural Lands", href: "/search" },
+  { label: "Commercial Lands", href: "/search" },
+  { label: "Farm Lands", href: "/search" },
+  { label: "Gated Community Lands", href: "/search" },
+  { label: "Residential Plots", href: "/search" },
+].sort((a, b) => a.label.localeCompare(b.label));
