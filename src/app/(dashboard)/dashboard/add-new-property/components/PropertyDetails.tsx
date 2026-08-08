@@ -127,6 +127,16 @@ export default function PropertyDetails() {
                 </select>
               </div>
             </div>
+            <YesNoRadioRow
+              label="Corner Plot"
+              field="cornerPlot"
+              register={register}
+            />
+            <YesNoRadioRow
+              label="Clear Title"
+              field="clearTitle"
+              register={register}
+            />
           </div>
 
           <div className="col-lg-4">
@@ -146,6 +156,16 @@ export default function PropertyDetails() {
                 </select>
               </div>
             </div>
+            <YesNoRadioRow
+              label="Loan Facility"
+              field="loanFacility"
+              register={register}
+            />
+            <YesNoRadioRow
+              label="Registration Ready"
+              field="registrationReady"
+              register={register}
+            />
           </div>
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
@@ -162,31 +182,6 @@ export default function PropertyDetails() {
                 ))}
               </select>
             </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-lg-4">
-            <YesNoRadioRow
-              label="Corner Plot"
-              field="cornerPlot"
-              register={register}
-            />
-            <YesNoRadioRow
-              label="Clear Title"
-              field="clearTitle"
-              register={register}
-            />
-            <YesNoRadioRow
-              label="Loan Facility"
-              field="loanFacility"
-              register={register}
-            />
-            <YesNoRadioRow
-              label="Registration Ready"
-              field="registrationReady"
-              register={register}
-            />
           </div>
         </div>
       </div>
