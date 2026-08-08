@@ -38,6 +38,7 @@ export default function ContactDetails() {
 
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
+              <label>Contact Number</label>
               <input
                 className="textBox"
                 type="text"
