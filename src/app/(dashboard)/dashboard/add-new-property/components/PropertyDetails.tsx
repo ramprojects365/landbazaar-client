@@ -43,7 +43,11 @@ function YesNoRadioRow({
   return (
     <div className="tp-dashboard-new-input">
       <div style={inlineRadioRowStyle}>
-        <label style={{ marginBottom: 0, whiteSpace: "nowrap" }}>{label}</label>
+        <label
+          style={{ marginBottom: 0, whiteSpace: "nowrap", width: "150px" }}
+        >
+          {label}
+        </label>
         <div style={inlineRadioOptionsStyle}>
           <label style={inlineRadioOptionStyle}>
             <input type="radio" value="Yes" {...register(field)} />
@@ -184,21 +188,7 @@ export default function PropertyDetails() {
               register={register}
             />
           </div>
-
-          {/* <div className="col-lg-4">
-          
-          </div>
-
-          <div className="col-lg-4">
-          
-          </div> */}
         </div>
-
-        {/* <div className="row">
-          <div className="col-lg-4">
-          
-          </div>
-        </div> */}
       </div>
     </div>
   );

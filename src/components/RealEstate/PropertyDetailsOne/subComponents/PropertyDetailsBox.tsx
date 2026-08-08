@@ -1,11 +1,22 @@
-import {
-  HomeSvg,
-  MessageSvgTwo,
-  SquareFeetSvg,
-  YearBuiltIconSvg,
-} from "@/components/SVG";
+import { LandSizeSvg } from "@/components/SVG";
 import { getListingTypeLabel } from "@/utils/mapApiProperty";
+import {
+  ClipboardCheck,
+  Coins,
+  Compass,
+  Hash,
+  Landmark,
+  Route,
+  Scale,
+  ScrollText,
+  ShieldCheck,
+  Sprout,
+  SquareStack,
+  Tag,
+  Trees,
+} from "lucide-react";
 import { ReactNode } from "react";
+import PropertyOverviewIcon from "./PropertyOverviewIcon";
 
 interface PropertyDetail {
   icon: ReactNode;
@@ -53,28 +64,72 @@ export default function PropertyDetailsBox({
 
   const details: PropertyDetail[] = [
     {
-      icon: <HomeSvg />,
+      icon: <PropertyOverviewIcon icon={Tag} />,
       label: "Listing",
       value: getListingTypeLabel(listingType),
     },
-    { icon: <MessageSvgTwo />, label: "Land Type", value: propertyType || "—" },
-    { icon: <SquareFeetSvg />, label: "Land Size", value: landSize || "—" },
-    { icon: <SquareFeetSvg />, label: "Price / Unit", value: pricePerUnit || "—" },
-    { icon: <HomeSvg />, label: "Tenure", value: tenure?.trim() || "—" },
     {
-      icon: <YearBuiltIconSvg />,
+      icon: <PropertyOverviewIcon icon={Trees} />,
+      label: "Land Type",
+      value: propertyType || "—",
+    },
+    {
+      icon: <LandSizeSvg />,
+      label: "Land Size",
+      value: landSize || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={Coins} />,
+      label: "Price / Unit",
+      value: pricePerUnit || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={ScrollText} />,
+      label: "Tenure",
+      value: tenure?.trim() || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={Compass} />,
       label: "Facing",
       value: facingDirection || "—",
     },
-    { icon: <HomeSvg />, label: "Corner Plot", value: cornerPlot || "—" },
-    { icon: <HomeSvg />, label: "Road Width", value: roadWidth || "—" },
-    { icon: <HomeSvg />, label: "Survey No.", value: surveyNumber || "—" },
-    { icon: <HomeSvg />, label: "Approvals", value: approvalLabel || "—" },
-    { icon: <HomeSvg />, label: "Soil Type", value: soilType || "—" },
-    { icon: <HomeSvg />, label: "Clear Title", value: clearTitle || "—" },
-    { icon: <HomeSvg />, label: "Loan", value: loanFacility || "—" },
     {
-      icon: <HomeSvg />,
+      icon: <PropertyOverviewIcon icon={SquareStack} />,
+      label: "Corner Plot",
+      value: cornerPlot || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={Route} />,
+      label: "Road Width",
+      value: roadWidth || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={Hash} />,
+      label: "Survey No.",
+      value: surveyNumber || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={ShieldCheck} />,
+      label: "Approvals",
+      value: approvalLabel || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={Sprout} />,
+      label: "Soil Type",
+      value: soilType || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={Scale} />,
+      label: "Clear Title",
+      value: clearTitle || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={Landmark} />,
+      label: "Loan",
+      value: loanFacility || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={ClipboardCheck} />,
       label: "Registration",
       value: registrationReady || "—",
     },
