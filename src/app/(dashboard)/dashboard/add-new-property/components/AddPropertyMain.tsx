@@ -195,7 +195,7 @@ export default function AddPropertyPage() {
       bedRooms: "",
       bathRooms: "",
       availability: "",
-      negotiable: "",
+      negotiable: "Yes",
       floorLevel: "",
       cornerPlot: "Yes",
       roadWidth: "",

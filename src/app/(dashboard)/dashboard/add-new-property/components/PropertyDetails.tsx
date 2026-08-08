@@ -93,25 +93,6 @@ export default function PropertyDetails() {
 
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Approval Type</label>
-              <select
-                {...register("approvalTypes")}
-                multiple
-                className="listDropDown listDropDown--multiple"
-              >
-                {APPROVAL_TYPES.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
               <label>Soil Type</label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("soilType")} className="listDropDown">
@@ -125,7 +106,9 @@ export default function PropertyDetails() {
               </div>
             </div>
           </div>
+        </div>
 
+        <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
               <label>Road Width</label>
@@ -160,6 +143,22 @@ export default function PropertyDetails() {
               </div>
             </div>
           </div>
+          <div className="col-lg-4">
+            <div className="tp-dashboard-new-input">
+              <label>Approval Type (Multi Select)</label>
+              <select
+                {...register("approvalTypes")}
+                multiple
+                className="listDropDown listDropDown--multiple"
+              >
+                {APPROVAL_TYPES.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
 
         <div className="row">
@@ -169,34 +168,37 @@ export default function PropertyDetails() {
               field="cornerPlot"
               register={register}
             />
-          </div>
-
-          <div className="col-lg-4">
             <YesNoRadioRow
               label="Clear Title"
               field="clearTitle"
               register={register}
             />
-          </div>
-
-          <div className="col-lg-4">
             <YesNoRadioRow
               label="Loan Facility"
               field="loanFacility"
               register={register}
             />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-lg-4">
             <YesNoRadioRow
               label="Registration Ready"
               field="registrationReady"
               register={register}
             />
           </div>
+
+          {/* <div className="col-lg-4">
+          
+          </div>
+
+          <div className="col-lg-4">
+          
+          </div> */}
         </div>
+
+        {/* <div className="row">
+          <div className="col-lg-4">
+          
+          </div>
+        </div> */}
       </div>
     </div>
   );
