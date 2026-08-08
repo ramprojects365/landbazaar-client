@@ -1,11 +1,10 @@
-/** INR: when `showDecimals` is true, fraction digits appear only if needed (no trailing ".00"). */
-export function formatPrice(price: number, showDecimals = false) {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
+/** When `showDecimals` is true, fraction digits appear only if needed (no trailing ".00"). */
+export function formatPrice(price: number, showDecimals = false): string {
+  const formatted = new Intl.NumberFormat("en-IN", {
     minimumFractionDigits: 0,
     maximumFractionDigits: showDecimals ? 2 : 0,
   }).format(price);
+  return `INR ${formatted}`;
 }
 
 export function parsePriceAmount(
@@ -23,7 +22,13 @@ function formatScaledAmount(amount: number): string {
 
 function pluralizeUnit(amount: number, singular: string, plural: string): string {
   const formatted = formatScaledAmount(amount);
-  return `${formatted} ${amount > 1 ? plural : singular}`;
+  return `INR ${formatted} ${amount > 1 ? plural : singular}`;
+}
+
+/** Display filter/URL price tokens (e.g. "100k", "1M") with INR prefix. */
+export function formatFilterPriceLabel(value?: string | null): string {
+  if (!value || value === "Any") return value ?? "Any";
+  return `INR ${value}`;
 }
 
 /**

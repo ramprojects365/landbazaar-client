@@ -11,6 +11,7 @@ import {
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
 import { API_BASE_URL } from "@/config/constants";
+import { formatFilterPriceLabel } from "@/components/Utils/formatPrice";
 
 type Property = IFeaturedPropertyDT;
 
@@ -151,9 +152,9 @@ export default function PropertyListing() {
   if (propertyType !== "All")
     activeFilters.push({ label: "Land Type", value: propertyType });
   if (minPriceStr !== "Any")
-    activeFilters.push({ label: "Min Price", value: minPriceStr });
+    activeFilters.push({ label: "Min Price", value: formatFilterPriceLabel(minPriceStr) });
   if (maxPriceStr !== "Any")
-    activeFilters.push({ label: "Max Price", value: maxPriceStr });
+    activeFilters.push({ label: "Max Price", value: formatFilterPriceLabel(maxPriceStr) });
 
   return (
     <div className="tab-content" id="myTabContent">

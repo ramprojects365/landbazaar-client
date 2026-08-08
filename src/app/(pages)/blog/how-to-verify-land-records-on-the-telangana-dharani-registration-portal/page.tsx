@@ -253,7 +253,7 @@ export default function TelanganaDharaniBlog() {
               </div>
             </div>
             <div className="col-lg-4">
-              <RecentPosts />
+              <RecentPosts currentSlug="how-to-verify-land-records-on-the-telangana-dharani-registration-portal" />
             </div>
           </div>
         </div>

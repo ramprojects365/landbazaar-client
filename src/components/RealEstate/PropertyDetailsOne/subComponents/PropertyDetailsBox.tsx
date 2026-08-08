@@ -137,7 +137,7 @@ export default function PropertyDetailsBox({
 
   return (
     <div className="tp-property-details-tags-content">
-      <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-2">
+      <div className="row row-cols-xl-3 row-cols-lg-3 row-cols-md-3 row-cols-2">
         {details.map((detail, index) => (
           <div className="col" key={index}>
             <div className="tp-property-details-tags-item align-items-center mb-30 d-flex">

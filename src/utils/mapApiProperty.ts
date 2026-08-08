@@ -155,7 +155,7 @@ export function parseTotalPrice(
   return Number.isFinite(fallback) && fallback > 0 ? fallback : 0;
 }
 
-/** Format price per unit with area unit, e.g. "₹10,000,000 / Acre". */
+/** Format price per unit with area unit, e.g. "INR 10,000,000 / Acre". */
 export function formatPricePerUnit(
   pricePerUnit?: number | string | null,
   areaUnit?: string | null,

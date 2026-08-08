@@ -3,11 +3,14 @@ import Link from "next/link";
 import { blogData } from "@/data/blogData";
 
 interface RecentPostsProps {
-  currentSlug: string;
+  currentSlug?: string;
 }
 
-export default function RecentPosts({ currentSlug }: RecentPostsProps) {
-  const otherPosts = blogData.filter((post) => post.slug !== currentSlug);
+export default function RecentPosts({ currentSlug = "" }: RecentPostsProps) {
+  const normalizedSlug = currentSlug.replace(/^\/blog\//, "");
+  const otherPosts = blogData.filter(
+    (post) => !normalizedSlug || post.slug !== normalizedSlug,
+  );
 
   return (
     <div className="tp-blog-widget mb-40">

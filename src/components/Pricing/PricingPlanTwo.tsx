@@ -3,8 +3,8 @@ import { CheckCircle2 } from "lucide-react";
 
 const pricingPlans = [
     { name: "Basic Plan", price: "Free", delay: ".3s" },
-    { name: "Standard Plan", price: "₹ 999", delay: ".5s", active: true },
-    { name: "Premium Plan", price: "₹ 1,999", delay: ".7s" }
+    { name: "Standard Plan", price: "INR 999", delay: ".5s", active: true },
+    { name: "Premium Plan", price: "INR 1,999", delay: ".7s" }
 ];
 
 
@@ -99,15 +99,15 @@ export default function PricingPlanTwo() {
                             <div className="pricing-credits__rates">
                                 <div>
                                     <span>Input token</span>
-                                    <strong>₹ 1,000 / 1 million tokens</strong>
+                                    <strong>INR 1,000 / 1 million tokens</strong>
                                 </div>
                                 <div>
                                     <span>Cache token</span>
-                                    <strong>₹ 500 / 1 million tokens</strong>
+                                    <strong>INR 500 / 1 million tokens</strong>
                                 </div>
                                 <div>
                                     <span>Output token</span>
-                                    <strong>₹ 4,000 / 1 million tokens</strong>
+                                    <strong>INR 4,000 / 1 million tokens</strong>
                                 </div>
                             </div>
 
@@ -119,15 +119,15 @@ export default function PricingPlanTwo() {
                             <div className="pricing-credits__included">
                                 <span>
                                     <Coins size={16} />
-                                    Basic: FREE ₹ 800 credit
+                                    Basic: FREE INR 800 credit
                                 </span>
                                 <span>
                                     <Coins size={16} />
-                                    Standard: FREE ₹ 4,000 credit monthly
+                                    Standard: FREE INR 4,000 credit monthly
                                 </span>
                                 <span>
                                     <Coins size={16} />
-                                    Premium: FREE ₹ 8,000 credit monthly
+                                    Premium: FREE INR 8,000 credit monthly
                                 </span>
                             </div>
                         </div>
