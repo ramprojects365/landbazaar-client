@@ -49,13 +49,10 @@ export default function PropertyFilterWidget() {
         <h4 className="tp-team-details-item-title">Applied Filters</h4>
         <div className="tp-team-contact-select tp-select">
           <NiceSelect
-            options={[
-              { value: "Hyderabad", label: "Hyderabad" },
-              ...LAND_CITIES.filter((item) => item !== "Hyderabad").map((item) => ({
-                value: item,
-                label: item,
-              })),
-            ]}
+            options={LAND_CITIES.map((item) => ({
+              value: item,
+              label: item,
+            }))}
             defaultCurrent={Math.max(LAND_CITIES.indexOf(city), 0)}
             onChange={(option) => setCity(option.value as string)}
             name="City"
