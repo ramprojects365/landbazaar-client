@@ -326,7 +326,9 @@ export default function AddPropertyPage() {
             loanFacility: propertyData.loanFacility || "Yes",
             registrationReady: propertyData.registrationReady || "Yes",
             contactPersonName: propertyData.contactPersonName || "",
-            contactNumber: stripCountryCodeForDisplay(propertyData.contactNumber),
+            contactNumber: stripCountryCodeForDisplay(
+              propertyData.contactNumber,
+            ),
             propertyAge: getAgeRangeFromYear(propertyData.yearOfBuild),
             yearOfCompletion: propertyData.yearOfCompletion,
             carParkAllocation: propertyData.carParkAllocation || "",

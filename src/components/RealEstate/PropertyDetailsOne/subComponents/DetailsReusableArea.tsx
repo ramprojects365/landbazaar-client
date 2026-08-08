@@ -78,8 +78,12 @@ export default function DetailsReusableArea({
 
               {address && (
                 <div className="tp-property-details-box box-6 mb-30">
-                  <h3 className="tp-property-details-box-title">Address</h3>
+                  <h3 className="tp-property-details-box-title">
+                    Contact & Address
+                  </h3>
                   <div className="tp-property-details-box-desc">
+                    <p>{property?.contactPersonName}</p>
+                    <p>{property?.contactNumber}</p>
                     <p>{address}</p>
                     {property?.landmark && (
                       <p>
