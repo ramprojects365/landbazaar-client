@@ -174,8 +174,8 @@ export default function UserProfileForm() {
         const normalizedUserType = (profile.userType || profile.user_type || "")
           .trim()
           .toLowerCase();
-          const isAgent = normalizedUserType === "agent";
-setIsAgentProfile(isAgent);
+        const isAgent = normalizedUserType === "agent";
+        setIsAgentProfile(isAgent);
         const isOwner =
           normalizedUserType === "owner" || normalizedUserType === "ownwer";
         setIsOwnerProfile(isOwner);
@@ -249,7 +249,8 @@ setIsAgentProfile(isAgent);
         }
 
         // Set display name in header
-        const headerDisplayName = profile.fullName ?? fullName ?? profile.username ?? "";
+        const headerDisplayName =
+          profile.fullName ?? fullName ?? profile.username ?? "";
         setDisplayName(headerDisplayName || "My Profile");
         if (typeof window !== "undefined") {
           localStorage.setItem("loginUserDisplayName", headerDisplayName);
@@ -266,7 +267,8 @@ setIsAgentProfile(isAgent);
           label:
             profile.renStatusLabel ||
             (profile.renStatus === "verified" ? "Verified" : "Not verified"),
-          available: profile.renStatus !== undefined || Boolean(profile.renNumber),
+          available:
+            profile.renStatus !== undefined || Boolean(profile.renNumber),
         });
       } catch (err: unknown) {
         const error = err as { response?: { status?: number } };
@@ -312,9 +314,13 @@ setIsAgentProfile(isAgent);
       const formData = new FormData();
       formData.append("profileImage", file);
 
-      const response = await apiClient.post<unknown>("/users/profile/image", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await apiClient.post<unknown>(
+        "/users/profile/image",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        },
+      );
 
       const uploadedImageUrl = extractProfileImage(response.data);
       if (uploadedImageUrl) {
@@ -473,7 +479,10 @@ setIsAgentProfile(isAgent);
             onChange={handleImageChange}
           />
         </div>
-        <div className="profile-photo-upload-content" style={{ minWidth: 0, flex: 1 }}>
+        <div
+          className="profile-photo-upload-content"
+          style={{ minWidth: 0, flex: 1 }}
+        >
           <h4
             className="profile-photo-upload-name"
             style={{
@@ -587,6 +596,7 @@ setIsAgentProfile(isAgent);
 
               <div className="col-lg-6">
                 <div className="tp-dashboard-new-input">
+                  <label>Phone Number</label>
                   <input
                     {...registerProfile("phone")}
                     type="text"
@@ -617,7 +627,7 @@ setIsAgentProfile(isAgent);
                 </div>
               </div>
 
-              {isAgentProfile  && (
+              {isAgentProfile && (
                 <>
                   <div className="col-lg-6">
                     <div className="tp-dashboard-new-input">
