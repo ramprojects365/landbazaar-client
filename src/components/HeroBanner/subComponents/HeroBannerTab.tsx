@@ -2,8 +2,16 @@
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
-import { LAND_CITIES, LAND_TYPES as LAND_TYPE_OPTIONS } from "@/config/landOptions";
+import { LAND_CITIES } from "@/config/landOptions";
 import "./hero-banner-tab.css";
+
+/** Hero search land-type labels (kept separate from form LAND_TYPES). */
+const HERO_LAND_TYPE_OPTIONS = [
+  "Agriculture Lands",
+  "Commercial Lands",
+  "Farm Lands",
+  "Plots",
+].sort((a, b) => a.localeCompare(b));
 
 function SearchIcon({ stroke = "#fff" }: { stroke?: string }) {
   return (
@@ -41,48 +49,48 @@ const placeholderExamples = [
 ];
 
 const CITIES = ["All", ...LAND_CITIES];
-const LAND_TYPES = ["All", ...LAND_TYPE_OPTIONS];
+const LAND_TYPES = ["All", ...HERO_LAND_TYPE_OPTIONS];
 
 const MOCK_SUGGESTIONS: SearchItem[] = [
   {
     id: "1",
     displayText: "Green Valley Farm",
-    displayType: "Farm Land",
+    displayType: "Farm Lands",
     displayDescription: "Shamirpet, Hyderabad",
     cityName: "Hyderabad",
   },
   {
     id: "2",
     displayText: "Sunrise Agriculture Plot",
-    displayType: "Agricultural Land",
+    displayType: "Agriculture Lands",
     displayDescription: "Gachibowli, Hyderabad",
     cityName: "Hyderabad",
   },
   {
     id: "3",
     displayText: "Coastal Farm Estate",
-    displayType: "Farm Land",
+    displayType: "Farm Lands",
     displayDescription: "Bheemunipatnam, Visakhapatnam",
     cityName: "Visakhapatnam",
   },
   {
     id: "4",
     displayText: "Hillside Agriculture Land",
-    displayType: "Agricultural Land",
+    displayType: "Agriculture Lands",
     displayDescription: "Anandapuram, Visakhapatnam",
     cityName: "Visakhapatnam",
   },
   {
     id: "5",
     displayText: "Orchard Meadows",
-    displayType: "Farm Land",
+    displayType: "Farm Lands",
     displayDescription: "Medchal, Hyderabad",
     cityName: "Hyderabad",
   },
   {
     id: "6",
     displayText: "Riverbank Plot",
-    displayType: "Agricultural Land",
+    displayType: "Agriculture Lands",
     displayDescription: "Madhurawada, Visakhapatnam",
     cityName: "Visakhapatnam",
   },

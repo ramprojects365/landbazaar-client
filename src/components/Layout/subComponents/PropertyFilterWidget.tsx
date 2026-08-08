@@ -14,6 +14,26 @@ export default function PropertyFilterWidget() {
   const [minPrice, setMinPrice] = useState("Any");
   const [maxPrice, setMaxPrice] = useState("Any");
 
+  const cityOptions = LAND_CITIES.map((item) => ({
+    value: item,
+    label: item,
+  }));
+  const cityDefaultIndex = (() => {
+    const idx = LAND_CITIES.indexOf(city);
+    // Keep previous behavior: fall back to Hyderabad when city is unknown/empty
+    if (idx >= 0) return idx;
+    const hyderabadIdx = LAND_CITIES.indexOf("Hyderabad");
+    return hyderabadIdx >= 0 ? hyderabadIdx : 0;
+  })();
+  const landTypeOptions = [
+    { value: "All", label: "All" },
+    ...LAND_TYPES.map((item) => ({ value: item, label: item })),
+  ];
+  const landTypeDefaultIndex = Math.max(
+    landTypeOptions.findIndex((option) => option.value === propertyType),
+    0,
+  );
+
   const handleUpdateList = () => {
     // Preserve keyword and listing-type from the current URL
     const existingQ =
@@ -49,11 +69,8 @@ export default function PropertyFilterWidget() {
         <h4 className="tp-team-details-item-title">Applied Filters</h4>
         <div className="tp-team-contact-select tp-select">
           <NiceSelect
-            options={LAND_CITIES.map((item) => ({
-              value: item,
-              label: item,
-            }))}
-            defaultCurrent={Math.max(LAND_CITIES.indexOf(city), 0)}
+            options={cityOptions}
+            defaultCurrent={cityDefaultIndex}
             onChange={(option) => setCity(option.value as string)}
             name="City"
             cls="select wide"
@@ -61,11 +78,8 @@ export default function PropertyFilterWidget() {
         </div>
         <div className="tp-team-contact-select tp-select">
           <NiceSelect
-            options={[
-              { value: "All", label: "All" },
-              ...LAND_TYPES.map((item) => ({ value: item, label: item })),
-            ]}
-            defaultCurrent={0}
+            options={landTypeOptions}
+            defaultCurrent={landTypeDefaultIndex}
             onChange={(option) => setPropertyType(option.value as string)}
             name="Land Type"
             cls="select wide"
