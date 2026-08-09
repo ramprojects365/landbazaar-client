@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { deleteProperty } from "@/services/propertyService";
 import { getCoverImageUrl } from "@/utils/propertyImages";
+import { API_BASE_URL } from "@/config/constants";
 
 // API Property interface
 interface ApiProperty {
@@ -77,8 +78,7 @@ export default function DashboardProperty() {
         // const apiProperties: ApiProperty[] = data?.data || [];
 
         const token = localStorage.getItem("authToken");
-        const base = process.env.NEXT_PUBLIC_API_BASE;
-        const res = await fetch(`${base}/api/properties/my-properties`, {
+        const res = await fetch(`${API_BASE_URL}/properties/my-properties`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

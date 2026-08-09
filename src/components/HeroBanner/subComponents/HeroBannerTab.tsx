@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
 import { LAND_CITIES } from "@/config/landOptions";
+import { API_BASE_URL } from "@/config/constants";
 import "./hero-banner-tab.css";
 
 /** Hero search land-type labels (kept separate from form LAND_TYPES). */
@@ -41,6 +42,16 @@ type SearchItem = {
   cityName?: string;
 };
 
+type ApiSuggestionProperty = {
+  id?: string | number;
+  title?: string;
+  propertyName?: string;
+  propertyType?: string;
+  cityName?: string;
+  streetName?: string;
+  location?: string;
+};
+
 const placeholderExamples = [
   "Search by land name",
   "Try farm lands in Hyderabad",
@@ -50,51 +61,6 @@ const placeholderExamples = [
 
 const CITIES = ["All", ...LAND_CITIES];
 const LAND_TYPES = ["All", ...HERO_LAND_TYPE_OPTIONS];
-
-const MOCK_SUGGESTIONS: SearchItem[] = [
-  {
-    id: "1",
-    displayText: "Green Valley Farm",
-    displayType: "Farm Lands",
-    displayDescription: "Shamirpet, Hyderabad",
-    cityName: "Hyderabad",
-  },
-  {
-    id: "2",
-    displayText: "Sunrise Agriculture Plot",
-    displayType: "Agriculture Lands",
-    displayDescription: "Gachibowli, Hyderabad",
-    cityName: "Hyderabad",
-  },
-  {
-    id: "3",
-    displayText: "Coastal Farm Estate",
-    displayType: "Farm Lands",
-    displayDescription: "Bheemunipatnam, Visakhapatnam",
-    cityName: "Visakhapatnam",
-  },
-  {
-    id: "4",
-    displayText: "Hillside Agriculture Land",
-    displayType: "Agriculture Lands",
-    displayDescription: "Anandapuram, Visakhapatnam",
-    cityName: "Visakhapatnam",
-  },
-  {
-    id: "5",
-    displayText: "Orchard Meadows",
-    displayType: "Farm Lands",
-    displayDescription: "Medchal, Hyderabad",
-    cityName: "Hyderabad",
-  },
-  {
-    id: "6",
-    displayText: "Riverbank Plot",
-    displayType: "Agriculture Lands",
-    displayDescription: "Madhurawada, Visakhapatnam",
-    cityName: "Visakhapatnam",
-  },
-];
 
 export default function HeroBannerTabContent({}: ITabContentProps) {
   const router = useRouter();
@@ -137,7 +103,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
     if (e.key === "Enter") handleSearch();
   };
 
-  // Live suggestions from mock data (replace with API later)
+  // Live suggestions from API
   useEffect(() => {
     if (!query.trim()) {
       setSuggestions([]);
@@ -147,29 +113,73 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
       return;
     }
 
+    const controller = new AbortController();
     setLoading(true);
     setSearched(false);
-    const timer = setTimeout(() => {
-      const normalizedQuery = query.trim().toLowerCase();
-      const items = MOCK_SUGGESTIONS.filter((item) => {
-        const matchesQuery =
-          item.displayText.toLowerCase().includes(normalizedQuery) ||
-          item.displayDescription.toLowerCase().includes(normalizedQuery) ||
-          item.displayType.toLowerCase().includes(normalizedQuery);
-        const matchesCity =
-          city === "All" || item.cityName?.toLowerCase() === city.toLowerCase();
-        const matchesLandType =
-          landType === "All" ||
-          item.displayType.toLowerCase() === landType.toLowerCase();
-        return matchesQuery && matchesCity && matchesLandType;
-      });
-      setSuggestions(items);
-      setOpen(true);
-      setSearched(true);
-      setLoading(false);
+    const timer = setTimeout(async () => {
+      try {
+        const params = new URLSearchParams();
+        params.set("q", query.trim());
+        if (city?.trim() && city !== "All") {
+          params.set("city", city.trim());
+        }
+        if (landType?.trim() && landType !== "All") {
+          params.set("propertyType", landType.trim());
+        }
+
+        const res = await fetch(`${API_BASE_URL}/properties/search?${params.toString()}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          throw new Error(`Suggestion API error: ${res.status}`);
+        }
+
+        const json = await res.json();
+        const rawItems: ApiSuggestionProperty[] = Array.isArray(json?.data)
+          ? json.data
+          : Array.isArray(json)
+            ? json
+            : [];
+
+        const mapped: SearchItem[] = rawItems.slice(0, 8).map((item, index) => {
+          const displayText = item.propertyName || item.title || "Property";
+          const displayType = item.propertyType || "Land";
+          const displayDescription =
+            [item.streetName, item.cityName].filter(Boolean).join(", ") ||
+            item.location ||
+            "Location not specified";
+
+          return {
+            id: String(item.id ?? `${displayText}-${index}`),
+            displayText,
+            displayType,
+            displayDescription,
+            cityName: item.cityName,
+          };
+        });
+
+        setSuggestions(mapped);
+      } catch (error: any) {
+        if (error?.name !== "AbortError") {
+          console.error("Hero suggestions failed:", error);
+          setSuggestions([]);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setOpen(true);
+          setSearched(true);
+          setLoading(false);
+        }
+      }
     }, 250);
 
-    return () => clearTimeout(timer);
+    return () => {
+      controller.abort();
+      clearTimeout(timer);
+    };
   }, [query, city, landType]);
 
   // Close dropdowns on outside click
