@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
-  //AuthFacebookSvg,
-  //AuthGoogleSvg,
   AuthLockSvg,
   AuthUserSvg,
   ClosedEyeSvg,
@@ -115,7 +113,6 @@ export default function SignInForm() {
         localStorage.removeItem(REMEMBER_EMAIL_KEY);
       }
 
-      // if token returned, store it immediately and schedule a redirect so the rest of the code (toast, etc.) can run
       const token = response?.data?.data?.token;
       if (token) {
         localStorage.setItem("authToken", token);
@@ -230,27 +227,6 @@ export default function SignInForm() {
             </button>
           </div>
 
-          {/* Social Login */}
-          {/* <div className="tp-sign-in-from-subtitle-heading">
-                        <h5 className="tp-sign-in-from-subtitle">Or Sign In with</h5>
-                    </div>
-                    <div className="tp-sign-in-from-btn mb-30">
-                        <Link href="https://google.com" target="_blank">
-                            <span><AuthGoogleSvg /></span>{" "}
-                            Google
-                        </Link>{" "}
-                        <Link href="https://facebook.com" target="_blank">
-                            <span><AuthFacebookSvg /></span>{" "}
-                            Facebook
-                        </Link>{" "}
-                        <Link href="https://apple.com" target="_blank">
-                            <span>
-                                <i className="fa-brands fa-apple"></i>
-                            </span>{" "}
-                            Apple
-                        </Link>
-                    </div> */}
-          {/* Register Link */}
           <div className="tp-sign-in-from-register">
             <p>
               Don’t have an account?{" "}

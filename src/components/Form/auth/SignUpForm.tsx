@@ -1,8 +1,6 @@
 "use client";
 import {
   AuthEmailSvg,
-  //AuthFacebookSvg,
-  //AuthGoogleSvg,
   AuthLockSvg,
   AuthUserSvg,
   ClosedEyeSvg,

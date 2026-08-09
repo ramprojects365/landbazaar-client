@@ -264,53 +264,6 @@ export default function PropertyFitResults() {
 
           {storedResults && (
             <>
-              {/*
-              <div className="property-fit-page__handoff">
-                <div>
-                  <UserPlus size={19} />
-                  <span>
-                    Auto register
-                    <strong>
-                      {contactReady
-                        ? autoRegistered
-                          ? "Search saved with a simple login"
-                          : "Contact added"
-                        : "Skipped"}
-                    </strong>
-                  </span>
-                </div>
-                <div>
-                  <Mail size={19} />
-                  <span>
-                    Login password
-                    <strong>
-                      {storedResults.defaultPassword || "Only shown when a new login is created"}
-                    </strong>
-                  </span>
-                </div>
-                <div>
-                  <Bell size={19} />
-                  <span>
-                    Agent notice
-                    <strong>
-                      {agentNotificationCount > 0
-                        ? `Sent to ${agentNotificationCount} matching agent${agentNotificationCount === 1 ? "" : "s"}`
-                        : "Ready when matches are found"}
-                    </strong>
-                  </span>
-                </div>
-              </div>
-              */}
-
-              {/*
-              {statusMessage && (
-                <div className="property-fit-page__notice">
-                  <CheckCircle2 size={18} />
-                  {statusMessage}
-                </div>
-              )}
-              */}
-
               <div className="property-fit-page__heading">
                 <span>
                   <Sparkles size={15} />
@@ -329,11 +282,6 @@ export default function PropertyFitResults() {
                       ? `${properties.length} options to explore`
                       : `${properties.length} good ${properties.length === 1 ? "option" : "options"}`}
                 </h2>
-                {/* <p>
-                  {fallbackUsed
-                    ? "Your selected criteria did not return an exact match, so we are showing our available projects while an agent prepares better options."
-                    : matchReason}
-                </p> */}
               </div>
 
               {loading && (

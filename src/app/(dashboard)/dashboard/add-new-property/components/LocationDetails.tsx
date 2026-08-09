@@ -58,11 +58,6 @@ export default function LocationDetails() {
               {errors?.location && (
                 <ErrorMessage message={errors?.location?.message || ""} />
               )}
-              {/* {!errors?.location && locationValue && (
-                <p style={{ fontSize: 12, color: "#888", marginTop: 4 }}>
-                  {locationValue}
-                </p>
-              )} */}
             </div>
           </div>
         </div>

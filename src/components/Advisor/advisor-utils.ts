@@ -22,6 +22,5 @@ export const getMatchReason = (answers: AdvisorAnswers): string => {
   if (answers.bedrooms) parts.push("plot size needs");
 
   if (!parts.length) return "Recommended starter land listing for your search";
-  //return `Matches your ${parts.join(", ")}`;
   return "Matches what you're looking for";
 };

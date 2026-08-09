@@ -1,6 +1,5 @@
 "use client";
 
-//import logoIcon from "../../../public/assets/img/logo/logo-icon-blue.png";
 import logo from "../../../public/assets/img/logo/logo.png";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
 import UserSvg from "@/components/SVG/UserSvg";
@@ -27,19 +26,6 @@ export default function DashboardHeader() {
           <div className="tp-header-top-pad">
             <Link href="/">
               <Image className="logo-header" src={logo} alt="Dekho Land" />
-              {/* {sticky ? (
-                <>
-                  <span className="logo-icon-black">Property</span>{" "}
-                  <span className="logo-icon-black">La</span>
-                  <Image className="logo-header" src={logoIcon} alt="Dekho Land" />
-                </>
-              ) : (
-                <>
-                  <span className="logo-icon-black">Property</span>{" "}
-                  <span className="logo-icon-black">La</span>
-                  <Image className="logo-header" src={logoIcon} alt="Dekho Land" />
-                </>
-              )} */}
             </Link>
           </div>
         </div>

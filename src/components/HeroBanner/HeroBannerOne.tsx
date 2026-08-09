@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import HeroBannerTabContent from "./subComponents/HeroBannerTab";
-//import BannerFromFilter from "../Form/BannerFromFilter";
-//import SearchAutocomplete from "./subComponents/SearchAutocomplete";
 import { SocialLinks } from "../UI/SocialLinks";
 import BannerSlider from "./BannerSlider";
 import { useTranslation } from "@/contexts/LanguageContext";
@@ -73,9 +71,7 @@ export default function HeroBannerOne() {
                     className={`tp-from-filter ${
                       isFilterVisible ? "show" : "hidden"
                     }`}
-                  >
-                    {/* <BannerFromFilter /> */}
-                  </section>
+                  />
                 </div>
                 {/* CTA Button */}
                 <div className="text-center mt-4">

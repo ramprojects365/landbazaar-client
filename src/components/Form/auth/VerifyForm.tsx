@@ -114,13 +114,6 @@ export default function VerifyForm() {
             </div>
           </div>
         </div>
-        {/* <div className="col-12" style={{ marginTop: "30px" }}>
-          <div className="tp-sign-in-from-btn mb-30">
-            <button type="button" className="tp-btn w-100 text-center">
-              Proceed
-            </button>
-          </div>
-        </div> */}
       </div>
     </form>
   );
