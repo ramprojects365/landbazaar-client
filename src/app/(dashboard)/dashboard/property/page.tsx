@@ -8,7 +8,6 @@ import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { deleteProperty } from "@/services/propertyService";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { API_BASE_URL } from "@/config/constants";
-import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
 
 // API Property interface
 interface ApiProperty {
