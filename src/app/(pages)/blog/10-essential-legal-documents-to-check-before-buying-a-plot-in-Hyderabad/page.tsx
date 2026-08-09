@@ -3,9 +3,9 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "10 Essential Legal Documents to Check Before Buying a Plot in Hyderabad | LandWay",
+    "10 Essential Legal Documents to Check Before Buying a Plot in Hyderabad | Dekho Land",
   description:
     "Learn about the 10 essential legal documents you must verify before buying a plot in Hyderabad. From Sale Deed to Encumbrance Certificate, ensure your land purchase is legally sound and secure.",
   keywords:

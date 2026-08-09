@@ -46,7 +46,14 @@ export default function PropertyListing() {
 
   // ── Search bar params (SearchRefineBar) ─────────────────────────
   const q = searchParams.get("q") || "";
-  const type = searchParams.get("type") || "";
+  const rawType = (searchParams.get("type") || "").trim().toLowerCase();
+  // Supported listing types: sale | lease. Legacy "rent" maps to lease.
+  const type =
+    !rawType || rawType === "all"
+      ? ""
+      : rawType === "rent"
+        ? "lease"
+        : rawType;
   const city = searchParams.get("city") || "";
   const queryPropertyType =
     searchParams.get("propertyType") || searchParams.get("landType") || "";
@@ -252,24 +259,16 @@ export default function PropertyListing() {
           </div>
         )}
 
-        {!loading && resultCount === 0 && !error && (
-          <div className="text-center py-5">
+        {!loading && !error && resultCount === 0 && (
+          <div
+            className="text-center py-5"
+            style={{ border: "1px dashed #d6dbe1", borderRadius: "10px" }}
+          >
             <p style={{ fontSize: "16px", color: "#555" }}>
               No properties found matching your search.
             </p>
             <p style={{ color: "#888" }}>
               Try adjusting your filters or search terms.
-            </p>
-          </div>
-        )}
-
-        {!loading && !error && properties.length === 0 && resultCount === 0 && (
-          <div className="text-center py-5" style={{ border: "1px dashed #d6dbe1", borderRadius: "10px" }}>
-            <p style={{ fontSize: "16px", color: "#555" }}>
-              We couldn’t find any matching properties yet.
-            </p>
-            <p style={{ color: "#888" }}>
-              Try a broader keyword, a different city, or remove a filter.
             </p>
           </div>
         )}

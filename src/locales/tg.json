@@ -2,7 +2,7 @@
   "common": {
     "property": "Property",
     "properties": "Properties",
-    "rent": "Rent",
+    "lease": "Lease",
     "buy": "Buy",
     "land": "Land",
     "myProfile": "My Profile",
@@ -25,6 +25,6 @@
     "trustedPartners": "Trusted Land Sellers",
     "meetPropertyConsultants": "Meet our verified and experienced land sellers",
     "latestArticleAndNews": "Latest Land Insights & News",
-    "whyChoosePropertyLa": "Why Choose LandWay?"
+    "whyChooseDekhoLand": "Why Choose Dekho Land?"
   }
 }

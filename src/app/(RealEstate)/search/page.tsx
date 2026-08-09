@@ -1,27 +1,27 @@
-import PropertyLayout from "@/components/Layout/PropertyLayout";
+import Dekho Landyout from "@/components/Layout/Dekho Landyout";
 import PropertyListing from "@/components/RealEstate/PropertyStyleOne/PropertyListing";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "Search Properties in Kuala Lumpur, Selangor, Cheras, Puchong | LandWay Malaysia",
+    "Search Lands & Plots in Hyderabad, Telangana, Visakhapatnam | Dekho Land",
   description:
-    "Search properties for sale and rent in Klang Valley. Find condos, houses, apartments, and landed properties in Kuala Lumpur, Selangor, Cheras, Puchong. Filter by location, price, property type. Malaysia's trusted real estate platform.",
-  metadataBase: new URL("https://landway.com"),
+    "Search lands and plots for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond. Filter by location, price, and land type on Dekho Land.",
+  metadataBase: new URL("https://www.dekholand.com"),
   alternates: {
     canonical: "/search",
   },
   openGraph: {
-    title: "Search Properties in Kuala Lumpur, Selangor, Cheras, Puchong | LandWay Malaysia",
-    description: "Search properties for sale and rent in Klang Valley. Find condos, houses, apartments, and landed properties in Kuala Lumpur, Selangor, Cheras, Puchong. Filter by location, price, property type.",
-    url: "https://landway.com/search",
-    siteName: "LandWay",
+    title: "Search Lands & Plots in Hyderabad, Telangana, Visakhapatnam | Dekho Land",
+    description: "Search lands and plots for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond.",
+    url: "https://www.dekholand.com/search",
+    siteName: "Dekho Land",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Search Properties in Kuala Lumpur, Selangor, Cheras, Puchong | LandWay Malaysia",
-    description: "Search properties for sale and rent in Klang Valley. Find condos, houses, apartments, and landed properties in Kuala Lumpur, Selangor, Cheras, Puchong. Filter by location, price, property type.",
+    title: "Search Lands & Plots in Hyderabad, Telangana, Visakhapatnam | Dekho Land",
+    description: "Search lands and plots for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond.",
   },
 };
 
@@ -29,9 +29,9 @@ export default function PropertyOne() {
   return (
     <>
       {/* property area start */}
-      <PropertyLayout>
+      <Dekho Landyout>
         <PropertyListing />
-      </PropertyLayout>
+      </Dekho Landyout>
       {/* property area end */}
     </>
   );

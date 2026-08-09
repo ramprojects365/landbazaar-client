@@ -6,7 +6,7 @@ import { LockKeyhole, ShieldCheck, Trophy, Users } from "lucide-react";
 const badges = [
   {
     label: "Verified Listings",
-    detail: "REN-focused profiles",
+    detail: "Verified seller profiles",
     icon: ShieldCheck,
   },
   {

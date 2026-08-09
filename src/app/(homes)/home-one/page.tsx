@@ -5,7 +5,6 @@ import HeroBannerOne from "@/components/HeroBanner/HeroBannerOne";
 import HomePropertiesByCity from "@/components/Neighborhood/HomePropertiesByCity";
 import PropertyHome from "@/components/Property/PropertyHome";
 import TrustBadges from "@/components/UI/TrustBadges";
-import TrustedAgents from "@/components/TrustedAgents/TrustedAgents";
 import React from "react";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -22,16 +21,13 @@ export default function HomeOnePage() {
         <HomePropertiesByCity />
       </div>
       <div style={{ backgroundColor: "#fff" }}>
-        <TrustedAgents />
-      </div>
-      <div style={{ backgroundColor: "rgb(240, 244, 253)" }}>
         <HomeBlogArea />
       </div>
       <section className="home-trust-section">
         <div className="container">
           <div className="home-trust-section__inner">
-            <span className="tp-section-title-pre">The LandWay Difference</span>
-            <h3 className="tp-section-title">{t("home.whyChoosePropertyLa")}</h3>
+            <span className="tp-section-title-pre">The Dekho Land Difference</span>
+            <h3 className="tp-section-title">{t("home.whyChooseDekhoLand")}</h3>
             <TrustBadges />
           </div>
         </div>

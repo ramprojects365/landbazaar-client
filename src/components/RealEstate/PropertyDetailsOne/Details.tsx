@@ -286,17 +286,6 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
 
                 <h4 className="tp-property-details-icon-price">
                   {formatTotalPriceDisplay(display.price)}
-                  {apiProperty.listingType === "rent" && (
-                    <span
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: 400,
-                        color: "#888",
-                      }}
-                    >
-                      /mo
-                    </span>
-                  )}
                 </h4>
 
                 {apiProperty.negotiable && (

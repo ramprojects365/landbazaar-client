@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
-  title: "Best New Property Launches in Malaysia (2026) | LandWay",
+  metadataBase: new URL("https://www.dekholand.com"),
+  title: "Best New Property Launches in Malaysia (2026) | Dekho Land",
   description:
     "Discover the best new property launches in Malaysia for 2026. Explore upcoming developments, new condos, and township projects with attractive early bird prices.",
   keywords:
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NewPropertyLaunches() {
+export default function NewDekho Landunches() {
   return (
     <>
       <section className="tp-blog-details-area pt-40 pb-40">

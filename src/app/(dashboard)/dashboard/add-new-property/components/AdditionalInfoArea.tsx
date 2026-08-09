@@ -29,7 +29,7 @@ export default function AdditionalInfoArea({
               <NiceSelect
                 options={[
                   { value: "Office", label: "Choose" },
-                  { value: "Villa", label: "For Rent" },
+                  { value: "Villa", label: "For Lease" },
                   { value: "Studio", label: "For Sale" },
                 ]}
                 defaultCurrent={0}

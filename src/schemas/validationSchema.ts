@@ -111,7 +111,10 @@ export const basicSchema = yup.object().shape({
 });
 
 export const propertySchema = yup.object({
-  listingType: yup.string().required("Listing type is required"),
+  listingType: yup
+    .string()
+    .oneOf(["sale", "lease"], "Listing type must be Sale or Lease")
+    .required("Listing type is required"),
   propertyName: yup.string().optional(),
   propertyType: yup.string().required("Property type is required"),
   tenure: yup.string().optional(),

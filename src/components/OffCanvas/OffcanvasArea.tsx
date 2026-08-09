@@ -10,7 +10,7 @@ import { requireAuth } from "@/utils/auth";
 export default function OffcanvasArea() {
   const { openOffcanvas, toggleOffcanvas } = useGlobalContext();
   const mapUrl =
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4902.030604269124!2d101.68526107497111!3d3.1283924968470944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc49eb996ef441%3A0x6de34fcd050ef0db!2s86%2C%20Jalan%20Berhala%2C%20Brickfields%2C%2050470%20Kuala%20Lumpur%2C%20Wilayah%20Persekutuan%20Kuala%20Lumpur!5e1!3m2!1sen!2smy!4v1780136583896!5m2!1sen!2smy";
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243646.905094979!2d78.24323194335936!3d17.412608650000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeaebd2c7%3A0xae93b78392bafbc2!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin";
 
   const handlePostPropertyClick = () => {
     const isAuthenticated = requireAuth("/dashboard/add-new-property");
@@ -61,14 +61,14 @@ export default function OffcanvasArea() {
             <div className="offcanvas__top mb-40" onClick={toggleOffcanvas}>
               <div className="offcanvas__logo">
                 <Link href="/">
-                  <Image className="logo-header" src={logo} alt="LandWay" />
+                  <Image className="logo-header" src={logo} alt="Dekho Land" />
                   {/* <>
                     <span className="logo-icon-white">Property</span>{" "}
                     <span className="logo-icon-white">La</span>
                     <Image
                       className="logo-header"
                       src={logoIcon}
-                      alt="LandWay"
+                      alt="Dekho Land"
                     />
                   </> */}
                 </Link>
@@ -115,8 +115,9 @@ export default function OffcanvasArea() {
             <div className="offcanvas__contact d-none d-xl-block">
               <div className="offcanvas__text mb-30">
                 <p>
-                  The design readable content of a page hen looking at its
-                  layout The point our of using Movie template
+                  India&apos;s marketplace for lands and plots — browse open
+                  plots, farm land, and agricultural land across Telangana and
+                  beyond.
                 </p>
               </div>
               <div className="offcanvas__gallery mb-30">
@@ -130,7 +131,7 @@ export default function OffcanvasArea() {
                   <i className="fa-sharp fa-solid fa-location-dot"></i>
                 </div>
                 <div className="offcanvas__contact-content-content">
-                  <Link href={mapUrl}>86 Jalan Berhala, Brickfields </Link>
+                  <Link href={mapUrl}>Hyderabad, Telangana, India</Link>
                 </div>
               </div>
               <div className="offcanvas__contact-content d-flex">
@@ -138,9 +139,9 @@ export default function OffcanvasArea() {
                   <i className="fa-solid fa-envelope"></i>
                 </div>
                 <div className="offcanvas__contact-content-content">
-                  <Link href="mailto:needhelp@company.com">
+                  <Link href="mailto:support@dekholand.com">
                     {" "}
-                    support@landway.com{" "}
+                    support@dekholand.com{" "}
                   </Link>
                 </div>
               </div>

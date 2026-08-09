@@ -1,4 +1,4 @@
-# LandWay India - Robots.txt
+# Dekho Land - Robots.txt
 # Allow all crawlers to access the site
 
 User-agent: *
@@ -16,4 +16,4 @@ Disallow: /verify
 Disallow: /api/
 
 # Sitemap location
-Sitemap: https://landway.com/sitemap.xml
+Sitemap: https://www.dekholand.com/sitemap.xml

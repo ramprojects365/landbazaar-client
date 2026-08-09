@@ -2,12 +2,11 @@
 import { ReactNode } from "react";
 import PropertyFilterWidget from "./subComponents/PropertyFilterWidget";
 import SidebarPropertyItem from "./subComponents/SidebarPropertyItem";
-import DiscountOfferCard from "./subComponents/DiscountOfferCard";
 import SearchRefineBar from "@/components/RealEstate/PropertyStyleOne/SearchRefineBar";
 import { useSearchParams } from "next/navigation";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
-export default function PropertyLayout({ children }: { children: ReactNode }) {
+export default function Dekho Landyout({ children }: { children: ReactNode }) {
   const params = useSearchParams();
 
   // New params used by SearchRefineBar
@@ -54,7 +53,7 @@ export default function PropertyLayout({ children }: { children: ReactNode }) {
                   </span>
                 </div>
               </div>
-              <div className="search-refine-shell">
+              <div className="search-refine-shell hide-mobile">
                 <SearchRefineBar />
               </div>
             </div>
@@ -72,7 +71,6 @@ export default function PropertyLayout({ children }: { children: ReactNode }) {
             <div className="col-lg-3 filt hide-mobile">
               <PropertyFilterWidget />
               <SidebarPropertyItem />
-              <DiscountOfferCard />
             </div>
             <div className="col-lg-9 col-12 prop-det-dev">{children}</div>
           </div>

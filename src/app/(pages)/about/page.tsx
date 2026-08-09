@@ -8,45 +8,39 @@ import "./about-page.scss";
 
 export const metadata: Metadata = {
   title:
-    "About LandWay | Malaysia's Premier Real Estate Platform for Rentals & Sales",
+    "About Dekho Land | India's Trusted Platform to Buy & Sell Lands and Plots",
   description:
-    "Discover LandWay, Malaysia's leading real estate platform for apartments, condos, landed houses, and bungalows. We serve Kuala Lumpur, Selangor, Penang, Johor, Cheras and nationwide. Explore new-property-malaysia listings and investment-property-malaysia opportunities. Your trusted alternative to iProperty and PropertyGuru for Malaysian property market.",
-  metadataBase: new URL("https://landway.com"),
+    "Dekho Land is India's trusted land marketplace for buying and selling open plots, agricultural lands, commercial lands, farm lands, and gated community plots. Every listing is verified before it goes live.",
+  metadataBase: new URL("https://www.dekholand.com"),
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About LandWay | Malaysia's Premier Real Estate Platform",
-    description: "Discover LandWay, Malaysia's leading real estate platform for apartments, condos, landed houses, and bungalows across Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
-    url: "https://landway.com/about",
-    siteName: "LandWay",
+    title:
+      "About Dekho Land | India's Trusted Platform to Buy & Sell Lands and Plots",
+    description:
+      "Buy and sell verified lands and plots across India — residential plots, agricultural lands, commercial lands, and gated community projects.",
+    url: "https://www.dekholand.com/about",
+    siteName: "Dekho Land",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "About LandWay | Malaysia's Premier Real Estate Platform",
-    description: "Discover LandWay, Malaysia's leading real estate platform for apartments, condos, landed houses, and bungalows across Kuala Lumpur, Selangor, Penang, Johor and nationwide.",
+    title:
+      "About Dekho Land | India's Trusted Platform to Buy & Sell Lands and Plots",
+    description:
+      "India's trusted website for verified land and plot listings. Buy and sell with confidence.",
   },
 };
 
 export default function About() {
   return (
     <main className="about-page">
-      {/* about area */}
       <AboutHomeFive />
-      {/* about area end */}
-      {/* about point area */}
       <AboutPointArea />
-      {/* about point area end */}
-      {/* realestate area */}
       <RealestateAboutArea />
-      {/* realestate area end */}
-      {/* testimonial area */}
       <AboutTestimonial />
-      {/* testimonial area end */}
-      {/* contact area */}
       <ContactArea btnClass="tp-countact-btn" />
-      {/* contact area end */}
     </main>
   );
 }

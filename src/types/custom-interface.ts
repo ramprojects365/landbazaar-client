@@ -50,14 +50,6 @@ export interface IBannerDT {
   subtitle: string;
   bgImage: StaticImageData;
 }
-//define interface for FAQ
-export interface IFAQItemDT {
-  id: string;
-  question: string;
-  answer: string;
-  isOpen?: boolean;
-}
-
 //define interface for feature props
 export interface featuresProps {
   item: IFeaturedPropertyDT;
@@ -166,21 +158,6 @@ export interface IPortfolio {
   link: string;
   delay: string;
 }
-//define interface for pricing Props
-export interface IPricingProps {
-  name: string;
-  price: string;
-  delay: string;
-  active?: boolean | undefined;
-}
-//define interface for Pricing Item Props
-export interface PricingItemProps {
-  title: string;
-  price: string;
-  discount: string;
-  isActive?: boolean;
-}
-
 // Progress Data Interface
 export interface ProgressData {
   title: string;

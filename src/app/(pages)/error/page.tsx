@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Page Not Found | LandWay Malaysia Real Estate",
+  title: "Page Not Found | Dekho Land",
   description:
-    "The page you're looking for doesn't exist on LandWay. Return to our homepage to continue searching for properties, agents, and real estate services in Malaysia.",
+    "The page you're looking for doesn't exist on Dekho Land. Return to our homepage to continue searching for lands, plots, and sellers across Hyderabad, Telangana, Visakhapatnam and India.",
 };
 
 export default function Error() {

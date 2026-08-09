@@ -44,7 +44,7 @@ const ProfileDropdown = () => {
     localStorage.removeItem("loginUser");
     localStorage.removeItem("loginUserDisplayName");
     localStorage.removeItem("loginUserType");
-    window.dispatchEvent(new Event("propertyla-auth-changed"));
+    window.dispatchEvent(new Event("dekholand-auth-changed"));
     setOpen(false);
     router.push("/sign-in");
   };

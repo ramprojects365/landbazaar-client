@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Set New Password | LandWay Malaysia Real Estate Platform",
+  title: "Set New Password | Dekho Land Land Marketplace",
   description:
-    "Set a new LandWay account password securely and regain access to your property dashboard.",
+    "Set a new Dekho Land account password securely and regain access to your land marketplace dashboard.",
 };
 
 export default function ResetPassword() {
@@ -27,7 +27,7 @@ export default function ResetPassword() {
                 </div>
                 <div className="tp-sign-in-register-heading mb-30">
                   <h4 className="tp-sign-in-register-title">Set new password</h4>
-                  <p>Enter a new password for your LandWay account.</p>
+                  <p>Enter a new password for your Dekho Land account.</p>
                 </div>
                 <div className="tp-sign-in-input-form">
                   <ResetPasswordForm />

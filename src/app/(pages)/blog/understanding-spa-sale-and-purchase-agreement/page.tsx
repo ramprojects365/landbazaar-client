@@ -3,9 +3,9 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "Understanding SPA (Sale and Purchase Agreement) in Malaysia | LandWay",
+    "Understanding SPA (Sale and Purchase Agreement) in Malaysia | Dekho Land",
   description:
     "Learn about the Sale and Purchase Agreement (SPA) when buying property in Malaysia. Understand key clauses, legal obligations, and buyer protections.",
   keywords:

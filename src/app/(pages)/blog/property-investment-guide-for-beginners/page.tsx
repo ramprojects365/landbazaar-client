@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
-  title: "Property Investment Guide for Beginners in Malaysia | LandWay",
+  metadataBase: new URL("https://www.dekholand.com"),
+  title: "Property Investment Guide for Beginners in Malaysia | Dekho Land",
   description:
     "Complete guide to property investment for beginners in Malaysia. Learn about investment strategies, financing, risk management, and how to build your property portfolio.",
   keywords:

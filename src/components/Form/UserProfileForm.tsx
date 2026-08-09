@@ -500,14 +500,14 @@ export default function UserProfileForm() {
                 strokeWidth={2.8}
                 color="#fff"
                 fill="#0095F6"
-                aria-label="Verified REN/PEA"
+                aria-label="Verified RERA / Agent ID"
               />
             ) : isAgentProfile && renNumberMissing ? (
               <BadgeAlert
                 size={19}
                 strokeWidth={2.6}
                 color="#8a6116"
-                aria-label="Please add REN/PEA number"
+                aria-label="Please add RERA / Agent ID"
               />
             ) : null}
           </h4>
@@ -534,7 +534,7 @@ export default function UserProfileForm() {
               <span>
                 {renInfo.number
                   ? `${renInfo.number}: ${renInfo.label}`
-                  : "Please add REN/PEA number"}
+                  : "Please add RERA / Agent ID"}
               </span>
             </div>
           ) : null}
@@ -631,11 +631,11 @@ export default function UserProfileForm() {
                 <>
                   <div className="col-lg-6">
                     <div className="tp-dashboard-new-input">
-                      <label>REN / PEA Number</label>
+                      <label>RERA / Agent ID</label>
                       <input
                         {...registerProfile("renNumber")}
                         type="text"
-                        placeholder="REN12345 or PEA12345"
+                        placeholder="RERA12345 or Agent ID"
                         style={{ textTransform: "uppercase" }}
                         onInput={(e: React.FormEvent<HTMLInputElement>) => {
                           const target = e.currentTarget;

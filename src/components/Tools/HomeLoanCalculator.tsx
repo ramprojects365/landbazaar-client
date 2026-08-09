@@ -190,12 +190,12 @@ export default function HomeLoanCalculator() {
             <div className="home-loan-page__hero-copy">
               <span>
                 <Banknote size={17} />
-                Home loan planning
+                Plot loan planning
               </span>
-              <h1>Estimate your Malaysia mortgage before you buy.</h1>
+              <h1>Estimate your India plot loan EMI before you buy.</h1>
               <p>
-                Check monthly repayments, upfront costs, stamp duty, legal fees,
-                and mortgage insurance in one simple LandWay calculator.
+                Check monthly EMI, upfront costs, stamp duty, legal fees, and
+                optional loan cover in one simple Dekho Land calculator.
               </p>
             </div>
             <div className="home-loan-page__hero-note">
@@ -204,7 +204,7 @@ export default function HomeLoanCalculator() {
                 <strong>Buyer-friendly estimate</strong>
                 <p>
                   Use this as a planning guide before speaking with a bank or
-                  property consultant.
+                  land consultant.
                 </p>
               </div>
             </div>
@@ -215,8 +215,8 @@ export default function HomeLoanCalculator() {
       <section className="mortgage-calculator" id="mortgage-calculator">
         <div className="container">
           <div className="mortgage-calculator__heading">
-            <h2>Mortgage calculator</h2>
-            <p>Estimate your monthly payments and upfront costs</p>
+            <h2>Plot loan EMI calculator</h2>
+            <p>Estimate your monthly EMI and upfront costs</p>
           </div>
 
           <div className="mortgage-calculator__shell">
@@ -228,7 +228,7 @@ export default function HomeLoanCalculator() {
                   aria-pressed={projectType === "new"}
                   onClick={() => setProjectType("new")}
                 >
-                  New Project
+                  New layout / project
                 </button>
                 <button
                   type="button"
@@ -236,12 +236,12 @@ export default function HomeLoanCalculator() {
                   aria-pressed={projectType === "subsale"}
                   onClick={() => setProjectType("subsale")}
                 >
-                  Subsale
+                  Resale plot
                 </button>
               </div>
 
               {renderSlider({
-                label: "Property price",
+                label: "Plot / land price",
                 value: propertyPrice,
                 displayValue: formatPrice(propertyPrice, false),
                 min: 100_000,
@@ -285,15 +285,15 @@ export default function HomeLoanCalculator() {
 
               {projectType === "new" && (
                 <div className="mortgage-calculator__option-group">
-                  <p>Developer incentives</p>
+                  <p>Seller / developer incentives</p>
                   {renderSwitch({
                     checked: freeMot,
-                    label: "Free stamp duty (MOT)",
+                    label: "Free stamp duty",
                     onChange: () => setFreeMot((value) => !value),
                   })}
                   {renderSwitch({
                     checked: freeSpaLegal,
-                    label: "Free SPA legal fees",
+                    label: "Free sale-agreement legal fees",
                     onChange: () => setFreeSpaLegal((value) => !value),
                   })}
                   {renderSwitch({
@@ -307,7 +307,7 @@ export default function HomeLoanCalculator() {
               <div className="mortgage-calculator__option-group">
                 {renderSwitch({
                   checked: includeInsurance,
-                  label: "Include mortgage insurance",
+                  label: "Include loan protection cover",
                   onChange: () => setIncludeInsurance((value) => !value),
                 })}
 
@@ -319,19 +319,19 @@ export default function HomeLoanCalculator() {
                         className={insuranceType === "mrta" ? "is-active" : ""}
                         onClick={() => setInsuranceType("mrta")}
                       >
-                        MRTA (est. 3%)
+                        Basic cover (est. 3%)
                       </button>
                       <button
                         type="button"
                         className={insuranceType === "mlta" ? "is-active" : ""}
                         onClick={() => setInsuranceType("mlta")}
                       >
-                        MLTA (est. 5%)
+                        Enhanced cover (est. 5%)
                       </button>
                     </div>
                     {renderSwitch({
                       checked: addInsuranceToLoan,
-                      label: `Add ${insuranceType.toUpperCase()} to loan amount`,
+                      label: `Add ${insuranceType === "mrta" ? "basic" : "enhanced"} cover to loan amount`,
                       onChange: () => setAddInsuranceToLoan((value) => !value),
                     })}
                   </>
@@ -341,7 +341,7 @@ export default function HomeLoanCalculator() {
 
             <aside className="mortgage-calculator__summary">
               <div className="mortgage-calculator__payment">
-                <p>Estimated monthly payment</p>
+                <p>Estimated monthly EMI</p>
                 <strong>{formatPrice(result.monthly, false)}</strong>
                 <span>
                   Loan: {formatPrice(result.loanAmount, false)} . LTV:{" "}
@@ -374,11 +374,11 @@ export default function HomeLoanCalculator() {
                 </div>
                 <hr />
                 <div>
-                  <span>Stamp duty (MOT)</span>
+                  <span>Stamp duty (est.)</span>
                   <strong>{formatPrice(result.motStampDuty, false)}</strong>
                 </div>
                 <div>
-                  <span>SPA legal fees</span>
+                  <span>Sale-agreement legal fees</span>
                   <strong>{formatPrice(result.spaLegalFees, false)}</strong>
                 </div>
                 <div>
@@ -391,7 +391,10 @@ export default function HomeLoanCalculator() {
                 </div>
                 {includeInsurance && (
                   <div>
-                    <span>{insuranceType.toUpperCase()} insurance (est.)</span>
+                    <span>
+                      {insuranceType === "mrta" ? "Basic" : "Enhanced"} cover
+                      (est.)
+                    </span>
                     <strong>
                       {addInsuranceToLoan
                         ? "Financed"
@@ -410,56 +413,53 @@ export default function HomeLoanCalculator() {
         </div>
       </section>
 
-      {variant === "page" && (
-        <section className="home-loan-page__guide">
-          <div className="container">
-            <div className="home-loan-page__guide-grid">
-              <article>
-                <Calculator size={22} />
-                <h3>How to use it</h3>
-                <p>
-                  Adjust the property price, down payment, interest rate, and
-                  tenure. The estimate updates immediately so you can compare
-                  different budgets before you enquire.
-                </p>
-              </article>
-              <article>
-                <FileText size={22} />
-                <h3>What costs are included</h3>
-                <p>
-                  The calculator estimates down payment, MOT stamp duty, SPA legal
-                  fees, loan stamp duty, loan legal fees, and optional MRTA or
-                  MLTA insurance.
-                </p>
-              </article>
-              <article>
-                <Building2 size={22} />
-                <h3>New project vs subsale</h3>
-                <p>
-                  New projects may include developer incentives such as free legal
-                  fees or stamp duty. Subsale purchases usually require buyers to
-                  budget for more upfront costs.
-                </p>
-              </article>
-              <article>
-                <ShieldCheck size={22} />
-                <h3>Before applying</h3>
-                <p>
-                  Final approval depends on bank checks, income, debt service
-                  ratio, credit record, property value, and current lending
-                  policies.
-                </p>
-              </article>
-            </div>
-            <p className="home-loan-page__disclaimer">
-              This calculator is for illustration only. Actual rates, legal fees,
-              insurance, stamp duty, and bank offers may differ. Confirm all
-              figures with your bank, lawyer, or licensed adviser before making a
-              purchase decision.
-            </p>
+      <section className="home-loan-page__guide">
+        <div className="container">
+          <div className="home-loan-page__guide-grid">
+            <article>
+              <Calculator size={22} />
+              <h3>How to use it</h3>
+              <p>
+                Adjust the plot price, down payment, interest rate, and tenure.
+                The estimate updates immediately so you can compare different
+                budgets before you enquire.
+              </p>
+            </article>
+            <article>
+              <FileText size={22} />
+              <h3>What costs are included</h3>
+              <p>
+                The calculator estimates down payment, stamp duty, sale-agreement
+                legal fees, loan stamp duty, loan legal fees, and optional loan
+                protection cover.
+              </p>
+            </article>
+            <article>
+              <Building2 size={22} />
+              <h3>New layout vs resale plot</h3>
+              <p>
+                New layouts may include seller incentives such as free legal fees
+                or stamp duty. Resale plot purchases usually require buyers to
+                budget for more upfront costs.
+              </p>
+            </article>
+            <article>
+              <ShieldCheck size={22} />
+              <h3>Before applying</h3>
+              <p>
+                Final approval depends on bank checks, income, EMI capacity,
+                credit record, land valuation, and current lending policies.
+              </p>
+            </article>
           </div>
-        </section>
-      )}
+          <p className="home-loan-page__disclaimer">
+            This calculator is for illustration only. Actual rates, legal fees,
+            insurance, stamp duty, and bank offers may differ. Confirm all
+            figures with your bank, lawyer, or licensed adviser before making a
+            purchase decision.
+          </p>
+        </div>
+      </section>
     </main>
   );
 }

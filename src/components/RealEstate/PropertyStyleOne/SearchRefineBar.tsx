@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { LISTING_TYPES } from "@/config/landOptions";
+import { listingTypes } from "@/data/dropdownData";
 
 export default function SearchRefineBar() {
   const router = useRouter();
@@ -15,7 +15,14 @@ export default function SearchRefineBar() {
       searchParams.get("keyWord") ||
       "",
   );
-  const [type, setType] = useState(searchParams.get("type") || "");
+  const rawInitialType = (searchParams.get("type") || "all").toLowerCase();
+  const initialType =
+    rawInitialType === "rent"
+      ? "lease"
+      : listingTypes.some((item) => item.value === rawInitialType)
+        ? rawInitialType
+        : "all";
+  const [type, setType] = useState(initialType);
   const [city, setCity] = useState(searchParams.get("city") || "");
   const [propertyName, setPropertyName] = useState(
     searchParams.get("propertyName") ||
@@ -28,7 +35,8 @@ export default function SearchRefineBar() {
     e.preventDefault();
     const params = new URLSearchParams();
     if (keyword.trim()) params.set("q", keyword.trim());
-    if (type) params.set("type", type);
+    // "all" means no listing-type filter
+    if (type && type !== "all") params.set("type", type);
     if (city.trim()) params.set("city", city.trim());
     if (propertyName.trim()) params.set("propertyName", propertyName.trim());
     router.push(`/search?${params.toString()}`);
@@ -73,7 +81,7 @@ export default function SearchRefineBar() {
             <input
               type="text"
               style={inputStyle}
-              placeholder="Ex. falm lands"
+              placeholder="Farmland"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
             />
@@ -85,7 +93,7 @@ export default function SearchRefineBar() {
             <input
               type="text"
               style={inputStyle}
-              placeholder="Ex. Open plot available at Shad Nagar"
+              placeholder="CRR Infra"
               value={propertyName}
               onChange={(e) => setPropertyName(e.target.value)}
             />
@@ -97,7 +105,7 @@ export default function SearchRefineBar() {
             <input
               type="text"
               style={inputStyle}
-              placeholder="Ex. Shad nagar"
+              placeholder="Shad nagar"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
@@ -112,9 +120,9 @@ export default function SearchRefineBar() {
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               >
-                {LISTING_TYPES.map((t) => (
-                  <option key={t} value={t}>
-                    t.charAt(0).toUpperCase() + t.slice(1)
+                {listingTypes.map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.label}
                   </option>
                 ))}
               </select>

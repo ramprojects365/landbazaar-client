@@ -6,13 +6,13 @@ import "swiper/css/bundle";
 import "./globals.scss";
 import RootProviders from "./RootProviders";
 
-const siteUrl = "https://landway.com/";
+const siteUrl = "https://www.dekholand.com/";
 const siteTitle =
-  "LandWay India | Buy & Sell Lands and Plots";
+  "Dekho Land | Buy & Sell Lands and Plots";
 const siteDescription =
-  "LandWay is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.";
+  "Dekho Land is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.";
 const siteLogo =
-  "https://landway.com/assets/img/logo/logo-icon-blue.png";
+  "https://www.dekholand.com/assets/img/logo/logo-icon-blue.png";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -31,19 +31,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
 
   title: {
     default: siteTitle,
-    template: "%s | LandWay",
+    template: "%s | Dekho Land",
   },
 
   description: siteDescription,
 
-  applicationName: "LandWay",
+  applicationName: "Dekho Land",
 
   keywords: [
-    "LandWay",
+    "Dekho Land",
     "India land",
     "India plots",
     "agricultural land India",
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     "Hyderabad plots",
   ],
 
-  authors: [{ name: "LandWay" }],
-  creator: "LandWay",
-  publisher: "LandWay",
+  authors: [{ name: "Dekho Land" }],
+  creator: "Dekho Land",
+  publisher: "Dekho Land",
 
   alternates: {
     canonical: siteUrl,
@@ -68,13 +68,13 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
     url: siteUrl,
-    siteName: "LandWay",
+    siteName: "Dekho Land",
     images: [
       {
         url: siteLogo,
         width: 512,
         height: 512,
-        alt: "LandWay Logo",
+        alt: "Dekho Land Logo",
       },
     ],
     locale: "en_IN",
@@ -108,15 +108,15 @@ export default function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "LandWay",
-    alternateName: ["LandWay India", "LandWay Land & Plots"],
+    name: "Dekho Land",
+    alternateName: ["Dekho Land", "Dekho Land Land & Plots"],
     url: siteUrl,
   };
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "LandWay",
+    name: "Dekho Land",
     url: siteUrl,
     logo: siteLogo,
   };

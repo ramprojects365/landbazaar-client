@@ -3,9 +3,9 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Profile | LandWay Malaysia Dashboard",
+  title: "My Profile | Dekho Land Dashboard",
   description:
-    "Manage your LandWay profile and account settings. Update personal information, contact details, and preferences for your Malaysia real estate account.",
+    "Manage your Dekho Land profile and account settings. Update personal information, contact details, and preferences for your land marketplace account.",
   robots: "noindex, nofollow",
 };
 

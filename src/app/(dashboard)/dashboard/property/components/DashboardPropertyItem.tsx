@@ -77,8 +77,25 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
         )}
       </div>
       <div className="col-xl-6 tp-rent-content">
-        <h4 className="tp-rent-title">
-          <Link className="textline" href={`/property-details/${property.id}`}>
+        <h4
+          className="tp-rent-title"
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+          title={property.title}
+        >
+          <Link
+            className="textline"
+            href={`/property-details/${property.id}`}
+            style={{
+              display: "block",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
             {property.title}
           </Link>
         </h4>

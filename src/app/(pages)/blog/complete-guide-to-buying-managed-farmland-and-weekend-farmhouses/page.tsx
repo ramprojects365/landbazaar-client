@@ -3,9 +3,9 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "Complete Guide to Buying Managed Farmland and Weekend Farmhouses | LandWay",
+    "Complete Guide to Buying Managed Farmland and Weekend Farmhouses | Dekho Land",
   description:
     "Complete guide to buying managed farmland and weekend farmhouses in India — asset models, legal due diligence, farm management agreements, financial returns, tax benefits, and red flags to avoid.",
   keywords:

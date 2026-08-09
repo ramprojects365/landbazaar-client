@@ -23,11 +23,11 @@ export default function ContactArea({btnClass}:{btnClass?:string}) {
                                     Prefer a faster reply? Chat with us on WhatsApp.
                                 </h4>
                                 <p>
-                                    Share what you are looking for and our team will guide you to the right property options.
+                                    Share what you are looking for and our team will guide you to the right land or plot options.
                                 </p>
                                 <WhatsAppButton
-                                    phoneNumber="601121149066"
-                                    message="Hi LandWay, I would like help with my property search."
+                                    phoneNumber="919849967236"
+                                    message="Hi Dekho Land, I would like help finding land or plots."
                                     className={btnClass}
                                 />
                             </div>

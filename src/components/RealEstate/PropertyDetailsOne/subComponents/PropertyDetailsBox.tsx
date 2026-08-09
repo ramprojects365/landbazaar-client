@@ -8,7 +8,6 @@ import {
   Landmark,
   Route,
   Scale,
-  ScrollText,
   ShieldCheck,
   Sprout,
   SquareStack,
@@ -28,7 +27,6 @@ interface Props {
   propertyType?: string;
   landSize?: string;
   listingType?: string;
-  tenure?: string;
   pricePerUnit?: string;
   facingDirection?: string;
   cornerPlot?: string;
@@ -45,7 +43,6 @@ export default function PropertyDetailsBox({
   propertyType,
   landSize,
   listingType,
-  tenure,
   pricePerUnit,
   facingDirection,
   cornerPlot,
@@ -80,13 +77,8 @@ export default function PropertyDetailsBox({
     },
     {
       icon: <PropertyOverviewIcon icon={Coins} />,
-      label: "Price / Unit",
+      label: "Unit Price",
       value: pricePerUnit || "—",
-    },
-    {
-      icon: <PropertyOverviewIcon icon={ScrollText} />,
-      label: "Tenure",
-      value: tenure?.trim() || "—",
     },
     {
       icon: <PropertyOverviewIcon icon={Compass} />,

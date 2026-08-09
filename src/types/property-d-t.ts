@@ -11,7 +11,6 @@ export interface IFeaturedPropertyDT {
   userImage?: StaticImageData | string;
   showTags?: boolean;
   listingType?: string;
-  isForRent?: boolean;
   isForSale?: boolean;
   isForLease?: boolean;
   isFeatured?: boolean;
