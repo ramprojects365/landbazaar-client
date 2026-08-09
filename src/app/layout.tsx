@@ -7,12 +7,10 @@ import "./globals.scss";
 import RootProviders from "./RootProviders";
 
 const siteUrl = "https://www.dekholand.com/";
-const siteTitle =
-  "Dekho Land | Buy & Sell Lands and Plots";
+const siteTitle = "Dekho Land | Buy & Sell Lands and Plots";
 const siteDescription =
   "Dekho Land is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.";
-const siteLogo =
-  "https://www.dekholand.com/assets/img/logo/logo-icon-blue.png";
+const siteLogo = "https://www.dekholand.com/assets/img/logo/logo.png";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
