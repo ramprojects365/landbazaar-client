@@ -1,6 +1,5 @@
 import UserContactCard from "@/components/Layout/subComponents/UserContactCard";
 import SidebarPropertyItem from "@/components/Layout/subComponents/SidebarPropertyItem";
-import DiscountOfferCard from "@/components/Layout/subComponents/DiscountOfferCard";
 import RecentlyViewedProperties from "./RecentlyViewedItem";
 import AmenitiesCategories from "./AmenitiesCategories";
 import PropertyDetailsBox from "./PropertyDetailsBox";
@@ -57,7 +56,6 @@ export default function DetailsReusableArea({
                   propertyType={property?.propertyType}
                   landSize={landSize !== "—" ? landSize : undefined}
                   listingType={property?.listingType}
-                  tenure={property?.tenure}
                   pricePerUnit={pricePerUnit !== "—" ? pricePerUnit : undefined}
                   facingDirection={property?.facingDirection}
                   cornerPlot={property?.cornerPlot}
@@ -106,7 +104,6 @@ export default function DetailsReusableArea({
               <UserContactCard user={property?.user} />
               <SidebarPropertyItem />
               <RecentlyViewedProperties />
-              <DiscountOfferCard wrapperCls="tp-property-filter-wrap" />
             </div>
           </div>
         </div>

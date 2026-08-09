@@ -679,38 +679,6 @@
     }
   }
 
-  &-discount {
-    &-thumb {
-      & img {
-        width: 100%;
-      }
-    }
-    &-content {
-      position: absolute;
-      bottom: 30px;
-      left: 30px;
-      & h4 {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 15px;
-        letter-spacing: -0.48px;
-        color: var(--tp-common-white);
-      }
-      & a {
-        font-size: 14px;
-        font-weight: 600;
-        padding: 9px 24px;
-        display: inline-block;
-        color: var(--tp-theme-primary);
-        background-color: var(--tp-common-white);
-        &:hover {
-          color: var(--tp-common-white);
-          background-color: var(--tp-theme-primary);
-        }
-      }
-    }
-  }
-
   &-item {
     padding: 30px;
     background-color: var(--tp-common-white);

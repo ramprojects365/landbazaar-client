@@ -14,22 +14,39 @@ export default function ReusableAboutArea() {
               data-wow-delay=".3s"
             >
               <div className="tp-about-5-heading mb-50">
-                <span className="tp-section-title-pre">
-                  Why Choose LandWay
-                </span>
+                <span className="tp-section-title-pre">About LandWay</span>
                 <h3 className="tp-section-title">
-                  Malaysia's Trusted Real Estate Platform
+                  India&apos;s Trusted Platform to Buy &amp; Sell Lands and Plots
                 </h3>
+                <p className="mt-20" style={{ color: "#5c6f7b", fontSize: "16px", lineHeight: 1.7 }}>
+                  LandWay is built for people who want a clear, reliable way to
+                  buy and sell land across India. Whether you are looking for a
+                  residential plot, agricultural land, commercial land, farm
+                  land, or a gated community plot, you can discover verified
+                  opportunities in one place — and sellers can reach serious
+                  buyers faster.
+                </p>
+                <p className="mt-15" style={{ color: "#5c6f7b", fontSize: "16px", lineHeight: 1.7 }}>
+                  We carefully verify listings before they go live, so buyers can
+                  explore with more confidence and sellers can showcase land with
+                  greater trust. From open plots near growing city corridors to
+                  farmland and commercial parcels, LandWay helps you take the
+                  next step in your land journey.
+                </p>
               </div>
               <div className="tp-about-5-item-box mb-55">
                 {[
                   {
                     icon: aboutIcon1,
-                    title: "Free Property Search",
+                    title: "Buy & Sell All Types of Land",
+                    description:
+                      "Find and list open plots, agricultural lands, commercial lands, farm lands, gated community lands, and more across major Indian cities and growth corridors.",
                   },
                   {
                     icon: aboutIcon2,
-                    title: "Verified REN Agents",
+                    title: "Verified Listings Only",
+                    description:
+                      "Every listing goes through verification before it is published. Browse lands that have been reviewed for clearer details, stronger trust, and safer decision-making.",
                   },
                 ].map((item, index) => (
                   <div className="tp-about-5-item d-flex mb-30" key={index}>
@@ -38,36 +55,11 @@ export default function ReusableAboutArea() {
                     </div>
                     <div className="tp-about-5-item-content">
                       <h4 className="tp-about-5-title">{item.title}</h4>
-                      <p>
-                        {item.title === "Free Property Search"
-                          ? "Search thousands of properties for free across Kuala Lumpur, Selangor, Penang, and Johor. No hidden fees for property seekers."
-                          : "Connect with licensed real estate negotiators verified by LPPEH Malaysia. Trustworthy agents with valid REN numbers."}
-                      </p>
+                      <p>{item.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              {/* <div className="tp-about-btn d-flex">
-                {[
-                  { href: "/about", text: "About More" },
-                  {
-                    href: "/contact",
-                    text: "Trusted partners",
-                    className: "btn-2",
-                  },
-                ].map((btn, index) => (
-                  <Link
-                    className={`tp-btn ${btn.className || ""}`}
-                    href={btn.href}
-                    key={index}
-                  >
-                    <span className="btn-wrap">
-                      <b className="text-1">{btn.text}</b>
-                      <b className="text-2">{btn.text}</b>
-                    </span>
-                  </Link>
-                ))}
-              </div> */}
             </div>
           </div>
         </div>

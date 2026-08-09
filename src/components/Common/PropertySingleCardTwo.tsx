@@ -77,8 +77,26 @@ function PropertySingleCardTwo({ item }: propertyProps) {
           </div>
         </div>
         <div className="tp-rent-content">
-          <h4 className="tp-rent-title">
-            <Link className="textline" href={detailsHref}>
+          <h4
+            className="tp-rent-title"
+            style={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              marginBottom: "8px",
+            }}
+            title={item.title}
+          >
+            <Link
+              className="textline"
+              href={detailsHref}
+              style={{
+                display: "block",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
               {item.title}
             </Link>
           </h4>

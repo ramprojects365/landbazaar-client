@@ -82,13 +82,30 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
         )}
       </div>
       <div className="col-xl-6 tp-rent-content">
-        <h4 className="tp-rent-title">
-          <Link className="textline" href={detailsHref}>
+        <h4
+          className="tp-rent-title"
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+          title={item.title}
+        >
+          <Link
+            className="textline"
+            href={detailsHref}
+            style={{
+              display: "block",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
             {item.title}
           </Link>
         </h4>
         <p>{item.address}</p>
-        <div className="tp-rent-meta-list d-flex justify-content-between align-items-center">
+        <div className="tp-rent-meta-list d-flex align-items-center gap-4">
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <span>
@@ -96,19 +113,11 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
               </span>
               <p>{item.bedrooms}</p>
             </div>
-            <p>Land Size</p>
           </div>
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <p>{item.bathrooms || "Land"}</p>
             </div>
-            <p>Land Type</p>
-          </div>
-          <div className="tp-rent-meta-item">
-            <div className="tp-rent-meta-content d-flex">
-              <p>{formatTotalPriceDisplay(item.price)}</p>
-            </div>
-            <p>Total Price</p>
           </div>
         </div>
         <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">

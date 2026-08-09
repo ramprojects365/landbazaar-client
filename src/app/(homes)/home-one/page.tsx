@@ -5,7 +5,6 @@ import HeroBannerOne from "@/components/HeroBanner/HeroBannerOne";
 import HomePropertiesByCity from "@/components/Neighborhood/HomePropertiesByCity";
 import PropertyHome from "@/components/Property/PropertyHome";
 import TrustBadges from "@/components/UI/TrustBadges";
-import TrustedAgents from "@/components/TrustedAgents/TrustedAgents";
 import React from "react";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -22,9 +21,6 @@ export default function HomeOnePage() {
         <HomePropertiesByCity />
       </div>
       <div style={{ backgroundColor: "#fff" }}>
-        <TrustedAgents />
-      </div>
-      <div style={{ backgroundColor: "rgb(240, 244, 253)" }}>
         <HomeBlogArea />
       </div>
       <section className="home-trust-section">
