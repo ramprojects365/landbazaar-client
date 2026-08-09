@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Page Not Found | LandWay India",
+  title: "Page Not Found | Dekho Land",
   description:
-    "The page you're looking for doesn't exist on LandWay India. Return to our homepage to continue searching for lands, plots, and sellers across Hyderabad, Telangana, Visakhapatnam and India.",
+    "The page you're looking for doesn't exist on Dekho Land. Return to our homepage to continue searching for lands, plots, and sellers across Hyderabad, Telangana, Visakhapatnam and India.",
 };
 
 export default function Error() {

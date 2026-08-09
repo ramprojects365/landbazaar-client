@@ -14,12 +14,12 @@ export default function ReusableAboutArea() {
               data-wow-delay=".3s"
             >
               <div className="tp-about-5-heading mb-50">
-                <span className="tp-section-title-pre">About LandWay</span>
+                <span className="tp-section-title-pre">About Dekho Land</span>
                 <h3 className="tp-section-title">
                   India&apos;s Trusted Platform to Buy &amp; Sell Lands and Plots
                 </h3>
                 <p className="mt-20" style={{ color: "#5c6f7b", fontSize: "16px", lineHeight: 1.7 }}>
-                  LandWay is built for people who want a clear, reliable way to
+                  Dekho Land is built for people who want a clear, reliable way to
                   buy and sell land across India. Whether you are looking for a
                   residential plot, agricultural land, commercial land, farm
                   land, or a gated community plot, you can discover verified
@@ -30,7 +30,7 @@ export default function ReusableAboutArea() {
                   We carefully verify listings before they go live, so buyers can
                   explore with more confidence and sellers can showcase land with
                   greater trust. From open plots near growing city corridors to
-                  farmland and commercial parcels, LandWay helps you take the
+                  farmland and commercial parcels, Dekho Land helps you take the
                   next step in your land journey.
                 </p>
               </div>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "Top 5 High-Growth Land Investment Corridors Around Visakhapatnam | LandWay",
+    "Top 5 High-Growth Land Investment Corridors Around Visakhapatnam | Dekho Land",
   description:
     "Discover the top 5 high-growth land investment corridors around Visakhapatnam — Bheemili–Bhogapuram, Madhurawada–Anandapuram, Pendurthi–Kothavalasa, Gajuwaka–Atchutapuram, and Anakapalle–Nakkapalli. Driven by Bhogapuram Airport, VCIC, and coastal corridor growth.",
   keywords:

@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | LandWay",
+  title: "Privacy Policy | Dekho Land",
   description:
-    "Learn how LandWay India collects, uses, protects, and shares personal information for land enquiries, accounts, listings, and platform services.",
+    "Learn how Dekho Land collects, uses, protects, and shares personal information for land enquiries, accounts, listings, and platform services.",
 };
 
 const sections = [
@@ -13,7 +13,7 @@ const sections = [
   },
   {
     title: "How we use your information",
-    body: "We use information to operate LandWay India, show relevant land and plot listings, respond to enquiries, connect you with sellers and property consultants, manage accounts, improve the platform, prevent misuse, and send important service updates.",
+    body: "We use information to operate Dekho Land, show relevant land and plot listings, respond to enquiries, connect you with sellers and property consultants, manage accounts, improve the platform, prevent misuse, and send important service updates.",
   },
   {
     title: "Property enquiries and seller follow-up",
@@ -21,7 +21,7 @@ const sections = [
   },
   {
     title: "Cookies and analytics",
-    body: "LandWay may use cookies, local storage, analytics, and similar technologies to remember preferences, keep you signed in, understand website performance, and improve user experience.",
+    body: "Dekho Land may use cookies, local storage, analytics, and similar technologies to remember preferences, keep you signed in, understand website performance, and improve user experience.",
   },
   {
     title: "How we protect data",
@@ -37,7 +37,7 @@ const sections = [
   },
   {
     title: "Policy updates",
-    body: "We may update this Privacy Policy as LandWay grows or legal requirements change. The latest version will be available on this page.",
+    body: "We may update this Privacy Policy as Dekho Land grows or legal requirements change. The latest version will be available on this page.",
   },
 ];
 
@@ -51,7 +51,7 @@ export default function PrivacyPolicy() {
               <span className="tp-section-title-pre">Privacy</span>
               <h1 className="tp-section-title">Privacy Policy</h1>
               <p>
-                This policy explains how LandWay India handles personal
+                This policy explains how Dekho Land handles personal
                 information when you browse land and plot listings, create an
                 account, submit a listing, send an enquiry, or use our tools.
               </p>
@@ -67,8 +67,8 @@ export default function PrivacyPolicy() {
                 <h2>Contact</h2>
                 <p>
                   To ask about privacy or request a data update, contact{" "}
-                  <a href="mailto:support@landway.com">
-                    support@landway.com
+                  <a href="mailto:support@dekholand.com">
+                    support@dekholand.com
                   </a>
                   .
                 </p>

@@ -5,7 +5,7 @@ import { MessageCircle, Sparkles, X } from "lucide-react";
 import GuidedPropertyAdvisor from "./GuidedPropertyAdvisor";
 import useGlobalContext from "@/hooks/useContext";
 
-const POPUP_SEEN_KEY = "propertyla-home-advisor-seen";
+const POPUP_SEEN_KEY = "dekholand-home-advisor-seen";
 
 export default function HomeAdvisorPopup() {
   return null;

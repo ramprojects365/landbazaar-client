@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
-  title: "Top Condo Projects Near KLCC | LandWay Malaysia",
+  metadataBase: new URL("https://www.dekholand.com"),
+  title: "Top Condo Projects Near KLCC | Dekho Land",
   description:
     "Discover the best condominium projects near KLCC Kuala Lumpur. From luxury residences to family-friendly options, find the perfect condo with excellent amenities and connectivity.",
   keywords:

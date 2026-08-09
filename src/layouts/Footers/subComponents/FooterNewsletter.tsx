@@ -10,7 +10,7 @@ export default function FooterNewsletter() {
           <p>Subscribe to our newsletter to get the latest news & updates.</p>
           <div className="tp-footer-widget-content-input">
             <form action="/">
-              <input type="email" placeholder="support@landway.com" />
+              <input type="email" placeholder="support@dekholand.com" />
               <button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

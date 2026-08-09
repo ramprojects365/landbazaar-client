@@ -10,7 +10,7 @@ export const CounterData: ICounterDT[] = [
     description: (
       <>
         <p>
-          Land buyers already have <br /> used LandWay India
+          Land buyers already have <br /> used Dekho Land
         </p>
       </>
     ),
@@ -49,7 +49,7 @@ export default function CounterHomeFour() {
           <div className="col-lg-12">
             <div className="tp-counter-4-heading text-center mb-50">
               <span className="tp-section-title-pre">
-                WHY CHOOSE LandWay
+                WHY CHOOSE Dekho Land
               </span>
               <h4 className="tp-section-title">
                 Trusted land marketplace <br />

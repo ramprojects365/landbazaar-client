@@ -6,26 +6,26 @@ import { Metadata } from "next";
 import "./contact-page.scss";
 
 export const metadata: Metadata = {
-  title: "Contact LandWay | Land & Plot Marketplace Support",
+  title: "Contact Dekho Land | Land & Plot Marketplace Support",
   description:
-    "Get in touch with LandWay for land and plot enquiries across India. Reach our team for sale and lease listings, listing support, and marketplace help.",
-  metadataBase: new URL("https://landway.com"),
+    "Get in touch with Dekho Land for land and plot enquiries across India. Reach our team for sale and lease listings, listing support, and marketplace help.",
+  metadataBase: new URL("https://www.dekholand.com"),
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact LandWay | Land & Plot Marketplace Support",
+    title: "Contact Dekho Land | Land & Plot Marketplace Support",
     description:
-      "Get in touch with LandWay for land and plot enquiries across India. Reach our team for sale and lease listings, listing support, and marketplace help.",
-    url: "https://landway.com/contact",
-    siteName: "LandWay",
+      "Get in touch with Dekho Land for land and plot enquiries across India. Reach our team for sale and lease listings, listing support, and marketplace help.",
+    url: "https://www.dekholand.com/contact",
+    siteName: "Dekho Land",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Contact LandWay | Land & Plot Marketplace Support",
+    title: "Contact Dekho Land | Land & Plot Marketplace Support",
     description:
-      "Get in touch with LandWay for land and plot enquiries across India. Reach our team for sale and lease listings, listing support, and marketplace help.",
+      "Get in touch with Dekho Land for land and plot enquiries across India. Reach our team for sale and lease listings, listing support, and marketplace help.",
   },
 };
 

@@ -5,9 +5,9 @@ import { propertyData } from "@/data/propertyData";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Favorites | LandWay India Dashboard",
+  title: "My Favorites | Dekho Land Dashboard",
   description:
-    "View and manage your favorite land and plot listings on LandWay India. Access saved lands for sale and lease in Hyderabad, Telangana, Visakhapatnam and nationwide.",
+    "View and manage your favorite land and plot listings on Dekho Land. Access saved lands for sale and lease in Hyderabad, Telangana, Visakhapatnam and nationwide.",
   robots: "noindex, nofollow",
 };
 

@@ -34,10 +34,10 @@ export async function generateMetadata(
       item.description?.trim() ||
       "View detailed land and plot information in India. Find residential plots, agricultural land, farm land, and commercial land for sale or lease in Hyderabad, Telangana, Visakhapatnam and other growth corridors.";
     const imageUrl = getCoverImageUrl(item.images);
-    const canonicalUrl = `https://landway.com/property-details/${id}`;
+    const canonicalUrl = `https://www.dekholand.com/property-details/${id}`;
 
     return {
-      metadataBase: new URL("https://landway.com"),
+      metadataBase: new URL("https://www.dekholand.com"),
       title,
       description,
       alternates: { canonical: canonicalUrl },
@@ -45,7 +45,7 @@ export async function generateMetadata(
         title,
         description,
         url: canonicalUrl,
-        siteName: "LandWay",
+        siteName: "Dekho Land",
         type: "website",
         images: imageUrl
           ? [
@@ -64,7 +64,7 @@ export async function generateMetadata(
     };
   } catch {
     return {
-      metadataBase: new URL("https://landway.com"),
+      metadataBase: new URL("https://www.dekholand.com"),
       title: `Property Details - ${id}`,
     };
   }

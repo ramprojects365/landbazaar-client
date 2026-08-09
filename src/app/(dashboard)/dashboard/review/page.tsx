@@ -4,9 +4,9 @@ import ReviewItem from "./components/ReviewSingleItem";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Reviews | LandWay India Dashboard",
+  title: "My Reviews | Dekho Land Dashboard",
   description:
-    "View and manage your land marketplace reviews on LandWay India. Track your feedback on sellers, plots, and services.",
+    "View and manage your land marketplace reviews on Dekho Land. Track your feedback on sellers, plots, and services.",
   robots: "noindex, nofollow",
 };
 

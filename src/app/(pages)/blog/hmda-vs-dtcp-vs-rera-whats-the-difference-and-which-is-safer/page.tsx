@@ -3,9 +3,9 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "HMDA vs. DTCP vs. RERA: What's the Difference and Which is Safer? | LandWay",
+    "HMDA vs. DTCP vs. RERA: What's the Difference and Which is Safer? | Dekho Land",
   description:
     "Understand the key differences between HMDA, DTCP, and TG-RERA approvals for Hyderabad land purchases. Learn which approval is safer for your land investment and how to verify layout approvals in Telangana.",
   keywords:

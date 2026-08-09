@@ -4,9 +4,9 @@ import ProtectedRoute from "@/components/Auth/ProtectedRoute";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Add New Land | LandWay Dashboard",
+  title: "Add New Land | Dekho Land Dashboard",
   description:
-    "List your land for sale on LandWay. Upload details, photos, and reach thousands of buyers in Hyderabad, Telangana and across India. Easy land listing management for agents and owners.",
+    "List your land for sale on Dekho Land. Upload details, photos, and reach thousands of buyers in Hyderabad, Telangana and across India. Easy land listing management for agents and owners.",
   robots: "noindex, nofollow",
 };
 

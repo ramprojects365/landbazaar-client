@@ -3,9 +3,9 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "Why West Hyderabad (Shankarpally to Sadashivpet) is the Next Realty Hotspot | LandWay",
+    "Why West Hyderabad (Shankarpally to Sadashivpet) is the Next Realty Hotspot | Dekho Land",
   description:
     "Why the Shankarpally to Sadashivpet belt is West Hyderabad's premier growth corridor — IT spillover, RRR and NH-65 connectivity, NIMZ Zaheerabad jobs, and multi-fold land appreciation potential.",
   keywords:

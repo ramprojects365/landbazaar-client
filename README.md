@@ -1,3 +1,3 @@
-# landway-client
+# dekholand-client
 
-LandWay (landway.com) — India's land & plot marketplace.
+Dekho Land (www.dekholand.com) — India's land & plot marketplace.

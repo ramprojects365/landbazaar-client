@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "How to Verify Land Records on the Telangana Dharani / Registration Portal | LandWay",
+    "How to Verify Land Records on the Telangana Dharani / Registration Portal | Dekho Land",
   description:
     "Complete guide to verifying land records on the Telangana Dharani portal (dharani.telangana.gov.in). Learn step-by-step methods to check ownership, survey details, encumbrance certificates, and registered sale deeds before buying property.",
   keywords:

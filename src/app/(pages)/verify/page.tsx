@@ -4,9 +4,9 @@ import VerifyForm from "@/components/Form/auth/VerifyForm";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Verify Account | LandWay India",
+  title: "Verify Account | Dekho Land",
   description:
-    "Verify your LandWay India account to browse lands and plots, save favorites, and manage listings across Hyderabad, Telangana, Visakhapatnam and India.",
+    "Verify your Dekho Land account to browse lands and plots, save favorites, and manage listings across Hyderabad, Telangana, Visakhapatnam and India.",
 };
 
 export default function Verify() {

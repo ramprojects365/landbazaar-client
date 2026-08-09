@@ -9,12 +9,12 @@ const contactLocations: ContactLocation[] = [
     address: (
       <>
         <p>
-          LandWay India, <br /> Hyderabad, Telangana
+          Dekho Land, <br /> Hyderabad, Telangana
         </p>
       </>
     ),
     phone: "+91 9849967236",
-    email: "support@landway.com",
+    email: "support@dekholand.com",
   },
 ];
 
@@ -25,7 +25,7 @@ export default function ContactAreaTwo() {
         <div className="row">
           <div className="col-lg-6">
             <div className="tp-contact-inner-heading mb-30">
-              <span className="tp-section-title-pre">Contact LandWay</span>
+              <span className="tp-section-title-pre">Contact Dekho Land</span>
               <h3 className="tp-section-title">
                 Talk to our <br /> India land team.
               </h3>
@@ -51,7 +51,7 @@ export default function ContactAreaTwo() {
                   </Link>
                   <Link
                     className="tp-contact-inner-whatsapp"
-                    href="https://wa.me/919849967236?text=Hi%20LandWay%2C%20I%20would%20like%20help%20finding%20land%20or%20plots."
+                    href="https://wa.me/919849967236?text=Hi%20Dekho%20Land%2C%20I%20would%20like%20help%20finding%20land%20or%20plots."
                     target="_blank"
                     rel="noopener noreferrer"
                   >

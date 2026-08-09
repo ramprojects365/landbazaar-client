@@ -3,9 +3,9 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "How to Get a Plot Loan: Bank Eligibility & Interest Rates | LandWay",
+    "How to Get a Plot Loan: Bank Eligibility & Interest Rates | Dekho Land",
   description:
     "Step-by-step guide to getting a plot loan in India — property eligibility (HMDA/DTCP/NALA), bank criteria, documents, interest rates from SBI, HDFC, ICICI, LIC Housing, and key differences vs home loans.",
   keywords:

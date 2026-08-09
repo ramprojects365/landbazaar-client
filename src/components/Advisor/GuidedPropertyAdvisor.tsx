@@ -313,7 +313,7 @@ export default function GuidedPropertyAdvisor({
       "loginUserDisplayName",
       user.fullName || user.username || user.email || "",
     );
-    window.dispatchEvent(new Event("propertyla-auth-changed"));
+    window.dispatchEvent(new Event("dekholand-auth-changed"));
     return true;
   };
 
@@ -449,7 +449,7 @@ export default function GuidedPropertyAdvisor({
         <h1>
           {popupMode
             ? "Find a better match."
-            : "Let LandWay India guide you to a better-fit plot."}
+            : "Let Dekho Land guide you to a better-fit plot."}
         </h1>
         {!popupMode && (
           <>
@@ -752,7 +752,7 @@ export default function GuidedPropertyAdvisor({
               <h2>Finding your best match</h2>
               <p>
                 Scanning your location, budget, and plot size against live
-                LandWay India listings.
+                Dekho Land listings.
               </p>
               <div className="guided-advisor__modal-steps">
                 <span>Brief understood</span>

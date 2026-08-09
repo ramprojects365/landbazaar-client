@@ -31,8 +31,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${title} Lands & Plots | LandWay India`,
-    description: `Browse lands and plots for sale and lease in ${title} on LandWay India.`,
+    title: `${title} Lands & Plots | Dekho Land`,
+    description: `Browse lands and plots for sale and lease in ${title} on Dekho Land.`,
   };
 }
 

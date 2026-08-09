@@ -195,7 +195,7 @@ export default function HomeLoanCalculator() {
               <h1>Estimate your India plot loan EMI before you buy.</h1>
               <p>
                 Check monthly EMI, upfront costs, stamp duty, legal fees, and
-                optional loan cover in one simple LandWay India calculator.
+                optional loan cover in one simple Dekho Land calculator.
               </p>
             </div>
             <div className="home-loan-page__hero-note">

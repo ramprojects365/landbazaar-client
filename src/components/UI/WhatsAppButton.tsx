@@ -10,7 +10,7 @@ interface WhatsAppButtonProps {
 
 export default function WhatsAppButton({
   phoneNumber = "919849967236",
-  message = "Hi, I'm interested in lands/plots on LandWay",
+  message = "Hi, I'm interested in lands/plots on Dekho Land",
   className = "",
   style = {},
 }: WhatsAppButtonProps) {

@@ -22,11 +22,11 @@ export function useAuth() {
 
     // Listen for storage changes
     window.addEventListener("storage", syncAuth);
-    window.addEventListener("propertyla-auth-changed", syncAuth);
+    window.addEventListener("dekholand-auth-changed", syncAuth);
 
     return () => {
       window.removeEventListener("storage", syncAuth);
-      window.removeEventListener("propertyla-auth-changed", syncAuth);
+      window.removeEventListener("dekholand-auth-changed", syncAuth);
     };
   }, []);
 

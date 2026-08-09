@@ -12,7 +12,7 @@ export const testimonials_home: ITestimonialIDT[] = [
   {
     id: 1,
     description:
-      "LandWay made it easy to find an agricultural plot near Hyderabad. Clear listings and local area insights helped me decide quickly.",
+      "Dekho Land made it easy to find an agricultural plot near Hyderabad. Clear listings and local area insights helped me decide quickly.",
     image: userImg1,
     name: "Ravi Kumar",
     role: "Hyderabad",
@@ -20,7 +20,7 @@ export const testimonials_home: ITestimonialIDT[] = [
   {
     id: 2,
     description:
-      "As a first-time land buyer, I was careful about documents. LandWay's plot details and location filters helped me shortlist safely.",
+      "As a first-time land buyer, I was careful about documents. Dekho Land's plot details and location filters helped me shortlist safely.",
     image: userImg2,
     name: "Ananya Reddy",
     role: "Warangal",
@@ -49,7 +49,7 @@ export const testimonial_three_data: ITestimonialIDT[] = [
     image: image1,
     name: "Karthik Rao",
     description:
-      "LandWay helped me compare plots around Hyderabad and shortlist options that matched my budget without wasting weekends.",
+      "Dekho Land helped me compare plots around Hyderabad and shortlist options that matched my budget without wasting weekends.",
   },
   {
     id: 6,
