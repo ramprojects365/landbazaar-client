@@ -4,8 +4,9 @@ import VerifyForm from "@/components/Form/auth/VerifyForm";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sign In - Property near MRT Kuala Lumpur",
-  description: "property near international school KL",
+  title: "Verify Account | LandWay India",
+  description:
+    "Verify your LandWay India account to browse lands and plots, save favorites, and manage listings across Hyderabad, Telangana, Visakhapatnam and India.",
 };
 
 export default function Verify() {

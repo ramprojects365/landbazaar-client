@@ -4,24 +4,24 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Property Blog | LandWay Malaysia",
+  title: "Land & Plot Blog | LandWay India",
   description:
-    "Read LandWay articles about Malaysian property buying, stamp duty, Selangor locations, foreign investors, and common homebuyer mistakes.",
+    "Read LandWay India articles about buying plots in Hyderabad, Telangana land records (Dharani), Visakhapatnam corridors, plot loans, RERA/HMDA, farmland, and agricultural land guidance.",
   metadataBase: new URL("https://landway.com"),
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
-    title: "Property Blog | LandWay Malaysia",
-    description: "Read LandWay articles about Malaysian property buying, stamp duty, Selangor locations, foreign investors, and common homebuyer mistakes.",
+    title: "Land & Plot Blog | LandWay India",
+    description: "Read LandWay India articles about buying plots in Hyderabad, Telangana land records (Dharani), Visakhapatnam corridors, plot loans, RERA/HMDA, farmland, and agricultural land guidance.",
     url: "https://landway.com/blog",
     siteName: "LandWay",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Property Blog | LandWay Malaysia",
-    description: "Read LandWay articles about Malaysian property buying, stamp duty, Selangor locations, foreign investors, and common homebuyer mistakes.",
+    title: "Land & Plot Blog | LandWay India",
+    description: "Read LandWay India articles about buying plots in Hyderabad, Telangana land records (Dharani), Visakhapatnam corridors, plot loans, RERA/HMDA, farmland, and agricultural land guidance.",
   },
 };
 
@@ -30,10 +30,10 @@ export default function BlogPage() {
     <section className="blog-listing-page pt-120 pb-120">
       <div className="container">
         <div className="blog-listing-page__header">
-          <span className="tp-section-title-pre">Property Guide</span>
-          <h1 className="tp-section-title">Latest property insights</h1>
+          <span className="tp-section-title-pre">Land Guide</span>
+          <h1 className="tp-section-title">Latest land & plot insights</h1>
           <p>
-            Helpful reads for Malaysian buyers, renters, owners, and investors.
+            Helpful reads for Indian buyers, sellers, owners, and land investors.
           </p>
         </div>
 

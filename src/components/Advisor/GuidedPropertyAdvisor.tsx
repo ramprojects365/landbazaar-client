@@ -70,28 +70,28 @@ const steps: Array<{
     key: "intent",
     eyebrow: "Start",
     question: "What are you looking for?",
-    helper: "",
+    helper: "Buy or lease lands and plots across India.",
     icon: Home,
   },
   {
     key: "location",
     eyebrow: "Area",
     question: "Where should we look?",
-    helper: "",
+    helper: "Focus cities include Hyderabad, Telangana, and Visakhapatnam.",
     icon: MapPin,
   },
   {
     key: "budgetAmount",
     eyebrow: "Budget",
     question: "Max price?",
-    helper: "",
+    helper: "Enter your budget in INR (₹).",
     icon: Wallet,
   },
   {
     key: "bedrooms",
-    eyebrow: "Rooms",
-    question: "How many rooms?",
-    helper: "",
+    eyebrow: "Plot size",
+    question: "Preferred plot size?",
+    helper: "Pick a size band that best matches what you want.",
     icon: BedDouble,
   },
   {
@@ -104,7 +104,8 @@ const steps: Array<{
 ];
 
 const options: Partial<Record<AdvisorStep, string[]>> = {
-  intent: ["Buy", "Rent"],
+  // UI shows Lease; stored/API intent remains "rent" for compatibility
+  intent: ["Buy", "Lease"],
 };
 
 const answerLabels: Record<AdvisorStep, string> = {
@@ -112,7 +113,7 @@ const answerLabels: Record<AdvisorStep, string> = {
   location: "Location",
   budgetRange: "Budget",
   budgetAmount: "Max price",
-  bedrooms: "Bedrooms",
+  bedrooms: "Plot size",
 };
 
 const inputConfig: Partial<
@@ -128,49 +129,49 @@ const inputConfig: Partial<
 > = {
   location: {
     type: "text",
-    placeholder: "Example: Kuala Lumpur, Cheras, Puchong",
+    placeholder: "Example: Hyderabad, Telangana, Visakhapatnam",
   },
   budgetAmount: {
     type: "number",
-    placeholder: "Example: 2500 or 650000",
-    prefix: "RM",
+    placeholder: "Example: 25000 or 6500000",
+    prefix: "₹",
     min: "0",
   },
   bedrooms: {
     type: "number",
-    placeholder: "Example: 3",
+    placeholder: "Example: 300 (sq yd)",
     min: "0",
   },
 };
 
 const locationSuggestions: AdvisorSuggestion[] = [
-  { label: "Kuala Lumpur", value: "Kuala Lumpur" },
-  { label: "Selangor", value: "Selangor" },
+  { label: "Hyderabad", value: "Hyderabad" },
+  { label: "Telangana", value: "Telangana" },
+  { label: "Visakhapatnam", value: "Visakhapatnam" },
   { label: "Other", value: "", custom: true },
 ];
 
 const rentBudgetSuggestions: AdvisorSuggestion[] = [
-  { label: "RM 1.5k", value: "1500" },
-  { label: "RM 2.5k", value: "2500" },
-  { label: "RM 3.5k", value: "3500" },
-  { label: "RM 5k", value: "5000" },
+  { label: "₹25k", value: "25000" },
+  { label: "₹50k", value: "50000" },
+  { label: "₹1L", value: "100000" },
+  { label: "₹2L", value: "200000" },
   { label: "Other", value: "", custom: true },
 ];
 
 const buyBudgetSuggestions: AdvisorSuggestion[] = [
-  { label: "RM 500k", value: "500000" },
-  { label: "RM 800k", value: "800000" },
-  { label: "RM 1.2M", value: "1200000" },
-  { label: "RM 2M", value: "2000000" },
+  { label: "₹50L", value: "5000000" },
+  { label: "₹80L", value: "8000000" },
+  { label: "₹1.2Cr", value: "12000000" },
+  { label: "₹2Cr", value: "20000000" },
   { label: "Other", value: "", custom: true },
 ];
 
 const bedroomSuggestions: AdvisorSuggestion[] = [
-  { label: "Studio", value: "0" },
-  { label: "1 room", value: "1" },
-  { label: "2 rooms", value: "2" },
-  { label: "3 rooms", value: "3" },
-  // { label: "4+ rooms", value: "4" },
+  { label: "Under 200 sq yd", value: "0" },
+  { label: "200–400 sq yd", value: "1" },
+  { label: "400–800 sq yd", value: "2" },
+  { label: "800+ sq yd / acres", value: "3" },
   { label: "Other", value: "", custom: true },
 ];
 
@@ -189,8 +190,11 @@ const getInputSuggestions = (
 
 const formatSummaryValue = (key: AdvisorStep, value: string): string => {
   if (!value) return "Not selected yet";
-  if (key === "intent") return value.charAt(0).toUpperCase() + value.slice(1);
-  if (key === "bedrooms" && value === "0") return "Studio";
+  if (key === "intent") {
+    if (value === "rent") return "Lease";
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+  if (key === "bedrooms" && value === "0") return "Under 200 sq yd";
   return value;
 };
 
@@ -274,7 +278,12 @@ export default function GuidedPropertyAdvisor({
   const selectAnswer = (key: AdvisorStep, value: string) => {
     setAnswers((current) => ({
       ...current,
-      [key]: key === "intent" ? value.toLowerCase() : value,
+      [key]:
+        key === "intent"
+          ? value.toLowerCase() === "lease"
+            ? "rent"
+            : value.toLowerCase()
+          : value,
     }));
   };
 
@@ -435,17 +444,17 @@ export default function GuidedPropertyAdvisor({
       <section className="guided-advisor__intro">
         <span className="guided-advisor__badge">
           <Sparkles size={14} />
-          {popupMode ? "Property helper" : "Guided Property Advisor"}
+          {popupMode ? "Land helper" : "Guided Land Advisor"}
         </span>
         <h1>
           {popupMode
             ? "Find a better match."
-            : "Let LandWay guide you to a better-fit home."}
+            : "Let LandWay India guide you to a better-fit plot."}
         </h1>
         {!popupMode && (
           <>
             <p>
-              A warmer, step-by-step experience that feels like a property
+              A warmer, step-by-step experience that feels like a land
               concierge, not another basic search form.
             </p>
             <div className="guided-advisor__ai-strip">
@@ -456,7 +465,7 @@ export default function GuidedPropertyAdvisor({
                 <WandSparkles size={16} /> Match reasons
               </span>
               <span>
-                <MessageCircle size={16} /> Agent fallback
+                <MessageCircle size={16} /> Seller fallback
               </span>
             </div>
           </>
@@ -483,13 +492,13 @@ export default function GuidedPropertyAdvisor({
                 {currentStep === 0 &&
                   "Start with the basics. We will narrow it down step by step."}
                 {currentStep === 1 &&
-                  "Choose a common area or type another location."}
+                  "Choose Hyderabad, Telangana, Visakhapatnam, or type another location."}
                 {currentStep === 2 &&
-                  "Use the closest price, or type your own."}
+                  "Use the closest INR budget, or type your own."}
                 {step.key === "contact" &&
-                  "This is optional. It only helps us connect you with a suitable agent."}
+                  "This is optional. It only helps us connect you with a suitable seller."}
                 {step.key === "bedrooms" &&
-                  "One more answer, then we can show matches."}
+                  "One more answer on plot size, then we can show matches."}
               </p>
             </div>
           )}
@@ -712,7 +721,7 @@ export default function GuidedPropertyAdvisor({
           onClick={() => setShowReminder(false)}
         >
           <MessageCircle size={17} />
-          Continue your property advisor
+          Continue your land advisor
         </button>
       )}
 
@@ -721,7 +730,7 @@ export default function GuidedPropertyAdvisor({
           className="guided-advisor__modal"
           role="dialog"
           aria-modal="true"
-          aria-label="Preparing property fit results"
+          aria-label="Preparing land fit results"
         >
           <div className="guided-advisor__modal-backdrop" />
           <div className="guided-advisor__modal-panel">
@@ -736,14 +745,14 @@ export default function GuidedPropertyAdvisor({
                 </div>
                 <div className="guided-advisor__modal-card guided-advisor__modal-card--two">
                   <MapPin size={15} />
-                  Checking projects
+                  Checking listings
                 </div>
               </div>
               <span>AI match check</span>
               <h2>Finding your best match</h2>
               <p>
-                Scanning your location, budget, and rooms against live
-                LandWay projects.
+                Scanning your location, budget, and plot size against live
+                LandWay India listings.
               </p>
               <div className="guided-advisor__modal-steps">
                 <span>Brief understood</span>

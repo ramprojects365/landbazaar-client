@@ -10,25 +10,25 @@ export const CounterData: ICounterDT[] = [
     description: (
       <>
         <p>
-          Real estate users already have <br /> used our LandWay
+          Land buyers already have <br /> used LandWay India
         </p>
       </>
     ),
   },
   {
-    title: "We are already sold apartments",
+    title: "We are already listing lands & plots",
     count: 95,
     unit: "%",
     description: (
       <>
         <p>
-          Clients supports and their <br /> satisfactions
+          Client support and their <br /> satisfaction
         </p>
       </>
     ),
   },
   {
-    title: "Customers have all over world",
+    title: "Customers across India",
     count: 5,
     unit: "k+",
     description: (
@@ -52,14 +52,15 @@ export default function CounterHomeFour() {
                 WHY CHOOSE LandWay
               </span>
               <h4 className="tp-section-title">
-                Trusted real estate company <br />
-                by the happy users
+                Trusted land marketplace <br />
+                for happy buyers &amp; sellers
               </h4>
               <p>
-                Online property marketplace to buy, sell, and rent residential
-                and comme rcial properties. Used by <br />
-                millions of renters to find property. Browse millions of
-                properties in your city save your.
+                Online land marketplace to buy, sell, and lease residential
+                plots, agricultural land, farm land, and commercial land. Used by{" "}
+                <br />
+                buyers across India to find plots. Browse lands in Hyderabad,
+                Telangana, Visakhapatnam and beyond.
               </p>
             </div>
           </div>

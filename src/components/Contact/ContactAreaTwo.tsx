@@ -5,15 +5,15 @@ import Link from "next/link";
 
 const contactLocations: ContactLocation[] = [
   {
-    title: "Kuala Lumpur",
+    title: "Hyderabad",
     address: (
       <>
         <p>
-          LandWay Malaysia, <br /> Kuala Lumpur City Centre
+          LandWay India, <br /> Hyderabad, Telangana
         </p>
       </>
     ),
-    phone: "+60 11 2114 9066",
+    phone: "+91 9849967236",
     email: "support@landway.com",
   },
 ];
@@ -27,7 +27,7 @@ export default function ContactAreaTwo() {
             <div className="tp-contact-inner-heading mb-30">
               <span className="tp-section-title-pre">Contact LandWay</span>
               <h3 className="tp-section-title">
-                Talk to our <br /> Malaysia team.
+                Talk to our <br /> India land team.
               </h3>
             </div>
           </div>
@@ -51,7 +51,7 @@ export default function ContactAreaTwo() {
                   </Link>
                   <Link
                     className="tp-contact-inner-whatsapp"
-                    href="https://wa.me/601121149066?text=Hi%20LandWay%2C%20I%20would%20like%20help%20with%20my%20property%20search."
+                    href="https://wa.me/919849967236?text=Hi%20LandWay%2C%20I%20would%20like%20help%20finding%20land%20or%20plots."
                     target="_blank"
                     rel="noopener noreferrer"
                   >

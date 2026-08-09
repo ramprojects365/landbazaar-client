@@ -682,7 +682,7 @@
 
 .tp-blog-slider-navigation {
   position: absolute;
-  top: 28%;
+  top: 33%;
   left: 0;
   right: 0;
   transform: translateY(-50%);
@@ -2654,12 +2654,9 @@ html {
     margin-top: 0 !important;
   }
 
+  .search-refine-shell,
   .property-search-refine {
-    display: block !important;
-    width: 100% !important;
-    margin: 0 0 22px !important;
-    padding: 14px !important;
-    border-radius: 8px !important;
+    display: none !important;
   }
 
   .property-search-refine__row {

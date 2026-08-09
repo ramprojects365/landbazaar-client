@@ -17,7 +17,7 @@ export default function CtaArea({wrapClass}:{wrapClass?:string}) {
                                 </div>
                                 <div className="tp-cta-content-contact">
                                     <p>Call for more info</p>
-                                    <Link href="tel:555-0111">+999 34598 45678</Link>
+                                    <Link href="tel:+919849967236">+91 9849967236</Link>
                                 </div>
                                 <div className="tp-cta-content-text">
                                     <span>Let’s request a schedule for <br />

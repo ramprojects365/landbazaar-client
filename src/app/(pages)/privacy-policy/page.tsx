@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy | LandWay",
   description:
-    "Learn how LandWay collects, uses, protects, and shares personal information for property enquiries, accounts, listings, and platform services.",
+    "Learn how LandWay India collects, uses, protects, and shares personal information for land enquiries, accounts, listings, and platform services.",
 };
 
 const sections = [
@@ -13,11 +13,11 @@ const sections = [
   },
   {
     title: "How we use your information",
-    body: "We use information to operate LandWay, show relevant listings, respond to enquiries, connect you with property consultants, manage accounts, improve the platform, prevent misuse, and send important service updates.",
+    body: "We use information to operate LandWay India, show relevant land and plot listings, respond to enquiries, connect you with sellers and property consultants, manage accounts, improve the platform, prevent misuse, and send important service updates.",
   },
   {
-    title: "Property enquiries and agent follow-up",
-    body: "If you enquire about a property, share contact details, or use Property Fit, we may share relevant enquiry details with a matching agent, property owner, developer, or account holder so they can contact you about your request.",
+    title: "Property enquiries and seller follow-up",
+    body: "If you enquire about a land or plot, share contact details, or use Property Fit, we may share relevant enquiry details with a matching seller, property owner, developer, or account holder so they can contact you about your request.",
   },
   {
     title: "Cookies and analytics",
@@ -29,7 +29,7 @@ const sections = [
   },
   {
     title: "When we may disclose information",
-    body: "We may disclose information to service providers, hosting partners, email providers, agents involved in your enquiry, or authorities where required by law, safety, fraud prevention, or platform protection.",
+    body: "We may disclose information to service providers, hosting partners, email providers, sellers involved in your enquiry, or authorities where required by law, safety, fraud prevention, or platform protection.",
   },
   {
     title: "Your choices",
@@ -51,9 +51,9 @@ export default function PrivacyPolicy() {
               <span className="tp-section-title-pre">Privacy</span>
               <h1 className="tp-section-title">Privacy Policy</h1>
               <p>
-                This policy explains how LandWay handles personal
-                information when you browse listings, create an account, submit
-                a property, send an enquiry, or use our property tools.
+                This policy explains how LandWay India handles personal
+                information when you browse land and plot listings, create an
+                account, submit a listing, send an enquiry, or use our tools.
               </p>
             </div>
             <div className="legal-page__content">

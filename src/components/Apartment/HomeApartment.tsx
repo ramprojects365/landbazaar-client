@@ -13,8 +13,8 @@ export default function HomeApartmentArea() {
               {/* <h3 className="tp-section-title">Join With Us To</h3> */}
               {/* <Link className="tp-btn" href="/search">
                 <span className="btn-wrap">
-                  <b className="text-1">Discover Malaysia</b>
-                  <b className="text-2">Discover Malaysia</b>
+                  <b className="text-1">Discover India Lands</b>
+                  <b className="text-2">Discover India Lands</b>
                 </span>
               </Link> */}
             </div>

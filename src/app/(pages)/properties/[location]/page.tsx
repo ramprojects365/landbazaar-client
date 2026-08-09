@@ -3,11 +3,11 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 const locationPages = {
-  "kuala-lumpur": "Kuala Lumpur",
-  selangor: "Selangor",
-  penang: "Penang",
-  johor: "Johor",
-  perak: "Perak",
+  hyderabad: "Hyderabad",
+  telangana: "Telangana",
+  visakhapatnam: "Visakhapatnam",
+  "andhra-pradesh": "Andhra Pradesh",
+  india: "India",
 } as const;
 
 type LocationSlug = keyof typeof locationPages;
@@ -31,8 +31,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${title} Properties | LandWay`,
-    description: `Browse properties for sale and rent in ${title} on LandWay.`,
+    title: `${title} Lands & Plots | LandWay India`,
+    description: `Browse lands and plots for sale and lease in ${title} on LandWay India.`,
   };
 }
 
@@ -53,11 +53,12 @@ export default async function LocationPropertiesPage({
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="property-location-page__content">
-                <span className="tp-section-title-pre">Properties</span>
-                <h1 className="tp-section-title mb-20">{title} Properties</h1>
+                <span className="tp-section-title-pre">Lands & Plots</span>
+                <h1 className="tp-section-title mb-20">{title} Lands & Plots</h1>
                 <p>
                   We are preparing a dedicated location page for {title}. For
-                  now, you can browse the latest matching listings from search.
+                  now, you can browse the latest matching land and plot listings
+                  from search.
                 </p>
                 <Link
                   className="tp-btn"

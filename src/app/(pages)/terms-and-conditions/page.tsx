@@ -3,29 +3,29 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms and Conditions | LandWay",
   description:
-    "Read LandWay's website terms for property listings, enquiries, accounts, content, and acceptable platform use.",
+    "Read LandWay India's website terms for land and plot listings, enquiries, accounts, content, and acceptable platform use.",
 };
 
 const sections = [
   {
     title: "Use of LandWay",
-    body: "LandWay provides a platform for users to browse property listings, submit enquiries, connect with agents, and access property-related tools. You agree to use the website lawfully and not misuse, disrupt, scrape, or attempt to gain unauthorised access to our services.",
+    body: "LandWay India provides a platform for users to browse land and plot listings, submit enquiries, connect with sellers, and access land-related tools. You agree to use the website lawfully and not misuse, disrupt, scrape, or attempt to gain unauthorised access to our services.",
   },
   {
     title: "Listings and information",
-    body: "Property details, prices, availability, images, agent profiles, and related information may be provided by property owners, agents, developers, or third parties. We aim to keep information useful, but we do not guarantee that every listing is complete, current, accurate, or available.",
+    body: "Land and plot details, prices, availability, images, seller profiles, and related information may be provided by property owners, sellers, developers, or third parties. We aim to keep information useful, but we do not guarantee that every listing is complete, current, accurate, or available.",
   },
   {
     title: "Accounts and submissions",
-    body: "When you create an account, submit a property, send an enquiry, or use Property Fit, you are responsible for providing accurate information. We may remove or restrict content that appears misleading, unlawful, duplicated, abusive, or unsuitable for the platform.",
+    body: "When you create an account, submit a land or plot, send an enquiry, or use Property Fit, you are responsible for providing accurate information. We may remove or restrict content that appears misleading, unlawful, duplicated, abusive, or unsuitable for the platform.",
   },
   {
-    title: "Enquiries and agent contact",
-    body: "When you share contact details or enquire about a property, we may pass your enquiry to a relevant property consultant or account holder so they can follow up. LandWay is not responsible for the conduct, advice, promises, or services of independent agents or third parties.",
+    title: "Enquiries and seller contact",
+    body: "When you share contact details or enquire about a land or plot, we may pass your enquiry to a relevant seller, property consultant, or account holder so they can follow up. LandWay India is not responsible for the conduct, advice, promises, or services of independent sellers or third parties.",
   },
   {
     title: "Calculators and tools",
-    body: "Loan, mortgage, affordability, and property matching tools are provided for general guidance only. Figures are estimates and should not be treated as financial, legal, tax, or investment advice. Please verify important decisions with qualified professionals.",
+    body: "Plot loan, EMI, affordability, and land matching tools are provided for general guidance only. Figures are estimates and should not be treated as financial, legal, tax, or investment advice. Please verify important decisions with qualified professionals.",
   },
   {
     title: "Intellectual property",
@@ -51,9 +51,9 @@ export default function TermsAndConditions() {
               <span className="tp-section-title-pre">Legal</span>
               <h1 className="tp-section-title">Terms and Conditions</h1>
               <p>
-                These terms explain how you may use LandWay and what to
-                expect when browsing listings, submitting enquiries, or using
-                our property tools.
+                These terms explain how you may use LandWay India and what to
+                expect when browsing land and plot listings, submitting
+                enquiries, or using our tools.
               </p>
             </div>
             <div className="legal-page__content">

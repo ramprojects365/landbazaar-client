@@ -19,9 +19,9 @@ export const getMatchReason = (answers: AdvisorAnswers): string => {
   const parts = [];
   if (answers.budgetAmount || answers.budgetRange) parts.push("budget");
   if (answers.location) parts.push("location");
-  if (answers.bedrooms) parts.push("bedroom needs");
+  if (answers.bedrooms) parts.push("plot size needs");
 
-  if (!parts.length) return "Recommended starter property for your search";
+  if (!parts.length) return "Recommended starter land listing for your search";
   //return `Matches your ${parts.join(", ")}`;
   return "Matches what you're looking for";
 };
