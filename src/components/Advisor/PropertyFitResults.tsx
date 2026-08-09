@@ -126,6 +126,7 @@ const mapApiProperty = (item: ApiProperty): IFeaturedPropertyDT => {
 
 const formatBriefValue = (value?: string): string => {
   if (!value) return "Not set";
+  if (value.toLowerCase() === "rent") return "Lease";
   return value.charAt(0).toUpperCase() + value.slice(1);
 };
 
@@ -243,7 +244,7 @@ export default function PropertyFitResults() {
               <Sparkles size={16} />
               Smart match
             </span>
-            <h1>These homes match your search.</h1>
+            <h1>These lands & plots match your search.</h1>
           </div>
         </div>
       </section>
@@ -255,9 +256,9 @@ export default function PropertyFitResults() {
               <Clock3 size={32} />
               <h2>No advisor answers yet</h2>
               <p>
-                Complete the property advisor first so we can match properties.
+                Complete the land advisor first so we can match plots and lands.
               </p>
-              <Link href="/property-advisor">Open property advisor</Link>
+              <Link href="/property-advisor">Open land advisor</Link>
             </div>
           )}
 
@@ -338,8 +339,8 @@ export default function PropertyFitResults() {
               {loading && (
                 <div className="property-fit-page__empty">
                   <Clock3 size={32} />
-                  <h2>Finding properties</h2>
-                  <p>Loading matching properties from the database.</p>
+                  <h2>Finding lands & plots</h2>
+                  <p>Loading matching listings from the database.</p>
                 </div>
               )}
 
@@ -369,7 +370,7 @@ export default function PropertyFitResults() {
                             className="property-fit-page__view-signal"
                             onClick={(event) => handlePropertyView(item, event)}
                           >
-                            Mark viewed and notify agent
+                            Mark viewed and notify seller
                           </button>
                           <div onClick={() => handlePropertyView(item)}>
                             <PropertySingleCard item={item} />
@@ -405,7 +406,7 @@ export default function PropertyFitResults() {
                       </strong>
                     </span>
                     <span>
-                      Rooms{" "}
+                      Plot size{" "}
                       <strong>
                         {storedResults?.answers.bedrooms || "Not set"}
                       </strong>

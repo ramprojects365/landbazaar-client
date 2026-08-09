@@ -12,34 +12,34 @@ export const testimonials_home: ITestimonialIDT[] = [
   {
     id: 1,
     description:
-      "LandWay made it so easy to find my dream condo in Kuala Lumpur. I found and moved into my new place in less than two weeks.",
+      "LandWay made it easy to find an agricultural plot near Hyderabad. Clear listings and local area insights helped me decide quickly.",
     image: userImg1,
-    name: "Amira Dep",
-    role: "Kuala Lumpur",
+    name: "Ravi Kumar",
+    role: "Hyderabad",
   },
   {
     id: 2,
     description:
-      "As a first-time homebuyer, I was nervous, but LandWay's detailed listings and location insights helped me make an informed choice.",
+      "As a first-time land buyer, I was careful about documents. LandWay's plot details and location filters helped me shortlist safely.",
     image: userImg2,
-    name: "Wang Lee",
-    role: "Penang",
+    name: "Ananya Reddy",
+    role: "Warangal",
   },
   {
     id: 3,
     description:
-      "I loved how I could compare nearby condos and check amenities like swimming pool and gym easily. The site is very user-friendly.",
+      "I could compare nearby open plots for road access, facing, and approvals in one place. The site is simple and practical for land search.",
     image: userImg3,
-    name: "Adia S",
-    role: "Petaling Jaya",
+    name: "Suresh Naidu",
+    role: "Vijayawada",
   },
   {
     id: 4,
     description:
-      "I listed my apartment for rent and received genuine inquiries within days. The platform's quality leads saved me so much time.",
+      "I listed my farm land for sale and received genuine enquiries within days. Quality leads saved me a lot of follow-up time.",
     image: userImg2,
-    name: "Siti Nur A",
-    role: "Johor Bahru",
+    name: "Lakshmi Devi",
+    role: "Visakhapatnam",
   },
 ];
 
@@ -47,30 +47,30 @@ export const testimonial_three_data: ITestimonialIDT[] = [
   {
     id: 5,
     image: image1,
-    name: "Aina Rahman",
+    name: "Karthik Rao",
     description:
-      "LandWay helped me compare condos around KL and shortlist places that matched my budget without wasting weekends.",
+      "LandWay helped me compare plots around Hyderabad and shortlist options that matched my budget without wasting weekends.",
   },
   {
     id: 6,
     image: image2,
-    name: "Daniel Tan",
+    name: "Meena Iyer",
     description:
-      "The agent follow-up was clear and practical. I found a rental in Petaling Jaya that fit my commute and monthly budget.",
+      "Seller follow-up was clear and practical. I found a residential plot near Visakhapatnam that fit my investment plan.",
   },
   {
     id: 7,
     image: image1,
-    name: "Nur Syafiqah",
+    name: "Praveen Goud",
     description:
-      "As a first-time buyer, the listings and area details made it easier to understand what was realistic in Selangor.",
+      "As a first-time buyer, the listings and corridor details made it easier to understand what was realistic in Telangana.",
   },
   {
     id: 8,
     image: image2,
-    name: "Kumar Raj",
+    name: "Deepa Sharma",
     description:
-      "I listed my unit and received genuine enquiries quickly. The platform felt simple, local, and easy to manage.",
+      "I listed my commercial plot and received genuine enquiries quickly. The platform felt simple, local, and easy to manage.",
   },
 ];
 

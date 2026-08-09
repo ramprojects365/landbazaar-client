@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Page Not Found (404) | LandWay Malaysia Real Estate",
+  title: "Page Not Found (404) | LandWay India",
   description:
-    "The property page you're looking for doesn't exist on LandWay. Search our extensive database of Malaysia properties or return to homepage.",
+    "The page you're looking for doesn't exist on LandWay India. Search our lands and plots in Hyderabad, Telangana, Visakhapatnam and across India, or return to the homepage.",
 };
 
 export default function NotFound() {

@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Reset Password | LandWay Malaysia Real Estate Platform",
+  title: "Reset Password | LandWay India Land Marketplace",
   description:
-    "Reset your LandWay account password securely. Recover access to your Malaysia real estate account to manage property listings, favorites, and agent communications.",
+    "Reset your LandWay India account password securely. Recover access to manage land and plot listings, favorites, and seller communications.",
 };
 
 export default function Forget() {

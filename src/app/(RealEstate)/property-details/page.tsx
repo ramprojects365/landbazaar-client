@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Property Details | LandWay Malaysia Real Estate",
+  title: "Land & Plot Details | LandWay India",
   description:
-    "View comprehensive property details including photos, specifications, location maps, and pricing information for properties across Malaysia. Browse related listings like condo-for-rent/kuala-lumpur, apartment-for-rent/selangor, and investment-property-malaysia.",
+    "View comprehensive land and plot details including photos, survey info, location maps, and pricing across India. Browse residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and nationwide.",
 };
 
 export default function PropertyDetails() {

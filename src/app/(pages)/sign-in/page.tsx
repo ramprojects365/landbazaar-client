@@ -4,9 +4,9 @@ import SignInForm from "@/components/Form/auth/SignInForm";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sign In to LandWay | Access Your Real Estate Account",
+  title: "Sign In to LandWay India | Access Your Land Marketplace Account",
   description:
-    "Sign in to your LandWay account to manage property listings, save favorites, and connect with real estate agents in Malaysia. Secure login for buyers, sellers, and property professionals.",
+    "Sign in to your LandWay India account to manage land and plot listings, save favorites, and connect with sellers. Secure login for buyers, sellers, and land professionals.",
 };
 
 export default function SignIn() {

@@ -4,24 +4,24 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "Search Properties in Kuala Lumpur, Selangor, Cheras, Puchong | LandWay Malaysia",
+    "Search Lands & Plots in Hyderabad, Telangana, Visakhapatnam | LandWay India",
   description:
-    "Search properties for sale and rent in Klang Valley. Find condos, houses, apartments, and landed properties in Kuala Lumpur, Selangor, Cheras, Puchong. Filter by location, price, property type. Malaysia's trusted real estate platform.",
+    "Search lands and plots for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond. Filter by location, price, and land type on LandWay India.",
   metadataBase: new URL("https://landway.com"),
   alternates: {
     canonical: "/search",
   },
   openGraph: {
-    title: "Search Properties in Kuala Lumpur, Selangor, Cheras, Puchong | LandWay Malaysia",
-    description: "Search properties for sale and rent in Klang Valley. Find condos, houses, apartments, and landed properties in Kuala Lumpur, Selangor, Cheras, Puchong. Filter by location, price, property type.",
+    title: "Search Lands & Plots in Hyderabad, Telangana, Visakhapatnam | LandWay India",
+    description: "Search lands and plots for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond.",
     url: "https://landway.com/search",
     siteName: "LandWay",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Search Properties in Kuala Lumpur, Selangor, Cheras, Puchong | LandWay Malaysia",
-    description: "Search properties for sale and rent in Klang Valley. Find condos, houses, apartments, and landed properties in Kuala Lumpur, Selangor, Cheras, Puchong. Filter by location, price, property type.",
+    title: "Search Lands & Plots in Hyderabad, Telangana, Visakhapatnam | LandWay India",
+    description: "Search lands and plots for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond.",
   },
 };
 

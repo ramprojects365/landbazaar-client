@@ -3,33 +3,38 @@ import { INeighbourhoodProperty } from "@/types/property-d-t";
 const neighbourhoodsData: INeighbourhoodProperty[] = [
   {
     id: 1,
-    name: "Kuala Lumpur",
+    name: "Hyderabad",
     image: "/assets/img/banner/bg-1.png",
     count: 25,
   },
-  { id: 2, name: "Penang", image: "/assets/img/banner/bg-2.png", count: 25 },
+  {
+    id: 2,
+    name: "Visakhapatnam",
+    image: "/assets/img/banner/bg-2.png",
+    count: 25,
+  },
   {
     id: 3,
-    name: "Port Dickson",
+    name: "Vijayawada",
     image: "/assets/img/banner/bg-3.png",
     count: 25,
   },
   {
     id: 4,
-    name: "Ipoh",
+    name: "Warangal",
     image: "/assets/img/apartment/apartment-bg.png",
     count: 25,
   },
   {
     id: 5,
-    name: "Johor Bahru",
+    name: "Guntur",
     image:
       "/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png",
     count: 25,
   },
   {
     id: 6,
-    name: "Malacca",
+    name: "Tirupati",
     image:
       "/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png",
     count: 25,
