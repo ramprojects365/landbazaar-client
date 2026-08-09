@@ -8,7 +8,7 @@ import HomeAdvisorPopup from "@/components/Advisor/HomeAdvisorPopup";
 
 const siteTitle = "DekhoLand | Buy & Sell Verified Lands and Plots";
 const siteDescription =
-  "DekhoLand is India’s trusted marketplace for buying and selling verified lands and plots. Discover transparent listings, hassle-free transactions, and your path to verified land ownership.";
+  "India's trusted marketplace for lands and plots. Buy or sell open plots, farm land, and agricultural land with Dekho Land.";
 const siteImage = "https://www.dekholand.com/assets/img/logo/logo.png";
 
 export const metadata: Metadata = {
