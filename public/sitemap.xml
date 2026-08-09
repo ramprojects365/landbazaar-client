@@ -38,6 +38,20 @@
   </url>
 
   <url>
+    <loc>https://www.dekholand.com/developers</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.dekholand.com/developer/crr-infra</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://www.dekholand.com/home-loan</loc>
     <lastmod>2026-08-03</lastmod>
     <changefreq>monthly</changefreq>
