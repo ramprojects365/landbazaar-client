@@ -97,17 +97,6 @@ const menu_data_one = [
       { id: 14, label: "Site Visit Scheduler", url: "/interior-design" },
     ],
   },
-  {
-    id: 5,
-    label: "More",
-    url: "#",
-    submenu: [
-      { id: 15, label: "About", url: "/about" },
-      { id: 16, label: "Pricing", url: "/pricing" },
-      { id: 17, label: "Contact", url: "/contact" },
-      { id: 18, label: "Faq", url: "/faq" },
-    ],
-  },
 ];
 
 export default menu_data_one;
