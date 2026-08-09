@@ -15,7 +15,9 @@ export default function AboutTestimonial() {
         <div className="row">
           <div className="col-lg-12">
             <div className="tp-testimonial-about-heading text-center mb-50">
-              <h3 className="tp-section-title">25,000+ Happy customers</h3>
+              <h3 className="tp-section-title">
+                Trusted by land buyers and sellers
+              </h3>
             </div>
           </div>
           <div className="col-lg-12">
@@ -45,8 +47,8 @@ export default function AboutTestimonial() {
           <div className="col-lg-12">
             <div className="tp-testimonial-about-btn text-center">
               <span>
-                Ready to find a better property match?{" "}
-                <Link href="/property-advisor">Try the property advisor</Link>
+                Ready to buy or sell land with confidence?{" "}
+                <Link href="/search">Browse verified land listings</Link>
               </span>
             </div>
           </div>

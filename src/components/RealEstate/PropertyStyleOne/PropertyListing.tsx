@@ -259,24 +259,16 @@ export default function PropertyListing() {
           </div>
         )}
 
-        {!loading && resultCount === 0 && !error && (
-          <div className="text-center py-5">
+        {!loading && !error && resultCount === 0 && (
+          <div
+            className="text-center py-5"
+            style={{ border: "1px dashed #d6dbe1", borderRadius: "10px" }}
+          >
             <p style={{ fontSize: "16px", color: "#555" }}>
               No properties found matching your search.
             </p>
             <p style={{ color: "#888" }}>
               Try adjusting your filters or search terms.
-            </p>
-          </div>
-        )}
-
-        {!loading && !error && properties.length === 0 && resultCount === 0 && (
-          <div className="text-center py-5" style={{ border: "1px dashed #d6dbe1", borderRadius: "10px" }}>
-            <p style={{ fontSize: "16px", color: "#555" }}>
-              We couldn’t find any matching properties yet.
-            </p>
-            <p style={{ color: "#888" }}>
-              Try a broader keyword, a different city, or remove a filter.
             </p>
           </div>
         )}

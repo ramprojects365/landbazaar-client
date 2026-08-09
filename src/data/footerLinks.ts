@@ -3,7 +3,6 @@ import { LAND_CITIES } from "@/config/landOptions";
 export const quickLinks = [
   { label: "About Us", href: "/about" },
   { label: "Properties", href: "/search" },
-  { label: "Agents", href: "/agent-details" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];

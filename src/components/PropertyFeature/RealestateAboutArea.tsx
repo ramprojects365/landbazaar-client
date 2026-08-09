@@ -57,7 +57,7 @@ const getPropertyLocation = (property: Property): string => {
   return (
     property.location ||
     [property.streetName, property.cityName, property.state].filter(Boolean).join(", ") ||
-    "Malaysia"
+    "India"
   );
 };
 
@@ -96,7 +96,7 @@ export default function RealestateAboutArea() {
       <section className="tp-realstate-ptb about-featured-properties pt-120 pb-140">
         <div className="container">
           <div className="text-center">
-            <p>Loading featured properties...</p>
+            <p>Loading featured lands...</p>
           </div>
         </div>
       </section>
@@ -108,7 +108,7 @@ export default function RealestateAboutArea() {
       <section className="tp-realstate-ptb about-featured-properties pt-120 pb-140">
         <div className="container">
           <div className="text-center">
-            <p>No featured property available at the moment.</p>
+            <p>No featured lands available at the moment.</p>
           </div>
         </div>
       </section>
@@ -119,8 +119,8 @@ export default function RealestateAboutArea() {
     <section className="tp-realstate-ptb about-featured-properties pt-120 pb-140">
       <div className="container">
         <div className="tp-realstate-heading text-center mb-40">
-          <span className="tp-section-title-pre">Featured homes</span>
-          <h3 className="tp-section-title">Fresh picks on LandWay</h3>
+          <span className="tp-section-title-pre">Verified lands</span>
+          <h3 className="tp-section-title">Fresh land listings on LandWay</h3>
         </div>
 
         <div className="about-featured-properties__grid">

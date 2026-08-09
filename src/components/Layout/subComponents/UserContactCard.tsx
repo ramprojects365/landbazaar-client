@@ -40,43 +40,6 @@ export default function UserContactCard({ user }: UserContactCardProps) {
     );
   };
 
-  const getAgentProfileUrl = () => {
-    if (!user) return `/property-agent/david-hussy-2987852`;
-
-    const slug: string = user.username || "";
-    const cleanSlug = slug
-      .toLowerCase()
-      .replace(/\s+/g, "-")
-      .replace(/[^a-z0-9-]/g, "");
-
-    const userData = {
-      id: user.id || cleanSlug,
-      username: user.username || "",
-      email: user.email || "",
-      phoneNumber: user.phoneNumber || user.phone || "",
-      userType: user.userType || "",
-      profileImage: user.profileImage || user.profileImageUrl || "",
-      fullName: user.fullName || user.username || "",
-      designation: user.designation || "Real Estate Agent",
-      experienceYears: user.experienceYears || 5,
-      bio:
-        user.bio ||
-        "Professional real estate agent specializing in Malaysian properties.",
-      companyName: user.companyName || "",
-      renNumber: user.renNumber || "",
-      renStatus: user.renStatus || "not_verified",
-      renVerified,
-      renStatusLabel,
-      emailVerified: user.emailVerified ?? true,
-      createdAt: user.createdAt || new Date().toISOString(),
-      updatedAt: user.updatedAt || new Date().toISOString(),
-    };
-
-    const jsonString = JSON.stringify(userData);
-    const encodedData = btoa(encodeURIComponent(jsonString));
-    return `/property-agent/${cleanSlug}?data=${encodedData}`;
-  };
-
   return (
     <>
       <div className="tp-team-details-widget mb-40 user-contact-card">
@@ -97,27 +60,16 @@ export default function UserContactCard({ user }: UserContactCardProps) {
                 />
               </div>
               <div className="tp-team-details-info-user-content">
-                <Link
-                  href={getAgentProfileUrl()}
+                <h5
                   style={{
-                    textDecoration: "underline",
-                    textUnderlineOffset: "3px",
                     color: "#fff",
                     fontSize: "14px",
                     fontWeight: 500,
-                    cursor: "pointer",
+                    margin: 0,
                   }}
                 >
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 5,
-                    }}
-                  >
-                    <span>{agentName || "—"}</span>
-                  </span>
-                </Link>
+                  {agentName || "—"}
+                </h5>
                 <p>{contactRole}</p>
               </div>
             </div>

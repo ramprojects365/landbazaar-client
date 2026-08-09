@@ -81,7 +81,7 @@ export default function SearchRefineBar() {
             <input
               type="text"
               style={inputStyle}
-              placeholder="Ex. falm lands"
+              placeholder="Farmland"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
             />
@@ -93,7 +93,7 @@ export default function SearchRefineBar() {
             <input
               type="text"
               style={inputStyle}
-              placeholder="Ex. Open plot available at Shad Nagar"
+              placeholder="CRR Infra"
               value={propertyName}
               onChange={(e) => setPropertyName(e.target.value)}
             />
@@ -105,7 +105,7 @@ export default function SearchRefineBar() {
             <input
               type="text"
               style={inputStyle}
-              placeholder="Ex. Shad nagar"
+              placeholder="Shad nagar"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
