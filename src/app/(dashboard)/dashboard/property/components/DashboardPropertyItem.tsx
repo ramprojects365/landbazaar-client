@@ -1,11 +1,5 @@
 "use client";
-import {
-  BathroomsSvg,
-  BedroomsSvg,
-  DeleteIconSvg,
-  LivingSvg,
-  PropertyEditSvg,
-} from "@/components/SVG";
+import { DeleteIconSvg, LivingSvg, PropertyEditSvg } from "@/components/SVG";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 import { deleteProperty } from "@/services/propertyService";
@@ -99,34 +93,32 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
             {property.title}
           </Link>
         </h4>
-        <p>{property?.address}</p>
-        <div className="tp-rent-meta-list d-flex justify-content-between align-items-center">
-          <div className="tp-rent-meta-item">
-            <div className="tp-rent-meta-content d-flex">
-              <span>
-                <BedroomsSvg />
-              </span>
-              <p>{property.bedrooms}</p>
-            </div>
-            <p>Bedrooms</p>
-          </div>
-          <div className="tp-rent-meta-item">
-            <div className="tp-rent-meta-content d-flex">
-              <span>
-                <BathroomsSvg />
-              </span>
-              <p>{property.bathrooms}</p>
-            </div>
-            <p>Bathrooms</p>
-          </div>
+        <p
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            marginBottom: 0,
+          }}
+          title={property?.address}
+        >
+          {property?.address}
+        </p>
+        <div className="tp-rent-meta-list d-flex align-items-center gap-4">
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <span>
                 <LivingSvg />
               </span>
-              <p>{property.livingArea}</p>
+              <p>{property.bedrooms || "—"}</p>
             </div>
-            <p>Living Area</p>
+            <p>Land Size</p>
+          </div>
+          <div className="tp-rent-meta-item">
+            <div className="tp-rent-meta-content d-flex">
+              <p>{property.bathrooms || "Land"}</p>
+            </div>
+            <p>Land Type</p>
           </div>
         </div>
         <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">

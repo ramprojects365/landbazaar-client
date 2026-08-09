@@ -8,6 +8,7 @@ import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { deleteProperty } from "@/services/propertyService";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { API_BASE_URL } from "@/config/constants";
+import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
 
 // API Property interface
 interface ApiProperty {
@@ -16,16 +17,16 @@ interface ApiProperty {
   propertyName?: string;
   price?: number;
   monthlyRent?: number;
+  totalPrice?: number | string | null;
   images?: unknown[];
   imageUrl?: string;
   listingType?: string;
+  propertyType?: string;
   address?: string;
   location?: string;
   streetName?: string;
-  bedrooms?: number;
-  bathrooms?: number;
-  livingArea?: number;
-  buildupArea?: number;
+  landSize?: number | string | null;
+  areaUnit?: string;
   cityName?: string;
   state?: string;
   stateName?: string;
@@ -91,32 +92,30 @@ export default function DashboardProperty() {
               getCoverImageUrl(property.images) ||
               "/assets/img/rent/property/property-1.jpg";
 
+            const listingType = (() => {
+              const type = property.listingType?.trim().toLowerCase();
+              if (type === "rent") return "lease";
+              return type || undefined;
+            })();
+
             return {
               id: property.id || String(index + 1),
               title: title,
               address: buildPropertyAddress(property),
               image: image,
-              price: price,
+              price: parseTotalPrice(property.totalPrice, price),
               quantity: 1,
-              bedrooms: String(property.bedrooms || 0),
-              bathrooms: String(property.bathrooms || 0),
-              livingArea: String(
-                property.livingArea || property.buildupArea || 0,
-              ),
+              bedrooms: formatLandSize(property.landSize, property.areaUnit),
+              bathrooms: property.propertyType?.trim() || "Land",
+              livingArea: "",
               city: property.cityName || "",
               state: property.state || property.stateName || "",
-              listingType: (() => {
-                const type = property.listingType?.trim().toLowerCase();
-                if (type === "rent") return "lease";
-                return type || undefined;
-              })(),
-              isForSale: property.listingType?.trim().toLowerCase() === "sale",
-              isForLease:
-                property.listingType?.trim().toLowerCase() === "lease" ||
-                property.listingType?.trim().toLowerCase() === "rent",
+              listingType,
+              isForSale: listingType === "sale",
+              isForLease: listingType === "lease",
               showTags: true,
               userName: "Property Owner",
-              userRole: "Agent",
+              userRole: "Seller",
             };
           },
         );
@@ -137,7 +136,7 @@ export default function DashboardProperty() {
     <DashboardLayout>
       <div className="tp-dashboard-property-wrapper">
         <div className="row">
-          <div className="col-8">
+          <div className="col-12 col-lg-8">
             <div className="row">
               {loading && (
                 <div className="col-12 text-center py-5">
@@ -175,7 +174,7 @@ export default function DashboardProperty() {
             </div>
           </div>
 
-          <div className="col-lg-4">
+          <div className="col-12 col-lg-4">
             <div className="tp-property-details-right">
               <RecentlyViewedProperties />
             </div>
