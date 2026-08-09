@@ -65,8 +65,14 @@ export type ApiPropertyFields = {
   user?: IFeaturedPropertyDT["user"];
 };
 
+/**
+ * Normalize listing type. Supported: sale | lease.
+ * Legacy "rent" values are mapped to "lease" so old records still display.
+ */
 function normalizeListingTypeValue(listingType?: string | null): string {
-  return listingType?.trim().toLowerCase() || "";
+  const type = listingType?.trim().toLowerCase() || "";
+  if (type === "rent") return "lease";
+  return type;
 }
 
 /** Uppercase badge label for cards, e.g. "FOR SALE" | "FOR LEASE". */
@@ -76,7 +82,6 @@ export function getListingTypeFlag(
   const type = normalizeListingTypeValue(listingType);
   if (type === "sale") return "FOR SALE";
   if (type === "lease") return "FOR LEASE";
-  if (type === "rent") return "FOR RENT";
   return null;
 }
 
@@ -85,7 +90,6 @@ export function getListingTypeLabel(listingType?: string | null): string {
   const type = normalizeListingTypeValue(listingType);
   if (type === "sale") return "For Sale";
   if (type === "lease") return "For Lease";
-  if (type === "rent") return "For Rent";
   if (type) return type.charAt(0).toUpperCase() + type.slice(1);
   return "—";
 }
@@ -95,9 +99,6 @@ export function getListingTypeBadgeStyle(listingType?: string | null): {
   color: string;
 } {
   const type = normalizeListingTypeValue(listingType);
-  if (type === "rent") {
-    return { background: "#e8f4fd", color: "#1a73e8" };
-  }
   if (type === "lease") {
     return { background: "#fff3e0", color: "#e65100" };
   }
@@ -108,14 +109,12 @@ export function getListingTypeBadgeStyle(listingType?: string | null): {
 export function resolveListingTypeFlag(item: {
   listingType?: string | null;
   isForSale?: boolean;
-  isForRent?: boolean;
   isForLease?: boolean;
 }): string | null {
   const fromType = getListingTypeFlag(item.listingType);
   if (fromType) return fromType;
   if (item.isForSale) return "FOR SALE";
   if (item.isForLease) return "FOR LEASE";
-  if (item.isForRent) return "FOR RENT";
   return null;
 }
 
@@ -208,7 +207,6 @@ export function mapApiPropertyToCard(
     image: resolveImageSrc(coverImage, fallbackImage),
     showTags: true,
     listingType: listingType || undefined,
-    isForRent: listingType === "rent",
     isForSale: listingType === "sale",
     isForLease: listingType === "lease",
     isFeatured: false,

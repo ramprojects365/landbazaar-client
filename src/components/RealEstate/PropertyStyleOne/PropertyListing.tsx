@@ -46,7 +46,14 @@ export default function PropertyListing() {
 
   // ── Search bar params (SearchRefineBar) ─────────────────────────
   const q = searchParams.get("q") || "";
-  const type = searchParams.get("type") || "";
+  const rawType = (searchParams.get("type") || "").trim().toLowerCase();
+  // Supported listing types: sale | lease. Legacy "rent" maps to lease.
+  const type =
+    !rawType || rawType === "all"
+      ? ""
+      : rawType === "rent"
+        ? "lease"
+        : rawType;
   const city = searchParams.get("city") || "";
   const queryPropertyType =
     searchParams.get("propertyType") || searchParams.get("landType") || "";

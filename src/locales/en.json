@@ -2,7 +2,7 @@
   "common": {
     "property": "Property",
     "properties": "Properties",
-    "rent": "Rent",
+    "lease": "Lease",
     "buy": "Buy",
     "land": "Land",
     "myProfile": "My Profile",
