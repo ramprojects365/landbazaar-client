@@ -119,8 +119,6 @@ export default function PropertyFilterWidget() {
             cls="select wide"
           />
         </div>
-        {/* slider range */}
-        {/* <RangeFilter /> */}
         <div className="tp-property-filter-item-btn text-center">
           <button
             className="tp-btn w-100"

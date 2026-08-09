@@ -67,15 +67,6 @@ export default function DashboardProperty() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        // const API_BASE =
-        //   process.env.NEXT_PUBLIC_API_BASE ?? "http://159.223.92.101:3008";
-        // const res = await fetch(`${API_BASE}/api/properties`);
-        // if (!res.ok) {
-        //   throw new Error(`Failed to fetch properties: ${res.status}`);
-        // }
-        // const data = await res.json();
-        // const apiProperties: ApiProperty[] = data?.data || [];
-
         const token = localStorage.getItem("authToken");
         const res = await fetch(`${API_BASE_URL}/properties/my-properties`, {
           headers: {

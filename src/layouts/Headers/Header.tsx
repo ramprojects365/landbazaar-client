@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-//import logoIconBlue from "../../../public/assets/img/logo/logo-icon-blue.png";
-//import logoIconWhite from "../../../public/assets/img/logo/logo-icon-white.png";
 import logo from "../../../public/assets/img/logo/logo.png";
 import ProfileDropdown from "./ProfileDropdown";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
@@ -38,27 +36,6 @@ export default function HeaderOne() {
           <div className="tp-header-top-pad">
             <Link href="/">
               <Image className="logo-header" src={logo} alt="image" />
-              {/* {sticky ? (
-                <>
-                  <span className="logo-icon-black">Property</span>{" "}
-                  <span className="logo-icon-black">La</span>
-                  <Image
-                    className="logo-header"
-                    src={logoIconBlue}
-                    alt="image"
-                  />
-                </>
-              ) : (
-                <>
-                  <span className="logo-icon-white">Property</span>{" "}
-                  <span className="logo-icon-white">La</span>
-                  <Image
-                    className="logo-header"
-                    src={logoIconWhite}
-                    alt="image"
-                  />
-                </>
-              )} */}
             </Link>
           </div>
         </div>

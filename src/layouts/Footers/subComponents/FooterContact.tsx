@@ -10,11 +10,6 @@ export default function FooterContact() {
         <div className="tp-footer-logo mb-35">
           <Link href="/">
             <Image className="logo-header" src={logo} alt="Dekho Land" />
-            {/* <>
-              <span className="logo-icon-white">Property</span>{" "}
-              <span className="logo-icon-white">La</span>
-              <Image className="logo-header" src={logoIcon} alt="Dekho Land" />
-            </> */}
           </Link>
         </div>
         <div className="tp-footer-widget-content">

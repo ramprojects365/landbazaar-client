@@ -9,15 +9,7 @@ export default function HomeApartmentArea() {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <div className="tp-apartment-wrapper text-center">
-              {/* <h3 className="tp-section-title">Join With Us To</h3> */}
-              {/* <Link className="tp-btn" href="/search">
-                <span className="btn-wrap">
-                  <b className="text-1">Discover India Lands</b>
-                  <b className="text-2">Discover India Lands</b>
-                </span>
-              </Link> */}
-            </div>
+            <div className="tp-apartment-wrapper text-center" />
           </div>
         </div>
       </div>

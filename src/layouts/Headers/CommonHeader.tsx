@@ -41,19 +41,6 @@ export default function CommonHeader({ wrapClass = "" }) {
           <div className="tp-header-top-pad">
             <Link href="/">
               <Image className="logo-header" src={logo} alt="Dekho Land" />
-              {/* {sticky ? (
-                <>
-                  <span className="logo-icon-black">Property</span>{" "}
-                  <span className="logo-icon-black">La</span>
-                  <Image className="logo-header" src={logoIcon} alt="Dekho Land" />
-                </>
-              ) : (
-                <>
-                  <span className="logo-icon-black">Property</span>{" "}
-                  <span className="logo-icon-black">La</span>
-                  <Image className="logo-header" src={logoIcon} alt="Dekho Land" />
-                </>
-              )} */}
             </Link>
           </div>
         </div>
