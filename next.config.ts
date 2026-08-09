@@ -3,6 +3,52 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // Removed agent browsing pages
+      {
+        source: "/agent-details",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/agent-details/:path*",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/property-agent/:path*",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/agency",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/agency/:path*",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/pricing",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/pricing/:path*",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/faq",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/faq/:path*",
+        destination: "/",
+        permanent: true,
+      },
       // Title-aligned slug fixes (old → new)
       {
         source:
