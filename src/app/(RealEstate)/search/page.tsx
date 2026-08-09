@@ -1,4 +1,4 @@
-import Dekho Landyout from "@/components/Layout/Dekho Landyout";
+import DekhoLayout from "@/components/Layout/PropertyLayout";
 import PropertyListing from "@/components/RealEstate/PropertyStyleOne/PropertyListing";
 import { Metadata } from "next";
 
@@ -29,9 +29,9 @@ export default function PropertyOne() {
   return (
     <>
       {/* property area start */}
-      <Dekho Landyout>
+      <DekhoLayout>
         <PropertyListing />
-      </Dekho Landyout>
+      </DekhoLayout>
       {/* property area end */}
     </>
   );

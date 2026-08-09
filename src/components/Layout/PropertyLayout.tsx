@@ -6,7 +6,7 @@ import SearchRefineBar from "@/components/RealEstate/PropertyStyleOne/SearchRefi
 import { useSearchParams } from "next/navigation";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
-export default function Dekho Landyout({ children }: { children: ReactNode }) {
+export default function DekhoLayout({ children }: { children: ReactNode }) {
   const params = useSearchParams();
 
   // New params used by SearchRefineBar
