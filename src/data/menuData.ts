@@ -91,10 +91,10 @@ const menu_data_one = [
     label: "Services",
     url: "#",
     submenu: [
-      { id: 11, label: "Dharani Title Check", url: "/property-advisor" },
-      { id: 12, label: "Legal Verification", url: "/property-advisor" },
-      { id: 13, label: "EC Verification", url: "/home-loan" },
-      { id: 14, label: "Site Visit Scheduler", url: "/interior-design" },
+      { id: 11, label: "Dharani Title Check", url: "/services" },
+      { id: 12, label: "Legal Verification", url: "/services" },
+      { id: 13, label: "EC Verification", url: "/services" },
+      { id: 14, label: "Site Visit Scheduler", url: "/services" },
     ],
   },
 ];
