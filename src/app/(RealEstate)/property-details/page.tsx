@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Land & Plot Details | LandWay India",
+  title: "Land & Plot Details | Dekho Land",
   description:
     "View comprehensive land and plot details including photos, survey info, location maps, and pricing across India. Browse residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and nationwide.",
 };

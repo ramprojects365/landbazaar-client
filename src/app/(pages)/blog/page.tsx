@@ -4,24 +4,24 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Land & Plot Blog | LandWay India",
+  title: "Land & Plot Blog | Dekho Land",
   description:
-    "Read LandWay India articles about buying plots in Hyderabad, Telangana land records (Dharani), Visakhapatnam corridors, plot loans, RERA/HMDA, farmland, and agricultural land guidance.",
-  metadataBase: new URL("https://landway.com"),
+    "Read Dekho Land articles about buying plots in Hyderabad, Telangana land records (Dharani), Visakhapatnam corridors, plot loans, RERA/HMDA, farmland, and agricultural land guidance.",
+  metadataBase: new URL("https://www.dekholand.com"),
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
-    title: "Land & Plot Blog | LandWay India",
-    description: "Read LandWay India articles about buying plots in Hyderabad, Telangana land records (Dharani), Visakhapatnam corridors, plot loans, RERA/HMDA, farmland, and agricultural land guidance.",
-    url: "https://landway.com/blog",
-    siteName: "LandWay",
+    title: "Land & Plot Blog | Dekho Land",
+    description: "Read Dekho Land articles about buying plots in Hyderabad, Telangana land records (Dharani), Visakhapatnam corridors, plot loans, RERA/HMDA, farmland, and agricultural land guidance.",
+    url: "https://www.dekholand.com/blog",
+    siteName: "Dekho Land",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Land & Plot Blog | LandWay India",
-    description: "Read LandWay India articles about buying plots in Hyderabad, Telangana land records (Dharani), Visakhapatnam corridors, plot loans, RERA/HMDA, farmland, and agricultural land guidance.",
+    title: "Land & Plot Blog | Dekho Land",
+    description: "Read Dekho Land articles about buying plots in Hyderabad, Telangana land records (Dharani), Visakhapatnam corridors, plot loans, RERA/HMDA, farmland, and agricultural land guidance.",
   },
 };
 

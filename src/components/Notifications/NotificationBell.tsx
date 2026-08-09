@@ -81,14 +81,14 @@ export default function NotificationBell() {
     const sync = () => fetchNotifications();
 
     window.addEventListener("storage", sync);
-    window.addEventListener("propertyla-auth-changed", sync);
-    window.addEventListener("propertyla-notifications-changed", sync);
+    window.addEventListener("dekholand-auth-changed", sync);
+    window.addEventListener("dekholand-notifications-changed", sync);
 
     return () => {
       window.clearInterval(interval);
       window.removeEventListener("storage", sync);
-      window.removeEventListener("propertyla-auth-changed", sync);
-      window.removeEventListener("propertyla-notifications-changed", sync);
+      window.removeEventListener("dekholand-auth-changed", sync);
+      window.removeEventListener("dekholand-notifications-changed", sync);
     };
   }, [fetchNotifications]);
 

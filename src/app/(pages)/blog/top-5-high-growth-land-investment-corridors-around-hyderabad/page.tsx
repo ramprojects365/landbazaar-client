@@ -3,9 +3,9 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "Top 5 High-Growth Land Investment Corridors Around Hyderabad | LandWay",
+    "Top 5 High-Growth Land Investment Corridors Around Hyderabad | Dekho Land",
   description:
     "Discover the top 5 high-growth land investment corridors around Hyderabad — Shankarpally–Sadashivpet, Shadnagar–Srisailam Highway, Vijayawada Highway, Bachupally–Sangareddy, and Kompally–Medchal–Gajwel. Compare HMDA/DTCP approvals, growth drivers, and investor profiles.",
   keywords:

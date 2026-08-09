@@ -8,26 +8,26 @@ import "./about-page.scss";
 
 export const metadata: Metadata = {
   title:
-    "About LandWay | India's Trusted Platform to Buy & Sell Lands and Plots",
+    "About Dekho Land | India's Trusted Platform to Buy & Sell Lands and Plots",
   description:
-    "LandWay is India's trusted land marketplace for buying and selling open plots, agricultural lands, commercial lands, farm lands, and gated community plots. Every listing is verified before it goes live.",
-  metadataBase: new URL("https://landway.com"),
+    "Dekho Land is India's trusted land marketplace for buying and selling open plots, agricultural lands, commercial lands, farm lands, and gated community plots. Every listing is verified before it goes live.",
+  metadataBase: new URL("https://www.dekholand.com"),
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title:
-      "About LandWay | India's Trusted Platform to Buy & Sell Lands and Plots",
+      "About Dekho Land | India's Trusted Platform to Buy & Sell Lands and Plots",
     description:
       "Buy and sell verified lands and plots across India — residential plots, agricultural lands, commercial lands, and gated community projects.",
-    url: "https://landway.com/about",
-    siteName: "LandWay",
+    url: "https://www.dekholand.com/about",
+    siteName: "Dekho Land",
     type: "website",
   },
   twitter: {
     card: "summary",
     title:
-      "About LandWay | India's Trusted Platform to Buy & Sell Lands and Plots",
+      "About Dekho Land | India's Trusted Platform to Buy & Sell Lands and Plots",
     description:
       "India's trusted website for verified land and plot listings. Buy and sell with confidence.",
   },

@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Reset Password | LandWay India Land Marketplace",
+  title: "Reset Password | Dekho Land Land Marketplace",
   description:
-    "Reset your LandWay India account password securely. Recover access to manage land and plot listings, favorites, and seller communications.",
+    "Reset your Dekho Land account password securely. Recover access to manage land and plot listings, favorites, and seller communications.",
 };
 
 export default function Forget() {

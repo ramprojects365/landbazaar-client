@@ -1,15 +1,15 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms and Conditions | LandWay",
+  title: "Terms and Conditions | Dekho Land",
   description:
-    "Read LandWay India's website terms for land and plot listings, enquiries, accounts, content, and acceptable platform use.",
+    "Read Dekho Land's website terms for land and plot listings, enquiries, accounts, content, and acceptable platform use.",
 };
 
 const sections = [
   {
-    title: "Use of LandWay",
-    body: "LandWay India provides a platform for users to browse land and plot listings, submit enquiries, connect with sellers, and access land-related tools. You agree to use the website lawfully and not misuse, disrupt, scrape, or attempt to gain unauthorised access to our services.",
+    title: "Use of Dekho Land",
+    body: "Dekho Land provides a platform for users to browse land and plot listings, submit enquiries, connect with sellers, and access land-related tools. You agree to use the website lawfully and not misuse, disrupt, scrape, or attempt to gain unauthorised access to our services.",
   },
   {
     title: "Listings and information",
@@ -21,7 +21,7 @@ const sections = [
   },
   {
     title: "Enquiries and seller contact",
-    body: "When you share contact details or enquire about a land or plot, we may pass your enquiry to a relevant seller, property consultant, or account holder so they can follow up. LandWay India is not responsible for the conduct, advice, promises, or services of independent sellers or third parties.",
+    body: "When you share contact details or enquire about a land or plot, we may pass your enquiry to a relevant seller, property consultant, or account holder so they can follow up. Dekho Land is not responsible for the conduct, advice, promises, or services of independent sellers or third parties.",
   },
   {
     title: "Calculators and tools",
@@ -29,15 +29,15 @@ const sections = [
   },
   {
     title: "Intellectual property",
-    body: "The LandWay brand, website design, platform content, and related materials are owned by or licensed to LandWay. You may not copy, reproduce, or reuse our content except where allowed by law or with written permission.",
+    body: "The Dekho Land brand, website design, platform content, and related materials are owned by or licensed to Dekho Land. You may not copy, reproduce, or reuse our content except where allowed by law or with written permission.",
   },
   {
     title: "Limitation of liability",
-    body: "To the fullest extent permitted by law, LandWay is not liable for losses arising from your use of the website, reliance on listing information, third-party conduct, service interruptions, or unavailable features.",
+    body: "To the fullest extent permitted by law, Dekho Land is not liable for losses arising from your use of the website, reliance on listing information, third-party conduct, service interruptions, or unavailable features.",
   },
   {
     title: "Updates to these terms",
-    body: "We may update these Terms and Conditions from time to time. Continued use of LandWay after changes are published means you accept the updated terms.",
+    body: "We may update these Terms and Conditions from time to time. Continued use of Dekho Land after changes are published means you accept the updated terms.",
   },
 ];
 
@@ -51,7 +51,7 @@ export default function TermsAndConditions() {
               <span className="tp-section-title-pre">Legal</span>
               <h1 className="tp-section-title">Terms and Conditions</h1>
               <p>
-                These terms explain how you may use LandWay India and what to
+                These terms explain how you may use Dekho Land and what to
                 expect when browsing land and plot listings, submitting
                 enquiries, or using our tools.
               </p>
@@ -67,8 +67,8 @@ export default function TermsAndConditions() {
                 <h2>Contact</h2>
                 <p>
                   For questions about these terms, contact us at{" "}
-                  <a href="mailto:support@landway.com">
-                    support@landway.com
+                  <a href="mailto:support@dekholand.com">
+                    support@dekholand.com
                   </a>
                   .
                 </p>

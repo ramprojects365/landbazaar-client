@@ -9,18 +9,18 @@ export default function FooterContact() {
       <div className="tp-footer-widget tp-footer-col-1 mb-50">
         <div className="tp-footer-logo mb-35">
           <Link href="/">
-            <Image className="logo-header" src={logo} alt="LandWay" />
+            <Image className="logo-header" src={logo} alt="Dekho Land" />
             {/* <>
               <span className="logo-icon-white">Property</span>{" "}
               <span className="logo-icon-white">La</span>
-              <Image className="logo-header" src={logoIcon} alt="LandWay" />
+              <Image className="logo-header" src={logoIcon} alt="Dekho Land" />
             </> */}
           </Link>
         </div>
         <div className="tp-footer-widget-content">
           <p>
             India&apos;s trusted marketplace for lands and plots. Buy or sell
-            open plots, farm land, and agricultural land with LandWay.
+            open plots, farm land, and agricultural land with Dekho Land.
           </p>
           <div className="tp-footer-widget-contact">
             <Link className="tp-footer-phone-link" href="tel:+919849967236">
@@ -40,7 +40,7 @@ export default function FooterContact() {
                 +91 9849967236
               </span>
             </Link>
-            <p>support@landway.com</p>
+            <p>support@dekholand.com</p>
           </div>
         </div>
       </div>

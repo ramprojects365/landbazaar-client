@@ -120,7 +120,7 @@ export default function RealestateAboutArea() {
       <div className="container">
         <div className="tp-realstate-heading text-center mb-40">
           <span className="tp-section-title-pre">Verified lands</span>
-          <h3 className="tp-section-title">Fresh land listings on LandWay</h3>
+          <h3 className="tp-section-title">Fresh land listings on Dekho Land</h3>
         </div>
 
         <div className="about-featured-properties__grid">

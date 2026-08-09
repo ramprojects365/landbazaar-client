@@ -12,7 +12,7 @@ export default function MapArea() {
           style={{ border: 0 }}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="LandWay office location in Hyderabad, Telangana"
+          title="Dekho Land office location in Hyderabad, Telangana"
         />
       </div>
     </div>

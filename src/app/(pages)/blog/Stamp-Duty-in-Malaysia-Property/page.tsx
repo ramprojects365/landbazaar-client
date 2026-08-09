@@ -4,9 +4,9 @@ import RecentPosts from "@/components/Blog/RecentPosts";
 // Using direct paths for public directory images
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "Stamp Duty in Malaysia Property (2026): Complete Guide | LandWay Malaysia",
+    "Stamp Duty in Malaysia Property (2026): Complete Guide | Dekho Land",
   description:
     "Complete guide to Malaysia property stamp duty in 2026. Learn about rates, exemptions, foreign buyer rules, and calculation tips for home buyers.",
   keywords:

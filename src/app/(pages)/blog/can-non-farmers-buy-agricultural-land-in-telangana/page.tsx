@@ -3,8 +3,8 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
-  title: "Can Non-Farmers Buy Agricultural Land in Telangana? | LandWay",
+  metadataBase: new URL("https://www.dekholand.com"),
+  title: "Can Non-Farmers Buy Agricultural Land in Telangana? | Dekho Land",
   description:
     "Learn whether non-farmers can buy agricultural land in Telangana, key legal rules, eligibility, restrictions, and due diligence steps before purchasing farmland.",
   keywords:

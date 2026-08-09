@@ -12,8 +12,8 @@ export type AdvisorContact = {
   email: string;
 };
 
-export const ADVISOR_PROGRESS_KEY = "propertyla-guided-advisor-progress";
-export const ADVISOR_RESULTS_KEY = "propertyla-guided-advisor-results";
+export const ADVISOR_PROGRESS_KEY = "dekholand-guided-advisor-progress";
+export const ADVISOR_RESULTS_KEY = "dekholand-guided-advisor-results";
 
 export const getMatchReason = (answers: AdvisorAnswers): string => {
   const parts = [];

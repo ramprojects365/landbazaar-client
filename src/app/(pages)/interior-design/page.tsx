@@ -2,7 +2,7 @@ import InteriorPartnersSlider from "@/components/InteriorDesign/InteriorPartners
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Interior Design Partners India | LandWay",
+  title: "Interior Design Partners India | Dekho Land",
   description:
     "Meet trusted interior designers and studios in India. Browse partner profiles, portfolios, and contact teams for homes, farmhouses, and commercial fit-outs in Hyderabad, Telangana, Visakhapatnam and beyond.",
 };

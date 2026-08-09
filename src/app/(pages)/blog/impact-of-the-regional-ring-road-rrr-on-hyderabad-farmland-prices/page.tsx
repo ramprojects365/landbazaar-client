@@ -3,9 +3,9 @@ import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landway.com"),
+  metadataBase: new URL("https://www.dekholand.com"),
   title:
-    "Impact of the Regional Ring Road (RRR) on Hyderabad Farmland Prices | LandWay",
+    "Impact of the Regional Ring Road (RRR) on Hyderabad Farmland Prices | Dekho Land",
   description:
     "How the 340 km Regional Ring Road (RRR) around Hyderabad is driving farmland price escalation, NALA conversions, corridor pricing differences, and legal risks buyers must know before investing.",
   keywords:

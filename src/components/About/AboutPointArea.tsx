@@ -30,7 +30,7 @@ const aboutPoints: AboutPoint[] = [
     icon: <AboutSvgFour />,
     title: "Trusted Across India",
     description:
-      "LandWay is built as India’s trusted land platform — helping people find clear, verified opportunities across key cities and regions.",
+      "Dekho Land is built as India’s trusted land platform — helping people find clear, verified opportunities across key cities and regions.",
   },
 ];
 
@@ -59,7 +59,7 @@ export default function AboutPointArea() {
           <div className="col-lg-12">
             <div className="tp-about-point-heading text-center mb-50">
               <h3 className="tp-section-title">
-                How LandWay helps you buy <br /> and sell land with confidence
+                How Dekho Land helps you buy <br /> and sell land with confidence
               </h3>
             </div>
           </div>

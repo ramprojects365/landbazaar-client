@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sign Up - LandWay India | Create Your Land Marketplace Account",
+  title: "Sign Up - Dekho Land | Create Your Land Marketplace Account",
   description:
-    "Create your LandWay India account to browse lands and plots, save favorites, manage listings, and connect with verified sellers. Free registration for buyers, sellers, and land investors in Hyderabad, Telangana, Visakhapatnam and nationwide.",
+    "Create your Dekho Land account to browse lands and plots, save favorites, manage listings, and connect with verified sellers. Free registration for buyers, sellers, and land investors in Hyderabad, Telangana, Visakhapatnam and nationwide.",
 };
 
 export default function SignUp() {

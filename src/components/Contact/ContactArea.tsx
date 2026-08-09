@@ -27,7 +27,7 @@ export default function ContactArea({btnClass}:{btnClass?:string}) {
                                 </p>
                                 <WhatsAppButton
                                     phoneNumber="919849967236"
-                                    message="Hi LandWay, I would like help finding land or plots."
+                                    message="Hi Dekho Land, I would like help finding land or plots."
                                     className={btnClass}
                                 />
                             </div>

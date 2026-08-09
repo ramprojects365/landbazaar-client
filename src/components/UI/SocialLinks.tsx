@@ -4,7 +4,7 @@ import Link from "next/link";
 export function SocialLinks() {
   return (
     <div className="tp-hero-social">
-      <Link href="https://www.instagram.com/landway/" target="_blank">
+      <Link href="https://www.instagram.com/dekholand/" target="_blank">
         <span>
           <i className="fa-brands fa-instagram"></i>
         </span>
@@ -52,7 +52,7 @@ export function SocialLinksTwo() {
           <i className="fa-brands fa-linkedin-in"></i>
         </span>
       </Link>{" "}
-      <Link href="https://www.instagram.com/landway/" target="_blank">
+      <Link href="https://www.instagram.com/dekholand/" target="_blank">
         <span>
           <i className="fa-brands fa-instagram"></i>
         </span>
@@ -69,7 +69,7 @@ export function SocialLinksThree() {
       >
         <i className="fab fa-facebook-f"></i>
       </Link>{" "}
-      <Link href="https://www.instagram.com/landway/" target="_blank">
+      <Link href="https://www.instagram.com/dekholand/" target="_blank">
         <i className="fa-brands fa-instagram"></i>
       </Link>{" "}
       <Link href="https://vimeo.com/" target="_blank">
@@ -91,7 +91,7 @@ export function FooterSocialLinks() {
       >
         <i className="fab fa-facebook-f"></i>
       </Link>{" "}
-      <Link href="https://www.instagram.com/landway/" target="_blank">
+      <Link href="https://www.instagram.com/dekholand/" target="_blank">
         <i className="fa-brands fa-instagram"></i>
       </Link>{" "}
       <Link href="https://www.pinterest.com/" target="_blank">
