@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NewDekho Landunches() {
+export default function NewDekhoLandLaunches() {
   return (
     <>
       <section className="tp-blog-details-area pt-40 pb-40">
