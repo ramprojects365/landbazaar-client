@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <Wrapper>
       <CommonHeader />
       {children}
-      <CommonFooter className="pt-80" />
+      <CommonFooter className="pt-140" />
       <BackToTop />
     </Wrapper>
   );

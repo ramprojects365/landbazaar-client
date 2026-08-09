@@ -258,7 +258,7 @@ export default function PropertyFitResults() {
               <p>
                 Complete the land advisor first so we can match plots and lands.
               </p>
-              <Link href="/property-advisor">Open land advisor</Link>
+              <Link href="/">Back to home</Link>
             </div>
           )}
 

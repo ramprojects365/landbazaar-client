@@ -6,11 +6,11 @@ import "swiper/css/bundle";
 import "./globals.scss";
 import RootProviders from "./RootProviders";
 
-const siteUrl = "https://www.dekholand.com/";
-const siteTitle = "Dekho Land | Buy & Sell Lands and Plots";
+const siteUrl = "https://www.dekholand.com";
+const siteTitle = "DekhoLand | Buy & Sell Verified Lands and Plots";
 const siteDescription =
-  "Dekho Land is India's premier platform for buying and selling lands, plots, agricultural land, and farmland. Connect with verified sellers and find your perfect plot.";
-const siteLogo = "https://www.dekholand.com/assets/img/logo/logo.png";
+  "DekhoLand is India’s trusted marketplace for buying and selling verified lands and plots. Discover transparent listings, hassle-free transactions, and your path to verified land ownership.";
+const siteImage = "https://www.dekholand.com/assets/img/logo/logo.png";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -29,21 +29,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.dekholand.com"),
+  metadataBase: new URL(siteUrl),
 
   title: {
     default: siteTitle,
-    template: "%s | Dekho Land",
+    template: "%s | DekhoLand",
   },
 
   description: siteDescription,
 
-  applicationName: "Dekho Land",
+  applicationName: "DekhoLand",
 
   keywords: [
-    "Dekho Land",
+    "DekhoLand",
     "India land",
     "India plots",
+    "verified land India",
     "agricultural land India",
     "farmland India",
     "land for sale India",
@@ -54,25 +55,25 @@ export const metadata: Metadata = {
     "Hyderabad plots",
   ],
 
-  authors: [{ name: "Dekho Land" }],
-  creator: "Dekho Land",
-  publisher: "Dekho Land",
+  authors: [{ name: "DekhoLand" }],
+  creator: "DekhoLand",
+  publisher: "DekhoLand",
 
   alternates: {
-    canonical: siteUrl,
+    canonical: "/",
   },
 
   openGraph: {
     title: siteTitle,
     description: siteDescription,
     url: siteUrl,
-    siteName: "Dekho Land",
+    siteName: "DekhoLand",
     images: [
       {
-        url: siteLogo,
+        url: siteImage,
         width: 512,
         height: 512,
-        alt: "Dekho Land Logo",
+        alt: "DekhoLand — verified lands and plots marketplace",
       },
     ],
     locale: "en_IN",
@@ -83,7 +84,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: [siteLogo],
+    images: [siteImage],
   },
 
   icons: {
@@ -106,17 +107,19 @@ export default function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Dekho Land",
-    alternateName: ["Dekho Land", "Dekho Land Land & Plots"],
+    name: "DekhoLand",
+    alternateName: ["Dekho Land", "DekhoLand Lands & Plots"],
     url: siteUrl,
+    description: siteDescription,
   };
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Dekho Land",
+    name: "DekhoLand",
     url: siteUrl,
-    logo: siteLogo,
+    logo: siteImage,
+    description: siteDescription,
   };
 
   return (

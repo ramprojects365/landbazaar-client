@@ -49,6 +49,36 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      {
+        source: "/property-advisor",
+        destination: "/services",
+        permanent: true,
+      },
+      {
+        source: "/property-advisor/:path*",
+        destination: "/services",
+        permanent: true,
+      },
+      {
+        source: "/home-loan",
+        destination: "/services",
+        permanent: true,
+      },
+      {
+        source: "/home-loan/:path*",
+        destination: "/services",
+        permanent: true,
+      },
+      {
+        source: "/interior-design",
+        destination: "/services",
+        permanent: true,
+      },
+      {
+        source: "/interior-design/:path*",
+        destination: "/services",
+        permanent: true,
+      },
       // Title-aligned slug fixes (old → new)
       {
         source:

@@ -6,30 +6,37 @@ import ContactArea from "@/components/Contact/ContactArea";
 import { Metadata } from "next";
 import "./about-page.scss";
 
+const aboutTitle = "About DekhoLand | Verified Lands & Plots Marketplace";
+const aboutDescription =
+  "DekhoLand is transforming how people buy and sell real estate across India. Connect with verified land sellers, explore residential, commercial, and agricultural land, and buy or sell with confidence.";
+
 export const metadata: Metadata = {
-  title:
-    "About Dekho Land | India's Trusted Platform to Buy & Sell Lands and Plots",
-  description:
-    "Dekho Land is India's trusted land marketplace for buying and selling open plots, agricultural lands, commercial lands, farm lands, and gated community plots. Every listing is verified before it goes live.",
+  title: aboutTitle,
+  description: aboutDescription,
   metadataBase: new URL("https://www.dekholand.com"),
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title:
-      "About Dekho Land | India's Trusted Platform to Buy & Sell Lands and Plots",
-    description:
-      "Buy and sell verified lands and plots across India — residential plots, agricultural lands, commercial lands, and gated community projects.",
+    title: aboutTitle,
+    description: aboutDescription,
     url: "https://www.dekholand.com/about",
-    siteName: "Dekho Land",
+    siteName: "DekhoLand",
     type: "website",
+    images: [
+      {
+        url: "https://www.dekholand.com/assets/img/logo/logo.png",
+        width: 512,
+        height: 512,
+        alt: "DekhoLand",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
-    title:
-      "About Dekho Land | India's Trusted Platform to Buy & Sell Lands and Plots",
-    description:
-      "India's trusted website for verified land and plot listings. Buy and sell with confidence.",
+    card: "summary_large_image",
+    title: aboutTitle,
+    description: aboutDescription,
+    images: ["https://www.dekholand.com/assets/img/logo/logo.png"],
   },
 };
 
