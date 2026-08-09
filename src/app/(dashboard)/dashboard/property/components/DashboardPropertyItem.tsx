@@ -112,13 +112,11 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
               </span>
               <p>{property.bedrooms || "—"}</p>
             </div>
-            <p>Land Size</p>
           </div>
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <p>{property.bathrooms || "Land"}</p>
             </div>
-            <p>Land Type</p>
           </div>
         </div>
         <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">

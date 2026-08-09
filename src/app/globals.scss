@@ -2790,6 +2790,33 @@ html {
   .tp-dashboard-new-title {
     font-size: 20px !important;
   }
+
+  .tp-dashboard-property-wrapper {
+    width: 100%;
+  }
+
+  .tp-dashboard-property-wrapper .tp-rent-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .tp-dashboard-property-wrapper .tp-rent-thumb,
+  .tp-dashboard-property-wrapper .tp-rent-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  .tp-property-recent-post-title {
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+  }
+
+  .tp-property-recent-post-title a {
+    font-size: inherit !important;
+  }
 }
 
 /* AUTH PAGES MOBILE FIX */
@@ -3473,12 +3500,36 @@ html {
   padding: 4px;
 }
 
+.trusted-partners__image--logo {
+  border-radius: 18px;
+  background: #fff;
+  padding: 10px;
+}
+
 .trusted-partners__image img {
   display: block;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.trusted-partners__image--logo img {
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.trusted-partners__footer-link {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.trusted-partners__footer-link a {
+  color: #003b5c;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .trusted-partners__image span {
