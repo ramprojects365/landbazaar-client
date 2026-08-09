@@ -63,6 +63,7 @@ export const propertyStates = [
   { value: "Johor", label: "Johor" },
 ];
 export const listingTypes = [
-  { value: "rent", label: "Rent" },
+  { value: "all", label: "All" },
   { value: "sale", label: "Sale" },
+  { value: "lease", label: "Lease" },
 ];

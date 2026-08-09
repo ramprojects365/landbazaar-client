@@ -115,10 +115,15 @@ export default function DashboardProperty() {
               ),
               city: property.cityName || "",
               state: property.state || property.stateName || "",
-              listingType: property.listingType?.trim().toLowerCase() || undefined,
-              isForRent: property.listingType === "rent",
-              isForSale: property.listingType === "sale",
-              isForLease: property.listingType === "lease",
+              listingType: (() => {
+                const type = property.listingType?.trim().toLowerCase();
+                if (type === "rent") return "lease";
+                return type || undefined;
+              })(),
+              isForSale: property.listingType?.trim().toLowerCase() === "sale",
+              isForLease:
+                property.listingType?.trim().toLowerCase() === "lease" ||
+                property.listingType?.trim().toLowerCase() === "rent",
               showTags: true,
               userName: "Property Owner",
               userRole: "Agent",

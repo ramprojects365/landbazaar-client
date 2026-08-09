@@ -28,8 +28,8 @@ const normalizeListingType = (value: any): string => {
     .trim()
     .toLowerCase();
 
-  if (v.includes("rent")) return "rent";
-  if (v.includes("lease")) return "lease";
+  // Legacy "rent" listings are treated as lease (rent is no longer a listing type)
+  if (v.includes("rent") || v.includes("lease")) return "lease";
   if (v.includes("sale") || v.includes("sell")) return "sale";
 
   return "";

@@ -102,10 +102,14 @@ const mapApiProperty = (item: ApiProperty): IFeaturedPropertyDT => {
     linkUrl: "property-details",
     image,
     showTags: true,
-    listingType: item.listingType?.trim().toLowerCase() || undefined,
-    isForRent: item.listingType === "rent",
-    isForSale: item.listingType === "sale",
-    isForLease: item.listingType === "lease",
+    listingType:
+      item.listingType?.trim().toLowerCase() === "rent"
+        ? "lease"
+        : item.listingType?.trim().toLowerCase() || undefined,
+    isForSale: item.listingType?.trim().toLowerCase() === "sale",
+    isForLease:
+      item.listingType?.trim().toLowerCase() === "lease" ||
+      item.listingType?.trim().toLowerCase() === "rent",
     bedrooms: String(item.bedrooms ?? "0"),
     bathrooms: String(item.bathrooms ?? "0"),
     livingArea: area > 0 ? `${area.toLocaleString()} Sq Ft` : "N/A",
