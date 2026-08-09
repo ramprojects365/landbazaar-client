@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import HeroBannerTabContent from "./subComponents/HeroBannerTab";
-import { SocialLinks } from "../UI/SocialLinks";
 import BannerSlider from "./BannerSlider";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -106,7 +105,6 @@ export default function HeroBannerOne() {
                     Explore Lands
                   </Link>
                 </div>
-                <SocialLinks />
               </div>
             </div>
             <div className="col-lg-2"></div>
