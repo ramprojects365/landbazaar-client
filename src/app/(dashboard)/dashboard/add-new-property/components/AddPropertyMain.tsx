@@ -213,8 +213,13 @@ export default function AddPropertyPage() {
       carParkAllocation: "",
       facingDirection: "",
       renovationStatus: "",
+      monthlyRent: "",
+      leaseDurationYears: "",
       depositAmount: "",
       minimumRentalPeriod: "",
+      renewalOption: "Yes",
+      rentEscalationPercent: "",
+      noticePeriod: "",
       petPolicy: "",
       preferredTenantType: "",
       maintenanceFee: "",
@@ -336,11 +341,29 @@ export default function AddPropertyPage() {
             facingDirection: propertyData.facingDirection || "",
             renovationStatus: propertyData.renovationStatus || "",
 
-            // RENT-specific fields
+            // LEASE-specific fields
+            monthlyRent: formatWholeNumberInput(propertyData.monthlyRent),
+            leaseDurationYears: formatWholeNumberInput(
+              propertyData.leaseDurationYears ?? propertyData.tenure,
+            ),
             depositAmount: propertyData.depositAmount
               ? String(propertyData.depositAmount)
               : "",
-            minimumRentalPeriod: propertyData.minimumRentalPeriod || "",
+            minimumRentalPeriod: formatWholeNumberInput(
+              propertyData.minimumRentalPeriod,
+            ),
+            renewalOption:
+              propertyData.renewalOption === "No" ||
+              propertyData.renewalOption === false
+                ? "No"
+                : propertyData.renewalOption === "Yes" ||
+                    propertyData.renewalOption === true
+                  ? "Yes"
+                  : "Yes",
+            rentEscalationPercent: formatWholeNumberInput(
+              propertyData.rentEscalationPercent,
+            ),
+            noticePeriod: formatWholeNumberInput(propertyData.noticePeriod),
             petPolicy: propertyData.petPolicy || "",
             preferredTenantType: propertyData.preferredTenantType || "",
 
@@ -536,15 +559,39 @@ export default function AddPropertyPage() {
           return Number.isFinite(numeric) ? numeric : null;
         };
 
+        const nullableString = (value: unknown): string | null => {
+          if (value === undefined || value === null) return null;
+          const trimmed = String(value).trim();
+          return trimmed.length > 0 ? trimmed : null;
+        };
+
+        const nullableStringArray = (
+          value: unknown,
+        ): string[] | null => {
+          if (!Array.isArray(value) || value.length === 0) return null;
+          const items = value.filter(
+            (item): item is string =>
+              typeof item === "string" && item.trim().length > 0,
+          );
+          return items.length > 0 ? items : null;
+        };
+
         const payload = {
           // Pass-through fields that match between FE and BE
           listingType: data.listingType,
           propertyType: data.propertyType,
           propertyName: data.propertyName,
-          tenure: data.tenure || "",
+          tenure: isLeaseListing
+            ? nullableString(data.leaseDurationYears || data.tenure)
+            : nullableString(data.tenure),
           areaUnit: data.areaUnit || "",
-          pricePerUnit: parseNumberValue(data.pricePerUnit),
-          totalPrice: parseNumberValue(data.totalPrice),
+          // SALE-specific pricing (null for lease)
+          pricePerUnit: isSaleListing
+            ? parseNumberValue(data.pricePerUnit)
+            : null,
+          totalPrice: isSaleListing
+            ? parseNumberValue(data.totalPrice)
+            : null,
           title: data.title,
           description: data.description,
           location: data.location,
@@ -570,17 +617,25 @@ export default function AddPropertyPage() {
           cornerPlot: data.cornerPlot || "",
           roadWidth: data.roadWidth || "",
           surveyNumber: data.surveyNumber || "",
-          approvalTypes: data.approvalTypes || [],
+          approvalTypes: isSaleListing
+            ? nullableStringArray(data.approvalTypes)
+            : null,
           soilType: data.soilType || "",
           clearTitle: data.clearTitle || "",
-          loanFacility: data.loanFacility || "",
-          registrationReady: data.registrationReady || "",
+          loanFacility: isSaleListing
+            ? nullableString(data.loanFacility)
+            : null,
+          registrationReady: isSaleListing
+            ? nullableString(data.registrationReady)
+            : null,
           contactPersonName: data.contactPersonName || "",
           contactNumber: data.contactNumber ? `+91${data.contactNumber}` : "",
           status: "active",
 
           // Remapped numeric fields (FE stores as string from input/select)
-          price: parseNumberValue(data.totalPrice || data.price),
+          price: isLeaseListing
+            ? parseNumberValue(data.monthlyRent)
+            : parseNumberValue(data.totalPrice || data.price),
           buildupArea: parseNumberValue(data.builtUpArea),
           landSize: parseNumberValue(data.landSize),
           bedrooms: data.bedRooms ? parseInt(data.bedRooms, 10) : null,
@@ -600,34 +655,52 @@ export default function AddPropertyPage() {
 
           // General fields
           carParkAllocation: data.carParkAllocation || "",
-          facingDirection: isSaleListing ? data.facingDirection || "" : "",
-          renovationStatus: isSaleListing ? data.renovationStatus || "" : "",
+          facingDirection: isSaleListing
+            ? nullableString(data.facingDirection)
+            : null,
+          renovationStatus: isSaleListing
+            ? nullableString(data.renovationStatus)
+            : null,
 
-          // LEASE-specific fields
-          depositAmount:
-            isLeaseListing && data.depositAmount
-              ? parseNumberValue(data.depositAmount)
-              : null,
+          // LEASE-specific fields (value when present, otherwise null)
+          monthlyRent: isLeaseListing
+            ? parseNumberValue(data.monthlyRent)
+            : null,
+          leaseDurationYears: isLeaseListing
+            ? parseNumberValue(data.leaseDurationYears)
+            : null,
+          depositAmount: isLeaseListing
+            ? parseNumberValue(data.depositAmount)
+            : null,
           minimumRentalPeriod: isLeaseListing
-            ? data.minimumRentalPeriod || ""
-            : "",
-          petPolicy: isLeaseListing ? data.petPolicy || "" : "",
+            ? parseNumberValue(data.minimumRentalPeriod)
+            : null,
+          renewalOption: isLeaseListing
+            ? nullableString(data.renewalOption)
+            : null,
+          rentEscalationPercent: isLeaseListing
+            ? parseNumberValue(data.rentEscalationPercent)
+            : null,
+          noticePeriod: isLeaseListing
+            ? parseNumberValue(data.noticePeriod)
+            : null,
+          petPolicy: isLeaseListing ? nullableString(data.petPolicy) : null,
           preferredTenantType: isLeaseListing
-            ? data.preferredTenantType || ""
-            : "",
+            ? nullableString(data.preferredTenantType)
+            : null,
 
           // Strata property fields
-          maintenanceFee:
-            isSaleListing && data.maintenanceFee
-              ? parseNumberValue(data.maintenanceFee)
-              : null,
-          sinkingFund:
-            isSaleListing && data.sinkingFund
-              ? parseNumberValue(data.sinkingFund)
-              : null,
+          maintenanceFee: isSaleListing
+            ? parseNumberValue(data.maintenanceFee)
+            : null,
+          sinkingFund: isSaleListing
+            ? parseNumberValue(data.sinkingFund)
+            : null,
 
           // India land listing fields
-          bumiLotStatus: isSaleListing ? data.bumiLotStatus || "" : "",
+          bumiLotStatus: isSaleListing
+            ? nullableString(data.bumiLotStatus)
+            : null,
 
           // Group flat amenities array into {lifestyle, facilities, security}
           amenities: groupAmenities(flatAmenities),

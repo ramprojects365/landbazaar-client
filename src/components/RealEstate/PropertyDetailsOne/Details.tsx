@@ -13,6 +13,7 @@ import {
   formatPricePerUnit,
   getListingTypeBadgeStyle,
   getListingTypeLabel,
+  isLeaseListingType,
   mapApiPropertyToCard,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
@@ -171,9 +172,13 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
     );
   }
 
+  const isLease = isLeaseListingType(apiProperty.listingType);
   const pricePerUnitLabel = formatPricePerUnit(
     apiProperty.pricePerUnit,
     apiProperty.areaUnit,
+  );
+  const monthlyRentLabel = formatTotalPriceDisplay(
+    apiProperty.monthlyRent ?? apiProperty.price,
   );
 
   return (
@@ -230,14 +235,22 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
                   <span>
                     <LivingSvg /> <strong>Land Size:</strong> {display.bedrooms}
                   </span>
-                  <span>
-                    <strong>Total Price:</strong>{" "}
-                    {formatTotalPriceDisplay(display.price)}
-                  </span>
-                  {pricePerUnitLabel !== "—" && (
-                    <span style={{ color: "#888", fontSize: "14px" }}>
-                      {pricePerUnitLabel}
+                  {isLease ? (
+                    <span>
+                      <strong>Monthly Rent:</strong> {monthlyRentLabel}
                     </span>
+                  ) : (
+                    <>
+                      <span>
+                        <strong>Total Price:</strong>{" "}
+                        {formatTotalPriceDisplay(display.price)}
+                      </span>
+                      {pricePerUnitLabel !== "—" && (
+                        <span style={{ color: "#888", fontSize: "14px" }}>
+                          {pricePerUnitLabel}
+                        </span>
+                      )}
+                    </>
                   )}
                   {apiProperty.facingDirection && (
                     <span style={{ color: "#888", fontSize: "14px" }}>

@@ -110,6 +110,26 @@ export const basicSchema = yup.object().shape({
     ),
 });
 
+const digitsOnlyPositive = (requiredMessage: string, greaterThanMessage: string) =>
+  yup
+    .string()
+    .required(requiredMessage)
+    .matches(/^[0-9]+$/, "Only numbers are allowed")
+    .test(
+      "not-zero",
+      greaterThanMessage,
+      (value) => Number(value) > 0,
+    );
+
+const optionalDigits = yup
+  .string()
+  .optional()
+  .test(
+    "only-numbers",
+    "Only numbers are allowed",
+    (value) => !value || /^[0-9]+$/.test(value),
+  );
+
 export const propertySchema = yup.object({
   listingType: yup
     .string()
@@ -119,24 +139,24 @@ export const propertySchema = yup.object({
   propertyType: yup.string().required("Property type is required"),
   tenure: yup.string().optional(),
   areaUnit: yup.string().required("Area unit is required"),
-  pricePerUnit: yup
-    .string()
-    .required("Price per unit is required")
-    .matches(/^[0-9]+$/, "Only numbers are allowed")
-    .test(
-      "not-zero",
-      "Price per unit must be greater than 0",
-      (value) => Number(value) > 0,
-    ),
-  totalPrice: yup
-    .string()
-    .required("Total price is required")
-    .matches(/^[0-9]+$/, "Only numbers are allowed")
-    .test(
-      "not-zero",
-      "Total price must be greater than 0",
-      (value) => Number(value) > 0,
-    ),
+  pricePerUnit: yup.string().when("listingType", {
+    is: "sale",
+    then: () =>
+      digitsOnlyPositive(
+        "Price per unit is required",
+        "Price per unit must be greater than 0",
+      ),
+    otherwise: () => optionalDigits,
+  }),
+  totalPrice: yup.string().when("listingType", {
+    is: "sale",
+    then: () =>
+      digitsOnlyPositive(
+        "Total price is required",
+        "Total price must be greater than 0",
+      ),
+    otherwise: () => optionalDigits,
+  }),
   title: yup.string().required("Title is required"),
   description: yup
     .string()
@@ -174,15 +194,12 @@ export const propertySchema = yup.object({
     .optional()
     .matches(/^[0-9]{6}$/, "Pin Code must be exactly 6 digits"),
   landmark: yup.string().optional(),
-  price: yup
-    .string()
-    .required("Price is required")
-    .matches(/^[0-9]+$/, "Only numbers are allowed")
-    .test(
-      "not-zero",
-      "Price must be greater than 0",
-      (value) => Number(value) > 0,
-    ),
+  price: yup.string().when("listingType", {
+    is: "sale",
+    then: () =>
+      digitsOnlyPositive("Price is required", "Price must be greater than 0"),
+    otherwise: () => optionalDigits,
+  }),
   builtUpArea: yup
     .string()
     .optional()
@@ -244,8 +261,68 @@ export const propertySchema = yup.object({
     .optional(),
   carParkAllocation: yup.string().optional(),
   facingDirection: yup.string().optional(),
-  depositAmount: yup.string().optional(),
-  minimumRentalPeriod: yup.string().optional(),
+  monthlyRent: yup.string().when("listingType", {
+    is: "lease",
+    then: () =>
+      digitsOnlyPositive(
+        "Monthly rent is required",
+        "Monthly rent must be greater than 0",
+      ),
+    otherwise: () => optionalDigits,
+  }),
+  leaseDurationYears: yup.string().when("listingType", {
+    is: "lease",
+    then: () =>
+      digitsOnlyPositive(
+        "Lease duration is required",
+        "Lease duration must be greater than 0",
+      ),
+    otherwise: () => optionalDigits,
+  }),
+  depositAmount: yup.string().when("listingType", {
+    is: "lease",
+    then: () =>
+      digitsOnlyPositive(
+        "Security deposit is required",
+        "Security deposit must be greater than 0",
+      ),
+    otherwise: () => optionalDigits,
+  }),
+  minimumRentalPeriod: yup.string().when("listingType", {
+    is: "lease",
+    then: () =>
+      digitsOnlyPositive(
+        "Min lease period is required",
+        "Min lease period must be greater than 0",
+      ),
+    otherwise: () => optionalDigits,
+  }),
+  renewalOption: yup.string().when("listingType", {
+    is: "lease",
+    then: (schema) =>
+      schema
+        .oneOf(["Yes", "No"], "Please select renewal option")
+        .required("Please select renewal option"),
+    otherwise: (schema) => schema.optional(),
+  }),
+  rentEscalationPercent: yup.string().when("listingType", {
+    is: "lease",
+    then: () =>
+      yup
+        .string()
+        .required("Rent escalation is required")
+        .matches(/^[0-9]+$/, "Only numbers are allowed"),
+    otherwise: () => optionalDigits,
+  }),
+  noticePeriod: yup.string().when("listingType", {
+    is: "lease",
+    then: () =>
+      digitsOnlyPositive(
+        "Notice period (months) is required",
+        "Notice period must be greater than 0",
+      ),
+    otherwise: () => optionalDigits,
+  }),
   petPolicy: yup.string().optional(),
   preferredTenantType: yup.string().optional(),
   maintenanceFee: yup.string().optional(),
