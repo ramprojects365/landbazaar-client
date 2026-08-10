@@ -46,8 +46,13 @@ export type ApiPropertyFields = {
   contactPersonName?: string;
   contactNumber?: string;
   renovationStatus?: string;
+  monthlyRent?: number | string | null;
+  leaseDurationYears?: number | string | null;
   depositAmount?: number | string | null;
-  minimumRentalPeriod?: string;
+  minimumRentalPeriod?: string | number | null;
+  renewalOption?: string | boolean | null;
+  rentEscalationPercent?: number | string | null;
+  noticePeriod?: number | string | null;
   petPolicy?: string;
   preferredTenantType?: string;
   bumiLotStatus?: string;
@@ -92,6 +97,11 @@ export function getListingTypeLabel(listingType?: string | null): string {
   if (type === "lease") return "For Lease";
   if (type) return type.charAt(0).toUpperCase() + type.slice(1);
   return "—";
+}
+
+/** True for lease listings (includes legacy "rent"). */
+export function isLeaseListingType(listingType?: string | null): boolean {
+  return normalizeListingTypeValue(listingType) === "lease";
 }
 
 export function getListingTypeBadgeStyle(listingType?: string | null): {

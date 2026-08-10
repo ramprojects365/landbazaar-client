@@ -64,7 +64,8 @@ function YesNoRadioRow({
 }
 
 export default function PropertyDetails() {
-  const { register } = useFormContext<PropertyFormData>();
+  const { register, watch } = useFormContext<PropertyFormData>();
+  const isLeaseListing = watch("listingType") === "lease";
 
   return (
     <div className="tp-dashboard-new-property mb-15">
@@ -156,33 +157,39 @@ export default function PropertyDetails() {
                 </select>
               </div>
             </div>
-            <YesNoRadioRow
-              label="Loan Facility"
-              field="loanFacility"
-              register={register}
-            />
-            <YesNoRadioRow
-              label="Registration Ready"
-              field="registrationReady"
-              register={register}
-            />
+            {!isLeaseListing && (
+              <>
+                <YesNoRadioRow
+                  label="Loan Facility"
+                  field="loanFacility"
+                  register={register}
+                />
+                <YesNoRadioRow
+                  label="Registration Ready"
+                  field="registrationReady"
+                  register={register}
+                />
+              </>
+            )}
           </div>
-          <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Approval Type (Multi Select)</label>
-              <select
-                {...register("approvalTypes")}
-                multiple
-                className="listDropDown listDropDown--multiple"
-              >
-                {APPROVAL_TYPES.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+          {!isLeaseListing && (
+            <div className="col-lg-4">
+              <div className="tp-dashboard-new-input">
+                <label>Approval Type (Multi Select)</label>
+                <select
+                  {...register("approvalTypes")}
+                  multiple
+                  className="listDropDown listDropDown--multiple"
+                >
+                  {APPROVAL_TYPES.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

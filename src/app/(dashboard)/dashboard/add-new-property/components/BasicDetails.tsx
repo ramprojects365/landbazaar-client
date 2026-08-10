@@ -8,6 +8,10 @@ import { useState, useEffect } from "react";
 import { AREA_UNITS, LAND_TYPES, LISTING_TYPES } from "@/config/landOptions";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 
+const digitsOnlyInput = (e: React.FormEvent<HTMLInputElement>) => {
+  e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "");
+};
+
 export default function BasicDetails() {
   const {
     register,
@@ -16,6 +20,8 @@ export default function BasicDetails() {
     watch,
   } = useFormContext<PropertyFormData>();
 
+  const listingType = watch("listingType") || "";
+  const isLeaseListing = listingType === "lease";
   const description = watch("description") || "";
   const landArea = watch("landSize") || "";
   const pricePerUnit = watch("pricePerUnit") || "";
@@ -28,6 +34,16 @@ export default function BasicDetails() {
   }, [description]);
 
   useEffect(() => {
+    if (isLeaseListing) {
+      if (totalPrice) {
+        setValue("totalPrice", "", { shouldValidate: false });
+      }
+      if (currentPrice) {
+        setValue("price", "", { shouldValidate: false });
+      }
+      return;
+    }
+
     const area = Number(landArea);
     const unitPrice = Number(pricePerUnit);
     if (
@@ -52,7 +68,14 @@ export default function BasicDetails() {
     if (currentPrice) {
       setValue("price", "", { shouldValidate: true });
     }
-  }, [landArea, pricePerUnit, totalPrice, currentPrice, setValue]);
+  }, [
+    isLeaseListing,
+    landArea,
+    pricePerUnit,
+    totalPrice,
+    currentPrice,
+    setValue,
+  ]);
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
@@ -189,59 +212,215 @@ export default function BasicDetails() {
                 inputMode="numeric"
                 placeholder="Example: 200"
                 {...register("landSize")}
-                onInput={(e) => {
-                  e.currentTarget.value = e.currentTarget.value.replace(
-                    /\D/g,
-                    "",
-                  );
-                }}
+                onInput={digitsOnlyInput}
               />
               {errors?.landSize && (
                 <ErrorMessage message={errors?.landSize?.message || ""} />
               )}
             </div>
           </div>
-          <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Price Per Unit (INR)</label>
-              <input
-                className="textBox"
-                type="text"
-                inputMode="numeric"
-                placeholder="Example: 25000"
-                {...register("pricePerUnit")}
-                onInput={(e) => {
-                  e.currentTarget.value = e.currentTarget.value.replace(
-                    /\D/g,
-                    "",
-                  );
-                }}
-              />
-              {errors?.pricePerUnit && (
-                <ErrorMessage message={errors?.pricePerUnit?.message || ""} />
-              )}
-            </div>
-          </div>
-          <div className="col-lg-4">
-            <div className="tp-dashboard-new-input">
-              <label>Total Price</label>
-              <input type="hidden" {...register("totalPrice")} />
-              <input
-                className="textBox"
-                type="text"
-                readOnly
-                value={
-                  totalPrice ? formatTotalPriceDisplay(totalPrice) : ""
-                }
-                placeholder="Auto calculated"
-                style={{ background: "#f6f6f6", cursor: "default" }}
-              />
-              {errors?.totalPrice && (
-                <ErrorMessage message={errors?.totalPrice?.message || ""} />
-              )}
-            </div>
-          </div>
+          {!isLeaseListing && (
+            <>
+              <div className="col-lg-4">
+                <div className="tp-dashboard-new-input">
+                  <label>Price Per Unit (INR)</label>
+                  <input
+                    className="textBox"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Example: 25000"
+                    {...register("pricePerUnit")}
+                    onInput={digitsOnlyInput}
+                  />
+                  {errors?.pricePerUnit && (
+                    <ErrorMessage
+                      message={errors?.pricePerUnit?.message || ""}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="tp-dashboard-new-input">
+                  <label>Total Price</label>
+                  <input type="hidden" {...register("totalPrice")} />
+                  <input
+                    className="textBox"
+                    type="text"
+                    readOnly
+                    value={
+                      totalPrice ? formatTotalPriceDisplay(totalPrice) : ""
+                    }
+                    placeholder="Auto calculated"
+                    style={{ background: "#f6f6f6", cursor: "default" }}
+                  />
+                  {errors?.totalPrice && (
+                    <ErrorMessage message={errors?.totalPrice?.message || ""} />
+                  )}
+                </div>
+              </div>
+            </>
+          )}
         </div>
+
+        {isLeaseListing && (
+          <>
+            <div className="row">
+              <div className="col-lg-4">
+                <div className="tp-dashboard-new-input">
+                  <label>Monthly Rent (INR)</label>
+                  <input
+                    className="textBox"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Example: 25000"
+                    {...register("monthlyRent")}
+                    onInput={digitsOnlyInput}
+                  />
+                  {errors?.monthlyRent && (
+                    <ErrorMessage message={errors?.monthlyRent?.message || ""} />
+                  )}
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="tp-dashboard-new-input">
+                  <label>Lease Duration (Years)</label>
+                  <input
+                    className="textBox"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Example: 5"
+                    {...register("leaseDurationYears")}
+                    onInput={digitsOnlyInput}
+                  />
+                  {errors?.leaseDurationYears && (
+                    <ErrorMessage
+                      message={errors?.leaseDurationYears?.message || ""}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="tp-dashboard-new-input">
+                  <label>Min Lease Period (Years)</label>
+                  <input
+                    className="textBox"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Example: 1"
+                    {...register("minimumRentalPeriod")}
+                    onInput={digitsOnlyInput}
+                  />
+                  {errors?.minimumRentalPeriod && (
+                    <ErrorMessage
+                      message={errors?.minimumRentalPeriod?.message || ""}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-4">
+                <div className="tp-dashboard-new-input">
+                  <label>Security Deposit (INR)</label>
+                  <input
+                    className="textBox"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Example: 50000"
+                    {...register("depositAmount")}
+                    onInput={digitsOnlyInput}
+                  />
+                  {errors?.depositAmount && (
+                    <ErrorMessage
+                      message={errors?.depositAmount?.message || ""}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="tp-dashboard-new-input">
+                  <label>Rent Escalation Every Year (%)</label>
+                  <input
+                    className="textBox"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Example: 5"
+                    {...register("rentEscalationPercent")}
+                    onInput={digitsOnlyInput}
+                  />
+                  {errors?.rentEscalationPercent && (
+                    <ErrorMessage
+                      message={errors?.rentEscalationPercent?.message || ""}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="tp-dashboard-new-input">
+                  <label>Notice Period (Months)</label>
+                  <input
+                    className="textBox"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Example: 3"
+                    {...register("noticePeriod")}
+                    onInput={digitsOnlyInput}
+                  />
+                  {errors?.noticePeriod && (
+                    <ErrorMessage
+                      message={errors?.noticePeriod?.message || ""}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-4">
+                <div className="tp-dashboard-new-input">
+                  <label>Renewal Option</label>
+                  <div
+                    style={{ display: "flex", gap: "16px", marginTop: "8px" }}
+                  >
+                    <label
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                      }}
+                    >
+                      <input
+                        type="radio"
+                        value="Yes"
+                        {...register("renewalOption")}
+                      />
+                      <span>Yes</span>
+                    </label>
+                    <label
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                      }}
+                    >
+                      <input
+                        type="radio"
+                        value="No"
+                        {...register("renewalOption")}
+                      />
+                      <span>No</span>
+                    </label>
+                  </div>
+                  {errors?.renewalOption && (
+                    <ErrorMessage
+                      message={errors?.renewalOption?.message || ""}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
         <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
