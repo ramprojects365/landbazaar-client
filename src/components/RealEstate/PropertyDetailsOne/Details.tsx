@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { LivingSvg } from "@/components/SVG";
 import DetailsReusableArea from "./subComponents/DetailsReusableArea";
 import PropertyDetailsSlider from "./subComponents/PropertySlider";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
@@ -233,7 +232,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
 
                 <div className="tp-property-details-info mt-3 d-flex flex-wrap gap-3 align-items-center">
                   <span>
-                    <LivingSvg /> <strong>Land Size:</strong> {display.bedrooms}
+                    <strong>Land Size:</strong> {display.bedrooms}
                   </span>
                   {isLease ? (
                     <span>

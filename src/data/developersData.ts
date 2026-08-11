@@ -21,7 +21,7 @@ export const developersData: Developer[] = [
     id: "1",
     name: "CRR Infra",
     slug: "crr-infra",
-    logo: "/assets/img/developers/crr-infra.svg",
+    logo: "/assets/img/developers/crr.jpeg",
     tagline: "Land & layout developer",
     email: "info@crrinfra.com",
     phone: "+919849967236",
@@ -68,7 +68,11 @@ export const developersData: Developer[] = [
     projectsCount: 21,
     verified: true,
     bio: "Aadhya Spaces delivers commercial and residential land opportunities across Visakhapatnam and nearby corridors, with a focus on road-facing plots and long-term appreciation potential.",
-    specialties: ["Commercial land", "Residential plots", "Highway-facing sites"],
+    specialties: [
+      "Commercial land",
+      "Residential plots",
+      "Highway-facing sites",
+    ],
   },
 ];
 
