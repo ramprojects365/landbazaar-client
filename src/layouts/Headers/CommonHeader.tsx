@@ -73,7 +73,7 @@ export default function CommonHeader({ wrapClass = "" }) {
             </div>
             <LanguageSwitcher />
             {user && <NotificationBell />}
-            <div className="tp-header-right-user ml-10">
+            <div className="tp-header-right-user">
               {(() => {
                 return user ? (
                   <ProfileDropdown />

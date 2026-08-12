@@ -42,7 +42,7 @@ export default function DashboardHeader() {
           <div className="tp-header-dashboard-main-right d-flex align-items-center justify-content-end">
             <LanguageSwitcher />
             <NotificationBell />
-            <div className="tp-header-right-user ml-10">
+            <div className="tp-header-right-user">
               {(() => {
                 return user ? (
                   <ProfileDropdown />
