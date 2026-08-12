@@ -31,13 +31,16 @@ export default function DekhoLayout({ children }: { children: ReactNode }) {
     <>
       <section className="tp-property-ptb pt-20 pb-20">
         <div className="container">
-          <div className="ml-list">
-            <Breadcrumb
-              items={[{ label: "Home", href: "/" }, { label: breadcrumbLabel }]}
-            />
-          </div>
-          <div className="row align-items-center gsrch">
-            <div className="col-lg-12 padLR0">
+          <div className="row gsrch align-items-center">
+            <div className="col-12 tp-property-search-header">
+              <div className="ml-list">
+                <Breadcrumb
+                  items={[
+                    { label: "Home", href: "/" },
+                    { label: breadcrumbLabel },
+                  ]}
+                />
+              </div>
               <div className="tp-property-heading mb-10 mlb hide-mobile">
                 <div className="tp-property-list">
                   <span style={{ color: "#000" }}>

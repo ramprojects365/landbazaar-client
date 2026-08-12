@@ -88,11 +88,42 @@
 
 @media (max-width: 767px) {
   .hero-search-row {
+    gap: 6px;
+  }
+
+  .hero-search-input-wrap {
+    height: 38px;
     gap: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .hero-search-input-wrap svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  .hero-search-input-wrap input[type="text"],
+  .hero-search-input {
+    font-size: 14px;
   }
 
   .hero-search-btn--desktop {
     display: none;
+  }
+
+  .hero-search-btn--mobile {
+    width: 36px;
+    min-width: 36px !important;
+    max-width: 36px;
+    height: 38px;
+    min-height: 38px !important;
+    padding: 0;
+  }
+
+  .hero-search-btn--mobile svg {
+    width: 13px !important;
+    height: 13px !important;
   }
 }
 
