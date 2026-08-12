@@ -261,7 +261,7 @@ export default function PropertyListing() {
 
         {!loading && !error && resultCount === 0 && (
           <div
-            className="text-center py-5"
+            className="text-center py-5 search-results-empty"
             style={{ border: "1px dashed #d6dbe1", borderRadius: "10px" }}
           >
             <p style={{ fontSize: "16px", color: "#555" }}>

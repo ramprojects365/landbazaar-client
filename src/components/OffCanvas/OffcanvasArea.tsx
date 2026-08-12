@@ -1,4 +1,4 @@
-import logoBlue from "../../../public/assets/img/logo/logo-blue.png";
+import logoWhite from "../../../public/assets/img/logo/logo-white.png";
 import useGlobalContext from "@/hooks/useContext";
 import OffcanvasMenus from "./OffcanvasMenus";
 import Image from "next/image";
@@ -65,8 +65,8 @@ export default function OffcanvasArea() {
                   aria-label="Dekho Land home"
                 >
                   <Image
-                    className="logo-header logo-header--blue"
-                    src={logoBlue}
+                    className="logo-header logo-header--white"
+                    src={logoWhite}
                     alt="Dekho Land"
                   />
                 </Link>
