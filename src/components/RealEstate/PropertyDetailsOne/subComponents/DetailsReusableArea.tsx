@@ -66,6 +66,7 @@ export default function DetailsReusableArea({
                   clearTitle={property?.clearTitle}
                   loanFacility={property?.loanFacility}
                   registrationReady={property?.registrationReady}
+                  renovationStatus={property?.renovationStatus}
                   monthlyRent={property?.monthlyRent}
                   leaseDurationYears={property?.leaseDurationYears}
                   depositAmount={property?.depositAmount}

@@ -655,12 +655,8 @@ export default function AddPropertyPage() {
 
           // General fields
           carParkAllocation: data.carParkAllocation || "",
-          facingDirection: isSaleListing
-            ? nullableString(data.facingDirection)
-            : null,
-          renovationStatus: isSaleListing
-            ? nullableString(data.renovationStatus)
-            : null,
+          facingDirection: nullableString(data.facingDirection),
+          renovationStatus: nullableString(data.renovationStatus),
 
           // LEASE-specific fields (value when present, otherwise null)
           monthlyRent: isLeaseListing
