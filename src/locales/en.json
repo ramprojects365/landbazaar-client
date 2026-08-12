@@ -15,7 +15,9 @@
   },
   "hero": {
     "findProperties": "Trusted Marketplace for Lands & Plots",
-    "searchDescription": "Search open plots, farm lands, commercial plots in one place."
+    "searchDescription": "Search open plots, farm lands, commercial plots in one place.",
+    "findPropertiesMobile": "Market place for Lands & Plots",
+    "searchDescriptionMobile": "Search open plots, farm lands and Commercial plots."
   },
   "home": {
     "featuredListings": "Premium Land Listings",

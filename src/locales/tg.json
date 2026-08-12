@@ -15,7 +15,9 @@
   },
   "hero": {
     "findProperties": "భూములు మరియు ప్లాట్ల కోసం నమ్మదగిన మార్కెట్‌ప్లేస్",
-    "searchDescription": "ఖాళీ స్థలాలు, వ్యవసాయ భూములు మరియు వాణిజ్య స్థలాల కోసం వెతకండి."
+    "searchDescription": "ఖాళీ స్థలాలు, వ్యవసాయ భూములు మరియు వాణిజ్య స్థలాల కోసం వెతకండి.",
+    "findPropertiesMobile": "భూములు & ప్లాట్ల మార్కెట్ ప్లేస్",
+    "searchDescriptionMobile": "ఖాళీ స్థలాలు, వ్యవసాయ భూములు మరియు వాణిజ్య స్థలాలు."
   },
   "home": {
     "featuredListings": "Premium Land Listings",

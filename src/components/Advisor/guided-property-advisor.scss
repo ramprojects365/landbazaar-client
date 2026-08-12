@@ -1611,7 +1611,23 @@
   }
 
   .guided-advisor__intro h1 {
-    font-size: 30px;
+    font-size: 18px;
+  }
+
+  .guided-advisor__question-head h2 {
+    font-size: 16px;
+  }
+
+  .guided-advisor__modal-loading h2 {
+    font-size: 18px;
+  }
+
+  .guided-advisor__matches-head h2 {
+    font-size: 17px;
+  }
+
+  .guided-advisor__no-match h2 {
+    font-size: 17px;
   }
 
   .guided-advisor__question,

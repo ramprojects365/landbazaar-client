@@ -597,11 +597,21 @@
 .search-results-list .tp-rent-meta-list {
   flex-wrap: nowrap;
   gap: 12px;
+  width: 100%;
 }
 
 .search-results-list .tp-rent-meta-item {
-  flex: 1 1 0;
+  flex: 0 1 auto;
   min-width: 0;
+}
+
+.search-results-list .tp-rent-meta-item:last-child {
+  margin-left: auto;
+  text-align: right;
+}
+
+.search-results-list .tp-rent-meta-item:last-child .tp-rent-meta-content {
+  justify-content: flex-end;
 }
 
 .search-results-list .tp-rent-meta-content {
@@ -616,11 +626,21 @@
 .tp-listing-2-item .tp-rent-meta-list {
   flex-wrap: nowrap;
   gap: 10px;
+  width: 100%;
 }
 
 .tp-listing-2-item .tp-rent-meta-item {
-  flex: 1 1 0;
+  flex: 0 1 auto;
   min-width: 0;
+}
+
+.tp-listing-2-item .tp-rent-meta-item:last-child {
+  margin-left: auto;
+  text-align: right;
+}
+
+.tp-listing-2-item .tp-rent-meta-item:last-child .tp-rent-meta-content {
+  justify-content: flex-end;
 }
 
 .tp-listing-2-item .tp-rent-meta-content {
@@ -1547,38 +1567,68 @@ body.scrolled .Profile-btn-span {
 
   /* Mobile font size adjustments */
   h1 {
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+  }
+
+  h2 {
+    font-size: 17px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Keep breadcrumb/footer heading sizes unchanged */
+  h3:not(.tp-breadcrumb__title):not(.tp-footer-widget-title) {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+  }
+
+  .tp-breadcrumb__title {
     font-size: 20px !important;
     line-height: 1.2 !important;
   }
 
-  h2 {
-    font-size: 20px !important;
-    line-height: 1.3 !important;
-  }
-
-  h3 {
-    font-size: 20px !important;
-    line-height: 1.3 !important;
-  }
-
   h4 {
-    font-size: 18px !important;
-    line-height: 1.4 !important;
+    font-size: 15px !important;
+    line-height: 1.35 !important;
   }
 
   h5 {
-    font-size: 16px !important;
+    font-size: 14px !important;
     line-height: 1.4 !important;
   }
 
   h6 {
-    font-size: 14px !important;
+    font-size: 13px !important;
     line-height: 1.4 !important;
   }
 
   p {
-    font-size: 14px !important;
+    font-size: 13px !important;
     line-height: 1.6 !important;
+  }
+
+  .tp-footer-copyright p {
+    font-size: 13px !important;
+  }
+
+  .tp-footer-copyright-links a,
+  .tp-footer-widget-content ul li a {
+    font-size: 14px !important;
+  }
+
+  .tp-footer-widget-title {
+    font-size: 18px !important;
+  }
+
+  .bclp,
+  .bclp a,
+  .bclp span {
+    font-size: 14px !important;
+  }
+
+  .breadcrumb,
+  .breadcrumb-item a {
+    font-size: 13px !important;
   }
 
   /* Mobile spacing adjustments */
@@ -2415,12 +2465,12 @@ html {
   }
 
   .tp-hero-content h1 {
-    font-size: 28px !important;
+    font-size: 20px !important;
     margin-bottom: 10px !important;
   }
 
   .tp-hero-content p {
-    font-size: 14px !important;
+    font-size: 13px !important;
     margin-bottom: 20px !important;
   }
 
@@ -2437,7 +2487,7 @@ html {
 /* SECTION HEADINGS MOBILE FIX */
 @media (max-width: 767px) {
   .tp-section-title {
-    font-size: 24px !important;
+    font-size: 18px !important;
     text-align: center !important;
   }
 
@@ -2454,7 +2504,7 @@ html {
 
   .home-page .tp-section-title,
   .home-page .trusted-partners__heading h2 {
-    font-size: 24px !important;
+    font-size: 18px !important;
     line-height: 1.2 !important;
     text-align: center !important;
   }
@@ -2486,15 +2536,54 @@ html {
     margin-bottom: 20px !important;
   }
 
-  .tp-rent-price span {
-    font-size: 18px !important;
+  .tp-rent-title,
+  .tp-rent-title a,
+  .search-results-list .tp-rent-title,
+  .search-results-list .tp-rent-title a,
+  .tp-listing-2-item .tp-rent-title,
+  .tp-listing-2-item .tp-rent-title a {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+  }
+
+  .tp-rent-content > p,
+  .search-results-list .tp-rent-content > p,
+  .tp-listing-2-item .tp-rent-content > p {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+
+  .tp-rent-meta-content p,
+  .tp-rent-meta-item p,
+  .search-results-list .tp-rent-meta-item p,
+  .tp-listing-2-item .tp-rent-meta-content p {
+    font-size: 12px !important;
+  }
+
+  .tp-rent-price span,
+  .search-results-list .tp-rent-price span,
+  .tp-listing-2-item .tp-rent-price span {
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+
+  .tp-rent-user-content-title {
+    font-size: 12px !important;
+  }
+
+  .tp-rent-tags a {
+    font-size: 11px !important;
   }
 
   .tp-listing-2-location h4 {
-    font-size: 16px !important;
+    font-size: 15px !important;
   }
 
   .tp-listing-2-location p {
+    font-size: 12px !important;
+  }
+
+  .search-results-summary p {
     font-size: 13px !important;
   }
 }
@@ -2544,11 +2633,16 @@ html {
   }
 
   .tp-blog-item-title {
-    font-size: 16px !important;
+    font-size: 15px !important;
+    line-height: 1.35 !important;
   }
 
   .tp-blog-meta-btn a {
     font-size: 12px !important;
+  }
+
+  .tp-blog-item-content p {
+    font-size: 13px !important;
   }
 }
 
@@ -2572,7 +2666,7 @@ html {
 
   .home-trust-section .tp-section-title {
     margin-bottom: 16px;
-    font-size: 21px !important;
+    font-size: 17px !important;
   }
 
   .trust-badges {
@@ -2646,12 +2740,34 @@ html {
 @media (max-width: 767px) {
   .tp-property-ptb,
   section.tp-property-ptb.pt-20.pb-120 {
-    padding-top: 12px !important;
+    padding-top: 8px !important;
     padding-bottom: 8px !important;
+  }
+
+  .tp-property-ptb .gsrch {
+    padding-top: 0 !important;
+    margin-bottom: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .tp-property-ptb .bclp {
+    margin-bottom: 0 !important;
+    padding-top: 4px !important;
+    padding-bottom: 0 !important;
   }
 
   .tp-property-list-section {
     margin-top: 0 !important;
+  }
+
+  .tp-property-list-section .prop-det-dev {
+    margin-top: 8px !important;
+    padding-top: 0 !important;
+  }
+
+  .search-results-summary {
+    margin-top: 8px !important;
+    margin-bottom: 12px !important;
   }
 
   .search-refine-shell,
@@ -2724,7 +2840,45 @@ html {
   }
 
   .tp-property-details-info h2 {
-    font-size: 22px !important;
+    font-size: 18px !important;
+  }
+
+  .tp-property-details-title {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .tp-property-details-icon-price {
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+  }
+
+  .tp-property-details-heading > span {
+    font-size: 13px !important;
+  }
+
+  .tp-property-details-info,
+  .tp-property-details-info span,
+  .tp-property-details-info strong {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+
+  .tp-property-details-box-title {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+
+  .tp-property-details-box-desc p,
+  .tp-property-details-description,
+  .tp-property-details-tags-content span,
+  .tp-property-details-tags-content p,
+  .tp-property-details-checking,
+  .tp-property-details-checking span,
+  .tp-property-details-checking p {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
   }
 
   .tp-property-details-meta {
@@ -2760,6 +2914,33 @@ html {
     font-size: 12px;
     line-height: 1.35;
   }
+
+  .sidebar-recent-property .tp-rent-title,
+  .sidebar-recent-property .tp-rent-title a {
+    font-size: 14px !important;
+  }
+
+  .sidebar-recent-property .tp-rent-price span {
+    font-size: 13px !important;
+  }
+
+  /* Recent lands sidebar */
+  .tp-team-details-item-title {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+
+  .tp-property-recent-post-title,
+  .tp-property-recent-post-title a {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+    font-weight: 600 !important;
+  }
+
+  .tp-property-recent-post-meta span {
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+  }
 }
 
 /* DASHBOARD MOBILE FIX */
@@ -2788,7 +2969,7 @@ html {
   }
 
   .tp-dashboard-new-title {
-    font-size: 20px !important;
+    font-size: 18px !important;
   }
 
   .tp-dashboard-property-wrapper {
@@ -2808,15 +2989,6 @@ html {
     max-width: 100% !important;
     flex: 0 0 100% !important;
   }
-
-  .tp-property-recent-post-title {
-    font-size: 13px !important;
-    line-height: 1.35 !important;
-  }
-
-  .tp-property-recent-post-title a {
-    font-size: inherit !important;
-  }
 }
 
 /* AUTH PAGES MOBILE FIX */
@@ -2826,7 +2998,7 @@ html {
   }
 
   .tp-sign-in-register-title {
-    font-size: 24px !important;
+    font-size: 18px !important;
   }
 
   .tp-sign-in-input-form {
@@ -2926,7 +3098,7 @@ html {
   }
 
   .legal-page__header h1 {
-    font-size: 28px !important;
+    font-size: 18px !important;
   }
 
   .legal-page__header p {
@@ -3081,7 +3253,7 @@ html {
 
 @media (max-width: 767px) {
   .contact-whatsapp-cta .tp-section-title {
-    font-size: 20px !important;
+    font-size: 17px !important;
   }
 
   .tp-contact-inner-ptb {
@@ -3094,7 +3266,7 @@ html {
   }
 
   .tp-contact-inner-heading .tp-section-title {
-    font-size: 22px !important;
+    font-size: 18px !important;
     line-height: 1.25 !important;
   }
 
@@ -4021,7 +4193,7 @@ html {
   }
 
   .pricing-contact-form-section__heading .tp-section-title {
-    font-size: 28px !important;
+    font-size: 18px !important;
     line-height: 1.2 !important;
   }
 
@@ -4030,7 +4202,7 @@ html {
   }
 
   .tp-touch-heading .tp-section-title {
-    font-size: 28px !important;
+    font-size: 18px !important;
     line-height: 1.2 !important;
   }
 
@@ -4054,7 +4226,11 @@ html {
   }
 
   .property-location-page .tp-section-title {
-    font-size: 28px !important;
+    font-size: 18px !important;
+  }
+
+  .property-location-page p {
+    font-size: 13px !important;
   }
 
   .trusted-partners {
@@ -4067,7 +4243,7 @@ html {
   }
 
   .trusted-partners__heading h2 {
-    font-size: 26px;
+    font-size: 18px;
   }
 
   .trusted-partners__heading p {
@@ -4159,7 +4335,7 @@ html {
   }
 
   .pricing-page-section__heading .tp-section-title {
-    font-size: 30px;
+    font-size: 20px;
   }
 
   .pricing-page-section__heading p {
@@ -4182,7 +4358,7 @@ html {
   }
 
   .pricing-credits__intro h3 {
-    font-size: 23px;
+    font-size: 18px;
   }
 
   .pricing-credits__intro p {
@@ -4232,7 +4408,7 @@ html {
   }
 
   .home-loan-page__hero-copy h1 {
-    font-size: 30px;
+    font-size: 20px;
   }
 
   .home-loan-page__hero-copy p {
@@ -4252,7 +4428,7 @@ html {
   }
 
   .mortgage-calculator__heading h2 {
-    font-size: 26px;
+    font-size: 18px;
   }
 
   .mortgage-calculator__shell {
@@ -4283,7 +4459,7 @@ html {
   }
 
   .mortgage-calculator__payment strong {
-    font-size: 28px;
+    font-size: 22px;
   }
 
   .mortgage-calculator__summary-card {

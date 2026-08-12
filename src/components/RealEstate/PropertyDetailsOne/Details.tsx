@@ -232,7 +232,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
 
                 <div className="tp-property-details-info mt-3 d-flex flex-wrap gap-3 align-items-center">
                   <span>
-                    <strong>Land Size:</strong> {display.bedrooms}
+                    <strong>Size:</strong> {display.bedrooms}
                   </span>
                   {isLease ? (
                     <span>
@@ -241,7 +241,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
                   ) : (
                     <>
                       <span>
-                        <strong>Total Price:</strong>{" "}
+                        <strong>Price:</strong>{" "}
                         {formatTotalPriceDisplay(display.price)}
                       </span>
                       {pricePerUnitLabel !== "—" && (

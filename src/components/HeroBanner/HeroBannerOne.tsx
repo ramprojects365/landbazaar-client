@@ -30,6 +30,7 @@ export default function HeroBannerOne() {
                 {/* Welcome Text Section */}
                 <div className="text-center mb-4">
                   <h1
+                    className="hide-mobile"
                     style={{
                       fontSize: "42px",
                       fontWeight: 700,
@@ -40,7 +41,20 @@ export default function HeroBannerOne() {
                   >
                     {t("hero.findProperties")}
                   </h1>
+                  <h1
+                    className="hide-desktop"
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: 700,
+                      color: "#fff",
+                      marginBottom: "10px",
+                      textShadow: "2px 2px 8px rgba(0, 0, 0, 0.8)",
+                    }}
+                  >
+                    {t("hero.findPropertiesMobile")}
+                  </h1>
                   <p
+                    className="hide-mobile"
                     style={{
                       fontSize: "18px",
                       color: "#fff",
@@ -49,6 +63,17 @@ export default function HeroBannerOne() {
                     }}
                   >
                     {t("hero.searchDescription")}
+                  </p>
+                  <p
+                    className="hide-desktop"
+                    style={{
+                      fontSize: "13px",
+                      color: "#fff",
+                      marginBottom: "20px",
+                      textShadow: "2px 2px 6px rgba(0, 0, 0, 0.8)",
+                    }}
+                  >
+                    {t("hero.searchDescriptionMobile")}
                   </p>
                 </div>
                 <div
