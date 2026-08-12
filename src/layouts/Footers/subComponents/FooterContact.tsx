@@ -1,5 +1,5 @@
 // Contact details component
-import logo from "../../../../public/assets/img/logo/logo.png";
+import logoWhite from "../../../../public/assets/img/logo/logo-white.png";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,8 +8,12 @@ export default function FooterContact() {
     <div className="col-xl-3 col-lg-4 col-md-6 col-12">
       <div className="tp-footer-widget tp-footer-col-1 mb-50">
         <div className="tp-footer-logo mb-35">
-          <Link href="/">
-            <Image className="logo-header" src={logo} alt="Dekho Land" />
+          <Link href="/" aria-label="Dekho Land home">
+            <Image
+              className="logo-header logo-header--white"
+              src={logoWhite}
+              alt="Dekho Land"
+            />
           </Link>
         </div>
         <div className="tp-footer-widget-content">
