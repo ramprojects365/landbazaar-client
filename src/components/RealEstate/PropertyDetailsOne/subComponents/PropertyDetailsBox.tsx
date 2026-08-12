@@ -133,7 +133,7 @@ export default function PropertyDetailsBox({
     },
     {
       icon: <LandSizeSvg />,
-      label: "Land Size",
+      label: "Size",
       value: landSize || "—",
     },
   ];

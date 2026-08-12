@@ -342,6 +342,26 @@ export default function DeveloperDetailsPage() {
           color: #003b5c;
           margin-bottom: 15px;
         }
+        @media (max-width: 767px) {
+          .tp-agent-profile-name {
+            font-size: 18px;
+            line-height: 1.25;
+          }
+          .tp-agent-profile-section-title {
+            font-size: 15px;
+          }
+          .tp-agent-profile-designation,
+          .tp-agent-profile-about p,
+          .contact-label,
+          .contact-value,
+          .info-label,
+          .info-value {
+            font-size: 13px;
+          }
+          .tp-developer-specialties span {
+            font-size: 12px;
+          }
+        }
         .contact-info-list {
           margin-bottom: 20px;
         }
