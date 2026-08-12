@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import logo from "../../../public/assets/img/logo/logo.png";
+import logoWhite from "../../../public/assets/img/logo/logo-white.png";
+import logoBlue from "../../../public/assets/img/logo/logo-blue.png";
 import ProfileDropdown from "./ProfileDropdown";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
 import useGlobalContext from "@/hooks/useContext";
@@ -14,6 +15,8 @@ import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
 import { useTranslation } from "@/contexts/LanguageContext";
 import NotificationBell from "@/components/Notifications/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
+
+type LogoVariant = "white" | "blue";
 
 export default function HeaderOne() {
   const { toggleOffcanvas } = useGlobalContext();
@@ -29,13 +32,22 @@ export default function HeaderOne() {
     }
   };
 
-  const renderHeaderContent = () => (
+  const renderHeaderContent = (logoVariant: LogoVariant = "white") => (
     <div className="container container-large">
       <div className="row align-items-center">
         <div className="col-xl-2 col-lg-4 col-md-3 col-7">
           <div className="tp-header-top-pad">
-            <Link href="/">
-              <Image className="logo-header" src={logo} alt="image" />
+            <Link
+              href="/"
+              className="logo-header-link"
+              aria-label="Dekho Land home"
+            >
+              <Image
+                className={`logo-header logo-header--${logoVariant}`}
+                src={logoVariant === "white" ? logoWhite : logoBlue}
+                alt="Dekho Land"
+                priority
+              />
             </Link>
           </div>
         </div>
@@ -111,7 +123,7 @@ export default function HeaderOne() {
     <>
       <header className="tp-header-1-ptb tp-header-transparent top p-relative">
         <div className="tp-header-main-sticky p-relative">
-          {renderHeaderContent()}
+          {renderHeaderContent("white")}
         </div>
       </header>
       <header
@@ -120,7 +132,7 @@ export default function HeaderOne() {
         }`}
       >
         <div className="tp-header-main-sticky tp-header-1-main p-relative">
-          {renderHeaderContent()}
+          {renderHeaderContent("blue")}
         </div>
       </header>
       {/* Offcanvas Area */}
