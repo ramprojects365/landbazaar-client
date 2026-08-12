@@ -46,6 +46,7 @@ interface Props {
   clearTitle?: string;
   loanFacility?: string;
   registrationReady?: string;
+  renovationStatus?: string;
   monthlyRent?: number | string | null;
   leaseDurationYears?: number | string | null;
   depositAmount?: number | string | null;
@@ -106,6 +107,7 @@ export default function PropertyDetailsBox({
   clearTitle,
   loanFacility,
   registrationReady,
+  renovationStatus,
   monthlyRent,
   leaseDurationYears,
   depositAmount,
@@ -206,6 +208,11 @@ export default function PropertyDetailsBox({
       icon: <PropertyOverviewIcon icon={Compass} />,
       label: "Facing",
       value: facingDirection || "—",
+    },
+    {
+      icon: <PropertyOverviewIcon icon={ClipboardCheck} />,
+      label: "Renovation",
+      value: renovationStatus || "—",
     },
     {
       icon: <PropertyOverviewIcon icon={SquareStack} />,
