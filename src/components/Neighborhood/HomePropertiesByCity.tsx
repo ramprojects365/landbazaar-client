@@ -12,6 +12,8 @@ import { API_BASE_URL } from "@/config/constants";
 
 type ApiProperty = {
   id: string;
+  title?: string;
+  propertyName?: string;
   cityName?: string;
   state?: string;
   streetName?: string;
@@ -26,6 +28,8 @@ type CityItem = {
   count: number;
   image: string | StaticImageData;
   isDynamic: boolean;
+  href?: string;
+  isPropertyCard?: boolean;
 };
 
 const normaliseLocationName = (value?: string) =>
@@ -95,16 +99,43 @@ function HomePropertiesByCity() {
           });
         });
 
+        if (grouped.size === 1) {
+          const onlyCity = grouped.values().next().value as CityItem | undefined;
+          if (!onlyCity) return;
+
+          const cityName = onlyCity.name;
+          const singleCityProperties = list
+            .filter((property) => {
+              const cityValue =
+                normaliseLocationName(property.cityName) ||
+                normaliseLocationName(property.state);
+              return cityValue && cityValue.toLowerCase() === cityName.toLowerCase();
+            })
+            .slice(0, MAX_CITY_PROPERTIES)
+            .map((property, index) => ({
+              id: `property-${String(property.id ?? index)}-${cityName}`,
+              name:
+                normaliseLocationName(property.propertyName) ||
+                normaliseLocationName(property.title) ||
+                cityName,
+              count: 1,
+              image:
+                getCoverImageUrl(property.images) ||
+                neighbourhoodsData[index % neighbourhoodsData.length].image,
+              isDynamic: true,
+              href: property.id ? `/property-details/${property.id}` : undefined,
+              isPropertyCard: true,
+            }));
+
+          if (singleCityProperties.length > 0) {
+            setCityItems(singleCityProperties);
+            return;
+          }
+        }
+
         const nextItems = [...grouped.values()]
           .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
           .slice(0, MAX_VISIBLE_CITY_CARDS);
-
-        if (grouped.size === 1) {
-          const onlyCity = grouped.values().next().value as CityItem | undefined;
-          if (onlyCity) {
-            onlyCity.count = Math.min(onlyCity.count, MAX_CITY_PROPERTIES);
-          }
-        }
 
         if (nextItems.length > 0) setCityItems(nextItems);
       } catch {
@@ -145,7 +176,7 @@ function HomePropertiesByCity() {
               {(() => {
                 const params = new URLSearchParams();
                 params.set("q", property.name);
-                const href = `/search?${params.toString()}`;
+                const href = property.href || `/search?${params.toString()}`;
 
                 return (
                   <div className="tp-explore-item text-center mb-30">
@@ -172,9 +203,11 @@ function HomePropertiesByCity() {
                           <span className="textline">{property.name}</span>
                         </h4>
                         <span>
-                          {property.isDynamic
-                            ? `${property.count} ${t("common.property")}`
-                            : ""}
+                          {property.isPropertyCard
+                            ? ""
+                            : property.isDynamic
+                              ? `${property.count} ${t("common.property")}`
+                              : ""}
                         </span>
                       </div>
                       <div className="tp-explore-btn">
