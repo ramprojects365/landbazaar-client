@@ -1,33 +1,53 @@
+const propertyTypeSearchHref = (label: string) => {
+  const map: Record<string, string> = {
+    "HMDA Layouts": "HMDA Layout",
+    "DTCP / YTDA Layouts": "DTCP Layout",
+    "RERA Ventures": "RERA Plot",
+    "Villa Plots": "Villa Plot",
+    "Main Road": "Commercial Plot",
+    "Industrial": "Industrial Plot",
+    "Highway": "Highway Plot",
+    "Agricultural": "Agricultural Land",
+    "Farmhouses": "Farm House",
+    "Weekend Eco-Plots": "Eco Plot",
+  };
+
+  const propertyType = map[label];
+  return propertyType
+    ? `/search?propertyType=${encodeURIComponent(propertyType)}`
+    : "/search";
+};
+
 const menu_data_one = [
   {
     id: 1,
     label: "Residential",
-    url: "/",
+    url: "/search",
     home_menu: false,
     previewImg: false,
     submenu: [
       {
         id: 1,
         label: "HMDA Layouts",
-        url: "/search",
+        url: propertyTypeSearchHref("HMDA Layouts"),
         img: "",
       },
       {
         id: 2,
         label: "DTCP / YTDA Layouts",
-        url: "/search",
+        url: propertyTypeSearchHref("DTCP / YTDA Layouts"),
         img: "",
       },
       {
         id: 3,
         label: "RERA Ventures",
-        url: "/search",
+        url: propertyTypeSearchHref("RERA Ventures"),
         img: "",
       },
       {
         id: 4,
         label: "Villa Plots",
-        url: "/search",
+        url: propertyTypeSearchHref("Villa Plots"),
         img: "",
       },
     ],
@@ -35,26 +55,26 @@ const menu_data_one = [
   {
     id: 2,
     label: "Commercial",
-    url: "/",
+    url: "/search",
     home_menu: false,
     previewImg: false,
     submenu: [
       {
         id: 5,
         label: "Main Road",
-        url: "/search",
+        url: propertyTypeSearchHref("Main Road"),
         img: "",
       },
       {
         id: 6,
         label: "Industrial",
-        url: "/search",
+        url: propertyTypeSearchHref("Industrial"),
         img: "",
       },
       {
         id: 7,
         label: "Highway",
-        url: "/search",
+        url: propertyTypeSearchHref("Highway"),
         img: "",
       },
     ],
@@ -62,26 +82,26 @@ const menu_data_one = [
   {
     id: 3,
     label: "Farm",
-    url: "/",
+    url: "/search",
     home_menu: false,
     previewImg: false,
     submenu: [
       {
         id: 8,
         label: "Agricultural",
-        url: "/search",
+        url: propertyTypeSearchHref("Agricultural"),
         img: "",
       },
       {
         id: 9,
         label: "Farmhouses",
-        url: "/search",
+        url: propertyTypeSearchHref("Farmhouses"),
         img: "",
       },
       {
         id: 10,
         label: "Weekend Eco-Plots",
-        url: "/search",
+        url: propertyTypeSearchHref("Weekend Eco-Plots"),
         img: "",
       },
     ],
