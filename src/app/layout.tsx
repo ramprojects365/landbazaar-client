@@ -10,7 +10,7 @@ const siteUrl = "https://www.dekholand.com";
 const siteTitle = "DekhoLand | Buy & Sell Verified Lands and Plots";
 const siteDescription =
   "India's trusted marketplace for lands and plots. Buy or sell open plots, farm land, and agricultural land with Dekho Land.";
-const siteImage = "https://www.dekholand.com/assets/img/logo/logo.png";
+const siteImage = "https://www.dekholand.com/assets/img/logo/logo-blue.png";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",

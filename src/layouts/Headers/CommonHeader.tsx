@@ -1,5 +1,6 @@
 "use client";
-import logo from "../../../public/assets/img/logo/logo.png";
+import logoWhite from "../../../public/assets/img/logo/logo-white.png";
+import logoBlue from "../../../public/assets/img/logo/logo-blue.png";
 import UserSvg from "@/components/SVG/UserSvg";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
 import useGlobalContext from "@/hooks/useContext";
@@ -15,11 +16,14 @@ import { useTranslation } from "@/contexts/LanguageContext";
 import NotificationBell from "@/components/Notifications/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
 
+type LogoVariant = "white" | "blue";
+
 export default function CommonHeader({ wrapClass = "" }) {
   const { toggleOffcanvas } = useGlobalContext();
   const { sticky } = useSticky();
   const { t } = useTranslation();
   const { user } = useAuth();
+  const isTransparent = wrapClass.includes("tp-header-transparent");
 
   const handlePostPropertyClick = () => {
     const isAuthenticated = requireAuth("/dashboard/add-new-property");
@@ -32,15 +36,26 @@ export default function CommonHeader({ wrapClass = "" }) {
   // Header Content Component
   const renderHeaderContent = ({
     toggleOffcanvas,
+    logoVariant,
   }: {
     toggleOffcanvas: () => void;
+    logoVariant: LogoVariant;
   }) => (
     <div className="container container-large">
       <div className="row align-items-center">
         <div className="col-xl-2 col-lg-4 col-md-3 col-6">
           <div className="tp-header-top-pad">
-            <Link href="/">
-              <Image className="logo-header" src={logo} alt="Dekho Land" />
+            <Link
+              href="/"
+              className="logo-header-link"
+              aria-label="Dekho Land home"
+            >
+              <Image
+                className={`logo-header logo-header--${logoVariant}`}
+                src={logoVariant === "white" ? logoWhite : logoBlue}
+                alt="Dekho Land"
+                priority
+              />
             </Link>
           </div>
         </div>
@@ -115,7 +130,10 @@ export default function CommonHeader({ wrapClass = "" }) {
       {/* Main Header */}
       <header className={`tp-header-5-ptb p-relative ${wrapClass}`}>
         <div className="tp-header-main-sticky p-relative">
-          {renderHeaderContent({ toggleOffcanvas })}
+          {renderHeaderContent({
+            toggleOffcanvas,
+            logoVariant: isTransparent ? "white" : "blue",
+          })}
         </div>
       </header>
 
@@ -126,7 +144,7 @@ export default function CommonHeader({ wrapClass = "" }) {
         }`}
       >
         <div className="tp-header-main-sticky tp-header-5-main p-relative">
-          {renderHeaderContent({ toggleOffcanvas })}
+          {renderHeaderContent({ toggleOffcanvas, logoVariant: "blue" })}
         </div>
       </header>
 

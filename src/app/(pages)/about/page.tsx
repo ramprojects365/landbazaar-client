@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.dekholand.com/assets/img/logo/logo.png",
+        url: "https://www.dekholand.com/assets/img/logo/logo-blue.png",
         width: 512,
         height: 512,
         alt: "DekhoLand",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: aboutTitle,
     description: aboutDescription,
-    images: ["https://www.dekholand.com/assets/img/logo/logo.png"],
+    images: ["https://www.dekholand.com/assets/img/logo/logo-blue.png"],
   },
 };
 

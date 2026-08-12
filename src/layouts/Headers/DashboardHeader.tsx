@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "../../../public/assets/img/logo/logo.png";
+import logoBlue from "../../../public/assets/img/logo/logo-blue.png";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
 import UserSvg from "@/components/SVG/UserSvg";
 import useGlobalContext from "@/hooks/useContext";
@@ -24,8 +24,17 @@ export default function DashboardHeader() {
       <div className="row align-items-center">
         <div className="col-xl-2 col-lg-4 col-md-3 col-6">
           <div className="tp-header-top-pad">
-            <Link href="/">
-              <Image className="logo-header" src={logo} alt="Dekho Land" />
+            <Link
+              href="/"
+              className="logo-header-link"
+              aria-label="Dekho Land home"
+            >
+              <Image
+                className="logo-header logo-header--blue"
+                src={logoBlue}
+                alt="Dekho Land"
+                priority
+              />
             </Link>
           </div>
         </div>
