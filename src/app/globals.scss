@@ -1203,8 +1203,7 @@ body.scrolled .Profile-btn-span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 8px;
-  margin-left: 0;
+  margin: 0 !important;
   flex: 0 0 auto;
 }
 
@@ -1308,21 +1307,34 @@ body.scrolled .Profile-btn-span {
 .tp-header-main-right,
 .tp-header-5-main-right,
 .tp-header-dashboard-main-right {
-  gap: 8px;
+  gap: 10px;
   align-items: center;
   flex-wrap: nowrap;
 }
 
+.tp-header-main-right > .language-switcher-btn,
+.tp-header-main-right > .notification-bell,
+.tp-header-main-right > .tp-header-right-user,
+.tp-header-5-main-right > .language-switcher-btn,
+.tp-header-5-main-right > .notification-bell,
+.tp-header-5-main-right > .tp-header-right-user,
+.tp-header-dashboard-main-right > .language-switcher-btn,
+.tp-header-dashboard-main-right > .notification-bell,
+.tp-header-dashboard-main-right > .tp-header-right-user {
+  margin: 0 !important;
+  flex: 0 0 auto;
+}
+
 .tp-header-right-user {
   margin-left: 0 !important;
+  margin-right: 0 !important;
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
 }
 
 .notification-bell {
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0 !important;
   flex: 0 0 auto;
 }
 
@@ -1333,7 +1345,7 @@ body.scrolled .Profile-btn-span {
   .tp-header-main-right,
   .tp-header-5-main-right,
   .tp-header-dashboard-main-right {
-    gap: 8px;
+    gap: 10px;
   }
 
   .tp-header-dashboard-btn {
@@ -1344,7 +1356,7 @@ body.scrolled .Profile-btn-span {
     width: 32px;
     height: 32px;
     padding: 0;
-    margin-right: 8px;
+    margin: 0 !important;
     font-size: 12px;
     border: 1px solid rgba(0, 59, 92, 0.16);
     border-radius: 50%;
@@ -1367,49 +1379,68 @@ body.scrolled .Profile-btn-span {
   .tp-header-main-right,
   .tp-header-5-main-right,
   .tp-header-dashboard-main-right {
-    gap: 8px;
+    gap: 8px !important;
     min-width: 0;
     flex-wrap: nowrap;
   }
 
+  .tp-header-main-right > .language-switcher-btn,
+  .tp-header-main-right > .notification-bell,
+  .tp-header-main-right > .tp-header-right-user,
+  .tp-header-5-main-right > .language-switcher-btn,
+  .tp-header-5-main-right > .notification-bell,
+  .tp-header-5-main-right > .tp-header-right-user,
+  .tp-header-dashboard-main-right > .language-switcher-btn,
+  .tp-header-dashboard-main-right > .notification-bell,
+  .tp-header-dashboard-main-right > .tp-header-right-user {
+    margin: 0 !important;
+  }
+
   .language-switcher-btn {
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    margin-right: 8px;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    padding: 0 !important;
+    margin: 0 !important;
     border: 1px solid rgba(0, 59, 92, 0.16);
     border-radius: 50%;
     background: #fff;
     color: #003b5c;
     cursor: pointer;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px !important;
+    font-weight: 700;
     text-transform: uppercase;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    line-height: 1 !important;
   }
 
   .notification-bell {
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0 !important;
   }
 
   .notification-bell__button {
-    width: 32px;
-    height: 32px;
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .notification-bell__button i {
-    font-size: 16px;
+    font-size: 14px !important;
   }
 
   .tp-header-right-user {
-    margin-left: 0 !important;
+    margin: 0 !important;
     flex: 0 0 auto;
     display: inline-flex;
     align-items: center;
+  }
+
+  .tp-header-right-user-icon span {
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .tp-header-hamburger {
@@ -1420,19 +1451,19 @@ body.scrolled .Profile-btn-span {
   }
 
   .hamburger-btn {
-    width: 30px !important;
-    height: 30px !important;
-    min-width: 30px !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 4px;
     padding: 0 !important;
   }
 
   .hamburger-btn span {
-    width: 20px;
+    width: 18px;
     height: 2px;
     margin: 0 !important;
     display: block;
@@ -1446,14 +1477,14 @@ body.scrolled .Profile-btn-span {
   .tp-header-main-right,
   .tp-header-5-main-right,
   .tp-header-dashboard-main-right {
-    gap: 8px;
+    gap: 10px;
   }
 
   .language-switcher-btn {
     width: 32px;
     height: 32px;
     padding: 0;
-    margin-right: 8px;
+    margin: 0 !important;
     border: 1px solid rgba(0, 59, 92, 0.16);
     border-radius: 50%;
   }
@@ -1478,14 +1509,14 @@ body.scrolled .Profile-btn-span {
   .tp-header-main-right,
   .tp-header-5-main-right,
   .tp-header-dashboard-main-right {
-    gap: 8px;
+    gap: 10px;
   }
 
   .language-switcher-btn {
     width: 32px;
     height: 32px;
     padding: 0;
-    margin-right: 8px;
+    margin: 0 !important;
     border: 1px solid rgba(0, 59, 92, 0.16);
     border-radius: 50%;
   }
@@ -1781,8 +1812,8 @@ body.scrolled .Profile-btn-span {
   }
 
   .tp-header-right-user-icon span {
-    height: 32px !important;
-    width: 32px !important;
+    height: 28px !important;
+    width: 28px !important;
     margin-top: 0;
     border: 1px solid rgba(0, 59, 92, 0.16);
     border-radius: 50%;
@@ -1816,21 +1847,22 @@ body.scrolled .Profile-btn-span {
 
   /* Language switcher adjustments for mobile */
   .language-switcher-btn {
-    height: 32px;
-    min-height: 32px;
-    min-width: 32px;
-    padding: 0 9px;
+    width: 28px;
+    height: 28px;
+    min-height: 28px;
+    min-width: 28px;
+    padding: 0;
     border: 1px solid rgba(0, 59, 92, 0.16);
     border-radius: 50%;
     background: #fff;
     color: #003b5c;
     cursor: pointer;
-    font-size: 13px;
-    line-height: 36px;
-    font-weight: 800;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 700;
     text-transform: uppercase;
     transition: all 0.3s ease;
-    margin: 0;
+    margin: 0 !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1912,9 +1944,11 @@ body.scrolled .Profile-btn-span {
 
   /* Language switcher adjustments for tablet */
   .language-switcher-btn {
-    padding: 0px 15px;
-    border: 1px solid #003b5c;
-    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid rgba(0, 59, 92, 0.16);
+    border-radius: 50%;
     background: #fff;
     color: #003b5c;
     cursor: pointer;
@@ -1922,8 +1956,7 @@ body.scrolled .Profile-btn-span {
     font-weight: 600;
     text-transform: uppercase;
     transition: all 0.3s ease;
-    min-width: 10px;
-    margin-right: 10px;
+    margin: 0 !important;
   }
 
   .tp-btn {
@@ -2458,25 +2491,33 @@ html {
   }
 
   /* Reduce language switcher size */
-  .language-switcher {
-    font-size: 12px !important;
+  .language-switcher-btn {
+    width: 28px !important;
+    height: 28px !important;
+    margin: 0 !important;
+    font-size: 11px !important;
   }
 
   /* Reduce notification bell size */
   .notification-bell__button {
-    width: 32px !important;
-    height: 32px !important;
+    width: 28px !important;
+    height: 28px !important;
   }
 
   /* Reduce user icon size */
   .tp-header-right-user-icon {
-    width: 32px !important;
-    height: 32px !important;
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .tp-header-right-user-icon span {
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .tp-header-right-user-icon svg {
-    width: 18px !important;
-    height: 18px !important;
+    width: 14px !important;
+    height: 14px !important;
   }
 
   /* Adjust hamburger button */
