@@ -24,16 +24,17 @@ const AMENITY_GROUPS = {
   facilities: [] as string[],
   security: [] as string[],
 };
-const normalizeListingType = (value: any): string => {
-  const v = String(value || "")
+const normalizeListingType = (
+  value: unknown,
+): PropertyFormData["listingType"] | undefined => {
+  const v = String(value ?? "")
     .trim()
     .toLowerCase();
 
-  // Legacy "rent" listings are treated as lease (rent is no longer a listing type)
   if (v.includes("rent") || v.includes("lease")) return "lease";
   if (v.includes("sale") || v.includes("sell")) return "sale";
 
-  return "";
+  return undefined;
 };
 
 const normalizeFurnishing = (value: any): string => {
@@ -173,7 +174,7 @@ export default function AddPropertyPage() {
   const methods = useForm<PropertyFormData>({
     resolver: yupResolver(propertySchema),
     defaultValues: {
-      listingType: "",
+      listingType: undefined,
       propertyType: "",
       propertyName: "",
       tenure: "",
