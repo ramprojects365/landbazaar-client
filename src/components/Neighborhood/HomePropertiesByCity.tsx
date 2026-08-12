@@ -61,6 +61,9 @@ function HomePropertiesByCity() {
         if (!Array.isArray(list) || list.length === 0) return;
 
         const grouped = new Map<string, CityItem>();
+        const MAX_CITY_PROPERTIES = 6;
+        const MAX_VISIBLE_CITY_CARDS = 6;
+
         list.forEach((property, index) => {
           const name =
             normaliseLocationName(property.cityName) ||
@@ -69,8 +72,11 @@ function HomePropertiesByCity() {
 
           const key = name.toLowerCase();
           const existing = grouped.get(key);
+
           if (existing) {
-            existing.count += 1;
+            if (existing.count < MAX_CITY_PROPERTIES) {
+              existing.count += 1;
+            }
             if (typeof existing.image !== "string") {
               const cover = getCoverImageUrl(property.images);
               if (cover) existing.image = cover;
@@ -91,7 +97,14 @@ function HomePropertiesByCity() {
 
         const nextItems = [...grouped.values()]
           .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
-          .slice(0, 6);
+          .slice(0, MAX_VISIBLE_CITY_CARDS);
+
+        if (grouped.size === 1) {
+          const onlyCity = grouped.values().next().value as CityItem | undefined;
+          if (onlyCity) {
+            onlyCity.count = Math.min(onlyCity.count, MAX_CITY_PROPERTIES);
+          }
+        }
 
         if (nextItems.length > 0) setCityItems(nextItems);
       } catch {
