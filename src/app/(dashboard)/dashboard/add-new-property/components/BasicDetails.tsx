@@ -3,13 +3,31 @@
 import { useFormContext } from "react-hook-form";
 import { PropertyFormData } from "@/schemas/validationSchema";
 import ErrorMessage from "../../../../../components/Form/ErrorMassage";
+import DescriptionEditor from "@/components/Form/DescriptionEditor";
 import "../property.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AREA_UNITS, LAND_TYPES, LISTING_TYPES } from "@/config/landOptions";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
+import {
+  DESCRIPTION_MAX_CHARS,
+  stripDescriptionHtml,
+} from "@/utils/descriptionHtml";
 
 const digitsOnlyInput = (e: React.FormEvent<HTMLInputElement>) => {
   e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "");
+};
+
+const getDefaultLandSizeForUnit = (unit: string): string => {
+  switch (unit) {
+    case "Square Yard":
+      return "100";
+    case "Acre":
+    case "Gunta":
+    case "Cent":
+      return "1";
+    default:
+      return "";
+  }
 };
 
 export default function BasicDetails() {
@@ -28,9 +46,22 @@ export default function BasicDetails() {
   const totalPrice = watch("totalPrice") || "";
   const currentPrice = watch("price") || "";
   const [charCount, setCharCount] = useState(0);
+  const { onChange: onAreaUnitChange, ...areaUnitRegister } =
+    register("areaUnit");
+
+  const handleAreaUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onAreaUnitChange(e);
+    const defaultSize = getDefaultLandSizeForUnit(e.target.value);
+    if (defaultSize) {
+      setValue("landSize", defaultSize, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    }
+  };
 
   useEffect(() => {
-    setCharCount(description.length);
+    setCharCount(stripDescriptionHtml(description).length);
   }, [description]);
 
   useEffect(() => {
@@ -77,15 +108,13 @@ export default function BasicDetails() {
     setValue,
   ]);
 
-  const handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => {
-    const value = e.target.value;
-    if (value.length <= 5000) {
-      setValue("description", value);
-      setCharCount(value.length);
-    }
-  };
+  const handleDescriptionChange = useCallback(
+    (html: string, plainTextLength: number) => {
+      setValue("description", html, { shouldValidate: true, shouldDirty: true });
+      setCharCount(plainTextLength);
+    },
+    [setValue],
+  );
 
   return (
     <div className="tp-dashboard-new-property mb-15">
@@ -126,16 +155,13 @@ export default function BasicDetails() {
                     borderRadius: "4px",
                   }}
                 >
-                  {1000 - charCount} remaining
+                  {Math.max(DESCRIPTION_MAX_CHARS - charCount, 0)} remaining
                 </div>
               </div>
-              <textarea
-                placeholder="Write land highlights, approvals, road access, and nearby landmarks."
+              <DescriptionEditor
                 value={description}
                 onChange={handleDescriptionChange}
-                maxLength={5000}
-                style={{ borderRadius: "8px" }}
-              ></textarea>
+              />
               {errors?.description && (
                 <ErrorMessage message={errors?.description?.message || ""} />
               )}
@@ -187,7 +213,11 @@ export default function BasicDetails() {
             <div className="tp-dashboard-new-input">
               <label>Area Unit</label>
               <div className="tp-property-tabs-select tp-select">
-                <select {...register("areaUnit")} className="listDropDown">
+                <select
+                  {...areaUnitRegister}
+                  className="listDropDown"
+                  onChange={handleAreaUnitChange}
+                >
                   <option value="">Select</option>
                   {AREA_UNITS.map((item) => (
                     <option key={item} value={item}>

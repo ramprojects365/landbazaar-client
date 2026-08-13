@@ -1,5 +1,10 @@
 import * as yup from "yup";
 import { PHONE_DIGITS_PATTERN, PHONE_VALIDATION_MESSAGE } from "@/utils/phoneInput";
+import {
+  DESCRIPTION_MAX_CHARS,
+  DESCRIPTION_MIN_CHARS,
+  stripDescriptionHtml,
+} from "@/utils/descriptionHtml";
 
 const strictEmail = (requiredMessage = "Enter email") =>
   yup
@@ -161,8 +166,16 @@ export const propertySchema = yup.object({
   description: yup
     .string()
     .required("Description is required")
-    .min(50, "Description must be at least 50 characters")
-    .max(5000, "Description cannot exceed 5000 characters"),
+    .test(
+      "description-min",
+      `Description must be at least ${DESCRIPTION_MIN_CHARS} characters`,
+      (value) => stripDescriptionHtml(value || "").length >= DESCRIPTION_MIN_CHARS,
+    )
+    .test(
+      "description-max",
+      `Description cannot exceed ${DESCRIPTION_MAX_CHARS} characters`,
+      (value) => stripDescriptionHtml(value || "").length <= DESCRIPTION_MAX_CHARS,
+    ),
   location: yup.string().required("Property location is required"),
   latitude: yup
     .number()
