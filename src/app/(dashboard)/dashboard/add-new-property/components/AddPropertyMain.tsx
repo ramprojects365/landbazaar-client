@@ -311,6 +311,8 @@ export default function AddPropertyPage() {
                 propertyData.builtUpArea ||
                 propertyData.livingArea,
             ),
+            // Form field is a string; API may return number or string
+            landSize: formatWholeNumberInput(propertyData.landSize),
 
             furnishing: normalizeFurnishing(propertyData.furnishing),
             bedRooms: normalizeBedrooms(
