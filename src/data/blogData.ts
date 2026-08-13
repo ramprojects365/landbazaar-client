@@ -1,10 +1,11 @@
 import { IBlogDT } from "@/types/blog-d-t";
 import blogThumb1 from "../../public/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
-import blogThumb2 from "../../public/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
+import blogThumb2 from "../../public/assets/img/blog/complete-guide-to-buying-managed-farmland-and-weekend-farmhouses.png";
 import blogThumb3 from "../../public/assets/img/blog/verify-land-records-telangana-dharani-registration-portal.png";
 import blogThumb4 from "../../public/assets/img/blog/hmda-vs-dtcp-vs-rera-whats-the-difference-and-which-is-safer.png";
-import blogThumb6 from "../../public/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
-import blogThumb7 from "../../public/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png";
+import blogThumb7 from "../../public/assets/img/blog/why-west-hyderabad-shankarpally-to-sadashivpet-is-the-next-realty-hotspot.png";
+import blogThumb8 from "../../public/assets/img/blog/top-5-high-growth-land-investment-corridors-around-hyderabad.png";
+import blogThumb9 from "../../public/assets/img/blog/impact-of-the-regional-ring-road-rrr-on-hyderabad-farmland-prices.png";
 
 export const blogData: IBlogDT[] = [
   {
@@ -44,7 +45,7 @@ export const blogData: IBlogDT[] = [
   },
   {
     id: 4,
-    image: blogThumb2,
+    image: blogThumb8,
     category: "Dekho Land",
     readTime: "7 min read",
     title: "Top 5 High-Growth Land Investment Corridors Around Hyderabad",
@@ -55,7 +56,7 @@ export const blogData: IBlogDT[] = [
   },
   {
     id: 5,
-    image: blogThumb3,
+    image: blogThumb9,
     category: "Dekho Land",
     readTime: "8 min read",
     title:
@@ -79,33 +80,11 @@ export const blogData: IBlogDT[] = [
   },
   {
     id: 7,
-    image: blogThumb3,
+    image: blogThumb2,
     category: "Dekho Land",
     readTime: "8 min read",
     title: "Complete Guide to Buying Managed Farmland and Weekend Farmhouses",
     slug: "complete-guide-to-buying-managed-farmland-and-weekend-farmhouses",
-    authorName: "Dekho Land",
-    authorRole: "Land Guide",
-    delay: ".7s",
-  },
-  {
-    id: 8,
-    image: blogThumb6,
-    category: "Dekho Land",
-    readTime: "7 min read",
-    title: "How to get a plot loan and bank eligibility & interest rates?",
-    slug: "how-to-get-a-plot-loan-bank-eligibility-and-interest-rates",
-    authorName: "Dekho Land",
-    authorRole: "Land Guide",
-    delay: ".7s",
-  },
-  {
-    id: 9,
-    image: blogThumb3,
-    category: "Dekho Land",
-    readTime: "7 min read",
-    title: "Top 5 High-Growth Land Investment Corridors Around Visakhapatnam",
-    slug: "top-5-high-growth-land-investment-corridors-around-visakhapatnam",
     authorName: "Dekho Land",
     authorRole: "Land Guide",
     delay: ".7s",
