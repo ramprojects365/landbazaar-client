@@ -33,9 +33,10 @@ const getDefaultLandSizeForUnit = (unit: string): string => {
 export default function BasicDetails() {
   const {
     register,
-    formState: { errors },
+    formState: { errors, touchedFields, isSubmitted },
     setValue,
     watch,
+    trigger,
   } = useFormContext<PropertyFormData>();
 
   const listingType = watch("listingType") || "";
@@ -45,6 +46,7 @@ export default function BasicDetails() {
   const pricePerUnit = watch("pricePerUnit") || "";
   const totalPrice = watch("totalPrice") || "";
   const currentPrice = watch("price") || "";
+  const leaseDurationYears = watch("leaseDurationYears") || "";
   const [charCount, setCharCount] = useState(0);
   const { onChange: onAreaUnitChange, ...areaUnitRegister } =
     register("areaUnit");
@@ -63,6 +65,19 @@ export default function BasicDetails() {
   useEffect(() => {
     setCharCount(stripDescriptionHtml(description).length);
   }, [description]);
+
+  // Re-check min lease period when lease duration changes
+  useEffect(() => {
+    if (!isLeaseListing) return;
+    if (!isSubmitted && !touchedFields.minimumRentalPeriod) return;
+    void trigger("minimumRentalPeriod");
+  }, [
+    isLeaseListing,
+    leaseDurationYears,
+    isSubmitted,
+    touchedFields.minimumRentalPeriod,
+    trigger,
+  ]);
 
   useEffect(() => {
     if (isLeaseListing) {
