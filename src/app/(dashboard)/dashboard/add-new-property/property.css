@@ -47,6 +47,13 @@
   padding: 22px 16px;
 }
 
+.property-upload-size-guide {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #5f6b7a;
+}
+
 .property-upload-hint {
   margin: 14px 0;
   padding: 12px;

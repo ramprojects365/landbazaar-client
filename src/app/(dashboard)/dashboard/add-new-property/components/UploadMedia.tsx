@@ -3,6 +3,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { API_BASE_URL } from "@/config/constants";
+import {
+  MAX_IMAGE_BYTES,
+  MIN_IMAGE_WIDTH,
+  MAX_IMAGE_WIDTH,
+  MAX_IMAGE_HEIGHT,
+  formatImageBytes,
+  preparePropertyImage,
+} from "@/utils/propertyImageUpload";
 import "../property.css";
 
 type PropertyImageCategory =
@@ -50,7 +58,6 @@ const quickCategories = categories.filter((category) =>
 
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const ACCEPTED_IMAGE_INPUT = ACCEPTED_IMAGE_TYPES.join(",");
-const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const MAX_IMAGES = 15;
 
 const createId = () =>
@@ -131,8 +138,6 @@ const normalizeLoadedImages = (images: unknown[]): PropertyImageItem[] => {
       .sort((a, b) => a.order - b.order),
   );
 };
-
-const formatBytes = (bytes: number) => `${Math.round(bytes / (1024 * 1024))}MB`;
 
 export default function UploadMedia() {
   const [images, setImages] = useState<PropertyImageItem[]>([]);
@@ -270,19 +275,53 @@ export default function UploadMedia() {
       return;
     }
 
-    const overweight = files.find((file) => file.size > MAX_IMAGE_BYTES);
-    if (overweight) {
-      toast.error(`${overweight.name} is too large. Max size is ${formatBytes(MAX_IMAGE_BYTES)}.`);
-      event.target.value = "";
-      return;
-    }
-
     setIsLoading(true);
 
     try {
+      const preparedFiles: File[] = [];
+      let resizedCount = 0;
+      const warningMessages: string[] = [];
+
+      for (const file of files) {
+        try {
+          const prepared = await preparePropertyImage(file);
+          preparedFiles.push(prepared.file);
+          if (prepared.wasResized) resizedCount += 1;
+          prepared.warnings.forEach((warning) => {
+            warningMessages.push(`${file.name}: ${warning}`);
+          });
+        } catch (error) {
+          const message =
+            error instanceof Error ? error.message : `${file.name} could not be uploaded.`;
+          toast.error(message);
+        }
+      }
+
+      if (!preparedFiles.length) {
+        return;
+      }
+
+      // Re-check count after filtering blocked files
+      if (images.length + preparedFiles.length > MAX_IMAGES) {
+        toast.error(`You can upload up to ${MAX_IMAGES} property images.`);
+        return;
+      }
+
+      warningMessages.slice(0, 3).forEach((message) => {
+        toast.warning(message, { duration: 5000 });
+      });
+      if (warningMessages.length > 3) {
+        toast.warning(
+          `${warningMessages.length - 3} more image(s) may look cropped on listings.`,
+          { duration: 5000 },
+        );
+      }
+
       const uploaded = await Promise.all(
-        files.map(async (file, index) => {
-          const url = isLocalUploadMode ? URL.createObjectURL(file) : await uploadFile(file);
+        preparedFiles.map(async (file, index) => {
+          const url = isLocalUploadMode
+            ? URL.createObjectURL(file)
+            : await uploadFile(file);
           if (url.startsWith("blob:")) {
             blobUrlsRef.current.add(url);
           }
@@ -302,11 +341,18 @@ export default function UploadMedia() {
       );
 
       setImages((current) => normalizeOrder([...current, ...uploaded]));
-      toast.success(
+
+      const successParts = [
         `${uploaded.length} image${uploaded.length === 1 ? "" : "s"} ${
           isLocalUploadMode ? "added locally" : "uploaded"
-        }.`,
-      );
+        }`,
+      ];
+      if (resizedCount > 0) {
+        successParts.push(
+          `${resizedCount} resized to fit within ${MAX_IMAGE_WIDTH}×${MAX_IMAGE_HEIGHT}`,
+        );
+      }
+      toast.success(`${successParts.join(". ")}.`);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to upload images.";
       toast.error(message);
@@ -416,6 +462,11 @@ export default function UploadMedia() {
           <p>
             Upload land photos, set the cover image, and label every view.
             <br /> Other images can use custom names like Plot View or Boundary Wall.
+          </p>
+          <p className="property-upload-size-guide">
+            Recommended: {MAX_IMAGE_WIDTH}×{MAX_IMAGE_HEIGHT} (4:3 landscape).
+            Min width {MIN_IMAGE_WIDTH}px. Max {formatImageBytes(MAX_IMAGE_BYTES)}.
+            Larger images are auto-resized. Portrait/panoramic photos are allowed with a warning.
           </p>
           {isLocalUploadMode ? (
             <p className="property-upload-local-note">
