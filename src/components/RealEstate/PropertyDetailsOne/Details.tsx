@@ -18,6 +18,7 @@ import {
 } from "@/utils/mapApiProperty";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { API_BASE_URL } from "@/config/constants";
+import { stripDescriptionHtml } from "@/utils/descriptionHtml";
 
 type ApiProperty = ApiPropertyFields;
 
@@ -91,7 +92,9 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
   const getShareUrl = () => window.location.href;
   const getShareText = () => {
     const title = display?.title?.trim() ?? "";
-    const description = apiProperty?.description?.trim() ?? "";
+    const description = stripDescriptionHtml(
+      apiProperty?.description?.trim() ?? "",
+    );
     const url = getShareUrl();
     return [title, description, url].filter(Boolean).join("\n\n");
   };
@@ -126,7 +129,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
   const shareOnInstagram = async () => {
     const url = getShareUrl();
     const title = display?.title ?? "Property";
-    const description = apiProperty?.description ?? "";
+    const description = stripDescriptionHtml(apiProperty?.description ?? "");
 
     if (navigator.share) {
       try {

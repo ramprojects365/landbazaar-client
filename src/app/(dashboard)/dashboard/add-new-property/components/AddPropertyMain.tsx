@@ -16,6 +16,7 @@ import { useSearchParams } from "next/navigation";
 import { API_BASE_URL } from "@/config/constants";
 import { stripCountryCodeForDisplay } from "@/utils/phoneInput";
 import { parseIndianPriceValue } from "@/utils/priceParsing";
+import { sanitizeDescriptionHtmlSync } from "@/utils/descriptionHtml";
 
 // Amenity groupings — mirror the FE display groups for categorising on submit
 const AMENITY_GROUPS = {
@@ -237,8 +238,10 @@ export default function AddPropertyPage() {
   } = methods;
   const searchParams = useSearchParams();
   const editPropertyId = searchParams.get("edit");
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(Boolean(editPropertyId));
+  // Start loading in edit mode so the rich-text editor mounts after data is ready
+  const [isLoading, setIsLoading] = useState(Boolean(editPropertyId));
+  const [editorMountKey, setEditorMountKey] = useState(0);
 
   const buildLocationFallback = (propertyData: any): string => {
     return [
@@ -399,6 +402,8 @@ export default function AddPropertyPage() {
           });
 
           console.log("✅ Form values set via setValue");
+          // Remount description editor with loaded content
+          setEditorMountKey((key) => key + 1);
 
           // Set images in the hidden input for UploadMedia component
           const normalizedImages = normalizeImages(propertyData);
@@ -595,7 +600,9 @@ export default function AddPropertyPage() {
             ? parseNumberValue(data.totalPrice)
             : null,
           title: data.title,
-          description: data.description,
+          description: data.description
+            ? sanitizeDescriptionHtmlSync(data.description)
+            : "",
           location: data.location,
           latitude:
             data.latitude === undefined ||
@@ -772,47 +779,48 @@ export default function AddPropertyPage() {
 
   return (
     <FormProvider {...methods}>
-      {isLoading && (
+      {isLoading ? (
         <div className="text-center py-4">
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
           <p className="mt-2">Loading property data...</p>
         </div>
-      )}
-      <form
-        className="tp-dashboard-add-property-form"
-        onSubmit={handleSubmit(onSubmit, (errors) => {
-          console.log("❌ FORM VALIDATION ERRORS:", errors);
-          toast.error("Please fix required fields before updating.");
-        })}
-      >
-        {errors.root && (
-          <div
-            className="alert alert-danger mb-3"
-            style={{
-              color: "#dc3545",
-              padding: "10px",
-              borderRadius: "5px",
-              backgroundColor: "#f8d7da",
-              border: "1px solid #f5c6cb",
-            }}
-          >
-            {errors.root.message}
+      ) : (
+        <form
+          className="tp-dashboard-add-property-form"
+          onSubmit={handleSubmit(onSubmit, (errors) => {
+            console.log("❌ FORM VALIDATION ERRORS:", errors);
+            toast.error("Please fix required fields before updating.");
+          })}
+        >
+          {errors.root && (
+            <div
+              className="alert alert-danger mb-3"
+              style={{
+                color: "#dc3545",
+                padding: "10px",
+                borderRadius: "5px",
+                backgroundColor: "#f8d7da",
+                border: "1px solid #f5c6cb",
+              }}
+            >
+              {errors.root.message}
+            </div>
+          )}
+          <BasicDetails key={`basic-${editorMountKey}`} />
+          <LocationDetails />
+          <PropertyDetails />
+          <ContactDetails />
+          <AmenitiesDetails />
+          <UploadMedia />
+          <div className="tp-dashboard-new-btn">
+            <button type="submit" className="add" disabled={isLoading}>
+              {isEditMode ? "Update Property" : "Add Property"}
+            </button>
           </div>
-        )}
-        <BasicDetails />
-        <LocationDetails />
-        <PropertyDetails />
-        <ContactDetails />
-        <AmenitiesDetails />
-        <UploadMedia />
-        <div className="tp-dashboard-new-btn">
-          <button type="submit" className="add" disabled={isLoading}>
-            {isEditMode ? "Update Property" : "Add Property"}
-          </button>
-        </div>
-      </form>
+        </form>
+      )}
     </FormProvider>
   );
 }

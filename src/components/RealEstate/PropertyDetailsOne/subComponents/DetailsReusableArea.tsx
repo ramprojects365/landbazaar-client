@@ -1,5 +1,6 @@
 import UserContactCard from "@/components/Layout/subComponents/UserContactCard";
 import SidebarPropertyItem from "@/components/Layout/subComponents/SidebarPropertyItem";
+import PropertyDescription from "@/components/Property/PropertyDescription";
 import RecentlyViewedProperties from "./RecentlyViewedItem";
 import AmenitiesCategories from "./AmenitiesCategories";
 import PropertyDetailsBox from "./PropertyDetailsBox";
@@ -42,11 +43,7 @@ export default function DetailsReusableArea({
               <div className="tp-property-details-box box-1 mb-30">
                 <h3 className="tp-property-details-box-title">Description</h3>
                 <div className="tp-property-details-box-desc">
-                  <p className="tp-property-details-description">
-                    {property?.description?.trim()
-                      ? property.description
-                      : "No description available."}
-                  </p>
+                  <PropertyDescription description={property?.description} />
                 </div>
               </div>
 

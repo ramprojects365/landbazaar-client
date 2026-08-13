@@ -165,6 +165,38 @@
   line-height: 1.75;
 }
 
+.property-description-html {
+  white-space: normal;
+
+  p {
+    margin: 0 0 0.75em;
+  }
+
+  h2,
+  h3,
+  h4 {
+    margin: 0 0 0.5em;
+    color: #003b5c;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  ul,
+  ol {
+    margin: 0 0 0.75em;
+    padding-left: 1.35em;
+  }
+
+  li {
+    margin-bottom: 0.3em;
+  }
+
+  strong,
+  b {
+    font-weight: 700;
+  }
+}
+
 .sidebar-recent-property .tp-rent-meta-content span {
   width: auto;
   height: auto;
