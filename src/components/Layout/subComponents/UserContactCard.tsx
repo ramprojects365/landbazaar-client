@@ -24,7 +24,7 @@ export default function UserContactCard({ user }: UserContactCardProps) {
     user?.renVerified === true || user?.renStatus === "verified";
   const renStatusLabel =
     user?.renStatusLabel || (renVerified ? "Verified" : "Not verified");
-  const contactRole = "Property seller";
+  const contactRole = "Property Owner";
 
   const handleWhatsAppClick = () => {
     if (!whatsappNumber) return;
@@ -49,7 +49,7 @@ export default function UserContactCard({ user }: UserContactCardProps) {
               <div className="tp-team-details-info-user-thumb">
                 <Image
                   src={agentImage}
-                  alt={agentName || "Property seller"}
+                  alt={agentName || "Property Owner"}
                   width={50}
                   height={50}
                   style={{ borderRadius: "50%", objectFit: "cover" }}
