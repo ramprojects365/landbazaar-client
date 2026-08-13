@@ -13,68 +13,28 @@ import {
 } from "@/utils/propertyImageUpload";
 import "../property.css";
 
-type PropertyImageCategory =
-  | "other"
-  | "plot_view"
-  | "boundary_wall"
-  | "approach_road"
-  | "farm_land"
-  | "agricultural_land"
-  | "open_plot"
-  | "corner_plot"
-  | "facilities"
-  | "location_map";
-
 interface PropertyImageItem {
   id: string;
   url: string;
   fileName: string;
   order: number;
-  category: PropertyImageCategory;
+  /** Kept for API backward compatibility; not shown in UI */
+  category: string;
+  /** Kept for API backward compatibility; not shown in UI */
   customPlaceName: string;
-  displayPlace: string;
   caption: string;
   isCover: boolean;
 }
 
-const categories: Array<{ value: PropertyImageCategory; label: string }> = [
-  { value: "other", label: "Other" },
-  { value: "plot_view", label: "Plot View" },
-  { value: "boundary_wall", label: "Boundary Wall" },
-  { value: "approach_road", label: "Approach Road" },
-  { value: "farm_land", label: "Farm Land" },
-  { value: "agricultural_land", label: "Agricultural Land" },
-  { value: "open_plot", label: "Open Plot" },
-  { value: "corner_plot", label: "Corner Plot" },
-  { value: "facilities", label: "Facilities" },
-  { value: "location_map", label: "Location Map" },
-];
-
-const quickCategories = categories.filter((category) =>
-  ["other", "plot_view", "boundary_wall", "approach_road", "farm_land", "agricultural_land", "open_plot"].includes(
-    category.value,
-  ),
-);
-
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const ACCEPTED_IMAGE_INPUT = ACCEPTED_IMAGE_TYPES.join(",");
 const MAX_IMAGES = 15;
+const DEFAULT_IMAGE_CATEGORY = "other";
 
 const createId = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-
-const getCategoryLabel = (value: string) =>
-  categories.find((category) => category.value === value)?.label || "Other";
-
-const getDisplayPlace = (image: Pick<PropertyImageItem, "category" | "customPlaceName">) => {
-  if (image.category === "other" && image.customPlaceName.trim()) {
-    return image.customPlaceName.trim();
-  }
-
-  return getCategoryLabel(image.category);
-};
 
 const normalizeOrder = (items: PropertyImageItem[]) => {
   const ordered = items.map((image, index) => ({ ...image, order: index + 1 }));
@@ -96,10 +56,9 @@ const normalizeLoadedImages = (images: unknown[]): PropertyImageItem[] => {
             url: image,
             fileName: `Image ${index + 1}`,
             order: index + 1,
-            category: "other",
+            category: DEFAULT_IMAGE_CATEGORY,
             customPlaceName: "",
-            displayPlace: "Other",
-            caption: "Other",
+            caption: "",
             isCover: index === 0,
           };
         }
@@ -111,26 +70,22 @@ const normalizeLoadedImages = (images: unknown[]): PropertyImageItem[] => {
         if (typeof url !== "string" || !url.trim()) return null;
 
         const category =
-          typeof item.category === "string" &&
-          categories.some((option) => option.value === item.category)
-            ? (item.category as PropertyImageCategory)
-            : "other";
+          typeof item.category === "string" && item.category.trim()
+            ? item.category
+            : DEFAULT_IMAGE_CATEGORY;
         const customPlaceName =
           typeof item.customPlaceName === "string" ? item.customPlaceName : "";
-        const displayPlace =
-          typeof item.displayPlace === "string" && item.displayPlace.trim()
-            ? item.displayPlace
-            : getDisplayPlace({ category, customPlaceName });
+        const caption = typeof item.caption === "string" ? item.caption : "";
 
         return {
           id: typeof item.id === "string" ? item.id : createId(),
           url,
-          fileName: typeof item.fileName === "string" ? item.fileName : `Image ${index + 1}`,
+          fileName:
+            typeof item.fileName === "string" ? item.fileName : `Image ${index + 1}`,
           order: typeof item.order === "number" ? item.order : index + 1,
           category,
           customPlaceName,
-          displayPlace,
-          caption: typeof item.caption === "string" ? item.caption : displayPlace,
+          caption,
           isCover: Boolean(item.isCover || index === 0),
         };
       })
@@ -146,24 +101,27 @@ export default function UploadMedia() {
   const isLocalHost =
     typeof window !== "undefined" &&
     ["localhost", "127.0.0.1"].includes(window.location.hostname);
+  // Opt-in only. Default is real server upload so property images get permanent URLs.
+  // Set NEXT_PUBLIC_LOCAL_IMAGE_UPLOAD=true only for offline UI testing.
   const isLocalUploadMode =
     process.env.NODE_ENV !== "production" &&
     isLocalHost &&
-    process.env.NEXT_PUBLIC_LOCAL_IMAGE_UPLOAD !== "false";
+    process.env.NEXT_PUBLIC_LOCAL_IMAGE_UPLOAD === "true";
 
   const payloadImages = useMemo(
     () =>
       images.map((image, index) => {
-        const displayPlace = getDisplayPlace(image);
+        const caption = image.caption.trim();
 
         return {
           url: image.url,
           fileName: image.fileName,
           order: index + 1,
-          category: image.category,
-          customPlaceName: image.category === "other" ? image.customPlaceName.trim() : "",
-          displayPlace,
-          caption: image.caption.trim() || displayPlace,
+          // Defaults kept so existing API contracts remain valid
+          category: image.category || DEFAULT_IMAGE_CATEGORY,
+          customPlaceName: image.customPlaceName?.trim() || "",
+          displayPlace: caption,
+          caption,
           isCover: image.isCover,
         };
       }),
@@ -172,7 +130,9 @@ export default function UploadMedia() {
 
   useEffect(() => {
     const loadImages = () => {
-      const hiddenInput = document.getElementById("uploaded-images-input") as HTMLInputElement | null;
+      const hiddenInput = document.getElementById(
+        "uploaded-images-input",
+      ) as HTMLInputElement | null;
       if (!hiddenInput?.value) return;
 
       try {
@@ -193,10 +153,16 @@ export default function UploadMedia() {
     };
 
     loadImages();
-    window.addEventListener("property-images-loaded", handleImagesLoaded as EventListener);
+    window.addEventListener(
+      "property-images-loaded",
+      handleImagesLoaded as EventListener,
+    );
 
     return () => {
-      window.removeEventListener("property-images-loaded", handleImagesLoaded as EventListener);
+      window.removeEventListener(
+        "property-images-loaded",
+        handleImagesLoaded as EventListener,
+      );
     };
   }, []);
 
@@ -268,9 +234,13 @@ export default function UploadMedia() {
       return;
     }
 
-    const invalidType = files.find((file) => !ACCEPTED_IMAGE_TYPES.includes(file.type));
+    const invalidType = files.find(
+      (file) => !ACCEPTED_IMAGE_TYPES.includes(file.type),
+    );
     if (invalidType) {
-      toast.error(`${invalidType.name} is not supported. Use JPG, PNG, WebP, or GIF.`);
+      toast.error(
+        `${invalidType.name} is not supported. Use JPG, PNG, WebP, or GIF.`,
+      );
       event.target.value = "";
       return;
     }
@@ -292,7 +262,9 @@ export default function UploadMedia() {
           });
         } catch (error) {
           const message =
-            error instanceof Error ? error.message : `${file.name} could not be uploaded.`;
+            error instanceof Error
+              ? error.message
+              : `${file.name} could not be uploaded.`;
           toast.error(message);
         }
       }
@@ -301,7 +273,6 @@ export default function UploadMedia() {
         return;
       }
 
-      // Re-check count after filtering blocked files
       if (images.length + preparedFiles.length > MAX_IMAGES) {
         toast.error(`You can upload up to ${MAX_IMAGES} property images.`);
         return;
@@ -331,9 +302,8 @@ export default function UploadMedia() {
             url,
             fileName: file.name,
             order: images.length + index + 1,
-            category: "other" as PropertyImageCategory,
+            category: DEFAULT_IMAGE_CATEGORY,
             customPlaceName: "",
-            displayPlace: "Other",
             caption: "",
             isCover: false,
           };
@@ -354,32 +324,13 @@ export default function UploadMedia() {
       }
       toast.success(`${successParts.join(". ")}.`);
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to upload images.";
+      const message =
+        error instanceof Error ? error.message : "Failed to upload images.";
       toast.error(message);
     } finally {
       setIsLoading(false);
       event.target.value = "";
     }
-  };
-
-  const updateCategory = (id: string, category: PropertyImageCategory) => {
-    setImages((current) =>
-      current.map((image) => {
-        if (image.id !== id) return image;
-
-        const next = {
-          ...image,
-          category,
-          customPlaceName: category === "other" ? image.customPlaceName : "",
-        };
-
-        return {
-          ...next,
-          displayPlace: getDisplayPlace(next),
-          caption: image.caption || getCategoryLabel(category),
-        };
-      }),
-    );
   };
 
   const updateImage = (id: string, updates: Partial<PropertyImageItem>) => {
@@ -393,7 +344,8 @@ export default function UploadMedia() {
     if (nextIndex < 0 || nextIndex >= images.length) return;
 
     const updated = [...images];
-    [updated[index], updated[nextIndex]] = [updated[nextIndex], updated[index]];
+    const [item] = updated.splice(index, 1);
+    updated.splice(nextIndex, 0, item);
     setImages(normalizeOrder(updated));
   };
 
@@ -434,9 +386,7 @@ export default function UploadMedia() {
   };
 
   const coverImage = images.find((image) => image.isCover) || images[0];
-  const labeledCount = images.filter(
-    (image) => image.category !== "other" || image.customPlaceName.trim(),
-  ).length;
+  const captionedCount = images.filter((image) => image.caption.trim()).length;
 
   return (
     <div className="tp-dashboard-new-property mb-15 property-upload-manager">
@@ -460,13 +410,14 @@ export default function UploadMedia() {
           </span>
 
           <p>
-            Upload land photos, set the cover image, and label every view.
-            <br /> Other images can use custom names like Plot View or Boundary Wall.
+            Upload land photos, set the cover image, and optionally add a caption
+            for each photo.
           </p>
           <p className="property-upload-size-guide">
-            Recommended: {MAX_IMAGE_WIDTH}×{MAX_IMAGE_HEIGHT} (4:3 landscape).
-            Min width {MIN_IMAGE_WIDTH}px. Max {formatImageBytes(MAX_IMAGE_BYTES)}.
-            Larger images are auto-resized. Portrait/panoramic photos are allowed with a warning.
+            Recommended: {MAX_IMAGE_WIDTH}×{MAX_IMAGE_HEIGHT} (4:3 landscape). Min
+            width {MIN_IMAGE_WIDTH}px. Max {formatImageBytes(MAX_IMAGE_BYTES)}.
+            Larger images are auto-resized. Portrait/panoramic photos are allowed
+            with a warning.
           </p>
           {isLocalUploadMode ? (
             <p className="property-upload-local-note">
@@ -474,11 +425,6 @@ export default function UploadMedia() {
             </p>
           ) : null}
         </div>
-
-        <p className="property-upload-hint">
-          Examples: Plot View, Boundary Wall, Approach Road, Farm Land View, Agricultural Land,
-          Open Plot, Corner Plot, East-Facing Plot, Near Main Road, Water Facility.
-        </p>
 
         <input
           type="hidden"
@@ -495,12 +441,16 @@ export default function UploadMedia() {
             <div className="property-media-editor">
               <div className="property-media-toolbar">
                 <div>
-                  <span className="property-media-eyebrow">Photo order and labels</span>
-                  <h6>{images.length} image{images.length === 1 ? "" : "s"} ready</h6>
+                  <span className="property-media-eyebrow">Photo order</span>
+                  <h6>
+                    {images.length} image{images.length === 1 ? "" : "s"} ready
+                  </h6>
                 </div>
                 <div className="property-media-stats">
-                  <span>{labeledCount}/{images.length} labeled</span>
-                  <span>{coverImage ? getDisplayPlace(coverImage) : "No cover"}</span>
+                  <span>
+                    {captionedCount}/{images.length} with caption
+                  </span>
+                  <span>{coverImage ? "Cover set" : "No cover"}</span>
                 </div>
               </div>
 
@@ -510,10 +460,9 @@ export default function UploadMedia() {
                     <div className="property-photo-top">
                       <span className="property-photo-number">{index + 1}</span>
                       <span className="property-photo-name">{image.fileName}</span>
-                      {image.category === "other" && image.customPlaceName.trim() ? (
-                        <span className="property-photo-badge custom">Custom</span>
+                      {image.isCover ? (
+                        <span className="property-photo-badge cover">Cover</span>
                       ) : null}
-                      {image.isCover ? <span className="property-photo-badge cover">Cover</span> : null}
                     </div>
 
                     <img
@@ -523,65 +472,23 @@ export default function UploadMedia() {
                     />
 
                     <div className="property-upload-field">
-                      <label>Place / Room Type</label>
-                      <select
-                        value={image.category}
-                        onChange={(event) =>
-                          updateCategory(image.id, event.target.value as PropertyImageCategory)
-                        }
-                      >
-                        {categories.map((category) => (
-                          <option key={category.value} value={category.value}>
-                            {category.label}
-                          </option>
-                        ))}
-                      </select>
-
-                      <div className="property-upload-chips">
-                        {quickCategories.map((category) => (
-                          <button
-                            key={category.value}
-                            type="button"
-                            className={`property-upload-chip ${
-                              image.category === category.value ? "active" : ""
-                            }`}
-                            onClick={() => updateCategory(image.id, category.value)}
-                          >
-                            {category.label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {image.category === "other" ? (
-                      <div className="property-upload-field">
-                        <label>Custom Place Name</label>
-                        <input
-                          type="text"
-                          value={image.customPlaceName}
-                          placeholder="Example: Plot View, Boundary Wall"
-                          onChange={(event) =>
-                            updateImage(image.id, {
-                              customPlaceName: event.target.value,
-                              displayPlace: event.target.value.trim() || "Other",
-                            })
-                          }
-                        />
-                      </div>
-                    ) : null}
-
-                    <div className="property-upload-field">
-                      <label>Caption</label>
+                      <label>Caption (optional)</label>
                       <input
                         type="text"
                         value={image.caption}
-                        placeholder={`Example: ${getDisplayPlace(image)}`}
-                        onChange={(event) => updateImage(image.id, { caption: event.target.value })}
+                        placeholder="Example: Front view from main road"
+                        onChange={(event) =>
+                          updateImage(image.id, { caption: event.target.value })
+                        }
                       />
                     </div>
 
                     <div className="property-photo-actions">
-                      <button type="button" onClick={() => moveImage(index, -1)} disabled={index === 0}>
+                      <button
+                        type="button"
+                        onClick={() => moveImage(index, -1)}
+                        disabled={index === 0}
+                      >
                         Move Up
                       </button>
                       <button
@@ -593,10 +500,18 @@ export default function UploadMedia() {
                       </button>
                     </div>
 
-                    <button type="button" className="property-cover-btn" onClick={() => setCover(image.id)}>
+                    <button
+                      type="button"
+                      className="property-cover-btn"
+                      onClick={() => setCover(image.id)}
+                    >
                       Set as Cover
                     </button>
-                    <button type="button" className="property-danger-btn" onClick={() => removeImage(image.id)}>
+                    <button
+                      type="button"
+                      className="property-danger-btn"
+                      onClick={() => removeImage(image.id)}
+                    >
                       Remove Image
                     </button>
                   </article>
@@ -610,22 +525,38 @@ export default function UploadMedia() {
                   <span className="property-media-eyebrow">Customer view</span>
                   <h6>Gallery Preview</h6>
                 </div>
-                <button type="button" onClick={clearAll}>Clear all</button>
+                <button type="button" onClick={clearAll}>
+                  Clear all
+                </button>
               </div>
 
               {coverImage ? (
                 <div className="property-cover-preview">
-                  <img src={coverImage.url} alt={coverImage.caption || coverImage.fileName} />
-                  <span>Cover · {getDisplayPlace(coverImage)}</span>
+                  <img
+                    src={coverImage.url}
+                    alt={coverImage.caption || coverImage.fileName}
+                  />
+                  <span>
+                    Cover
+                    {coverImage.caption.trim()
+                      ? ` · ${coverImage.caption.trim()}`
+                      : ""}
+                  </span>
                 </div>
               ) : null}
 
               <div className="property-preview-grid">
                 {images.map((image, index) => (
                   <div className="property-preview-item" key={image.id}>
-                    <img src={image.url} alt={image.caption || image.fileName} />
+                    <img
+                      src={image.url}
+                      alt={image.caption || image.fileName}
+                    />
                     <span>
-                      {index + 1}. {getDisplayPlace(image)}
+                      {index + 1}.
+                      {image.caption.trim()
+                        ? ` ${image.caption.trim()}`
+                        : " Photo"}
                     </span>
                   </div>
                 ))}

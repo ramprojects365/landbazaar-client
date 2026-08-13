@@ -307,6 +307,16 @@ export const propertySchema = yup.object({
       digitsOnlyPositive(
         "Min lease period is required",
         "Min lease period must be greater than 0",
+      ).test(
+        "less-than-lease-duration",
+        "Min lease period must be less than lease duration",
+        function (value) {
+          const leaseDurationYears = this.parent?.leaseDurationYears;
+          if (!value || !leaseDurationYears) return true;
+          if (!/^[0-9]+$/.test(String(value))) return true;
+          if (!/^[0-9]+$/.test(String(leaseDurationYears))) return true;
+          return Number(value) < Number(leaseDurationYears);
+        },
       ),
     otherwise: () => optionalDigits,
   }),

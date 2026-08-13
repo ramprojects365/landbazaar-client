@@ -351,9 +351,8 @@ export default function AddPropertyPage() {
             leaseDurationYears: formatWholeNumberInput(
               propertyData.leaseDurationYears ?? propertyData.tenure,
             ),
-            depositAmount: propertyData.depositAmount
-              ? String(propertyData.depositAmount)
-              : "",
+            // Form stores whole-rupee digits as string; API may return number/string with decimals
+            depositAmount: formatWholeNumberInput(propertyData.depositAmount),
             minimumRentalPeriod: formatWholeNumberInput(
               propertyData.minimumRentalPeriod,
             ),
@@ -372,13 +371,9 @@ export default function AddPropertyPage() {
             petPolicy: propertyData.petPolicy || "",
             preferredTenantType: propertyData.preferredTenantType || "",
 
-            // Strata property fields
-            maintenanceFee: propertyData.maintenanceFee
-              ? String(propertyData.maintenanceFee)
-              : "",
-            sinkingFund: propertyData.sinkingFund
-              ? String(propertyData.sinkingFund)
-              : "",
+            // Strata property fields (same whole-number input pattern)
+            maintenanceFee: formatWholeNumberInput(propertyData.maintenanceFee),
+            sinkingFund: formatWholeNumberInput(propertyData.sinkingFund),
 
             // India land listing fields
             bumiLotStatus: propertyData.bumiLotStatus || "",
@@ -479,22 +474,18 @@ export default function AddPropertyPage() {
                     const url = img?.url || img?.imageUrl || img?.src;
                     if (!url) return null;
 
+                    const caption =
+                      typeof img.caption === "string" ? img.caption.trim() : "";
+
                     return {
                       url,
                       fileName: img.fileName || "",
                       order: img.order,
+                      // Kept for API compatibility; UI no longer collects these
                       category: img.category || "other",
                       customPlaceName: img.customPlaceName || "",
-                      displayPlace:
-                        img.displayPlace ||
-                        img.customPlaceName ||
-                        img.category ||
-                        "Other",
-                      caption:
-                        img.caption ||
-                        img.displayPlace ||
-                        img.customPlaceName ||
-                        "",
+                      displayPlace: caption || img.displayPlace || "",
+                      caption,
                       isCover: Boolean(img.isCover),
                     };
                   })
@@ -510,10 +501,13 @@ export default function AddPropertyPage() {
             image.url.startsWith("blob:"),
         );
 
+        // blob: URLs only exist in the current browser tab — never persist them
         if (hasLocalPreviewImages) {
-          toast.warning("Local preview images are not saved to the backend.", {
-            duration: 5000,
-          });
+          toast.error(
+            "Images are still local previews (not uploaded to server). Disable local image mode or upload again so permanent URLs are saved.",
+            { duration: 7000 },
+          );
+          return;
         }
 
         if (propertyImages.length < 5) {
