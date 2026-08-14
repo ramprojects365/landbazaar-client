@@ -41,41 +41,23 @@ const formatFileSize = (size?: number) => {
   return `${(size / (1024 * 1024)).toFixed(1)} MB`;
 };
 
-export default function UploadDocuments() {
-  const [documents, setDocuments] = useState<PropertyDocumentItem[]>([]);
+interface UploadDocumentsProps {
+  initialDocuments?: unknown[];
+}
+
+export default function UploadDocuments({
+  initialDocuments = [],
+}: UploadDocumentsProps) {
+  const [documents, setDocuments] = useState<PropertyDocumentItem[]>(() =>
+    normalizeDocuments(initialDocuments),
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const loadDocuments = () => {
-      const hiddenInput = document.getElementById(
-        "uploaded-documents-input",
-      ) as HTMLInputElement | null;
-      if (!hiddenInput?.value) return;
-
-      try {
-        setDocuments(normalizeDocuments(JSON.parse(hiddenInput.value)));
-      } catch (error) {
-        console.error("Failed to parse existing documents:", error);
-      }
-    };
-
-    const handleDocumentsLoaded = (event: CustomEvent) => {
-      setDocuments(normalizeDocuments(event.detail?.documents));
-    };
-
-    loadDocuments();
-    window.addEventListener(
-      "property-documents-loaded",
-      handleDocumentsLoaded as EventListener,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "property-documents-loaded",
-        handleDocumentsLoaded as EventListener,
-      );
-    };
-  }, []);
+    const next = normalizeDocuments(initialDocuments);
+    if (next.length === 0) return;
+    setDocuments(next);
+  }, [initialDocuments]);
 
   useEffect(() => {
     const hiddenInput = document.getElementById(
@@ -127,20 +109,25 @@ export default function UploadDocuments() {
   return (
     <div className="tp-dashboard-new-property mb-15 property-upload-manager">
       <h5 className="tp-dashboard-new-title">Documents</h5>
-      <div className="tp-dashboard-new-um-content property-upload-drop">
-        <span className="upload-btn">
-          <input
-            id="tp-dashboard-document-input"
-            type="file"
-            multiple
-            onChange={handleUpload}
-            disabled={isLoading}
-          />
-          <label htmlFor="tp-dashboard-document-input">
-            {isLoading ? "Uploading..." : "+ Upload Documents"}
-          </label>
-        </span>
-        <p>Upload title deeds, approvals, plans, or other property documents.</p>
+      <div className="tp-dashboard-new-um">
+        <div className="tp-dashboard-new-um-content property-upload-drop">
+          <span className="upload-btn">
+            <input
+              id="tp-dashboard-document-input"
+              type="file"
+              multiple
+              onChange={handleUpload}
+              disabled={isLoading}
+            />
+            <label htmlFor="tp-dashboard-document-input">
+              {isLoading ? "Uploading..." : "+ Upload Documents"}
+            </label>
+          </span>
+          <p>
+            Upload title deeds, approvals, plans, or other property documents.
+            Existing documents stay unless you remove or replace them.
+          </p>
+        </div>
       </div>
 
       <input
@@ -151,7 +138,9 @@ export default function UploadDocuments() {
         readOnly
       />
 
-      {documents.length > 0 ? (
+      {documents.length === 0 ? (
+        <div className="property-upload-empty">No documents uploaded yet.</div>
+      ) : (
         <div className="property-document-list">
           {documents.map((document) => (
             <div className="property-document-item" key={document.url}>
@@ -165,7 +154,7 @@ export default function UploadDocuments() {
             </div>
           ))}
         </div>
-      ) : null}
+      )}
     </div>
   );
 }

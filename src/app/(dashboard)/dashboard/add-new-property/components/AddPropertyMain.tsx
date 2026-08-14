@@ -254,6 +254,8 @@ export default function AddPropertyPage() {
   // Start loading in edit mode so the rich-text editor mounts after data is ready
   const [isLoading, setIsLoading] = useState(Boolean(editPropertyId));
   const [editorMountKey, setEditorMountKey] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<unknown[]>([]);
+  const [loadedDocuments, setLoadedDocuments] = useState<unknown[]>([]);
 
   const buildLocationFallback = (propertyData: any): string => {
     return [
@@ -412,39 +414,14 @@ export default function AddPropertyPage() {
           // Remount description editor with loaded content
           setEditorMountKey((key) => key + 1);
 
-          // Set images in the hidden input for UploadMedia component
+          // Pass media into UploadMedia / UploadDocuments after the form mounts.
+          // Those components are unmounted while isLoading, so DOM events would be missed.
           const normalizedImages = normalizeImages(propertyData);
-
-          if (normalizedImages.length > 0) {
-            console.log("🖼️ Setting images:", normalizedImages);
-
-            const hiddenInput = document.getElementById(
-              "uploaded-images-input",
-            ) as HTMLInputElement | null;
-
-            if (hiddenInput) {
-              hiddenInput.value = JSON.stringify(normalizedImages);
-            }
-
-            window.dispatchEvent(
-              new CustomEvent("property-images-loaded", {
-                detail: { images: normalizedImages },
-              }),
-            );
-          }
-
           const normalizedDocuments = normalizeDocuments(propertyData);
-          const documentsInput = document.getElementById(
-            "uploaded-documents-input",
-          ) as HTMLInputElement | null;
-          if (documentsInput) {
-            documentsInput.value = JSON.stringify(normalizedDocuments);
-          }
-          window.dispatchEvent(
-            new CustomEvent("property-documents-loaded", {
-              detail: { documents: normalizedDocuments },
-            }),
-          );
+          console.log("🖼️ Setting images:", normalizedImages);
+          console.log("📄 Setting documents:", normalizedDocuments);
+          setLoadedImages(normalizedImages);
+          setLoadedDocuments(normalizedDocuments);
 
           toast.success("Property data loaded for editing");
         } catch (error) {
@@ -846,8 +823,8 @@ export default function AddPropertyPage() {
           <PropertyDetails />
           <ContactDetails />
           <AmenitiesDetails />
-          <UploadMedia />
-          <UploadDocuments />
+          <UploadMedia initialImages={loadedImages} />
+          <UploadDocuments initialDocuments={loadedDocuments} />
           <div className="tp-dashboard-new-btn">
             <button type="submit" className="add" disabled={isLoading}>
               {isEditMode ? "Update Property" : "Add Property"}
