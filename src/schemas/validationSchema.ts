@@ -45,7 +45,7 @@ const meaningfulText = (
     .matches(/[A-Za-z]/, `${field} must include letters`)
     .matches(/[A-Za-z0-9]/, `${field} cannot be only special characters`);
 
-  const PASSWORD_ALNUM_6 = /^[A-Za-z0-9]{6,}$/;
+const PASSWORD_PATTERN = /^[\x21-\x7E]{8,}$/;
 
 //Sign Up form validation schema
 export const signUpSchema = yup.object().shape({
@@ -56,8 +56,8 @@ export const signUpSchema = yup.object().shape({
     .string()
     .required("Enter password")
     .matches(
-      PASSWORD_ALNUM_6,
-      "Password must be at least 6 characters and alphanumeric only",
+      PASSWORD_PATTERN,
+      "Password must be at least 8 characters and cannot contain spaces or unicode characters",
     ),
   confirmPassword: yup
     .string()
@@ -72,8 +72,8 @@ export const signInSchema = yup.object().shape({
     .string()
     .required("Enter password")
     .matches(
-      PASSWORD_ALNUM_6,
-      "Password must be at least 6 characters and alphanumeric only",
+      PASSWORD_PATTERN,
+      "Password must be at least 8 characters and cannot contain spaces or unicode characters",
     ),
 });
 
@@ -87,8 +87,8 @@ export const resetPasswordSchema = yup.object().shape({
     .string()
     .required("Enter password")
     .matches(
-      PASSWORD_ALNUM_6,
-      "Password must be at least 6 characters and alphanumeric only",
+      PASSWORD_PATTERN,
+      "Password must be at least 8 characters and cannot contain spaces or unicode characters",
     ),
   confirmPassword: yup
     .string()
@@ -429,15 +429,15 @@ export const changePasswordSchema = yup.object().shape({
     .string()
     .required("Old password is required")
     .matches(
-      PASSWORD_ALNUM_6,
-      "Old password must be at least 6 characters and alphanumeric only",
+      PASSWORD_PATTERN,
+      "Old password must be at least 8 characters and cannot contain spaces or unicode characters",
     ),
   newPassword: yup
     .string()
     .required("New password is required")
     .matches(
-      PASSWORD_ALNUM_6,
-      "New password must be at least 6 characters and alphanumeric only",
+      PASSWORD_PATTERN,
+      "New password must be at least 8 characters and cannot contain spaces or unicode characters",
     ),
   confirmPassword: yup
     .string()

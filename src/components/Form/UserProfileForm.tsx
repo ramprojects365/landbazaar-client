@@ -458,7 +458,6 @@ export default function UserProfileForm() {
           <input
             ref={fileInputRef}
             type="file"
-            accept="image/*"
             style={{ display: "none" }}
             onChange={handleImageChange}
           />

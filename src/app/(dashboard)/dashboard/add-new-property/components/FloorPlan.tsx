@@ -107,7 +107,6 @@ export default function FloorPlan() {
             <input
               id="tp-dashboard-new-floorplan-input"
               type="file"
-              accept="image/png, image/jpeg, image/webp"
               onChange={handleUpload}
               disabled={isLoading}
               style={{ display: "none" }}
