@@ -9,7 +9,8 @@ const contactLocations: ContactLocation[] = [
     address: (
       <>
         <p>
-          Dekho Land, <br /> Hyderabad, Telangana
+          Dekho Land, <br />
+          KPHB, Hyderabad, Telangana
         </p>
       </>
     ),
@@ -26,9 +27,7 @@ export default function ContactAreaTwo() {
           <div className="col-lg-6">
             <div className="tp-contact-inner-heading mb-30">
               <span className="tp-section-title-pre">Contact Dekho Land</span>
-              <h3 className="tp-section-title">
-                Talk to our <br /> India land team.
-              </h3>
+              <h3 className="tp-section-title">Talk to our team.</h3>
             </div>
           </div>
           <div className="col-lg-6">
