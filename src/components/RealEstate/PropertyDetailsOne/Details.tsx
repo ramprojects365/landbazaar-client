@@ -123,7 +123,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
   };
 
   const shareOnWhatsApp = () => {
-    openExternal(`https://wa.me/?text=${encodeURIComponent(getShareText())}`);
+    openExternal(`https://wa.me/?text=${encodeURIComponent(getShareUrl())}`);
   };
 
   const shareOnInstagram = async () => {
