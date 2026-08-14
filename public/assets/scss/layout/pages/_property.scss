@@ -776,3 +776,33 @@
     font-size: 11px;
   }
 }
+
+.tp-property-details-left .tp-property-details-documents {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tp-property-details-left .tp-property-details-documents li {
+  margin: 0 0 10px;
+}
+
+.tp-property-details-left .tp-property-details-documents li:last-child {
+  margin-bottom: 0;
+}
+
+.tp-property-details-left .tp-property-details-documents a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #003b5c;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tp-property-details-left .tp-property-details-documents a:hover {
+  color: #00263b;
+}

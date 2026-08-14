@@ -4,6 +4,13 @@ import { formatPrice } from "@/components/Utils/formatPrice";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { resolveUserDisplayProfile } from "@/utils/userProfileDisplay";
 
+export type ApiPropertyDocument = {
+  url?: string;
+  fileName?: string;
+  mimeType?: string;
+  size?: number;
+};
+
 /**
  * Shape of a property item from GET /api/properties (and property-by-id).
  * Only fields that exist on the API are listed here.
@@ -63,6 +70,7 @@ export type ApiPropertyFields = {
     facilities?: string[];
   };
   images?: unknown[];
+  documents?: ApiPropertyDocument[] | null;
   status?: string;
   userId?: string;
   createdAt?: string;
@@ -175,6 +183,24 @@ export function formatPricePerUnit(
   return unit
     ? `${formatPrice(value, false)} / ${unit}`
     : formatPrice(value, false);
+}
+
+export function getPropertyDocuments(
+  documents?: ApiPropertyDocument[] | null,
+): Array<{ url: string; fileName: string }> {
+  if (!Array.isArray(documents)) return [];
+
+  return documents
+    .map((document) => {
+      const url = document?.url?.trim();
+      if (!url) return null;
+
+      const fileName = document.fileName?.trim() || "Document";
+      return { url, fileName };
+    })
+    .filter((document): document is { url: string; fileName: string } =>
+      Boolean(document),
+    );
 }
 
 function resolveImageSrc(
