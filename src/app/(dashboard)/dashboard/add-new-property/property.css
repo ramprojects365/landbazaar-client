@@ -41,6 +41,10 @@
   padding-bottom: 6px;
 }
 
+.property-upload-manager .upload-btn input[type="file"] {
+  display: none;
+}
+
 .property-upload-drop {
   border: 2px dashed #cbd5e1;
   border-radius: 16px;
@@ -567,4 +571,47 @@
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+.property-document-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.property-document-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.property-document-item a {
+  color: #003b5c;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+
+.property-document-item span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.property-document-item button {
+  margin-left: auto;
+  border: 1px solid #fecaca;
+  background: #fff;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
 }

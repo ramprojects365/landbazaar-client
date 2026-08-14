@@ -90,8 +90,16 @@ const normalizeLoadedImages = (images: unknown[]): PropertyImageItem[] => {
   );
 };
 
-export default function UploadMedia() {
-  const [images, setImages] = useState<PropertyImageItem[]>([]);
+interface UploadMediaProps {
+  initialImages?: unknown[];
+}
+
+export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
+  const [images, setImages] = useState<PropertyImageItem[]>(() =>
+    Array.isArray(initialImages) && initialImages.length > 0
+      ? normalizeLoadedImages(initialImages)
+      : [],
+  );
   const [isLoading, setIsLoading] = useState(false);
   const blobUrlsRef = useRef<Set<string>>(new Set());
   const isLocalHost =
@@ -125,42 +133,9 @@ export default function UploadMedia() {
   );
 
   useEffect(() => {
-    const loadImages = () => {
-      const hiddenInput = document.getElementById(
-        "uploaded-images-input",
-      ) as HTMLInputElement | null;
-      if (!hiddenInput?.value) return;
-
-      try {
-        const parsed = JSON.parse(hiddenInput.value);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setImages(normalizeLoadedImages(parsed));
-        }
-      } catch (error) {
-        console.error("Failed to parse existing images:", error);
-      }
-    };
-
-    const handleImagesLoaded = (event: CustomEvent) => {
-      const loadedImages = event.detail?.images;
-      if (Array.isArray(loadedImages)) {
-        setImages(normalizeLoadedImages(loadedImages));
-      }
-    };
-
-    loadImages();
-    window.addEventListener(
-      "property-images-loaded",
-      handleImagesLoaded as EventListener,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "property-images-loaded",
-        handleImagesLoaded as EventListener,
-      );
-    };
-  }, []);
+    if (!Array.isArray(initialImages) || initialImages.length === 0) return;
+    setImages(normalizeLoadedImages(initialImages));
+  }, [initialImages]);
 
   useEffect(() => {
     return () => {
@@ -387,7 +362,7 @@ export default function UploadMedia() {
 
           <p>
             Upload land photos, set the cover image, and optionally add a caption
-            for each photo.
+            for each photo. Existing photos stay unless you remove or replace them.
           </p>
           <p className="property-upload-size-guide">
             {PROPERTY_IMAGE_GUIDE_TEXT}
