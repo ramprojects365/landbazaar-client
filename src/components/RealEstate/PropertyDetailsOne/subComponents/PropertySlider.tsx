@@ -60,9 +60,10 @@ export default function PropertyDetailsSlider({ images }: Props) {
           onClick={() => openAt(0)}
         >
           <img
+            className="tp-pdg-main-img"
             src={galleryItems[0].url}
             alt={getImageLabel(galleryItems[0]) || "Land cover image"}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            style={{ width: "100%", height: "100%" }}
           />
           {getImageLabel(galleryItems[0]) ? (
             <span className="tp-pdg-label">{getImageLabel(galleryItems[0])}</span>
