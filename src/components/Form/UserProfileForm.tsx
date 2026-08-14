@@ -15,10 +15,6 @@ import {
   stripCountryCodeForDisplay,
 } from "@/utils/phoneInput";
 
-const PROFILE_IMAGE_ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
-const PROFILE_IMAGE_ACCEPT = PROFILE_IMAGE_ACCEPTED_TYPES.join(",");
-const PROFILE_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
-
 interface ProfileFormData {
   fullName: string;
   aboutYou?: string;
@@ -287,18 +283,6 @@ export default function UserProfileForm() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!PROFILE_IMAGE_ACCEPTED_TYPES.includes(file.type)) {
-      toast.error("Please choose a JPG, PNG, or WebP image.");
-      e.target.value = "";
-      return;
-    }
-
-    if (file.size > PROFILE_IMAGE_MAX_BYTES) {
-      toast.error("Profile image must be 5MB or smaller.");
-      e.target.value = "";
-      return;
-    }
-
     const previousImageUrl = profileImageUrl;
     const previewUrl = URL.createObjectURL(file);
 
@@ -474,7 +458,7 @@ export default function UserProfileForm() {
           <input
             ref={fileInputRef}
             type="file"
-            accept={PROFILE_IMAGE_ACCEPT}
+            accept="image/*"
             style={{ display: "none" }}
             onChange={handleImageChange}
           />

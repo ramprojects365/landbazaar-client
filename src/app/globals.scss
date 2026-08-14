@@ -2301,9 +2301,12 @@ html {
 /* NEIGHBOURHOOD SECTION MOBILE FIX */
 .tp-explore-thumb {
   position: relative;
+  display: block;
   width: 100%;
   height: 250px;
   overflow: hidden;
+  color: inherit;
+  text-decoration: none;
 }
 
 .tp-explore-thumb > a {
