@@ -2,8 +2,12 @@ import PropertyDetailsOneArea from "@/components/RealEstate/PropertyDetailsOne/D
 import Wrapper from "@/layouts/Wrapper";
 import { PageParamsProps } from "@/types/custom-interface";
 import { getCoverImageUrl } from "@/utils/propertyImages";
+import { toDescriptionSnippet } from "@/utils/descriptionHtml";
 import { API_BASE_URL } from "@/config/constants";
 import type { Metadata } from "next";
+
+const FALLBACK_DESCRIPTION =
+  "View detailed land and plot information in India. Find residential plots, agricultural land, farm land, and commercial land for sale or lease in Hyderabad, Telangana, Visakhapatnam and other growth corridors.";
 
 type ApiPropertyMeta = {
   title?: string;
@@ -31,8 +35,7 @@ export async function generateMetadata(
 
     const title = item.propertyName || item.title || `Property Details - ${id}`;
     const description =
-      item.description?.trim() ||
-      "View detailed land and plot information in India. Find residential plots, agricultural land, farm land, and commercial land for sale or lease in Hyderabad, Telangana, Visakhapatnam and other growth corridors.";
+      toDescriptionSnippet(item.description || "", 180) || FALLBACK_DESCRIPTION;
     const imageUrl = getCoverImageUrl(item.images);
     const canonicalUrl = `https://www.dekholand.com/property-details/${id}`;
 
@@ -51,6 +54,7 @@ export async function generateMetadata(
           ? [
               {
                 url: imageUrl,
+                alt: title,
               },
             ]
           : undefined,

@@ -15,8 +15,24 @@ export function stripDescriptionHtml(value: string): string {
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
     .replace(/\u00a0/g, " ")
     .trim();
+}
+
+/** Single-line plain text, with HTML tags removed. */
+export function toPlainDescription(value: string): string {
+  return stripDescriptionHtml(value).replace(/\s+/g, " ").trim();
+}
+
+/** Short plain-text snippet for share previews and Open Graph. */
+export function toDescriptionSnippet(value: string, maxLength = 180): string {
+  const plain = toPlainDescription(value);
+  if (!plain) return "";
+  if (plain.length <= maxLength) return plain;
+
+  const truncated = plain.slice(0, maxLength).replace(/\s+\S*$/, "").trim();
+  return `${truncated || plain.slice(0, maxLength).trim()}…`;
 }
 
 export function looksLikeHtml(value: string): boolean {
