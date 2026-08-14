@@ -28,7 +28,7 @@ export default function ContactInfoList() {
         </div>
         <div className="tp-contact-info-content">
           <span>Email us on</span>
-          <Link href="mailto:support@dekholand.com">support@dekholand.com</Link>
+          <Link href="mailto:support@propertyla.com.my">support@propertyla.com.my</Link>
         </div>
       </div>
       <div className="tp-contact-info d-flex align-items-center mb-10">

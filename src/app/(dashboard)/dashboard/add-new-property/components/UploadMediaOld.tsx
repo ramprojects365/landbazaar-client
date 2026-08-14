@@ -77,7 +77,6 @@ export default function UploadMedia() {
             <input
               id="tp-dashboard-new-um-file-input"
               type="file"
-              accept="image/png, image/jpeg"
               multiple
               onChange={handleFileChange}
               disabled={isUploading}

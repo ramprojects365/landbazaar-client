@@ -25,9 +25,6 @@ interface PropertyImageItem {
   isCover: boolean;
 }
 
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-const ACCEPTED_IMAGE_INPUT = ACCEPTED_IMAGE_TYPES.join(",");
-const MAX_IMAGES = 15;
 const DEFAULT_IMAGE_CATEGORY = "other";
 
 const createId = () =>
@@ -227,23 +224,6 @@ export default function UploadMedia() {
     const files = Array.from(event.target.files || []);
     if (!files.length) return;
 
-    if (images.length + files.length > MAX_IMAGES) {
-      toast.error(`You can upload up to ${MAX_IMAGES} property images.`);
-      event.target.value = "";
-      return;
-    }
-
-    const invalidType = files.find(
-      (file) => !ACCEPTED_IMAGE_TYPES.includes(file.type),
-    );
-    if (invalidType) {
-      toast.error(
-        `${invalidType.name} is not supported. Use JPG, PNG, WebP, or GIF.`,
-      );
-      event.target.value = "";
-      return;
-    }
-
     setIsLoading(true);
 
     try {
@@ -269,11 +249,6 @@ export default function UploadMedia() {
       }
 
       if (!preparedFiles.length) {
-        return;
-      }
-
-      if (images.length + preparedFiles.length > MAX_IMAGES) {
-        toast.error(`You can upload up to ${MAX_IMAGES} property images.`);
         return;
       }
 
@@ -400,7 +375,6 @@ export default function UploadMedia() {
             <input
               id="tp-dashboard-new-um-file-input"
               type="file"
-              accept={ACCEPTED_IMAGE_INPUT}
               multiple
               onChange={handleUpload}
               disabled={isLoading}

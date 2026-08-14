@@ -39,7 +39,7 @@ export default function FooterContact() {
                 +91 9849967236
               </span>
             </Link>
-            <p>support@dekholand.com</p>
+            <p>support@propertyla.com.my</p>
           </div>
         </div>
       </div>

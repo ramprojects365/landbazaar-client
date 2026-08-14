@@ -67,8 +67,8 @@ export default function PrivacyPolicy() {
                 <h2>Contact</h2>
                 <p>
                   To ask about privacy or request a data update, contact{" "}
-                  <a href="mailto:support@dekholand.com">
-                    support@dekholand.com
+                  <a href="mailto:support@propertyla.com.my">
+                    support@propertyla.com.my
                   </a>
                   .
                 </p>
