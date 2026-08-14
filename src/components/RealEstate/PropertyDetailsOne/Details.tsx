@@ -18,7 +18,7 @@ import {
 } from "@/utils/mapApiProperty";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { API_BASE_URL } from "@/config/constants";
-import { stripDescriptionHtml } from "@/utils/descriptionHtml";
+import { toDescriptionSnippet } from "@/utils/descriptionHtml";
 
 type ApiProperty = ApiPropertyFields;
 
@@ -90,14 +90,13 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
   }, [id]);
 
   const getShareUrl = () => window.location.href;
-  const getShareText = () => {
-    const title = display?.title?.trim() ?? "";
-    const description = stripDescriptionHtml(
-      apiProperty?.description?.trim() ?? "",
-    );
-    const url = getShareUrl();
-    return [title, description, url].filter(Boolean).join("\n\n");
-  };
+  const getShareTitle = () => display?.title?.trim() || "Property";
+  const getShareSnippet = () =>
+    toDescriptionSnippet(apiProperty?.description ?? "", 180);
+  const getShareBody = () =>
+    [getShareTitle(), getShareSnippet()].filter(Boolean).join("\n\n");
+  const getShareText = () =>
+    [getShareBody(), getShareUrl()].filter(Boolean).join("\n\n");
 
   const openExternal = (url: string) => {
     window.open(url, "_blank", "noopener,noreferrer");
@@ -106,46 +105,45 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast.success("Link copied.");
+      toast.success("Share text copied.");
       return true;
     } catch {
-      toast.error("Could not copy link.");
+      toast.error("Could not copy share text.");
       return false;
     }
   };
 
   const shareOnFacebook = () => {
     const url = getShareUrl();
-    openExternal(
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-    );
+    const quote = getShareBody();
+    const facebookUrl = new URL("https://www.facebook.com/sharer/sharer.php");
+    facebookUrl.searchParams.set("u", url);
+    if (quote) facebookUrl.searchParams.set("quote", quote);
+    openExternal(facebookUrl.toString());
   };
 
   const shareOnWhatsApp = () => {
-    const text = getShareText();
-    openExternal(`https://wa.me/?text=${encodeURIComponent(text)}`);
+    openExternal(`https://wa.me/?text=${encodeURIComponent(getShareText())}`);
   };
 
   const shareOnInstagram = async () => {
     const url = getShareUrl();
-    const title = display?.title ?? "Property";
-    const description = stripDescriptionHtml(apiProperty?.description ?? "");
+    const title = getShareTitle();
+    const text = getShareBody();
 
     if (navigator.share) {
       try {
-        await navigator.share({
-          title,
-          text: [title, description].filter(Boolean).join("\n\n"),
-          url,
-        });
+        await navigator.share({ title, text, url });
         return;
-      } catch {}
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError") return;
+      }
     }
 
-    const copied = await copyToClipboard(url);
+    const copied = await copyToClipboard(getShareText());
     if (copied) {
       openExternal("https://www.instagram.com/");
-      toast.message("Paste the copied link into Instagram to share.");
+      toast.message("Paste the copied title, description, and link into Instagram.");
     }
   };
 
