@@ -4,11 +4,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { API_BASE_URL } from "@/config/constants";
 import {
-  MAX_IMAGE_BYTES,
-  MIN_IMAGE_WIDTH,
   MAX_IMAGE_WIDTH,
   MAX_IMAGE_HEIGHT,
-  formatImageBytes,
+  PROPERTY_IMAGE_GUIDE_TEXT,
+  TARGET_IMAGE_SIZES,
   preparePropertyImage,
 } from "@/utils/propertyImageUpload";
 import "../property.css";
@@ -318,8 +317,11 @@ export default function UploadMedia() {
         }`,
       ];
       if (resizedCount > 0) {
+        const sizeGuide = TARGET_IMAGE_SIZES.map(
+          (size) => `${size.width}×${size.height}`,
+        ).join(", ");
         successParts.push(
-          `${resizedCount} resized to fit within ${MAX_IMAGE_WIDTH}×${MAX_IMAGE_HEIGHT}`,
+          `${resizedCount} resized toward ${sizeGuide} (max ${MAX_IMAGE_WIDTH}×${MAX_IMAGE_HEIGHT})`,
         );
       }
       toast.success(`${successParts.join(". ")}.`);
@@ -414,10 +416,7 @@ export default function UploadMedia() {
             for each photo.
           </p>
           <p className="property-upload-size-guide">
-            Recommended: {MAX_IMAGE_WIDTH}×{MAX_IMAGE_HEIGHT} (4:3 landscape). Min
-            width {MIN_IMAGE_WIDTH}px. Max {formatImageBytes(MAX_IMAGE_BYTES)}.
-            Larger images are auto-resized. Portrait/panoramic photos are allowed
-            with a warning.
+            {PROPERTY_IMAGE_GUIDE_TEXT}
           </p>
           {isLocalUploadMode ? (
             <p className="property-upload-local-note">

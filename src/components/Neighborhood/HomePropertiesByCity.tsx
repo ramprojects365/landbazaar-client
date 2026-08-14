@@ -180,31 +180,27 @@ function HomePropertiesByCity() {
 
                 return (
                   <div className="tp-explore-item text-center mb-30">
-                    <div className="tp-explore-thumb p-relative">
-                      <Link href={href}>
-                        {typeof property.image === "string" ? (
-                          <img
-                            src={property.image}
-                            alt={property.name}
-                            loading="lazy"
-                          />
-                        ) : (
-                          <Image
-                            src={property.image}
-                            alt={property.name}
-                            loading="lazy"
-                            width={0}
-                            height={0}
-                            sizes="100vw"
-                            style={{ width: "100%", height: "auto" }}
-                          />
-                        )}
-                      </Link>
+                    <Link href={href} className="tp-explore-thumb p-relative">
+                      {typeof property.image === "string" ? (
+                        <img
+                          src={property.image}
+                          alt={property.name}
+                          loading="lazy"
+                        />
+                      ) : (
+                        <Image
+                          src={property.image}
+                          alt={property.name}
+                          loading="lazy"
+                          width={0}
+                          height={0}
+                          sizes="100vw"
+                          style={{ width: "100%", height: "auto" }}
+                        />
+                      )}
                       <div className="tp-explore-content">
                         <h4 className="tp-explore-title">
-                          <Link className="textline" href={href}>
-                            {property.name}
-                          </Link>
+                          <span className="textline">{property.name}</span>
                         </h4>
                         <span>
                           {property.isPropertyCard
@@ -215,13 +211,11 @@ function HomePropertiesByCity() {
                         </span>
                       </div>
                       <div className="tp-explore-btn">
-                        <Link href={href}>
-                          <span>
-                            <NavigateArrowSvg />
-                          </span>
-                        </Link>
+                        <span>
+                          <NavigateArrowSvg />
+                        </span>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 );
               })()}
