@@ -561,6 +561,10 @@
   display: block;
 }
 
+.tp-property-details-gallery .tp-pdg-five > .tp-pdg-main > .tp-pdg-main-img {
+  object-fit: fill;
+}
+
 .tp-pdg-one {
   height: 420px;
 }
