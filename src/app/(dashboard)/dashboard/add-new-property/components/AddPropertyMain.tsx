@@ -9,6 +9,7 @@ import PropertyDetails from "./PropertyDetails";
 import ContactDetails from "./ContactDetails";
 import AmenitiesDetails from "./AmenitiesDetails";
 import UploadMedia from "./UploadMedia";
+import UploadDocuments from "./UploadDocuments";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { getPropertyById } from "@/services/propertyService";
@@ -143,6 +144,16 @@ const normalizeImages = (propertyData: any): any[] => {
     if (typeof img === "string") return img.trim();
     return Boolean(img?.url || img?.imageUrl || img?.src);
   });
+};
+
+const normalizeDocuments = (propertyData: any): any[] => {
+  const rawDocuments = Array.isArray(propertyData.documents)
+    ? propertyData.documents
+    : [];
+
+  return rawDocuments.filter(
+    (document: any) => typeof document?.url === "string" && document.url.trim(),
+  );
 };
 /** Convert yearOfBuild to property age range for the form */
 const getAgeRangeFromYear = (yearOfBuild?: number): number => {
@@ -422,6 +433,19 @@ export default function AddPropertyPage() {
             );
           }
 
+          const normalizedDocuments = normalizeDocuments(propertyData);
+          const documentsInput = document.getElementById(
+            "uploaded-documents-input",
+          ) as HTMLInputElement | null;
+          if (documentsInput) {
+            documentsInput.value = JSON.stringify(normalizedDocuments);
+          }
+          window.dispatchEvent(
+            new CustomEvent("property-documents-loaded", {
+              detail: { documents: normalizedDocuments },
+            }),
+          );
+
           toast.success("Property data loaded for editing");
         } catch (error) {
           console.error("Error fetching property:", error);
@@ -509,6 +533,23 @@ export default function AddPropertyPage() {
             { duration: 7000 },
           );
           return;
+        }
+
+        let propertyDocuments: any[] = [];
+        if (typeof document !== "undefined") {
+          const documentsEl = document.getElementById(
+            "uploaded-documents-input",
+          ) as HTMLInputElement | null;
+          if (documentsEl?.value) {
+            try {
+              const parsed = JSON.parse(documentsEl.value);
+              if (Array.isArray(parsed)) {
+                propertyDocuments = parsed.filter(
+                  (item) => typeof item?.url === "string" && item.url.trim(),
+                );
+              }
+            } catch {}
+          }
         }
 
         if (propertyImages.length < 5) {
@@ -707,6 +748,7 @@ export default function AddPropertyPage() {
 
           // Images from upload
           images: propertyImages,
+          documents: propertyDocuments,
         };
 
         const rawToken =
@@ -805,6 +847,7 @@ export default function AddPropertyPage() {
           <ContactDetails />
           <AmenitiesDetails />
           <UploadMedia />
+          <UploadDocuments />
           <div className="tp-dashboard-new-btn">
             <button type="submit" className="add" disabled={isLoading}>
               {isEditMode ? "Update Property" : "Add Property"}
