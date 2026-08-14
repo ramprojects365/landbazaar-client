@@ -3,6 +3,7 @@ import SidebarPropertyItem from "@/components/Layout/subComponents/SidebarProper
 import PropertyDescription from "@/components/Property/PropertyDescription";
 import RecentlyViewedProperties from "./RecentlyViewedItem";
 import AmenitiesCategories from "./AmenitiesCategories";
+import PropertyDocuments from "./PropertyDocuments";
 import PropertyDetailsBox from "./PropertyDetailsBox";
 import {
   formatLandSize,
@@ -78,6 +79,8 @@ export default function DetailsReusableArea({
                 <h3 className="tp-property-details-box-title">Amenities</h3>
                 <AmenitiesCategories amenities={property?.amenities} />
               </div>
+
+              <PropertyDocuments documents={property?.documents} />
 
               {address && (
                 <div className="tp-property-details-box box-6 mb-30">
