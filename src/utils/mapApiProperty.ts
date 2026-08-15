@@ -252,7 +252,6 @@ export function mapApiPropertyToCard(
     city: item.cityName,
     state: item.state,
     price: total,
-    description: item.description,
     quantity: 0,
     userImage: ownerProfile.profileImage,
     userName: ownerProfile.name || undefined,

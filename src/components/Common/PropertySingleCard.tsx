@@ -45,6 +45,7 @@ export default function PropertySingleCard({ item }: IFeatureListProps) {
             src={imageSrc}
             style={{ width: "100%", height: "310px", objectFit: "cover" }}
             alt={item.title || "Land or plot for sale"}
+            loading="lazy"
           />
         </Link>
         <div className="tp-rent-user-wrap d-flex align-items-center justify-content-between">

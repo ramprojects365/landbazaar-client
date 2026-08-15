@@ -117,14 +117,6 @@ export default function SignInForm() {
       if (token) {
         localStorage.setItem("authToken", token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        console.log(
-          "axios token",
-          axios.defaults.headers.common["Authorization"],
-        );
-        console.log(
-          "Stored authToken in localStorage",
-          localStorage.getItem("authToken"),
-        );
         setTimeout(() => {
           if (typeof window !== "undefined") {
             const redirectPath = redirectUrl || "/";
@@ -132,8 +124,6 @@ export default function SignInForm() {
           }
         }, 700);
       }
-      console.log("token", token);
-      console.log("login response", response);
       const user = response?.data?.data?.user;
       const username = user?.username || "";
       const displayName = user?.fullName || user?.username || "";

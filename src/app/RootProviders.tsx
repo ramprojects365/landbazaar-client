@@ -7,7 +7,6 @@ import AppProvider from "@/provider/AppProvider";
 import ReduxProvider from "@/redux/provider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { Toaster } from "sonner";
-import GoogleMapsProvider from "@/components/HeroBanner/subComponents/GoogleMapsProvider";
 
 export default function RootProviders({
   children,
@@ -43,7 +42,7 @@ export default function RootProviders({
       <ReduxProvider>
         <VideoProvider>
           <AppProvider>
-            <GoogleMapsProvider>{sanitizedChildren}</GoogleMapsProvider>
+            {sanitizedChildren}
           </AppProvider>
 
           <Toaster position="top-center" richColors />

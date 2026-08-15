@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL, IS_DEVELOPMENT } from './constants';
+import { API_BASE_URL } from './constants';
 
 // Export axios for error checking utilities
 export { axios };
@@ -11,7 +11,7 @@ export const apiClient = axios.create({
 });
 
 // Request interceptor for debugging, auth token, and content-type handling
-if (IS_DEVELOPMENT) {
+if (process.env.NODE_ENV !== "production") {
   apiClient.interceptors.request.use(
     (config) => {
       console.log(`🚀 API Request: ${config.method?.toUpperCase()} ${config.url}`, {
@@ -57,7 +57,7 @@ apiClient.interceptors.request.use(
 );
 
 // Response interceptor for debugging in development
-if (IS_DEVELOPMENT) {
+if (process.env.NODE_ENV !== "production") {
   apiClient.interceptors.response.use(
     (response) => {
       console.log(`✅ API Response: ${response.config.method?.toUpperCase()} ${response.config.url}`, {
