@@ -35,6 +35,7 @@ function PropertySingleCardTwo({ item }: propertyProps) {
               src={imageSrc}
               alt={item.title || "Land or plot for sale"}
               style={{ width: "100%", height: "250px", objectFit: "cover" }}
+              loading="lazy"
             />
           </Link>
 

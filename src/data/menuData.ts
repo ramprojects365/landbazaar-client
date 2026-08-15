@@ -5,10 +5,10 @@ const propertyTypeSearchHref = (label: string) => {
     "RERA Ventures": "RERA Plot",
     "Villa Plots": "Villa Plot",
     "Main Road": "Commercial Plot",
-    "Industrial": "Industrial Plot",
-    "Highway": "Highway Plot",
-    "Agricultural": "Agricultural Land",
-    "Farmhouses": "Farm House",
+    Industrial: "Industrial Plot",
+    Highway: "Highway Plot",
+    Agricultural: "Agricultural Land",
+    Farmhouses: "Farm House",
     "Weekend Eco-Plots": "Eco Plot",
   };
 
@@ -94,8 +94,8 @@ const menu_data_one = [
       },
       {
         id: 9,
-        label: "Farmhouses",
-        url: propertyTypeSearchHref("Farmhouses"),
+        label: "Farmlands",
+        url: propertyTypeSearchHref("Farmlands"),
         img: "",
       },
       {

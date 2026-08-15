@@ -4,7 +4,6 @@ import { useSearchParams } from "next/navigation";
 import DetailsReusableArea from "./subComponents/DetailsReusableArea";
 import PropertyDetailsSlider from "./subComponents/PropertySlider";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
-import { IdProps } from "@/types/custom-interface";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { toast } from "sonner";
 import { recordPropertyView } from "@/services/propertyService";
@@ -22,12 +21,24 @@ import { toDescriptionSnippet } from "@/utils/descriptionHtml";
 
 type ApiProperty = ApiPropertyFields;
 
-export default function PropertyDetailsOneArea({ id }: IdProps) {
+type PropertyDetailsProps = {
+  id: string | number;
+  initialProperty?: ApiProperty | null;
+};
+
+export default function PropertyDetailsOneArea({
+  id,
+  initialProperty = null,
+}: PropertyDetailsProps) {
   const searchParams = useSearchParams();
   const viewRecordedRef = useRef(false);
-  const [apiProperty, setApiProperty] = useState<ApiProperty | null>(null);
-  const [display, setDisplay] = useState<IFeaturedPropertyDT | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [apiProperty, setApiProperty] = useState<ApiProperty | null>(
+    initialProperty,
+  );
+  const [display, setDisplay] = useState<IFeaturedPropertyDT | null>(() =>
+    initialProperty ? mapApiPropertyToCard(initialProperty, "") : null,
+  );
+  const [loading, setLoading] = useState(!initialProperty);
   const [error, setError] = useState("");
 
   const fromParam = searchParams.get("from");
@@ -58,6 +69,17 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
 
   useEffect(() => {
     if (!id) return;
+
+    const initialMatches =
+      initialProperty && String(initialProperty.id) === String(id);
+    if (initialMatches) {
+      setApiProperty(initialProperty);
+      setDisplay(mapApiPropertyToCard(initialProperty, ""));
+      setLoading(false);
+      setError("");
+      return;
+    }
+
     const load = async () => {
       setLoading(true);
       setError("");
@@ -75,7 +97,7 @@ export default function PropertyDetailsOneArea({ id }: IdProps) {
       }
     };
     load();
-  }, [id]);
+  }, [id, initialProperty]);
 
   useEffect(() => {
     if (!id || viewRecordedRef.current) return;

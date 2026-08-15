@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 
-import "slick-carousel/slick/slick.css";
 import "swiper/css/bundle";
 import "./globals.scss";
 import RootProviders from "./RootProviders";

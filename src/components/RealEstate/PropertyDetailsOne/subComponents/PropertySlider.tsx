@@ -87,6 +87,7 @@ export default function PropertyDetailsSlider({ images }: Props) {
                   <img
                     src={item.url}
                     alt={label || `Land image ${absoluteIndex + 1}`}
+                    loading="lazy"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                   {label ? <span className="tp-pdg-label">{label}</span> : null}

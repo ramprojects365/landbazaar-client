@@ -5,11 +5,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { StaticImageData } from "next/image";
 import { useTranslation } from "@/contexts/LanguageContext";
-import {
-  mapApiPropertyToCard,
-  type ApiPropertyFields,
-} from "@/utils/mapApiProperty";
-import { API_BASE_URL } from "@/config/constants";
+import { mapApiPropertyToCard } from "@/utils/mapApiProperty";
+import { fetchPropertiesList } from "@/services/propertiesList";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -30,17 +27,11 @@ export default function PropertyHome() {
   useEffect(() => {
     const run = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/properties`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-        if (!res.ok) return;
-        const json = await res.json();
-        const list: ApiPropertyFields[] = Array.isArray(json?.data)
-          ? json.data
-          : Array.isArray(json)
-            ? json
-            : [];
+        const list = await fetchPropertiesList();
+        if (list.length === 0) {
+          setItems([]);
+          return;
+        }
 
         const sorted = [...list].sort((a, b) => {
           const aTime = new Date(a.createdAt || a.updatedAt || 0).getTime();

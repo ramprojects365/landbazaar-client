@@ -1,6 +1,7 @@
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AddPropertyMain from "./components/AddPropertyMain";
 import ProtectedRoute from "@/components/Auth/ProtectedRoute";
+import GoogleMapsProvider from "@/components/HeroBanner/subComponents/GoogleMapsProvider";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,7 +16,9 @@ export default function AddProperty() {
     <ProtectedRoute redirectTo="/dashboard/add-new-property">
       <DashboardLayout>
         {/* tp dashboard area start */}
-        <AddPropertyMain />
+        <GoogleMapsProvider>
+          <AddPropertyMain />
+        </GoogleMapsProvider>
         {/* tp dashboard area end */}
       </DashboardLayout>
     </ProtectedRoute>

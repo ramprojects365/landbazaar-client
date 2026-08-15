@@ -8,7 +8,7 @@ import { useTranslation } from "@/contexts/LanguageContext";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import React, { useEffect, useMemo, useState } from "react";
 import type { StaticImageData } from "next/image";
-import { API_BASE_URL } from "@/config/constants";
+import { fetchPropertiesList } from "@/services/propertiesList";
 
 type ApiProperty = {
   id: string;
@@ -54,14 +54,7 @@ function HomePropertiesByCity() {
   useEffect(() => {
     const run = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/properties`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-        if (!res.ok) return;
-
-        const json = await res.json();
-        const list: ApiProperty[] = json?.data ?? json ?? [];
+        const list = await fetchPropertiesList();
         if (!Array.isArray(list) || list.length === 0) return;
 
         const grouped = new Map<string, CityItem>();

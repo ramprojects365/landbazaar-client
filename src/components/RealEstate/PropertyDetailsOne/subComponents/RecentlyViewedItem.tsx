@@ -34,7 +34,6 @@ export default function RecentlyViewedProperties() {
         );
 
         if (!res.ok) {
-          console.error("Failed to fetch recent properties");
           return;
         }
 
@@ -55,32 +54,29 @@ export default function RecentlyViewedProperties() {
               getCoverImageUrl(property.images) ||
               "/assets/img/rent/property/recent-1.jpg";
 
-            const fromUrl =
-              pathname === "/search"
-                ? `/search?${searchParams.toString()}`
-                : null;
-            const link = fromUrl
-              ? `/property-details/${property.id}?from=${createCleanFromUrl(fromUrl)}`
-              : `/property-details/${property.id}`;
-
             return {
               image,
-              link,
+              link: `/property-details/${property.id}`,
               title,
               price: formatTotalPriceDisplay(priceNum),
             };
           });
 
         setProperties(transformedProperties);
-      } catch (error) {
-        console.error("Error fetching recent properties:", error);
+      } catch {
+        return;
       } finally {
         setLoading(false);
       }
     };
 
     fetchRecentProperties();
-  }, [pathname, searchParams]);
+  }, []);
+
+  const fromUrl =
+    pathname === "/search" ? `/search?${searchParams.toString()}` : null;
+  const withFrom = (href: string) =>
+    fromUrl ? `${href}?from=${createCleanFromUrl(fromUrl)}` : href;
 
   if (loading) {
     return (
@@ -119,7 +115,7 @@ export default function RecentlyViewedProperties() {
             className="tp-property-recent-post-thumb mr-15"
             style={{ width: "25%" }}
           >
-            <Link href={property.link}>
+            <Link href={withFrom(property.link)}>
               <img
                 src={
                   typeof property.image === "string"
@@ -128,6 +124,7 @@ export default function RecentlyViewedProperties() {
                       "/assets/img/rent/property/recent-1.jpg"
                 }
                 alt={property.title || "Land listing"}
+                loading="lazy"
                 width={80}
                 height={80}
                 style={{ objectFit: "cover", width: 80, height: 80 }}
@@ -136,7 +133,7 @@ export default function RecentlyViewedProperties() {
           </div>
           <div className="tp-property-recent-post-content">
             <h3 className="tp-property-recent-post-title">
-              <Link href={property.link}>{property.title}</Link>
+              <Link href={withFrom(property.link)}>{property.title}</Link>
             </h3>
             <div className="tp-property-recent-post-meta">
               <span>{property.price}</span>

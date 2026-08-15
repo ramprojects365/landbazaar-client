@@ -14,9 +14,9 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
   // Load Bootstrap JS only on the client-side
   useEffect(() => {
     if (typeof window !== "undefined") {
-      import("bootstrap/dist/js/bootstrap.bundle.min")
-        .then(() => console.log("Bootstrap loaded"))
-        .catch((err) => console.error("Bootstrap failed to load", err));
+      import("bootstrap/dist/js/bootstrap.bundle.min").catch((err) =>
+        console.error("Bootstrap failed to load", err),
+      );
     }
   }, []);
 

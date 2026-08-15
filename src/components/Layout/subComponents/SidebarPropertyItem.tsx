@@ -9,7 +9,7 @@ import { getListingTypeFlag } from "@/utils/mapApiProperty";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
-import { API_BASE_URL } from "@/config/constants";
+import { fetchPropertiesList } from "@/services/propertiesList";
 
 interface IPropsWrapperCls {
   wrapperCls?: string;
@@ -42,27 +42,7 @@ export default function SidebarPropertyItem({
   useEffect(() => {
     const run = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/properties`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-        if (!res.ok) return;
-        const json = await res.json();
-        const list: Array<{
-          id: string;
-          title?: string;
-          propertyName?: string;
-          listingType?: string;
-          propertyType?: string;
-          price?: number | string;
-          totalPrice?: number | string;
-          landSize?: number | string;
-          areaUnit?: string;
-          images?: unknown[];
-          createdAt?: string;
-          updatedAt?: string;
-        }> = json?.data ?? json ?? [];
-
+        const list = await fetchPropertiesList();
         if (!Array.isArray(list) || list.length === 0) return;
 
         const sorted = [...list].sort((a, b) => {
@@ -117,6 +97,7 @@ export default function SidebarPropertyItem({
                     <img
                       src={latest.imageUrl}
                       alt={latest.title || "Land listing"}
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "180px",

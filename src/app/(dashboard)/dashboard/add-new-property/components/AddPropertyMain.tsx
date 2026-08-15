@@ -285,12 +285,10 @@ export default function AddPropertyPage() {
       const fetchProperty = async () => {
         try {
           const response = await getPropertyById(editPropertyId);
-          console.log("📦 Raw API Response:", response);
-
+          
           // API returns { success: true, data: { ...property fields... } }
           const propertyData = response.data || response;
-          console.log("📦 Extracted property data:", propertyData);
-
+          
           // Map API data to form structure
           const formData: Partial<PropertyFormData> = {
             listingType: normalizeListingType(propertyData.listingType),
@@ -396,8 +394,7 @@ export default function AddPropertyPage() {
               ? propertyData.amenities
               : flattenAmenities(propertyData.amenities),
           };
-          console.log("📝 Form data being set:", formData);
-
+          
           // Use setValue for each field to ensure proper population
           // This is more reliable than reset() for complex forms
           Object.entries(formData).forEach(([key, value]) => {
@@ -410,17 +407,14 @@ export default function AddPropertyPage() {
             }
           });
 
-          console.log("✅ Form values set via setValue");
-          // Remount description editor with loaded content
+                    // Remount description editor with loaded content
           setEditorMountKey((key) => key + 1);
 
           // Pass media into UploadMedia / UploadDocuments after the form mounts.
           // Those components are unmounted while isLoading, so DOM events would be missed.
           const normalizedImages = normalizeImages(propertyData);
           const normalizedDocuments = normalizeDocuments(propertyData);
-          console.log("🖼️ Setting images:", normalizedImages);
-          console.log("📄 Setting documents:", normalizedDocuments);
-          setLoadedImages(normalizedImages);
+                              setLoadedImages(normalizedImages);
           setLoadedDocuments(normalizedDocuments);
 
           toast.success("Property data loaded for editing");
@@ -437,39 +431,30 @@ export default function AddPropertyPage() {
   }, [editPropertyId, setValue]);
 
   const onSubmit: SubmitHandler<PropertyFormData> = (data) => {
-    console.log("🚀 Submit called with data:", data);
-    console.log("🚀 Form errors:", errors);
     (async () => {
       try {
         // Prevent submission while loading
         if (isLoading) {
-          console.log("⏳ Submission blocked - isLoading is true");
-          toast.error("Please wait while property data is loading...");
+                    toast.error("Please wait while property data is loading...");
           return;
         }
-        console.log("✅ isLoading check passed");
-
+        
         // Check if form has any validation errors
         if (Object.keys(errors).length > 0) {
-          console.log("❌ Form has validation errors:", errors);
-          return;
+                    return;
         }
-        console.log("✅ Form validation passed");
-        // UploadMedia already uploaded the files and stored their public URLs
+                // UploadMedia already uploaded the files and stored their public URLs
         // in the hidden DOM input "#uploaded-images-input" — just read from it.
         let propertyImages: any[] = [];
         if (typeof document !== "undefined") {
           const hiddenEl = document.getElementById(
             "uploaded-images-input",
           ) as HTMLInputElement | null;
-          console.log("🔍 Hidden input element:", hiddenEl);
-          console.log("🔍 Hidden input value:", hiddenEl?.value);
-
+                    
           if (hiddenEl?.value) {
             try {
               const parsed = JSON.parse(hiddenEl.value);
-              console.log("🔍 Parsed hidden input value:", parsed);
-              if (Array.isArray(parsed))
+                            if (Array.isArray(parsed))
                 propertyImages = parsed
                   .map((img) => {
                     if (typeof img === "string") return img;
@@ -535,11 +520,7 @@ export default function AddPropertyPage() {
           });
         }
 
-        console.log("✅ Image count check passed");
-        console.log("📋 Form data:", data);
-        console.log("📋 isEditMode:", isEditMode);
-        console.log("📋 editPropertyId:", editPropertyId);
-
+                                
         // ---------------------------------------------------------------
         // Remap FE field names → BE field names before sending to the API
         // ---------------------------------------------------------------
@@ -733,8 +714,7 @@ export default function AddPropertyPage() {
             ? localStorage.getItem("authToken")
             : null;
 
-        console.log(localStorage.getItem("authToken"));
-        const authHeader = `Bearer ${rawToken ?? ""}`;
+                const authHeader = `Bearer ${rawToken ?? ""}`;
         const propertyUrl =
           isEditMode && editPropertyId
             ? `${API_BASE_URL}/properties/${editPropertyId}`
@@ -748,9 +728,7 @@ export default function AddPropertyPage() {
           body: JSON.stringify(payload),
         });
 
-        console.log("📡 Response status:", res.status);
-        console.log("📡 Response ok:", res.ok);
-
+                
         if (!res.ok) {
           const err = await res
             .json()
@@ -765,11 +743,7 @@ export default function AddPropertyPage() {
         }
 
         const result = await res.json();
-        console.log(
-          isEditMode ? "Property updated:" : "Property created:",
-          result,
-        );
-        methods.reset();
+                methods.reset();
         const successMessage = isEditMode
           ? "Property updated successfully."
           : "Property added successfully.";
@@ -800,8 +774,7 @@ export default function AddPropertyPage() {
         <form
           className="tp-dashboard-add-property-form"
           onSubmit={handleSubmit(onSubmit, (errors) => {
-            console.log("❌ FORM VALIDATION ERRORS:", errors);
-            toast.error("Please fix required fields before updating.");
+                        toast.error("Please fix required fields before updating.");
           })}
         >
           {errors.root && (

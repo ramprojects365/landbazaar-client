@@ -11,6 +11,7 @@ import {
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
 import { API_BASE_URL } from "@/config/constants";
+import { slimPropertyForList } from "@/services/propertiesList";
 import { formatFilterPriceLabel } from "@/components/Utils/formatPrice";
 import { parseIndianPriceValue } from "@/utils/priceParsing";
 
@@ -134,7 +135,9 @@ export default function PropertyListing() {
           });
         }
 
-        const mapped = results.map((item, idx) => mapApiProperty(item, idx));
+        const mapped = results
+          .map(slimPropertyForList)
+          .map((item, idx) => mapApiProperty(item, idx));
         setProperties(mapped);
         setResultCount(mapped.length);
       } catch (err) {
