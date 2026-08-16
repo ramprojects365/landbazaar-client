@@ -377,23 +377,6 @@ export const contactSchema = yup.object().shape({
   message: meaningfulText("Message"),
 });
 
-//Contact form validation schema
-export const contactTwoSchema = yup.object().shape({
-  firstName: personName("First Name is required"),
-  lastName: personName("Last Name is required"),
-  email: strictEmail("Email is required"),
-  phone: strictPhone(),
-  caseDetails: meaningfulText("Message", "Message is required"),
-});
-
-//Property Review validation schema
-export const propertyReviewSchema = yup.object().shape({
-  name: personName("Name is required"),
-  email: strictEmail("Email is required"),
-  number: strictPhone(),
-  message: meaningfulText("Message"),
-});
-
 //Profile information validation schema
 export const profileSchema = yup.object().shape({
   fullName: personName("Full name is required"),
@@ -443,12 +426,4 @@ export const changePasswordSchema = yup.object().shape({
     .string()
     .required("Please confirm your password")
     .oneOf([yup.ref("newPassword")], "Passwords do not match"),
-});
-
-//leave message validation schema
-export const leaveMessageSchema = yup.object().shape({
-  name: personName("Name is required"),
-  phone: strictPhone(),
-  email: strictEmail("Email is required"),
-  message: meaningfulText("Message"),
 });

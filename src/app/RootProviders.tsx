@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import GlobalVideoModal from "@/components/Popup/GlobalVideoModal";
-import { VideoProvider } from "@/provider/VideoProvider";
 import AppProvider from "@/provider/AppProvider";
-import ReduxProvider from "@/redux/provider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { Toaster } from "sonner";
 
@@ -39,16 +36,10 @@ export default function RootProviders({
 
   return (
     <LanguageProvider>
-      <ReduxProvider>
-        <VideoProvider>
-          <AppProvider>
-            {sanitizedChildren}
-          </AppProvider>
-
-          <Toaster position="top-center" richColors />
-          <GlobalVideoModal />
-        </VideoProvider>
-      </ReduxProvider>
+      <AppProvider>
+        {sanitizedChildren}
+      </AppProvider>
+      <Toaster position="top-center" richColors />
     </LanguageProvider>
   );
 }
