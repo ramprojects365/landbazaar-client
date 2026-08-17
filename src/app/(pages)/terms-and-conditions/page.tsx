@@ -67,8 +67,8 @@ export default function TermsAndConditions() {
                 <h2>Contact</h2>
                 <p>
                   For questions about these terms, contact us at{" "}
-                  <a href="mailto:support@propertyla.com.my">
-                    support@propertyla.com.my
+                  <a href="mailto:support@dekholand.com">
+                    support@dekholand.com
                   </a>
                   .
                 </p>

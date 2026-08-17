@@ -21,6 +21,7 @@
     overflow-y: scroll;
     overscroll-behavior-y: contain;
     scrollbar-width: none;
+    pointer-events: none;
     &::-webkit-scrollbar {
       display: none; /* for Chrome, Safari, and Opera */
     }
@@ -28,6 +29,7 @@
       @include transform(translateX(0));
       visibility: visible;
       opacity: 1;
+      pointer-events: auto;
     }
 
     @media #{$xs} {
@@ -140,11 +142,14 @@
   width: 100%;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   background-color: var(--tp-common-black);
   @include transition();
-  &.opened {
+  &.opened,
+  &.overlay-open {
     opacity: 0.4;
     visibility: visible;
+    pointer-events: auto;
   }
   &:hover {
     cursor: pointer;

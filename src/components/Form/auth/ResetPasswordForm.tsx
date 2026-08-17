@@ -68,7 +68,10 @@ export default function ResetPasswordForm() {
     return (
       <div className="tp-sign-in-from-register">
         <p>
-          Password updated. <Link href="/sign-in">Login now</Link>
+          Password updated.{" "}
+          <Link className="tp-sign-in-register-link" href="/sign-in">
+            Login now
+          </Link>
         </p>
       </div>
     );
@@ -125,7 +128,10 @@ export default function ResetPasswordForm() {
           </div>
           <div className="tp-sign-in-from-register">
             <p>
-              Remember password? <Link href="/sign-in">Login</Link>
+              Remember password?{" "}
+              <Link className="tp-sign-in-register-link" href="/sign-in">
+                Login
+              </Link>
             </p>
           </div>
         </div>

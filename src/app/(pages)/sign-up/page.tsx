@@ -14,15 +14,15 @@ export default function SignUp() {
     <>
       {/* -- sign in area start -- */}
       <section
-        className="tp-sign-in-register-ptb pt-195 pb-95"
+        className="tp-sign-in-register-ptb"
         style={{ backgroundImage: `url(${signUpThumb.src})` }}
       >
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-6">
               <div className="tp-sign-in-register-box p-relative text-center">
-                <div>
-                  <Link href="/" style={{ float: "right" }}>
+                <div className="text-end mb-2">
+                  <Link href="/" className="auth-close-link" aria-label="Close">
                     X
                   </Link>
                 </div>

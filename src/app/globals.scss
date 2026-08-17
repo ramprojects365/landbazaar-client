@@ -38,6 +38,18 @@
   padding-bottom: 0px !important;
 }
 
+.tp-footer-link-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  align-items: start;
+}
+
+.tp-footer-link-columns ul {
+  margin: 0;
+  padding: 0;
+}
+
 .tp-footer-widget-contact .tp-footer-phone-link span,
 .tp-footer-widget-contact .tp-footer-phone-link:visited span {
   color: #ffffff;
@@ -153,6 +165,27 @@
 .legal-page__content a {
   color: #003b5c;
   font-weight: 800;
+}
+
+.tp-breadcrumb__ptb--plain {
+  padding-top: 120px;
+  padding-bottom: 28px;
+}
+
+.tp-breadcrumb__ptb--plain .tp-breadcrumb__title,
+.tp-breadcrumb__ptb--plain .tp-breadcrumb__list span {
+  color: #003b5c;
+}
+
+.tp-breadcrumb__ptb--plain .tp-breadcrumb__list span.dvdr {
+  background-color: #003b5c;
+}
+
+@media (max-width: 767px) {
+  .tp-breadcrumb__ptb--plain {
+    padding-top: 90px;
+    padding-bottom: 16px;
+  }
 }
 
 .tp-property-details-icon-price {
@@ -571,8 +604,84 @@
   justify-content: flex-start;
 }
 
+.tp-sign-in-ptb,
+.tp-sign-in-register-ptb {
+  display: block;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  position: relative;
+  z-index: auto;
+  padding-top: 120px !important;
+  padding-bottom: 80px !important;
+  box-sizing: border-box;
+}
+
 .tp-sign-in-register-box {
+  position: relative;
+  z-index: auto;
   border-radius: 8px;
+}
+
+.tp-sign-in-register-link {
+  position: relative;
+  z-index: 3;
+  display: inline;
+  color: #003b5c !important;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.auth-close-link {
+  position: relative;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: #003b5c;
+  font-weight: 600;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.tp-header-sticky-cloned:not(.tp-header-pinned) {
+  pointer-events: none;
+}
+
+.tp-footer-area {
+  position: relative;
+  z-index: 1;
+}
+
+.tp-property-ptb {
+  position: relative;
+  z-index: 3;
+}
+
+.tp-property-list-section {
+  position: relative;
+  z-index: 1;
+}
+
+.offcanvas__area:not(.offcanvas-opened),
+.body-overlay:not(.overlay-open):not(.opened) {
+  pointer-events: none;
+}
+
+.mouseCursor,
+.mouseCursor * {
+  pointer-events: none !important;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .mouseCursor {
+    display: none !important;
+  }
 }
 
 .tp-sign-in-register-title {
@@ -1641,10 +1750,9 @@ body.scrolled .Profile-btn-span {
     padding-top: 10px;
   }
 
-  /* Improve touch targets for mobile */
+  /* Improve touch targets for mobile buttons, not every inline link */
   .tp-btn,
-  button,
-  a {
+  button:not(.tp-menu-close):not(.hamburger-btn):not(.language-switcher-btn):not(.notification-bell__button) {
     min-height: 48px;
     min-width: 48px;
     display: inline-flex;
@@ -1952,8 +2060,7 @@ body.scrolled .Profile-btn-span {
   }
 
   .tp-btn,
-  button,
-  a {
+  button:not(.tp-menu-close):not(.hamburger-btn):not(.language-switcher-btn):not(.notification-bell__button) {
     min-height: 22px;
     min-width: 30px;
   }
@@ -2529,20 +2636,46 @@ html {
   .language-switcher-btn {
     width: 28px !important;
     height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
     margin: 0 !important;
     font-size: 11px !important;
+    position: relative;
+  }
+
+  .language-switcher-btn::after,
+  .notification-bell__button::after,
+  .hamburger-btn::after,
+  .tp-header-right-user-icon a::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
   }
 
   /* Reduce notification bell size */
   .notification-bell__button {
     width: 28px !important;
     height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    position: relative;
   }
 
-  /* Reduce user icon size */
+  /* Reduce user icon visual size, keep a larger tap area */
   .tp-header-right-user-icon {
     width: 28px !important;
     height: 28px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tp-header-right-user-icon a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
   }
 
   .tp-header-right-user-icon span {
@@ -2556,17 +2689,32 @@ html {
   }
 
   /* Adjust hamburger button */
+  .tp-header-hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .hamburger-btn {
     width: 28px !important;
     height: 28px !important;
     min-width: 28px !important;
+    min-height: 28px !important;
     gap: 4px !important;
+    position: relative;
   }
 
   .hamburger-btn span {
     width: 18px !important;
     height: 2px !important;
     margin: 0 !important;
+  }
+
+  .logo-header-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
   }
 }
 
@@ -3123,10 +3271,12 @@ html {
     z-index: 1000 !important;
     height: 100vh !important;
     overflow-y: auto !important;
+    pointer-events: none;
   }
 
   .tp-dashboard-sidebar.active {
     left: 0 !important;
+    pointer-events: auto;
   }
 
   .tp-dashboard-main {
@@ -3167,8 +3317,17 @@ html {
 
 /* AUTH PAGES MOBILE FIX */
 @media (max-width: 767px) {
+  .tp-sign-in-ptb,
+  .tp-sign-in-register-ptb {
+    padding-top: 100px !important;
+    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px)) !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
   .tp-sign-in-register-box {
-    padding: 30px 20px !important;
+    padding: 24px 16px !important;
+    overflow: visible;
   }
 
   .tp-sign-in-register-title {
@@ -3177,10 +3336,87 @@ html {
 
   .tp-sign-in-input-form {
     padding: 0 !important;
+    position: relative;
+    z-index: 4;
+  }
+
+  .tp-sign-in-from-register {
+    position: relative;
+    z-index: 5;
+    padding-bottom: 4px;
+  }
+
+  .tp-sign-in-register-link {
+    min-width: auto;
+    min-height: 48px;
+    padding: 10px 4px;
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+  }
+
+  .auth-close-link {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .tp-sign-in-from-remeber .text-end {
+    text-align: left !important;
+    margin-top: 4px;
+  }
+
+  .tp-contact-input-remeber label {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .form-group {
     margin-bottom: 15px !important;
+  }
+}
+
+@media (max-width: 1199px) {
+  .tp-offcanvas-menu ul li > a {
+    min-height: 44px;
+    padding-right: 52px;
+    display: flex;
+    align-items: center;
+    pointer-events: auto;
+    touch-action: manipulation;
+  }
+
+  .tp-offcanvas-menu .tp-submenu a {
+    padding-right: 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .tp-menu-close {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    top: 0;
+    line-height: 44px;
+    pointer-events: auto;
+  }
+
+  .offcanvas__social a,
+  .offcanvas__contact-content-content a {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
+  }
+
+  .offcanvas__close-btn {
+    min-width: 44px;
+    min-height: 44px;
+    pointer-events: auto;
   }
 }
 
@@ -3230,6 +3466,16 @@ html {
 
   .tp-footer-widget-content ul li a {
     font-size: 14px !important;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tp-footer-link-columns {
+    column-gap: 12px;
   }
 
   .tp-footer-copyright {
@@ -3256,6 +3502,12 @@ html {
 
   .tp-footer-copyright-links a {
     font-size: 13px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
   }
 
   .tp-footer-social-line {

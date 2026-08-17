@@ -358,20 +358,26 @@
 
 .#{$theme-prefix}-sign-in {
   &-ptb {
-    height: 100vh;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
     background-size: cover;
     background-repeat: no-repeat;
     @media #{$xs} {
-      padding-top: 130px;
+      padding-top: 100px;
+      padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
     }
   }
-  &-register {
+    &-register {
     &-ptb {
       height: auto;
+      min-height: 0;
+      overflow: visible;
       background-size: cover;
       background-repeat: no-repeat;
       @media #{$xs} {
-        padding-top: 130px;
+        padding-top: 100px;
+        padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
       }
     }
     &-box {

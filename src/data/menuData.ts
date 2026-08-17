@@ -111,10 +111,17 @@ const menu_data_one = [
     label: "Services",
     url: "#",
     submenu: [
-      { id: 11, label: "Dharani Title Check", url: "/services" },
-      { id: 12, label: "Legal Verification", url: "/services" },
-      { id: 13, label: "EC Verification", url: "/services" },
-      { id: 14, label: "Site Visit Scheduler", url: "/services" },
+      {
+        id: 11,
+        label: "Dharani Title Check",
+        url: "/services/dharani-title-check",
+      },
+      {
+        id: 12,
+        label: "Legal Verification",
+        url: "/services/legal-verification",
+      },
+      { id: 13, label: "EC Verification", url: "/services/ec-verification" },
     ],
   },
 ];

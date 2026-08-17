@@ -42,7 +42,13 @@ function parsePriceParam(price: string): number | undefined {
   return isNaN(n) ? undefined : n;
 }
 
-export default function PropertyListing() {
+export default function PropertyListing({
+  presetCity,
+  presetPropertyType,
+}: {
+  presetCity?: string;
+  presetPropertyType?: string;
+} = {}) {
   const searchParams = useSearchParams();
 
   // ── Search bar params (SearchRefineBar) ─────────────────────────
@@ -55,9 +61,12 @@ export default function PropertyListing() {
       : rawType === "rent"
         ? "lease"
         : rawType;
-  const city = searchParams.get("city") || "";
+  const city = presetCity || searchParams.get("city") || "";
   const queryPropertyType =
-    searchParams.get("propertyType") || searchParams.get("landType") || "";
+    presetPropertyType ||
+    searchParams.get("propertyType") ||
+    searchParams.get("landType") ||
+    "";
   const propertyName = searchParams.get("propertyName") || "";
   // Homepage sends "address" — treat it as keyword fallback
   const address = searchParams.get("address") || "";

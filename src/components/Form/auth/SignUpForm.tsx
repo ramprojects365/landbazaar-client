@@ -277,7 +277,7 @@ export default function SignUpForm() {
         <div className="col-12">
           <div className="tp-sign-in-from-remeber">
             <div className="row">
-              <div className="col-6">
+              <div className="col-12 col-sm-6">
                 <div className="tp-contact-input-remeber">
                   <input
                     id="remember"
@@ -287,9 +287,11 @@ export default function SignUpForm() {
                   <label htmlFor="remember">Remember me</label>
                 </div>
               </div>
-              <div className="col-6 text-end">
+              <div className="col-12 col-sm-6 text-end">
                 <div className="tp-sign-in-input-remeber text-end">
-                  <Link href="/forget">Forgot Password?</Link>
+                  <Link className="tp-sign-in-register-link" href="/forget">
+                    Forgot Password?
+                  </Link>
                 </div>
               </div>
             </div>
@@ -302,7 +304,7 @@ export default function SignUpForm() {
           <div className="tp-sign-in-from-register">
             <p>
               Already have an account?{" "}
-              <Link className="textline" href="/sign-in">
+              <Link className="tp-sign-in-register-link" href="/sign-in">
                 Log in
               </Link>
             </p>
