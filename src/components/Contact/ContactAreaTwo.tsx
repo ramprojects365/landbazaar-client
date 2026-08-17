@@ -15,7 +15,7 @@ const contactLocations: ContactLocation[] = [
       </>
     ),
     phone: "+91 9849967236",
-    email: "support@propertyla.com.my",
+    email: "support@dekholand.com",
   },
 ];
 

@@ -33,7 +33,7 @@ export default function Contact() {
   return (
     <main className="contact-page">
       {/* breadcrumb area start */}
-      <BreadcrumbArea title="Contact us" />
+      <BreadcrumbArea title="Contact us" showBackground={false} />
       {/* breadcrumb area end */}
 
       {/* contact area start */}

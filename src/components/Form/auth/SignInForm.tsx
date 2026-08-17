@@ -198,15 +198,17 @@ export default function SignInForm() {
         <div className="col-12">
           <div className="tp-sign-in-from-remeber">
             <div className="row">
-              <div className="col-6">
+              <div className="col-12 col-sm-6">
                 <div className="tp-contact-input-remeber">
                   <input id="remember" type="checkbox" {...register("remember")} />
                   <label htmlFor="remember">Remember me</label>
                 </div>
               </div>
-              <div className="col-6">
+              <div className="col-12 col-sm-6">
                 <div className="tp-sign-in-input-remeber text-end">
-                  <Link href="/forget">Forgot Password?</Link>
+                  <Link className="tp-sign-in-register-link" href="/forget">
+                    Forgot Password?
+                  </Link>
                 </div>
               </div>
             </div>
@@ -220,7 +222,7 @@ export default function SignInForm() {
           <div className="tp-sign-in-from-register">
             <p>
               Don’t have an account?{" "}
-              <Link className="textline" href="/sign-up">
+              <Link className="tp-sign-in-register-link" href="/sign-up">
                 Register Now
               </Link>
             </p>

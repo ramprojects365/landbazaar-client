@@ -30,7 +30,19 @@ const OffcanvasMenus = () => {
                 : ""
           }
         >
-          <Link href={menu.url}>{menu.label}</Link>
+          <Link
+            href={menu.url}
+            onClick={(e) => {
+              if (!menu.url || menu.url === "#") {
+                e.preventDefault();
+                openMobileMenu(menu.label);
+                return;
+              }
+              toggleOffcanvas();
+            }}
+          >
+            {menu.label}
+          </Link>
           {menu.home_menu && (
             <div
               className="tp-mega-menu"
@@ -42,7 +54,7 @@ const OffcanvasMenus = () => {
                     <div key={hm.id} className="col">
                       <span>
                         <div className="tp-home-thumb">
-                          <Link href={hm.url}>
+                          <Link href={hm.url} onClick={toggleOffcanvas}>
                             <Image
                               style={{ width: "100%", height: "auto" }}
                               src={hm.img!}
@@ -52,7 +64,9 @@ const OffcanvasMenus = () => {
                         </div>
                       </span>
                       <h3 className="tp-home-title">
-                        <Link href={hm.url}>{hm.label}</Link>
+                        <Link href={hm.url} onClick={toggleOffcanvas}>
+                          {hm.label}
+                        </Link>
                       </h3>
                     </div>
                   ))}

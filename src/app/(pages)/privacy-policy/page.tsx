@@ -51,9 +51,9 @@ export default function PrivacyPolicy() {
               <span className="tp-section-title-pre">Privacy</span>
               <h1 className="tp-section-title">Privacy Policy</h1>
               <p>
-                This policy explains how Dekho Land handles personal
-                information when you browse land and plot listings, create an
-                account, submit a listing, send an enquiry, or use our tools.
+                This policy explains how Dekho Land handles personal information
+                when you browse land and plot listings, create an account,
+                submit a listing, send an enquiry, or use our tools.
               </p>
             </div>
             <div className="legal-page__content">
@@ -67,8 +67,8 @@ export default function PrivacyPolicy() {
                 <h2>Contact</h2>
                 <p>
                   To ask about privacy or request a data update, contact{" "}
-                  <a href="mailto:support@propertyla.com.my">
-                    support@propertyla.com.my
+                  <a href="mailto:support@dekholand.com">
+                    support@dekholand.com
                   </a>
                   .
                 </p>

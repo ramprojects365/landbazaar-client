@@ -153,17 +153,37 @@ export default function OffcanvasArea() {
               </div>
             </div>
             <div className="offcanvas__social">
-              <Link className="icon facebook" href="#">
+              <Link
+                className="icon facebook"
+                href="https://www.facebook.com/profile.php?id=61574356528838"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i className="fab fa-facebook-f"></i>
               </Link>
-              <Link className="icon twitter" href="#">
+              <Link
+                className="icon twitter"
+                href="https://x.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i className="fab fa-twitter"></i>
               </Link>
-              <Link className="icon youtube" href="#">
-                <i className="fab fa-youtube"></i>
+              <Link
+                className="icon instagram"
+                href="https://www.instagram.com/dekholand/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-instagram"></i>
               </Link>
-              <Link className="icon linkedin" href="#">
-                <i className="fab fa-linkedin"></i>
+              <Link
+                className="icon pinterest"
+                href="https://www.pinterest.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-pinterest-p"></i>
               </Link>
             </div>
           </div>

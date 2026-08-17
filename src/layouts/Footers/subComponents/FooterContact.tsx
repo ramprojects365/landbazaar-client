@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function FooterContact() {
   return (
-    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
+    <div className="col-xl-3 col-lg-12 col-12">
       <div className="tp-footer-widget tp-footer-col-1 mb-50">
         <div className="tp-footer-logo mb-35">
           <Link href="/" aria-label="Dekho Land home">
@@ -39,7 +39,7 @@ export default function FooterContact() {
                 +91 9849967236
               </span>
             </Link>
-            <p>support@propertyla.com.my</p>
+            <p>support@dekholand.com</p>
           </div>
         </div>
       </div>

@@ -5,15 +5,13 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Services | DekhoLand",
   description:
-    "DekhoLand land services including Dharani title check, legal verification, EC verification, and site visit scheduling. Dedicated pages coming soon.",
-  robots: "noindex, follow",
+    "DekhoLand land services including Dharani title check, legal verification, and EC verification.",
 };
 
 const serviceItems = [
-  "Dharani Title Check",
-  "Legal Verification",
-  "EC Verification",
-  "Site Visit Scheduler",
+  { label: "Dharani Title Check", href: "/services/dharani-title-check" },
+  { label: "Legal Verification", href: "/services/legal-verification" },
+  { label: "EC Verification", href: "/services/ec-verification" },
 ];
 
 export default function ServicesPage() {
@@ -25,7 +23,7 @@ export default function ServicesPage() {
           <div className="row justify-content-center">
             <div className="col-lg-8 text-center">
               <span className="tp-section-title-pre">DekhoLand Services</span>
-              <h3 className="tp-section-title mb-20">Coming soon</h3>
+              <h3 className="tp-section-title mb-20">Land services</h3>
               <p
                 style={{
                   color: "#5c6f7b",
@@ -34,9 +32,8 @@ export default function ServicesPage() {
                   marginBottom: "28px",
                 }}
               >
-                We are preparing dedicated pages for these services. For now,
-                you can explore verified lands and plots on DekhoLand, or
-                contact our team for help.
+                Start with a Dharani Title Check, Legal Verification, and EC
+                Verification before buying land in Telangana.
               </p>
               <ul
                 style={{
@@ -48,18 +45,21 @@ export default function ServicesPage() {
                 }}
               >
                 {serviceItems.map((item) => (
-                  <li
-                    key={item}
-                    style={{
-                      padding: "12px 16px",
-                      border: "1px solid rgba(0, 59, 92, 0.12)",
-                      borderRadius: "8px",
-                      color: "#003B5C",
-                      fontWeight: 600,
-                      background: "#fff",
-                    }}
-                  >
-                    {item}
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      style={{
+                        display: "block",
+                        padding: "12px 16px",
+                        border: "1px solid rgba(0, 59, 92, 0.12)",
+                        borderRadius: "8px",
+                        color: "#003B5C",
+                        fontWeight: 600,
+                        background: "#fff",
+                      }}
+                    >
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>

@@ -8,7 +8,9 @@ interface BreadcrumbAreaProps {
 
 export default function BreadcrumbArea({ title, showBackground = true }: BreadcrumbAreaProps) {
   return (
-    <section className="tp-breadcrumb__ptb p-relative z-index-1 fix">
+    <section
+      className={`tp-breadcrumb__ptb p-relative z-index-1 fix${showBackground ? "" : " tp-breadcrumb__ptb--plain"}`}
+    >
       {showBackground && (
         <div
           className="tp-breadcrumb__bg"

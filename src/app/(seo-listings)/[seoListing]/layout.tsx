@@ -6,13 +6,11 @@ import React from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <Wrapper>
-        <CommonHeader wrapClass="tp-header-transparent" />
-        {children}
-        <CommonFooter />
-        <BackToTop />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <CommonHeader />
+      {children}
+      <CommonFooter />
+      <BackToTop />
+    </Wrapper>
   );
 }

@@ -81,7 +81,10 @@ export default function ForgotForm() {
           </div>
           <div className="tp-sign-in-from-register">
             <p>
-              Remember password? <Link href="/sign-in">Login</Link>
+                  Remember password?{" "}
+                  <Link className="tp-sign-in-register-link" href="/sign-in">
+                    Login
+                  </Link>
             </p>
           </div>
         </div>

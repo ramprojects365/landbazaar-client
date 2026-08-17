@@ -114,11 +114,14 @@
   top: 0;
   right: 0;
   bottom: 0;
-  pointer-events: none;
+  pointer-events: none !important;
   border-radius: 50%;
   transform: translateZ(0);
   visibility: hidden;
   text-align: center;
+  & * {
+    pointer-events: none !important;
+  }
   &.cursor-big {
     width: 90px;
     height: 90px;

@@ -103,8 +103,8 @@ export default function VerifyForm() {
                     placeholder="Enter email OTP"
                   />
                 </div>
-                <div className="col-4">
-                  <button type="submit" style={{ float: "right" }}>
+                <div className="col-4 text-end">
+                  <button type="submit" className="tp-btn">
                     Submit
                   </button>
                 </div>
