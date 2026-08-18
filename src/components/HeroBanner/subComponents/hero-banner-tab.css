@@ -109,7 +109,7 @@
   }
 
   .hero-search-btn--desktop {
-    display: none;
+    display: none !important;
   }
 
   .hero-search-btn--mobile {
