@@ -35,6 +35,35 @@ const normalizeDocuments = (value: unknown): PropertyDocumentItem[] => {
     .filter((document): document is PropertyDocumentItem => document !== null);
 };
 
+const ALLOWED_DOCUMENT_EXTENSIONS = [".pdf", ".doc", ".docx"] as const;
+const ALLOWED_DOCUMENT_MIME_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+const DOCUMENT_ACCEPT =
+  ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+const getFileExtension = (fileName: string) => {
+  const match = fileName.toLowerCase().match(/\.[a-z0-9]+$/);
+  return match ? match[0] : "";
+};
+
+const isAllowedDocumentFile = (file: File) => {
+  if (file.type.startsWith("image/")) return false;
+
+  const extension = getFileExtension(file.name);
+  if (
+    ALLOWED_DOCUMENT_EXTENSIONS.includes(
+      extension as (typeof ALLOWED_DOCUMENT_EXTENSIONS)[number],
+    )
+  ) {
+    return true;
+  }
+
+  return ALLOWED_DOCUMENT_MIME_TYPES.includes(file.type);
+};
+
 const formatFileSize = (size?: number) => {
   if (!size || size < 1024) return size ? `${size} B` : "";
   if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
@@ -72,10 +101,26 @@ export default function UploadDocuments({
     const files = Array.from(event.target.files || []);
     if (!files.length) return;
 
+    const allowedFiles = files.filter(isAllowedDocumentFile);
+    const rejectedFiles = files.filter((file) => !isAllowedDocumentFile(file));
+
+    if (rejectedFiles.length) {
+      toast.error(
+        "Only PDF and Word documents (.pdf, .doc, .docx) are allowed. Images cannot be uploaded here.",
+      );
+    }
+
+    if (!allowedFiles.length) {
+      event.target.value = "";
+      return;
+    }
+
     setIsLoading(true);
     try {
       const formData = new FormData();
-      files.forEach((file) => formData.append("documents", file, file.name));
+      allowedFiles.forEach((file) =>
+        formData.append("documents", file, file.name),
+      );
 
       const token = getToken();
       const response = await fetch(`${API_BASE_URL}/documents/upload-multiple`, {
@@ -116,6 +161,7 @@ export default function UploadDocuments({
               id="tp-dashboard-document-input"
               type="file"
               multiple
+              accept={DOCUMENT_ACCEPT}
               onChange={handleUpload}
               disabled={isLoading}
             />
@@ -124,7 +170,8 @@ export default function UploadDocuments({
             </label>
           </span>
           <p>
-            Upload title deeds, approvals, plans, or other property documents.
+            Upload PDF or Word files only (.pdf, .doc, .docx). Images are not
+            accepted here — use the media section for photos.
             Existing documents stay unless you remove or replace them.
           </p>
         </div>
