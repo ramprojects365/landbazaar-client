@@ -1528,12 +1528,15 @@ body.scrolled .Profile-btn-span {
   .tp-header-main-right > .language-switcher-btn,
   .tp-header-main-right > .notification-bell,
   .tp-header-main-right > .tp-header-right-user,
+  .tp-header-main-right > .tp-header-hamburger,
   .tp-header-5-main-right > .language-switcher-btn,
   .tp-header-5-main-right > .notification-bell,
   .tp-header-5-main-right > .tp-header-right-user,
+  .tp-header-5-main-right > .tp-header-hamburger,
   .tp-header-dashboard-main-right > .language-switcher-btn,
   .tp-header-dashboard-main-right > .notification-bell,
-  .tp-header-dashboard-main-right > .tp-header-right-user {
+  .tp-header-dashboard-main-right > .tp-header-right-user,
+  .tp-header-dashboard-main-right > .tp-header-hamburger {
     margin: 0 !important;
   }
 
@@ -1579,14 +1582,26 @@ body.scrolled .Profile-btn-span {
     align-items: center;
   }
 
+  .tp-header-right-user-icon a {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    margin: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .tp-header-right-user-icon span {
     width: 28px !important;
     height: 28px !important;
+    margin: 0 !important;
   }
 
   .tp-header-hamburger {
     flex: 0 0 auto;
-    margin-left: 0 !important;
+    margin: 0 !important;
     display: inline-flex;
     align-items: center;
   }
@@ -1752,7 +1767,7 @@ body.scrolled .Profile-btn-span {
 
   /* Improve touch targets for mobile buttons, not every inline link */
   .tp-btn,
-  button:not(.tp-menu-close):not(.hamburger-btn):not(.language-switcher-btn):not(.notification-bell__button) {
+  button:not(.tp-menu-close):not(.hamburger-btn):not(.language-switcher-btn):not(.notification-bell__button):not(.hero-search-btn):not(.tp-pdg-tile):not(.tp-pdg-close):not(.tp-pdg-nav) {
     min-height: 48px;
     min-width: 48px;
     display: inline-flex;
@@ -2060,7 +2075,7 @@ body.scrolled .Profile-btn-span {
   }
 
   .tp-btn,
-  button:not(.tp-menu-close):not(.hamburger-btn):not(.language-switcher-btn):not(.notification-bell__button) {
+  button:not(.tp-menu-close):not(.hamburger-btn):not(.language-switcher-btn):not(.notification-bell__button):not(.hero-search-btn):not(.tp-pdg-tile):not(.tp-pdg-close):not(.tp-pdg-nav) {
     min-height: 22px;
     min-width: 30px;
   }
@@ -2627,9 +2642,12 @@ html {
     display: none !important;
   }
 
-  /* Reduce spacing between header icons */
-  .tp-header-main-right {
+  /* Even spacing between header icons */
+  .tp-header-main-right,
+  .tp-header-5-main-right,
+  .tp-header-dashboard-main-right {
     gap: 8px !important;
+    column-gap: 8px !important;
   }
 
   /* Reduce language switcher size */
@@ -2643,15 +2661,6 @@ html {
     position: relative;
   }
 
-  .language-switcher-btn::after,
-  .notification-bell__button::after,
-  .hamburger-btn::after,
-  .tp-header-right-user-icon a::after {
-    content: "";
-    position: absolute;
-    inset: -8px;
-  }
-
   /* Reduce notification bell size */
   .notification-bell__button {
     width: 28px !important;
@@ -2661,10 +2670,14 @@ html {
     position: relative;
   }
 
-  /* Reduce user icon visual size, keep a larger tap area */
+  /* Reduce user icon visual size */
+  .tp-header-right-user,
   .tp-header-right-user-icon {
+    margin: 0 !important;
     width: 28px !important;
     height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2672,6 +2685,11 @@ html {
 
   .tp-header-right-user-icon a {
     position: relative;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    margin: 0 !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2681,6 +2699,7 @@ html {
   .tp-header-right-user-icon span {
     width: 28px !important;
     height: 28px !important;
+    margin: 0 !important;
   }
 
   .tp-header-right-user-icon svg {
@@ -2690,6 +2709,7 @@ html {
 
   /* Adjust hamburger button */
   .tp-header-hamburger {
+    margin: 0 !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2764,7 +2784,12 @@ html {
     height: 13px !important;
   }
 
+  .tp-hero-tab-box .hero-search-btn--desktop {
+    display: none !important;
+  }
+
   .tp-hero-tab-box .hero-search-btn--mobile {
+    display: inline-flex !important;
     width: 36px !important;
     min-width: 36px !important;
     max-width: 36px !important;
@@ -3152,6 +3177,32 @@ html {
     height: 250px !important;
   }
 
+  .tp-pdg-three,
+  .tp-pdg-five {
+    aspect-ratio: auto;
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .tp-pdg-five .tp-pdg-main,
+  .tp-pdg-three .tp-pdg-main {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 260px !important;
+    min-width: 0 !important;
+    aspect-ratio: 16 / 11;
+  }
+
+  .tp-pdg-five .tp-pdg-main img,
+  .tp-pdg-three .tp-pdg-main img,
+  .tp-pdg-main-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    display: block;
+  }
+
   .tp-property-details-info h2 {
     font-size: 18px !important;
   }
@@ -3460,15 +3511,34 @@ html {
     margin-bottom: 15px !important;
   }
 
+  .tp-footer-col-1,
+  .tp-footer-widget-contact,
+  .tp-footer-widget-contact p {
+    text-align: left;
+  }
+
+  .tp-footer-phone-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
+    width: auto;
+    text-align: left;
+  }
+
   .tp-footer-widget-content ul li {
-    margin-bottom: 8px !important;
+    margin-bottom: 2px !important;
   }
 
   .tp-footer-widget-content ul li a {
     font-size: 14px !important;
-    min-height: 44px;
+    min-height: 0;
+    min-width: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
     display: inline-flex;
     align-items: center;
+    justify-content: flex-start;
     pointer-events: auto;
     position: relative;
     z-index: 1;
@@ -3546,13 +3616,57 @@ html {
 
 /* BREADCRUMB MOBILE FIX */
 @media (max-width: 767px) {
-  .breadcrumb {
+  .breadcrumb,
+  .bclp,
+  .tp-breadcrumb,
+  .tp-breadcrumb nav,
+  .tp-breadcrumb__list {
+    display: block;
+    text-align: left;
+  }
+
+  .bclp .crumb,
+  .bclp .separator,
+  .tp-breadcrumb__list span:not(.dvdr) {
+    display: inline;
+  }
+
+  .tp-breadcrumb__list span.dvdr {
+    display: inline-block;
+  }
+
+  .breadcrumb,
+  .breadcrumb-item a,
+  .bclp,
+  .bclp a,
+  .bclp .crumb a,
+  .tp-breadcrumb a,
+  .tp-breadcrumb nav a,
+  .tp-breadcrumb__list a {
     font-size: 13px !important;
+  }
+
+  .breadcrumb {
     padding: 10px 15px !important;
   }
 
+  .bclp a,
+  .bclp .crumb a,
+  .tp-breadcrumb a,
+  .tp-breadcrumb nav a,
+  .tp-breadcrumb__list a,
+  .breadcrumb a,
   .breadcrumb-item a {
-    font-size: 13px !important;
+    display: inline !important;
+    min-height: 0 !important;
+    min-width: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-start;
+    text-align: left;
+    vertical-align: baseline;
   }
 }
 
