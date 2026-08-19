@@ -81,7 +81,7 @@ export default function RecentlyViewedProperties() {
   if (loading) {
     return (
       <div className="tp-property-filter-wrap mb-40">
-        <h4 className="tp-team-details-item-title">Recent lands</h4>
+        <h4 className="tp-team-details-item-title">Latest Properties</h4>
         <div className="text-center py-3">
           <div
             className="spinner-border spinner-border-sm text-primary"
@@ -97,7 +97,7 @@ export default function RecentlyViewedProperties() {
   if (properties.length === 0) {
     return (
       <div className="tp-property-filter-wrap mb-40">
-        <h4 className="tp-team-details-item-title">Recent lands</h4>
+        <h4 className="tp-team-details-item-title">Latest Properties</h4>
         <p className="text-muted">No recent listings found</p>
       </div>
     );
@@ -105,7 +105,7 @@ export default function RecentlyViewedProperties() {
 
   return (
     <div className="tp-property-filter-wrap mb-40">
-      <h4 className="tp-team-details-item-title">Recent lands</h4>
+      <h4 className="tp-team-details-item-title">Latest Properties</h4>
       {properties.map((property, index) => (
         <div
           className="tp-property-recent-post d-flex align-items-center mb-30"

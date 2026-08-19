@@ -10,7 +10,7 @@ import ProfileDropdown from "./ProfileDropdown";
 import Image from "next/image";
 import Link from "next/link";
 import SignInForm from "@/components/Form/auth/SignInForm";
-import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
+// import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
 import NotificationBell from "@/components/Notifications/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -49,7 +49,7 @@ export default function DashboardHeader() {
         </div>
         <div className="col-xl-3 col-lg-4 col-md-9 col-6">
           <div className="tp-header-dashboard-main-right d-flex align-items-center justify-content-end">
-            <LanguageSwitcher />
+            {/* <LanguageSwitcher /> */}
             <NotificationBell />
             <div className="tp-header-right-user">
               {(() => {

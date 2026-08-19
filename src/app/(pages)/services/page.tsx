@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const serviceItems = [
   { label: "Dharani Title Check", href: "/services/dharani-title-check" },
-  { label: "Legal Verification", href: "/services/legal-verification" },
+  { label: "Legal Verification", href: "/legal-verification" },
   { label: "EC Verification", href: "/services/ec-verification" },
 ];
 

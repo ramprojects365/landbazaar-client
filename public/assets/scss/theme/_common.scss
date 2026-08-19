@@ -337,7 +337,7 @@
 
 @media #{$xs} {
   .tp-btn,
-  button:not(.tp-pdg-tile):not(.tp-pdg-close):not(.tp-pdg-nav) {
+  button:not(.tp-pdg-tile):not(.tp-pdg-close):not(.tp-pdg-nav):not(.hamburger-btn):not(.notification-bell__button):not(.profile-btn) {
     min-height: 48px;
     min-width: 48px;
     display: flex;

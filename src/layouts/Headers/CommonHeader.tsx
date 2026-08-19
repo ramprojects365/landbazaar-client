@@ -10,8 +10,8 @@ import ProfileDropdown from "./ProfileDropdown";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+// import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
 import { requireAuth } from "@/utils/auth";
-import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
 import { useTranslation } from "@/contexts/LanguageContext";
 import NotificationBell from "@/components/Notifications/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
@@ -27,7 +27,6 @@ export default function CommonHeader({ wrapClass = "" }) {
 
   const handlePostPropertyClick = () => {
     const isAuthenticated = requireAuth("/dashboard/add-new-property");
-    // If user is authenticated, navigate to the dashboard
     if (isAuthenticated) {
       window.location.href = "/dashboard/add-new-property";
     }
@@ -86,7 +85,7 @@ export default function CommonHeader({ wrapClass = "" }) {
                 </span>
               </button>
             </div>
-            <LanguageSwitcher />
+            {/* <LanguageSwitcher /> */}
             {user && <NotificationBell />}
             <div className="tp-header-right-user">
               {(() => {

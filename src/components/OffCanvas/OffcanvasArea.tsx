@@ -9,13 +9,12 @@ import { requireAuth } from "@/utils/auth";
 export default function OffcanvasArea() {
   const { openOffcanvas, toggleOffcanvas } = useGlobalContext();
   const mapUrl =
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243646.905094979!2d78.24323194335936!3d17.412608650000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeaebd2c7%3A0xae93b78392bafbc2!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin";
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243646.905094979!2d78.24323194335936!3d17.412608650000004!2m3!1f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeaebd2c7%3A0xae93b78392bafbc2!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin";
 
   const handlePostPropertyClick = () => {
     const isAuthenticated = requireAuth("/dashboard/add-new-property");
-    // If user is authenticated, navigate to the dashboard
     if (isAuthenticated) {
-      toggleOffcanvas(); // Close the offcanvas before navigating
+      toggleOffcanvas();
       window.location.href = "/dashboard/add-new-property";
     }
   };
@@ -124,7 +123,7 @@ export default function OffcanvasArea() {
             </div>
             <div className="offcanvas-info mb-30">
               <h4 className="offcanvas__title">Contacts</h4>
-              <div className="offcanvas__contact-content d-flex">
+              <div className="offcanvas__contact-content d-flex align-items-center">
                 <div className="offcanvas__contact-content-icon">
                   <i className="fa-sharp fa-solid fa-location-dot"></i>
                 </div>
@@ -132,7 +131,7 @@ export default function OffcanvasArea() {
                   <Link href={mapUrl}>Hyderabad, Telangana, India</Link>
                 </div>
               </div>
-              <div className="offcanvas__contact-content d-flex">
+              <div className="offcanvas__contact-content d-flex align-items-center">
                 <div className="offcanvas__contact-content-icon">
                   <i className="fa-solid fa-envelope"></i>
                 </div>
@@ -143,7 +142,7 @@ export default function OffcanvasArea() {
                   </Link>
                 </div>
               </div>
-              <div className="offcanvas__contact-content d-flex">
+              <div className="offcanvas__contact-content d-flex align-items-center">
                 <div className="offcanvas__contact-content-icon">
                   <i className="fa-solid fa-phone"></i>
                 </div>

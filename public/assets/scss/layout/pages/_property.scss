@@ -99,6 +99,7 @@
       padding: 30px;
       border: 1px solid #dbe1ef;
       background: var(--tp-common-white);
+      border-radius: 6px;
     }
     &-box {
       padding: 30px;
@@ -182,9 +183,11 @@
     &-thumb {
       overflow: hidden;
       flex: 0 0 auto;
+      border-radius: 6px;
       & img {
         width: 100%;
         overflow: hidden;
+        border-radius: 6px;
         transition: all 0.3s 0s ease-out;
       }
       &:hover {

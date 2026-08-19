@@ -14,7 +14,7 @@ export default function FooterCopyright() {
         <div className="col-lg-7">
           <div className="tp-footer-copyright-actions">
             <div className="tp-footer-copyright-links">
-              <Link href="/terms-and-conditions">Terms and Conditions</Link>
+              <Link href="/terms">Terms and Conditions</Link>
               <Link href="/privacy-policy">Privacy Policy</Link>
             </div>
             <div className="tp-footer-social-line" aria-label="Dekho Land social media">

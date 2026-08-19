@@ -1052,15 +1052,25 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  padding: 0;
+  margin: 0;
 }
 
-.Profile-btn-span {
+.profile-btn-meta {
+  display: flex;
+  align-items: center;
+}
+
+.Profile-btn-span,
+.notification-bell__button {
   position: relative;
   display: inline-flex;
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  max-width: 36px;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  max-width: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
@@ -1068,6 +1078,8 @@
   border: 1px solid #fff;
   color: #fff;
   flex-shrink: 0;
+  box-sizing: border-box;
+  box-shadow: none;
   transition: all 0.3s ease;
 }
 
@@ -1103,6 +1115,11 @@
   display: block;
 }
 
+.offcanvas__contact-content {
+  align-items: center;
+  gap: 10px;
+}
+
 .offcanvas__contact-content-icon,
 .contact-icon {
   width: 22px;
@@ -1112,9 +1129,18 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  flex-shrink: 0;
 }
 
-.offcanvas__contact-content-icon i,
+.offcanvas__contact-content-icon i {
+  width: auto;
+  height: auto;
+  font-size: 16px;
+  line-height: 1;
+  display: block;
+  margin: 0;
+}
+
 .contact-icon svg {
   width: 18px;
   height: 18px;
@@ -1133,9 +1159,12 @@
 }
 
 /* Dashboard header - black icon and name on #d4af37 background */
-.tp-header-dashboard-ptb .Profile-btn-span {
-  border: 1px solid #000;
-  color: #000;
+.tp-header-dashboard-ptb .Profile-btn-span,
+.tp-header-dashboard-ptb .notification-bell__button {
+  border: 1px solid #000 !important;
+  color: #000 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .tp-header-dashboard-ptb .tp-header-right-user-content p {
@@ -1147,9 +1176,12 @@
 }
 
 /* Property pages - black icon on white background */
-.tp-header-5-ptb:not(.tp-header-dashboard-ptb) .Profile-btn-span {
-  border: 1px solid #000;
-  color: #000;
+.tp-header-5-ptb:not(.tp-header-dashboard-ptb) .Profile-btn-span,
+.tp-header-5-ptb:not(.tp-header-dashboard-ptb) .notification-bell__button {
+  border: 1px solid #000 !important;
+  color: #000 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .tp-header-5-ptb:not(.tp-header-dashboard-ptb) .tp-header-right-user-content p {
@@ -1161,9 +1193,16 @@
 }
 
 /* Homepage header - white icon on blue background (exclude property pages) */
-.tp-header-5-ptb.tp-header-5-main .Profile-btn-span {
-  border: 1px solid #fff;
-  color: #fff;
+.tp-header-5-ptb.tp-header-5-main .Profile-btn-span,
+.tp-header-5-ptb.tp-header-5-main .notification-bell__button,
+.tp-header-1-ptb.tp-header-transparent .Profile-btn-span,
+.tp-header-1-ptb.tp-header-transparent .notification-bell__button,
+.tp-header-5-ptb.tp-header-transparent .Profile-btn-span,
+.tp-header-5-ptb.tp-header-transparent .notification-bell__button {
+  border: 1px solid #fff !important;
+  color: #fff !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .tp-header-5-ptb.tp-header-5-main .tp-header-right-user-content p {
@@ -1175,10 +1214,12 @@
 }
 
 /* When page is scrolled, change to dark theme */
-body.scrolled .Profile-btn-span {
-  background: transparent;
-  border: 1px solid #000;
-  color: #000;
+body.scrolled .Profile-btn-span,
+body.scrolled .notification-bell__button {
+  background: transparent !important;
+  border: 1px solid #000 !important;
+  color: #000 !important;
+  box-shadow: none !important;
 }
 
 .profile-img {
@@ -1316,12 +1357,45 @@ body.scrolled .Profile-btn-span {
 .tp-header-right-user-icon span {
   height: 32px !important;
   width: 32px !important;
+  min-width: 32px;
+  min-height: 32px;
   margin-top: 0;
+  margin: 0 !important;
   border: 1px solid rgba(0, 59, 92, 0.16);
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+}
+
+.hamburger-btn {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 8px;
+  display: inline-flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hamburger-btn span {
+  position: static !important;
+  transform: none !important;
+  top: auto !important;
+  right: auto !important;
+  width: 16px !important;
+  height: 2px !important;
+  margin: 0 !important;
+  display: block;
 }
 
 /* ============================================
@@ -1453,15 +1527,15 @@ body.scrolled .Profile-btn-span {
   flex-wrap: nowrap;
 }
 
-.tp-header-main-right > .language-switcher-btn,
 .tp-header-main-right > .notification-bell,
 .tp-header-main-right > .tp-header-right-user,
-.tp-header-5-main-right > .language-switcher-btn,
+.tp-header-main-right > .tp-header-hamburger,
 .tp-header-5-main-right > .notification-bell,
 .tp-header-5-main-right > .tp-header-right-user,
-.tp-header-dashboard-main-right > .language-switcher-btn,
+.tp-header-5-main-right > .tp-header-hamburger,
 .tp-header-dashboard-main-right > .notification-bell,
-.tp-header-dashboard-main-right > .tp-header-right-user {
+.tp-header-dashboard-main-right > .tp-header-right-user,
+.tp-header-dashboard-main-right > .tp-header-hamburger {
   margin: 0 !important;
   flex: 0 0 auto;
 }
@@ -1474,8 +1548,11 @@ body.scrolled .Profile-btn-span {
   align-items: center;
 }
 
-.notification-bell {
+.tp-header-hamburger {
   margin: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 auto;
 }
 
@@ -1510,6 +1587,23 @@ body.scrolled .Profile-btn-span {
 
   .notification-bell__button i {
     font-size: 16px;
+  }
+
+  .hamburger-btn {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+  }
+
+  .Profile-btn-span,
+  .notification-bell__button,
+  .tp-header-right-user-icon span {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    max-width: 32px !important;
   }
 }
 
@@ -1569,6 +1663,8 @@ body.scrolled .Profile-btn-span {
   .notification-bell__button {
     width: 28px !important;
     height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
   }
 
   .notification-bell__button i {
@@ -1610,18 +1706,22 @@ body.scrolled .Profile-btn-span {
     width: 28px !important;
     height: 28px !important;
     min-width: 28px !important;
+    min-height: 28px !important;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
     padding: 0 !important;
+    margin: 0 !important;
   }
 
   .hamburger-btn span {
-    width: 18px;
-    height: 2px;
+    width: 14px !important;
+    height: 2px !important;
     margin: 0 !important;
+    position: static !important;
+    transform: none !important;
     display: block;
   }
 }
@@ -1767,7 +1867,11 @@ body.scrolled .Profile-btn-span {
 
   /* Improve touch targets for mobile buttons, not every inline link */
   .tp-btn,
-  button:not(.tp-menu-close):not(.hamburger-btn):not(.language-switcher-btn):not(.notification-bell__button):not(.hero-search-btn):not(.tp-pdg-tile):not(.tp-pdg-close):not(.tp-pdg-nav) {
+  button:not(.tp-menu-close):not(.hamburger-btn):not(
+      .language-switcher-btn
+    ):not(.notification-bell__button):not(.hero-search-btn):not(
+      .tp-pdg-tile
+    ):not(.tp-pdg-close):not(.tp-pdg-nav):not(.profile-btn) {
     min-height: 48px;
     min-width: 48px;
     display: inline-flex;
@@ -1959,11 +2063,14 @@ body.scrolled .Profile-btn-span {
     margin-bottom: 0px;
   }
 
-  .Profile-btn-span {
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
-    max-width: 28px;
+  .Profile-btn-span,
+  .notification-bell__button {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
+    min-height: 28px !important;
+    max-height: 28px !important;
   }
 
   .tp-header-right-user-icon span {
@@ -2075,7 +2182,11 @@ body.scrolled .Profile-btn-span {
   }
 
   .tp-btn,
-  button:not(.tp-menu-close):not(.hamburger-btn):not(.language-switcher-btn):not(.notification-bell__button):not(.hero-search-btn):not(.tp-pdg-tile):not(.tp-pdg-close):not(.tp-pdg-nav) {
+  button:not(.tp-menu-close):not(.hamburger-btn):not(
+      .language-switcher-btn
+    ):not(.notification-bell__button):not(.hero-search-btn):not(
+      .tp-pdg-tile
+    ):not(.tp-pdg-close):not(.tp-pdg-nav):not(.profile-btn) {
     min-height: 22px;
     min-width: 30px;
   }
@@ -2662,16 +2773,65 @@ html {
   }
 
   /* Reduce notification bell size */
+  .notification-bell {
+    margin: 0 !important;
+    position: relative;
+  }
+
   .notification-bell__button {
     width: 28px !important;
     height: 28px !important;
     min-width: 28px !important;
     min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    margin: 0 !important;
     position: relative;
   }
 
-  /* Reduce user icon visual size */
-  .tp-header-right-user,
+  .profile-btn-meta {
+    display: none !important;
+  }
+
+  .profile-btn {
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  /* Keep the profile circle at 28px; do not shrink the whole user group */
+  .tp-header-right-user {
+    margin: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .Profile-btn-span,
+  .notification-bell__button {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
+    min-height: 28px !important;
+    max-height: 28px !important;
+  }
+
+  .Profile-btn-span svg,
+  .tp-header-right-user-icon span svg {
+    width: 14px !important;
+    height: 14px !important;
+    flex: 0 0 14px;
+  }
+
   .tp-header-right-user-icon {
     margin: 0 !important;
     width: 28px !important;
@@ -2720,14 +2880,23 @@ html {
     height: 28px !important;
     min-width: 28px !important;
     min-height: 28px !important;
+    padding: 0 !important;
+    margin: 0 !important;
     gap: 4px !important;
     position: relative;
+    display: inline-flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
   }
 
   .hamburger-btn span {
-    width: 18px !important;
+    width: 14px !important;
     height: 2px !important;
     margin: 0 !important;
+    position: static !important;
+    transform: none !important;
   }
 
   .logo-header-link {
@@ -3457,11 +3626,22 @@ html {
 
   .offcanvas__social a,
   .offcanvas__contact-content-content a {
-    min-width: 44px;
+    min-width: 0;
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+    line-height: 1.3;
     pointer-events: auto;
+  }
+
+  .offcanvas__contact-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .offcanvas__contact-content-icon {
+    height: 22px;
+    align-self: center;
   }
 
   .offcanvas__close-btn {

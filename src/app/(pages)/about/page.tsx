@@ -6,12 +6,14 @@ import ContactArea from "@/components/Contact/ContactArea";
 import { Metadata } from "next";
 import "./about-page.scss";
 
-const aboutTitle = "About DekhoLand | Verified Lands & Plots Marketplace";
+const aboutTitle = "About DekhoLand - Why Choose Us";
 const aboutDescription =
   "DekhoLand is transforming how people buy and sell real estate across India. Connect with verified land sellers, explore residential, commercial, and agricultural land, and buy or sell with confidence.";
 
 export const metadata: Metadata = {
-  title: aboutTitle,
+  title: {
+    absolute: aboutTitle,
+  },
   description: aboutDescription,
   metadataBase: new URL("https://www.dekholand.com"),
   alternates: {

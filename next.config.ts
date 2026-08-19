@@ -79,7 +79,17 @@ const nextConfig: NextConfig = {
         destination: "/services",
         permanent: true,
       },
-      // Title-aligned slug fixes (old → new)
+      // Dedicated sitelink URLs
+      {
+        source: "/terms-and-conditions",
+        destination: "/terms",
+        permanent: true,
+      },
+      {
+        source: "/services/legal-verification",
+        destination: "/legal-verification",
+        permanent: true,
+      },
       {
         source:
           "/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad",
