@@ -119,7 +119,7 @@ const menu_data_one = [
       {
         id: 12,
         label: "Legal Verification",
-        url: "/services/legal-verification",
+        url: "/legal-verification",
       },
       { id: 13, label: "EC Verification", url: "/services/ec-verification" },
     ],

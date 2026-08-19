@@ -329,7 +329,7 @@ export default function EcVerificationPage() {
                         Gram Panchayat land tax details are managed separately
                         on revenue portals (like Dharani or local municipal
                         systems). Pair an EC with{" "}
-                        <Link href="/services/legal-verification">
+                        <Link href="/legal-verification">
                           full legal verification
                         </Link>
                         .

@@ -6,7 +6,9 @@ import { Metadata } from "next";
 import "./contact-page.scss";
 
 export const metadata: Metadata = {
-  title: "Contact Dekho Land | Land & Plot Marketplace Support",
+  title: {
+    absolute: "Contact Us - DekhoLand",
+  },
   description:
     "Get in touch with Dekho Land for land and plot enquiries across India. Reach our team for sale and lease listings, listing support, and marketplace help.",
   metadataBase: new URL("https://www.dekholand.com"),
@@ -14,16 +16,16 @@ export const metadata: Metadata = {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact Dekho Land | Land & Plot Marketplace Support",
+    title: "Contact Us - DekhoLand",
     description:
       "Get in touch with Dekho Land for land and plot enquiries across India. Reach our team for sale and lease listings, listing support, and marketplace help.",
     url: "https://www.dekholand.com/contact",
-    siteName: "Dekho Land",
+    siteName: "DekhoLand",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Contact Dekho Land | Land & Plot Marketplace Support",
+    title: "Contact Us - DekhoLand",
     description:
       "Get in touch with Dekho Land for land and plot enquiries across India. Reach our team for sale and lease listings, listing support, and marketplace help.",
   },
@@ -33,7 +35,7 @@ export default function Contact() {
   return (
     <main className="contact-page">
       {/* breadcrumb area start */}
-      <BreadcrumbArea title="Contact us" showBackground={false} />
+      <BreadcrumbArea title="Contact Us" showBackground={false} />
       {/* breadcrumb area end */}
 
       {/* contact area start */}

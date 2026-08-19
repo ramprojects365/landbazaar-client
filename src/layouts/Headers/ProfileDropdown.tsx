@@ -69,6 +69,7 @@ const ProfileDropdown = () => {
           />
         </span>
         <div
+          className="profile-btn-meta"
           style={{
             paddingLeft: "0px",
             paddingRight: "5px",
