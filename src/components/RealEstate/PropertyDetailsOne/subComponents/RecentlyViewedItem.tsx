@@ -111,10 +111,7 @@ export default function RecentlyViewedProperties() {
           className="tp-property-recent-post d-flex align-items-center mb-30"
           key={index}
         >
-          <div
-            className="tp-property-recent-post-thumb mr-15"
-            style={{ width: "25%" }}
-          >
+          <div className="tp-property-recent-post-thumb mr-15">
             <Link href={withFrom(property.link)}>
               <img
                 src={
@@ -126,8 +123,7 @@ export default function RecentlyViewedProperties() {
                 alt={property.title || "Land listing"}
                 loading="lazy"
                 width={80}
-                height={80}
-                style={{ objectFit: "cover", width: 80, height: 80 }}
+                height={60}
               />
             </Link>
           </div>
