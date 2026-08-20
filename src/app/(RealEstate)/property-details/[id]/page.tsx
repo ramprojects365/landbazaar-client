@@ -9,6 +9,16 @@ import type { Metadata } from "next";
 const FALLBACK_DESCRIPTION =
   "View detailed land and plot information in India. Find residential plots, agricultural land, farm land, and commercial land for sale or lease in Hyderabad, Telangana, Visakhapatnam and other growth corridors.";
 
+const FALLBACK_OG_IMAGE =
+  "https://www.dekholand.com/assets/img/logo/logo-blue.png";
+
+const toAbsoluteImageUrl = (url: string | null): string => {
+  if (!url) return FALLBACK_OG_IMAGE;
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  const path = url.startsWith("/") ? url : `/${url}`;
+  return `https://www.dekholand.com${path}`;
+};
+
 export async function generateMetadata(
   props: PageParamsProps,
 ): Promise<Metadata> {
@@ -33,7 +43,7 @@ export async function generateMetadata(
     const title = item.propertyName || item.title || `Property Details - ${id}`;
     const description =
       toDescriptionSnippet(item.description || "", 180) || FALLBACK_DESCRIPTION;
-    const imageUrl = getCoverImageUrl(item.images);
+    const imageUrl = toAbsoluteImageUrl(getCoverImageUrl(item.images));
     const canonicalUrl = `https://www.dekholand.com/property-details/${id}`;
 
     return {
@@ -45,22 +55,23 @@ export async function generateMetadata(
         title,
         description,
         url: canonicalUrl,
-        siteName: "Dekho Land",
+        siteName: "DekhoLand",
         type: "website",
-        images: imageUrl
-          ? [
-              {
-                url: imageUrl,
-                alt: title,
-              },
-            ]
-          : undefined,
+        locale: "en_IN",
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ],
       },
       twitter: {
-        card: imageUrl ? "summary_large_image" : "summary",
+        card: "summary_large_image",
         title,
         description,
-        images: imageUrl ? [imageUrl] : undefined,
+        images: [imageUrl],
       },
     };
   } catch {

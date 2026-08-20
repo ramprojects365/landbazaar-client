@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
+import SocialShare from "@/components/UI/SocialShare";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dekholand.com"),
@@ -452,25 +453,10 @@ export default function LegalDocumentsBlog() {
                     <Link href="#">Telangana Property</Link>
                   </div>
 
-                  <div className="tp-blog-details-share">
-                    <span>Share:</span>
-                    <Link className="share-facebook" href="#">
-                      <i className="fab fa-facebook-f"></i>
-                      Facebook
-                    </Link>
-                    <Link className="share-twitter" href="#">
-                      <i className="fab fa-twitter"></i>
-                      Twitter
-                    </Link>
-                    <Link className="share-linkedin" href="#">
-                      <i className="fab fa-linkedin-in"></i>
-                      LinkedIn
-                    </Link>
-                    <Link className="share-whatsapp" href="#">
-                      <i className="fab fa-whatsapp"></i>
-                      WhatsApp
-                    </Link>
-                  </div>
+                  <SocialShare
+                    path="/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad"
+                    title="10 Essential Legal Documents to Check Before Buying a Plot in Hyderabad"
+                  />
                 </div>
               </div>
             </div>
