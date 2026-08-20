@@ -11,7 +11,7 @@ import UserSvg from "@/components/SVG/UserSvg";
 import useSticky from "@/hooks/useSticky";
 import Link from "next/link";
 import { requireAuth } from "@/utils/auth";
-// import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
+import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
 import { useTranslation } from "@/contexts/LanguageContext";
 import NotificationBell from "@/components/Notifications/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
@@ -79,7 +79,7 @@ export default function HeaderOne() {
         </div>
         <div className="col-xl-2 col-lg-2 col-md-5 col-5">
           <div className="tp-header-main-right d-flex align-items-center justify-content-end">
-            {/* <LanguageSwitcher /> */}
+            <LanguageSwitcher />
             {user && <NotificationBell />}
             <div className="tp-header-right-user d-md-flex align-items-center">
               {(() => {

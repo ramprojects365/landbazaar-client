@@ -10,7 +10,7 @@ import ProfileDropdown from "./ProfileDropdown";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
+import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
 import { requireAuth } from "@/utils/auth";
 import { useTranslation } from "@/contexts/LanguageContext";
 import NotificationBell from "@/components/Notifications/NotificationBell";
@@ -85,7 +85,7 @@ export default function CommonHeader({ wrapClass = "" }) {
                 </span>
               </button>
             </div>
-            {/* <LanguageSwitcher /> */}
+            <LanguageSwitcher />
             {user && <NotificationBell />}
             <div className="tp-header-right-user">
               {(() => {
