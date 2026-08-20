@@ -46,9 +46,90 @@ export const metadata: Metadata = {
     "DekhoLand, India land, plots for sale, verified land, agricultural land, farmland, buy land India, sell land India, Telangana land, Hyderabad plots",
 };
 
+const siteUrl = "https://www.dekholand.com";
+
+const homeStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      name: "DekhoLand",
+      url: siteUrl,
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${siteUrl}/#navigation`,
+      name: "Main navigation",
+      itemListElement: [
+        {
+          "@type": "SiteNavigationElement",
+          position: 1,
+          name: "Residential",
+          url: `${siteUrl}/search`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 2,
+          name: "Commercial",
+          url: `${siteUrl}/search?propertyType=${encodeURIComponent("Commercial Plot")}`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 3,
+          name: "Farm",
+          url: `${siteUrl}/search?propertyType=${encodeURIComponent("Agricultural Land")}`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 4,
+          name: "Services",
+          url: `${siteUrl}/services`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 5,
+          name: "Plots",
+          url: `${siteUrl}/plots`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 6,
+          name: "Blog",
+          url: `${siteUrl}/blog`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 7,
+          name: "About",
+          url: `${siteUrl}/about`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 8,
+          name: "Contact",
+          url: `${siteUrl}/contact`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 9,
+          name: "Add Property",
+          url: `${siteUrl}/add-property`,
+        },
+      ],
+    },
+  ],
+};
+
 const Home = () => {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homeStructuredData).replace(/</g, "\\u003c"),
+        }}
+      />
       <Wrapper>
         <Header />
         <main className="home-page">
