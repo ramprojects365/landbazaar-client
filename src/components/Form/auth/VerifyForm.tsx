@@ -81,15 +81,10 @@ export default function VerifyForm() {
               <div className="row">
                 <div>
                   <label>
-                    {(() => {
-                      const email =
-                        typeof window !== "undefined"
-                          ? localStorage.getItem("email")
-                          : null;
-                      return email;
-                    })()}
                     We have sent OTP to your registered email id{" "}
-                    {localStorage.getItem("registeredEmail")}
+                    {typeof window !== "undefined"
+                      ? localStorage.getItem("registeredEmail")
+                      : ""}
                   </label>
                 </div>
               </div>

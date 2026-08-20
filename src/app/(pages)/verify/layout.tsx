@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Wrapper>
-        <CommonHeader wrapClass="tp-header-transparent" />
+        <CommonHeader />
         {children}
         <CommonFooter />
         <BackToTop />

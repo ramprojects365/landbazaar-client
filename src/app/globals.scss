@@ -1342,7 +1342,13 @@ body.scrolled .notification-bell__button {
   .profile-dropdown .sub-menu li > a,
   .profile-dropdown .sub-menu li > button {
     min-height: 38px;
+    min-width: 0 !important;
     font-size: 14px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center;
+    width: 100%;
+    text-align: left !important;
   }
 }
 
@@ -1527,12 +1533,15 @@ body.scrolled .notification-bell__button {
   flex-wrap: nowrap;
 }
 
+.tp-header-main-right > .language-switcher-btn,
 .tp-header-main-right > .notification-bell,
 .tp-header-main-right > .tp-header-right-user,
 .tp-header-main-right > .tp-header-hamburger,
+.tp-header-5-main-right > .language-switcher-btn,
 .tp-header-5-main-right > .notification-bell,
 .tp-header-5-main-right > .tp-header-right-user,
 .tp-header-5-main-right > .tp-header-hamburger,
+.tp-header-dashboard-main-right > .language-switcher-btn,
 .tp-header-dashboard-main-right > .notification-bell,
 .tp-header-dashboard-main-right > .tp-header-right-user,
 .tp-header-dashboard-main-right > .tp-header-hamburger {
@@ -1635,25 +1644,7 @@ body.scrolled .notification-bell__button {
   }
 
   .language-switcher-btn {
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: 1px solid rgba(0, 59, 92, 0.16);
-    border-radius: 50%;
-    background: #fff;
-    color: #003b5c;
-    cursor: pointer;
-    font-size: 11px !important;
-    font-weight: 700;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1 !important;
+    display: none !important;
   }
 
   .notification-bell {
@@ -2107,27 +2098,9 @@ body.scrolled .notification-bell__button {
     margin-top: 20px;
   }
 
-  /* Language switcher adjustments for mobile */
+  /* Language switcher hidden on mobile */
   .language-switcher-btn {
-    width: 28px;
-    height: 28px;
-    min-height: 28px;
-    min-width: 28px;
-    padding: 0;
-    border: 1px solid rgba(0, 59, 92, 0.16);
-    border-radius: 50%;
-    background: #fff;
-    color: #003b5c;
-    cursor: pointer;
-    font-size: 11px;
-    line-height: 1;
-    font-weight: 700;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    margin: 0 !important;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: none !important;
   }
 
   .tp-btn {
@@ -2761,15 +2734,8 @@ html {
     column-gap: 8px !important;
   }
 
-  /* Reduce language switcher size */
   .language-switcher-btn {
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
-    margin: 0 !important;
-    font-size: 11px !important;
-    position: relative;
+    display: none !important;
   }
 
   /* Reduce notification bell size */
