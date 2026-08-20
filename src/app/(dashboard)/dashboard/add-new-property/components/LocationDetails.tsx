@@ -45,10 +45,10 @@ export default function LocationDetails() {
           </div>
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Google Map Location</label>
+              <label>Full Address</label>
               <PlaceSearch
                 onSelect={handleSelect}
-                placeholder="Search and pick exact location"
+                placeholder="Type and pick exact location"
                 defaultValue={locationValue ?? ""}
               />
               {/* Hidden inputs so react-hook-form tracks lat/lng */}
