@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
+import SocialShare from "@/components/UI/SocialShare";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dekholand.com"),
@@ -250,25 +251,10 @@ export default function WestHyderabadHotspotBlog() {
                     <Link href="#">Land Guide</Link>
                   </div>
 
-                  <div className="tp-blog-details-share">
-                    <span>Share:</span>
-                    <Link className="share-facebook" href="#">
-                      <i className="fab fa-facebook-f"></i>
-                      Facebook
-                    </Link>
-                    <Link className="share-twitter" href="#">
-                      <i className="fab fa-twitter"></i>
-                      Twitter
-                    </Link>
-                    <Link className="share-linkedin" href="#">
-                      <i className="fab fa-linkedin-in"></i>
-                      LinkedIn
-                    </Link>
-                    <Link className="share-whatsapp" href="#">
-                      <i className="fab fa-whatsapp"></i>
-                      WhatsApp
-                    </Link>
-                  </div>
+                  <SocialShare
+                    path="/blog/why-west-hyderabad-shankarpally-to-sadashivpet-is-the-next-realty-hotspot"
+                    title="Why West Hyderabad (Shankarpally to Sadashivpet) is the Next Realty Hotspot"
+                  />
                 </div>
               </div>
             </div>

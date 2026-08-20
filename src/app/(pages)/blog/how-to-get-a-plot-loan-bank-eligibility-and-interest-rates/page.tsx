@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import RecentPosts from "@/components/Blog/RecentPosts";
+import SocialShare from "@/components/UI/SocialShare";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dekholand.com"),
@@ -386,25 +387,10 @@ export default function PlotLoanGuideBlog() {
                     <Link href="#">Land Guide</Link>
                   </div>
 
-                  <div className="tp-blog-details-share">
-                    <span>Share:</span>
-                    <Link className="share-facebook" href="#">
-                      <i className="fab fa-facebook-f"></i>
-                      Facebook
-                    </Link>
-                    <Link className="share-twitter" href="#">
-                      <i className="fab fa-twitter"></i>
-                      Twitter
-                    </Link>
-                    <Link className="share-linkedin" href="#">
-                      <i className="fab fa-linkedin-in"></i>
-                      LinkedIn
-                    </Link>
-                    <Link className="share-whatsapp" href="#">
-                      <i className="fab fa-whatsapp"></i>
-                      WhatsApp
-                    </Link>
-                  </div>
+                  <SocialShare
+                    path="/blog/how-to-get-a-plot-loan-bank-eligibility-and-interest-rates"
+                    title="How to Get a Plot Loan: Bank Eligibility & Interest Rates"
+                  />
                 </div>
               </div>
             </div>

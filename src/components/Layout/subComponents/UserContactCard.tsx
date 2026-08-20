@@ -6,6 +6,7 @@ import {
   ProfileUserLike,
   resolveUserDisplayProfile,
 } from "@/utils/userProfileDisplay";
+import { toCanonicalPageUrl } from "@/utils/sharePage";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -29,7 +30,7 @@ export default function UserContactCard({ user }: UserContactCardProps) {
   const handleWhatsAppClick = () => {
     if (!whatsappNumber) return;
 
-    const url = window.location.href;
+    const url = toCanonicalPageUrl(window.location.pathname);
     const message = encodeURIComponent(
       `Hi, I am interested in this property and would like to know more ${url}`,
     );

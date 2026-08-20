@@ -14,7 +14,7 @@ export function SocialLinks() {
           <i className="fa-brands fa-dribbble"></i>
         </span>
       </Link>
-      <Link href="https://www.whatsapp.com/" target="_blank">
+      <Link href="https://wa.me/919849967236" target="_blank">
         <span>
           <i className="fa-brands fa-whatsapp"></i>
         </span>

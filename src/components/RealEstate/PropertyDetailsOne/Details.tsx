@@ -5,8 +5,8 @@ import DetailsReusableArea from "./subComponents/DetailsReusableArea";
 import PropertyDetailsSlider from "./subComponents/PropertySlider";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import { toast } from "sonner";
 import { recordPropertyView } from "@/services/propertyService";
+import SocialShare from "@/components/UI/SocialShare";
 import {
   formatPricePerUnit,
   getListingTypeBadgeStyle,
@@ -110,64 +110,6 @@ export default function PropertyDetailsOneArea({
       viewRecordedRef.current = false;
     });
   }, [id]);
-
-  const getShareUrl = () => window.location.href;
-  const getShareTitle = () => display?.title?.trim() || "Property";
-  const getShareSnippet = () =>
-    toDescriptionSnippet(apiProperty?.description ?? "", 180);
-  const getShareBody = () =>
-    [getShareTitle(), getShareSnippet()].filter(Boolean).join("\n\n");
-  const getShareText = () =>
-    [getShareBody(), getShareUrl()].filter(Boolean).join("\n\n");
-
-  const openExternal = (url: string) => {
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
-  const copyToClipboard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      toast.success("Share text copied.");
-      return true;
-    } catch {
-      toast.error("Could not copy share text.");
-      return false;
-    }
-  };
-
-  const shareOnFacebook = () => {
-    const url = getShareUrl();
-    const quote = getShareBody();
-    const facebookUrl = new URL("https://www.facebook.com/sharer/sharer.php");
-    facebookUrl.searchParams.set("u", url);
-    if (quote) facebookUrl.searchParams.set("quote", quote);
-    openExternal(facebookUrl.toString());
-  };
-
-  const shareOnWhatsApp = () => {
-    openExternal(`https://wa.me/?text=${encodeURIComponent(getShareUrl())}`);
-  };
-
-  const shareOnInstagram = async () => {
-    const url = getShareUrl();
-    const title = getShareTitle();
-    const text = getShareBody();
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ title, text, url });
-        return;
-      } catch (error) {
-        if (error instanceof Error && error.name === "AbortError") return;
-      }
-    }
-
-    const copied = await copyToClipboard(getShareText());
-    if (copied) {
-      openExternal("https://www.instagram.com/");
-      toast.message("Paste the copied title, description, and link into Instagram.");
-    }
-  };
 
   if (loading) {
     return (
@@ -285,39 +227,12 @@ export default function PropertyDetailsOneArea({
 
             <div className="col-lg-4">
               <div className="tp-property-details-right-side text-lg-end mb-40">
-                <div className="tp-property-details-icon-box mb-3">
-                  <button title="Share on Facebook" onClick={shareOnFacebook}>
-                    <span>
-                      <i
-                        className="fa-brands fa-facebook-f"
-                        style={{ color: "#1877F2", fontSize: "25px" }}
-                      ></i>
-                    </span>
-                  </button>
-                  <button title="Share on Instagram" onClick={shareOnInstagram}>
-                    <span>
-                      <i
-                        className="fa-brands fa-instagram"
-                        style={{
-                          display: "inline-block",
-                          background:
-                            "linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          fontSize: "25px",
-                        }}
-                      ></i>
-                    </span>
-                  </button>
-                  <button title="Share on WhatsApp" onClick={shareOnWhatsApp}>
-                    <span>
-                      <i
-                        className="fa-brands fa-whatsapp"
-                        style={{ color: "#25D366", fontSize: "25px" }}
-                      ></i>
-                    </span>
-                  </button>
-                </div>
+                <SocialShare
+                  variant="property"
+                  path={`/property-details/${id}`}
+                  title={display.title?.trim() || "Property"}
+                  text={toDescriptionSnippet(apiProperty.description ?? "", 180)}
+                />
 
                 <h4 className="tp-property-details-icon-price">
                   {formatTotalPriceDisplay(display.price)}
