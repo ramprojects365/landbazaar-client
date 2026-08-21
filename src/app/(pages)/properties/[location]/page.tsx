@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { HYDERABAD_SEO_LISTINGS } from "@/data/footerLinks";
 
 const locationPages = {
   hyderabad: "Hyderabad",
@@ -28,6 +29,19 @@ export async function generateMetadata({
 
   if (!title) {
     return {};
+  }
+
+  if (location === "hyderabad") {
+    return {
+      title: "Hyderabad Lands & Plots | Dekho Land",
+      description:
+        "Browse plots for sale in Hyderabad, open plots in Hyderabad, farm land near Hyderabad, agricultural land near Hyderabad, and residential plots Hyderabad on Dekho Land.",
+      keywords:
+        "plots for sale in Hyderabad, open plots in Hyderabad, farm land near Hyderabad, agricultural land near Hyderabad, residential plots Hyderabad",
+      alternates: {
+        canonical: "/properties/hyderabad",
+      },
+    };
   }
 
   return {
@@ -60,6 +74,24 @@ export default async function LocationPropertiesPage({
                   now, you can browse the latest matching land and plot listings
                   from search.
                 </p>
+                {location === "hyderabad" && (
+                  <ul
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "8px 16px",
+                      paddingLeft: 0,
+                      listStyle: "none",
+                      margin: "0 0 24px",
+                    }}
+                  >
+                    {HYDERABAD_SEO_LISTINGS.map((item) => (
+                      <li key={item.slug}>
+                        <Link href={`/${item.slug}`}>{item.heading}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <Link
                   className="tp-btn"
                   href={`/search?keyword=${encodeURIComponent(title)}`}
