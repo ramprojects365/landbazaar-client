@@ -44,9 +44,11 @@ function parsePriceParam(price: string): number | undefined {
 
 export default function PropertyListing({
   presetCity,
+  presetKeyword,
   presetPropertyType,
 }: {
   presetCity?: string;
+  presetKeyword?: string;
   presetPropertyType?: string;
 } = {}) {
   const searchParams = useSearchParams();
@@ -72,7 +74,7 @@ export default function PropertyListing({
   const address = searchParams.get("address") || "";
   // Direct keyword parameter from neighborhood clicks
   const keywordParam = searchParams.get("keyword") || "";
-  const keyword = keywordParam || q || address;
+  const keyword = presetKeyword || keywordParam || q || address;
 
   // ── Sidebar filter params (PropertyFilterWidget) ─────────────────
   const propertyType = queryPropertyType || "All";
@@ -171,6 +173,7 @@ export default function PropertyListing({
   ]);
 
   const activeFilters: { label: string; value: string }[] = [];
+  if (presetKeyword) activeFilters.push({ label: "Location", value: presetKeyword });
   if (city) activeFilters.push({ label: "City", value: city });
   if (propertyType !== "All")
     activeFilters.push({ label: "Land Type", value: propertyType });

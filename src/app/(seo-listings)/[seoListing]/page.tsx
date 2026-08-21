@@ -5,6 +5,7 @@ import Link from "next/link";
 import PropertyListing from "@/components/RealEstate/PropertyStyleOne/PropertyListing";
 import {
   FOOTER_LOCATION_AREAS,
+  getRelatedSeoLinks,
   getSeoListingFromSlug,
   getSeoListingSlugs,
   toAreaSlug,
@@ -61,7 +62,7 @@ export default async function SeoListingPage({ params }: SeoListingPageProps) {
     notFound();
   }
 
-  const areaSlug = toAreaSlug(listing.area);
+  const relatedLinks = getRelatedSeoLinks(listing);
 
   return (
     <main className="property-location-page">
@@ -82,19 +83,16 @@ export default async function SeoListingPage({ params }: SeoListingPageProps) {
               marginBottom: "32px",
             }}
           >
-            <Link href={`/plots-for-sale-in-${areaSlug}`}>
-              Plots for sale in {listing.area}
-            </Link>
-            <Link href={`/farmlands-for-sale-in-${areaSlug}`}>
-              Farmlands for sale in {listing.area}
-            </Link>
-            <Link href={`/residential-plots-for-sale-in-${areaSlug}`}>
-              Residential plots for sale in {listing.area}
-            </Link>
+            {relatedLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                {link.label}
+              </Link>
+            ))}
           </div>
           <Suspense fallback={<p>Loading listings…</p>}>
             <PropertyListing
-              presetCity={listing.area}
+              presetCity={listing.isCity ? listing.area : undefined}
+              presetKeyword={listing.isCity ? undefined : listing.area}
               presetPropertyType={listing.propertyType}
             />
           </Suspense>
@@ -120,6 +118,13 @@ export default async function SeoListingPage({ params }: SeoListingPageProps) {
                     </Link>
                   </li>
                 ),
+              )}
+              {listing.area !== "Hyderabad" && (
+                <li>
+                  <Link href="/plots-for-sale-in-hyderabad">
+                    Plots for sale in Hyderabad
+                  </Link>
+                </li>
               )}
             </ul>
           </div>
