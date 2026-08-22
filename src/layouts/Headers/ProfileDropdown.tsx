@@ -2,15 +2,15 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import UserProfileSVG from "@/components/SVG/UserProfileSVG";
 import { useTranslation } from "@/contexts/LanguageContext";
+import { useAuth } from "@/hooks/useAuth";
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const { t } = useTranslation();
+  const { userDisplayName, user, logout } = useAuth();
 
   const truncateUsername = (value: string, maxLength: number, addDots: boolean = true) => {
     if (value.length <= maxLength) return value;
@@ -40,13 +40,9 @@ const ProfileDropdown = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("loginUser");
-    localStorage.removeItem("loginUserDisplayName");
-    localStorage.removeItem("loginUserType");
-    window.dispatchEvent(new Event("dekholand-auth-changed"));
+    logout();
     setOpen(false);
-    router.push("/sign-in");
+    window.location.href = "/sign-in";
   };
 
   return (
@@ -80,11 +76,7 @@ const ProfileDropdown = () => {
         >
           <div className="tp-header-right-user-content" style={{ margin: 0 }}>
             {(() => {
-              const displayName =
-                typeof window !== "undefined"
-                  ? localStorage.getItem("loginUserDisplayName") ||
-                    localStorage.getItem("loginUser")
-                  : null;
+              const displayName = userDisplayName || user;
 
               return displayName ? (
                 <>

@@ -22,7 +22,7 @@ export default function HeaderOne() {
   const { toggleOffcanvas } = useGlobalContext();
   const { sticky } = useSticky();
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const handlePostPropertyClick = () => {
     const isAuthenticated = requireAuth("/dashboard/add-new-property");
@@ -80,10 +80,10 @@ export default function HeaderOne() {
         <div className="col-xl-2 col-lg-2 col-md-5 col-5">
           <div className="tp-header-main-right d-flex align-items-center justify-content-end">
             <LanguageSwitcher />
-            {user && <NotificationBell />}
+            {isAuthenticated && <NotificationBell />}
             <div className="tp-header-right-user d-md-flex align-items-center">
               {(() => {
-                return user ? (
+                return isAuthenticated ? (
                   <ProfileDropdown />
                 ) : (
                   <div className="tp-header-right-user-icon">
@@ -101,7 +101,7 @@ export default function HeaderOne() {
                 style={{ paddingLeft: "5px" }}
               >
                 {(() => {
-                  return user ? null : <p>{t("header.hiSignIn")}</p>;
+                  return isAuthenticated ? null : <p>{t("header.hiSignIn")}</p>;
                 })()}
               </div>
             </div>

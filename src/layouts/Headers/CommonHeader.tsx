@@ -22,7 +22,7 @@ export default function CommonHeader({ wrapClass = "" }) {
   const { toggleOffcanvas } = useGlobalContext();
   const { sticky } = useSticky();
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { isAuthenticated } = useAuth();
   const isTransparent = wrapClass.includes("tp-header-transparent");
 
   const handlePostPropertyClick = () => {
@@ -86,10 +86,10 @@ export default function CommonHeader({ wrapClass = "" }) {
               </button>
             </div>
             <LanguageSwitcher />
-            {user && <NotificationBell />}
+            {isAuthenticated && <NotificationBell />}
             <div className="tp-header-right-user">
               {(() => {
-                return user ? (
+                return isAuthenticated ? (
                   <ProfileDropdown />
                 ) : (
                   <div className="tp-header-right-user-icon">
