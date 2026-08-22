@@ -14,13 +14,13 @@ export function SocialLinks() {
           <i className="fa-brands fa-dribbble"></i>
         </span>
       </Link>
-      <Link href="https://wa.me/919849967236" target="_blank">
+      <Link href="https://wa.me/919866774319" target="_blank">
         <span>
           <i className="fa-brands fa-whatsapp"></i>
         </span>
       </Link>
       <Link
-        href="https://www.facebook.com/profile.php?id=61574356528838"
+        href="https://www.facebook.com/profile.php?id=61592897772107"
         target="_blank"
       >
         <span>
@@ -35,7 +35,7 @@ export function SocialLinksTwo() {
   return (
     <>
       <Link
-        href="https://www.facebook.com/profile.php?id=61574356528838"
+        href="https://www.facebook.com/profile.php?id=61592897772107"
         target="_blank"
       >
         <span>
@@ -64,7 +64,7 @@ export function SocialLinksThree() {
   return (
     <>
       <Link
-        href="https://www.facebook.com/profile.php?id=61574356528838"
+        href="https://www.facebook.com/profile.php?id=61592897772107"
         target="_blank"
       >
         <i className="fab fa-facebook-f"></i>
@@ -86,7 +86,7 @@ export function FooterSocialLinks() {
   return (
     <>
       <Link
-        href="https://www.facebook.com/profile.php?id=61574356528838"
+        href="https://www.facebook.com/profile.php?id=61592897772107"
         target="_blank"
       >
         <i className="fab fa-facebook-f"></i>
