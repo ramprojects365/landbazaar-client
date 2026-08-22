@@ -154,7 +154,7 @@ export default function OffcanvasArea() {
             <div className="offcanvas__social">
               <Link
                 className="icon facebook"
-                href="https://www.facebook.com/profile.php?id=61574356528838"
+                href="https://www.facebook.com/profile.php?id=61592897772107"
                 target="_blank"
                 rel="noopener noreferrer"
               >
