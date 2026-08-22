@@ -15,7 +15,7 @@ export const blogData: IBlogDT[] = [
     readTime: "5 min read",
     title:
       "10 Essential Legal Documents to Check Before Buying a Plot in Hyderabad",
-    slug: "10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad",
+    slug: "10-essential-legal-documents-to-check-before-buying-a-plot-in-hyderabad",
     authorName: "Dekho Land",
     authorRole: "Land News",
     delay: ".3s",

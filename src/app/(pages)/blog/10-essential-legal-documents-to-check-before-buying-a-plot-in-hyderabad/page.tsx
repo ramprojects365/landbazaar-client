@@ -454,7 +454,7 @@ export default function LegalDocumentsBlog() {
                   </div>
 
                   <SocialShare
-                    path="/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad"
+                    path="/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-hyderabad"
                     title="10 Essential Legal Documents to Check Before Buying a Plot in Hyderabad"
                   />
                 </div>
