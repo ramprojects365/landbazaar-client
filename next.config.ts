@@ -91,13 +91,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source:
-          "/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad",
-        destination:
-          "/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-hyderabad",
-        permanent: true,
-      },
-      {
         source: "/blog/verify-land-records-telangana-dharani-registration-portal",
         destination:
           "/blog/how-to-verify-land-records-on-the-telangana-dharani-registration-portal",
@@ -167,7 +160,7 @@ const nextConfig: NextConfig = {
       {
         source: "/blog/how-to-sell-your-house-faster-in-malaysia",
         destination:
-          "/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad",
+          "/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-hyderabad",
         permanent: true,
       },
       {
