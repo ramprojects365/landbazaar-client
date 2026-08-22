@@ -32,6 +32,18 @@ const personName = (requiredMessage = "Name is required") =>
     .max(60, "Name must be 60 characters or less")
     .matches(/^(?![0-9])(?=.*[A-Za-z])[A-Za-z\s.'-]+$/, "Enter a valid name");
 
+const displayNameValidation = (requiredMessage = "Enter display name") =>
+  yup
+    .string()
+    .trim()
+    .required(requiredMessage)
+    .min(2, "Display name must be at least 2 characters")
+    .max(60, "Display name must be 60 characters or less")
+    .matches(
+      /^[a-zA-Z0-9\s._'-]+$/,
+      "Display name can only contain letters, numbers, spaces, and . - _ '",
+    );
+
 const meaningfulText = (
   field: string,
   requiredMessage = `${field} is required`,
@@ -49,7 +61,7 @@ const PASSWORD_PATTERN = /^[\x21-\x7E]{8,}$/;
 
 //Sign Up form validation schema
 export const signUpSchema = yup.object().shape({
-  displayname: personName("Enter display name"),
+  displayname: displayNameValidation("Enter display name"),
   email: strictEmail(),
   phone: strictPhone(),
   password: yup
