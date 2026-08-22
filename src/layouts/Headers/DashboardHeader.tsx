@@ -17,7 +17,7 @@ import { useAuth } from "@/hooks/useAuth";
 export default function DashboardHeader() {
   const { toggleOffcanvas } = useGlobalContext();
   const { sticky } = useSticky();
-  const { user } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const renderHeaderContent = () => (
     <div className="container-fluid">
@@ -53,7 +53,7 @@ export default function DashboardHeader() {
             <NotificationBell />
             <div className="tp-header-right-user">
               {(() => {
-                return user ? (
+                return isAuthenticated ? (
                   <ProfileDropdown />
                 ) : (
                   <div className="tp-header-right-user-icon">

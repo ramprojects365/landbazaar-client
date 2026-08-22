@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import apiClient from "@/config/axios";
+import { persistAuthSession } from "@/utils/auth";
 
 interface FormData {
   email: string;
@@ -113,9 +114,17 @@ export default function SignInForm() {
         localStorage.removeItem(REMEMBER_EMAIL_KEY);
       }
 
-      const token = response?.data?.data?.token;
+      const payload = response?.data?.data ?? response?.data;
+      const token = payload?.token;
+      const user = payload?.user;
+      persistAuthSession({
+        token,
+        username: user?.username,
+        email: user?.email || data.email,
+        fullName: user?.fullName,
+        userType: user?.userType,
+      });
       if (token) {
-        localStorage.setItem("authToken", token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         setTimeout(() => {
           if (typeof window !== "undefined") {
@@ -124,13 +133,6 @@ export default function SignInForm() {
           }
         }, 700);
       }
-      const user = response?.data?.data?.user;
-      const username = user?.username || "";
-      const displayName = user?.fullName || user?.username || "";
-      localStorage.setItem("loginUser", username);
-      localStorage.setItem("loginUserDisplayName", displayName);
-      localStorage.setItem("loginUserType", user?.userType || "");
-      window.dispatchEvent(new Event("dekholand-auth-changed"));
       toast.success("Login successful!");
     } catch (error: any) {
       const errorMessage =

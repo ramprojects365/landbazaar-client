@@ -1,4 +1,9 @@
 import { useState, useEffect } from "react";
+import {
+  AUTH_CHANGED_EVENT,
+  clearAuthSession,
+  readAuthSession,
+} from "@/utils/auth";
 
 export function useAuth() {
   const [user, setUser] = useState<string | null>(null);
@@ -7,35 +12,29 @@ export function useAuth() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if we're in browser environment
     if (typeof window === "undefined") return;
 
     const syncAuth = () => {
-      setUser(localStorage.getItem("loginUser"));
-      setUserDisplayName(localStorage.getItem("loginUserDisplayName"));
-      setUserType(localStorage.getItem("loginUserType"));
-      setToken(localStorage.getItem("authToken"));
+      const session = readAuthSession();
+      setUser(session.user);
+      setUserDisplayName(session.displayName);
+      setUserType(session.userType);
+      setToken(session.token);
     };
 
-    // Initial sync
     syncAuth();
 
-    // Listen for storage changes
     window.addEventListener("storage", syncAuth);
-    window.addEventListener("dekholand-auth-changed", syncAuth);
+    window.addEventListener(AUTH_CHANGED_EVENT, syncAuth);
 
     return () => {
       window.removeEventListener("storage", syncAuth);
-      window.removeEventListener("dekholand-auth-changed", syncAuth);
+      window.removeEventListener(AUTH_CHANGED_EVENT, syncAuth);
     };
   }, []);
 
   const logout = () => {
-    if (typeof window === "undefined") return;
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("loginUser");
-    localStorage.removeItem("loginUserDisplayName");
-    localStorage.removeItem("loginUserType");
+    clearAuthSession();
     setUser(null);
     setUserDisplayName(null);
     setUserType(null);
