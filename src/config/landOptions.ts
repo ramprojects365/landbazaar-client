@@ -1,3 +1,4 @@
+/** Canonical `propertyType` values stored in the API / add-property form. */
 export const LAND_TYPES = [
   "Agricultural Land",
   "Commercial Plot",
@@ -8,6 +9,77 @@ export const LAND_TYPES = [
   "Open plot",
   "Residential Plot",
 ].sort((a, b) => a.localeCompare(b));
+
+export type LandTypeOption = { label: string; value: string };
+
+/**
+ * Public labels (footer + homepage search) mapped to API `propertyType` values.
+ * Always send `value` in query strings, never the label.
+ */
+export const PUBLIC_LAND_TYPE_OPTIONS: LandTypeOption[] = [
+  { label: "Agricultural Lands", value: "Agricultural Land" },
+  { label: "Commercial Lands", value: "Commercial Plot" },
+  { label: "Farm Lands", value: "Farm Land" },
+  { label: "Gated Community Lands", value: "Gated Community Plot" },
+  { label: "Residential Plots", value: "Residential Plot" },
+].sort((a, b) => a.label.localeCompare(b.label));
+
+const LAND_TYPE_ALIASES: Record<string, string> = {
+  "agricultural land": "Agricultural Land",
+  "agricultural lands": "Agricultural Land",
+  "agriculture lands": "Agricultural Land",
+  agricultural: "Agricultural Land",
+  "commercial plot": "Commercial Plot",
+  "commercial lands": "Commercial Plot",
+  "commercial land": "Commercial Plot",
+  "farm land": "Farm Land",
+  "farm lands": "Farm Land",
+  farmlands: "Farm Land",
+  farmland: "Farm Land",
+  farmhouses: "Farm Land",
+  "farm house": "Farm Land",
+  "gated community plot": "Gated Community Plot",
+  "gated community lands": "Gated Community Plot",
+  "residential plot": "Residential Plot",
+  "residential plots": "Residential Plot",
+  plots: "Residential Plot",
+  "open plot": "Open plot",
+  "open plots": "Open plot",
+  "hmda approved plot": "HMDA Approved Plot",
+  "hmda layouts": "HMDA Approved Plot",
+  "hmda layout": "HMDA Approved Plot",
+  "dtcp approved plot": "DTCP Approved Plot",
+  "dtcp / ytda layouts": "DTCP Approved Plot",
+  "dtcp layout": "DTCP Approved Plot",
+  "rera ventures": "Residential Plot",
+  "rera plot": "Residential Plot",
+  "villa plots": "Residential Plot",
+  "villa plot": "Residential Plot",
+  "main road": "Commercial Plot",
+  industrial: "Commercial Plot",
+  "industrial plot": "Commercial Plot",
+  highway: "Commercial Plot",
+  "highway plot": "Commercial Plot",
+  "weekend eco-plots": "Farm Land",
+  "eco plot": "Farm Land",
+};
+
+export function toApiPropertyType(
+  value?: string | null,
+): string | undefined {
+  if (!value) return undefined;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.toLowerCase() === "all") return undefined;
+  if (LAND_TYPES.includes(trimmed)) return trimmed;
+  return LAND_TYPE_ALIASES[trimmed.toLowerCase()];
+}
+
+export function landTypeSearchHref(label: string) {
+  const propertyType = toApiPropertyType(label);
+  return propertyType
+    ? `/search?propertyType=${encodeURIComponent(propertyType)}`
+    : "/search";
+}
 
 export const LISTING_TYPES = ["sale", "lease"] as const;
 

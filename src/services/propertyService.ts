@@ -1,4 +1,5 @@
 import apiClient from "@/config/axios";
+import { toApiPropertyType } from "@/config/landOptions";
 import type {
   AdvisorAnswers,
   AdvisorContact,
@@ -25,8 +26,10 @@ export const getLandListings = async (params?: {
   const hasSearch = Boolean(params?.q || params?.city || params?.propertyType);
   const query = new URLSearchParams();
 
+  const propertyType = toApiPropertyType(params?.propertyType);
+
   if (params?.q) query.set("q", params.q);
-  if (params?.propertyType) query.set("propertyType", params.propertyType);
+  if (propertyType) query.set("propertyType", propertyType);
 
   if (hasSearch) {
     if (params?.city) query.set("city", params.city);
