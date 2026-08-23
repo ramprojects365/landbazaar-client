@@ -1,3 +1,5 @@
+import { PUBLIC_LAND_TYPE_OPTIONS } from "@/config/landOptions";
+
 export const quickLinks = [
   { label: "About Us", href: "/about" },
   { label: "Properties", href: "/search" },
@@ -164,24 +166,7 @@ export const plotLinks = FOOTER_LOCATION_AREAS.slice(5).map((area) => ({
   href: `/plots-for-sale-in-${toAreaSlug(area)}`,
 }));
 
-const landTypeSearchHref = (label: string) => {
-  const propertyType = {
-    "Agricultural Lands": "Agricultural Land",
-    "Commercial Lands": "Commercial Plot",
-    "Farm Lands": "Farm Land",
-    "Gated Community Lands": "Gated Community Plot",
-    "Residential Plots": "Residential Plot",
-  }[label];
-
-  return propertyType
-    ? `/search?propertyType=${encodeURIComponent(propertyType)}`
-    : "/search";
-};
-
-export const landTypeLinks = [
-  { label: "Agricultural Lands", href: landTypeSearchHref("Agricultural Lands") },
-  { label: "Commercial Lands", href: landTypeSearchHref("Commercial Lands") },
-  { label: "Farm Lands", href: landTypeSearchHref("Farm Lands") },
-  { label: "Gated Community Lands", href: landTypeSearchHref("Gated Community Lands") },
-  { label: "Residential Plots", href: landTypeSearchHref("Residential Plots") },
-].sort((a, b) => a.label.localeCompare(b.label));
+export const landTypeLinks = PUBLIC_LAND_TYPE_OPTIONS.map((item) => ({
+  label: item.label,
+  href: `/search?propertyType=${encodeURIComponent(item.value)}`,
+}));

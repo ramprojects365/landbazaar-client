@@ -1,22 +1,6 @@
-const propertyTypeSearchHref = (label: string) => {
-  const map: Record<string, string> = {
-    "HMDA Layouts": "HMDA Layout",
-    "DTCP / YTDA Layouts": "DTCP Layout",
-    "RERA Ventures": "RERA Plot",
-    "Villa Plots": "Villa Plot",
-    "Main Road": "Commercial Plot",
-    Industrial: "Industrial Plot",
-    Highway: "Highway Plot",
-    Agricultural: "Agricultural Land",
-    Farmhouses: "Farm House",
-    "Weekend Eco-Plots": "Eco Plot",
-  };
+import { landTypeSearchHref } from "@/config/landOptions";
 
-  const propertyType = map[label];
-  return propertyType
-    ? `/search?propertyType=${encodeURIComponent(propertyType)}`
-    : "/search";
-};
+const propertyTypeSearchHref = (label: string) => landTypeSearchHref(label);
 
 const menu_data_one = [
   {

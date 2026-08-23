@@ -2,17 +2,10 @@
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
-import { LAND_CITIES } from "@/config/landOptions";
+import { LAND_CITIES, PUBLIC_LAND_TYPE_OPTIONS } from "@/config/landOptions";
 import { API_BASE_URL } from "@/config/constants";
 import "./hero-banner-tab.css";
 
-/** Hero search land-type labels (kept separate from form LAND_TYPES). */
-const HERO_LAND_TYPE_OPTIONS = [
-  "Agriculture Lands",
-  "Commercial Lands",
-  "Farm Lands",
-  "Plots",
-].sort((a, b) => a.localeCompare(b));
 
 function SearchIcon({ stroke = "#fff" }: { stroke?: string }) {
   return (
@@ -60,7 +53,10 @@ const placeholderExamples = [
 ];
 
 const CITIES = ["All", ...LAND_CITIES];
-const LAND_TYPES = ["All", ...HERO_LAND_TYPE_OPTIONS];
+const LAND_TYPES = [
+  { label: "All Land Types", value: "All" },
+  ...PUBLIC_LAND_TYPE_OPTIONS,
+];
 
 export default function HeroBannerTabContent({}: ITabContentProps) {
   const router = useRouter();
@@ -89,7 +85,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
       params.set("city", city.trim());
     }
     if (landType?.trim() && landType !== "All") {
-      params.set("landType", landType.trim());
+      params.set("propertyType", landType.trim());
     }
     const queryString = params.toString();
     router.push(queryString ? `/search?${queryString}` : "/search");
@@ -362,7 +358,10 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
             aria-expanded={landTypeDropdownOpen}
             aria-label="Select land type"
           >
-            <span>{landType === "All" ? "Land Type" : landType}</span>
+            <span>
+              {LAND_TYPES.find((option) => option.value === landType)?.label ??
+                "Land Type"}
+            </span>
             <i
               className="far fa-chevron-down"
               style={{
@@ -380,31 +379,31 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
             <div style={dropdownMenuStyle}>
               {LAND_TYPES.map((typeOption) => (
                 <button
-                  key={typeOption}
+                  key={typeOption.value}
                   type="button"
                   onClick={() => {
-                    setLandType(typeOption);
+                    setLandType(typeOption.value);
                     setLandTypeDropdownOpen(false);
                   }}
                   style={{
                     ...dropdownOptionStyle,
                     background:
-                      landType === typeOption
+                      landType === typeOption.value
                         ? "rgba(0, 59, 92, 0.08)"
                         : "#fff",
-                    fontWeight: landType === typeOption ? 600 : 400,
+                    fontWeight: landType === typeOption.value ? 600 : 400,
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "rgba(0, 59, 92, 0.1)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background =
-                      landType === typeOption
+                      landType === typeOption.value
                         ? "rgba(0, 59, 92, 0.08)"
                         : "#fff";
                   }}
                 >
-                  {typeOption === "All" ? "All Land Types" : typeOption}
+                  {typeOption.label}
                 </button>
               ))}
             </div>

@@ -11,6 +11,7 @@ import {
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
 import { API_BASE_URL } from "@/config/constants";
+import { toApiPropertyType } from "@/config/landOptions";
 import { slimPropertyForList } from "@/services/propertiesList";
 import { formatFilterPriceLabel } from "@/components/Utils/formatPrice";
 import { parseIndianPriceValue } from "@/utils/priceParsing";
@@ -65,10 +66,11 @@ export default function PropertyListing({
         : rawType;
   const city = presetCity || searchParams.get("city") || "";
   const queryPropertyType =
-    presetPropertyType ||
-    searchParams.get("propertyType") ||
-    searchParams.get("landType") ||
-    "";
+    toApiPropertyType(
+      presetPropertyType ||
+        searchParams.get("propertyType") ||
+        searchParams.get("landType"),
+    ) || "";
   const propertyName = searchParams.get("propertyName") || "";
   // Homepage sends "address" — treat it as keyword fallback
   const address = searchParams.get("address") || "";

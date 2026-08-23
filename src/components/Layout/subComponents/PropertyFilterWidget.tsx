@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import NiceSelect from "@/components/UI/NiceSelect";
-import { LAND_CITIES, LAND_TYPES } from "@/config/landOptions";
+import { LAND_CITIES, LAND_TYPES, toApiPropertyType } from "@/config/landOptions";
 
 export default function PropertyFilterWidget() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const [propertyType, setPropertyType] = useState(
-    searchParams.get("propertyType") || searchParams.get("landType") || "All",
+    toApiPropertyType(
+      searchParams.get("propertyType") || searchParams.get("landType"),
+    ) || "All",
   );
   const [city, setCity] = useState(searchParams.get("city") || "Hyderabad");
   const [minPrice, setMinPrice] = useState("Any");
