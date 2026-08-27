@@ -1,5 +1,4 @@
 import PropertyDetailsOneArea from "@/components/RealEstate/PropertyDetailsOne/Details";
-import Wrapper from "@/layouts/Wrapper";
 import { PageParamsProps } from "@/types/custom-interface";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { toDescriptionSnippet } from "@/utils/descriptionHtml";
@@ -88,12 +87,10 @@ export default async function PropertyDetails(props: PageParamsProps) {
   const initialProperty = id ? await getPropertyByIdCached(id) : null;
 
   return (
-    <Wrapper>
-      <main>
-        {/* property details area start */}
-        <PropertyDetailsOneArea id={id} initialProperty={initialProperty} />
-        {/* property details area end */}
-      </main>
-    </Wrapper>
+    <main>
+      {/* property details area start */}
+      <PropertyDetailsOneArea id={id} initialProperty={initialProperty} />
+      {/* property details area end */}
+    </main>
   );
 }

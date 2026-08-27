@@ -5,6 +5,9 @@ import RecentlyViewedProperties from "./RecentlyViewedItem";
 import AmenitiesCategories from "./AmenitiesCategories";
 import PropertyDocuments from "./PropertyDocuments";
 import PropertyDetailsBox from "./PropertyDetailsBox";
+import PropertyLocationMap, {
+  hasValidPropertyCoordinates,
+} from "./PropertyLocationMap";
 import {
   formatLandSize,
   formatPricePerUnit,
@@ -102,6 +105,23 @@ export default function DetailsReusableArea({
                       </p>
                     )}
                   </div>
+                </div>
+              )}
+
+              {hasValidPropertyCoordinates(
+                property?.latitude,
+                property?.longitude,
+              ) && (
+                <div className="tp-property-details-box box-7 mb-30">
+                  <h3 className="tp-property-details-box-title">
+                    Property Location
+                  </h3>
+                  <PropertyLocationMap
+                    latitude={property.latitude}
+                    longitude={property.longitude}
+                    location={property.location}
+                    title={property.propertyName || property.title}
+                  />
                 </div>
               )}
             </div>
