@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { Autocomplete } from "@react-google-maps/api";
+import { useGoogleMaps } from "@/components/HeroBanner/subComponents/GoogleMapsProvider";
 
 export interface PlaceResult {
   address: string;
@@ -20,8 +21,17 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
   placeholder,
   defaultValue = "",
 }) => {
+  const { isLoaded } = useGoogleMaps();
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const inputStyle = {
+    width: "100%",
+    padding: "10px 12px",
+    fontSize: "16px",
+    borderRadius: "8px",
+    border: "1px solid #e8e8e8",
+  } as const;
 
   const handleLoad = (autocomplete: google.maps.places.Autocomplete) => {
     autocompleteRef.current = autocomplete;
@@ -44,19 +54,26 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
     }
   }, [defaultValue]);
 
+  if (!isLoaded) {
+    return (
+      <input
+        ref={inputRef}
+        type="text"
+        placeholder={placeholder || "Search location"}
+        defaultValue={defaultValue}
+        disabled
+        style={{ ...inputStyle, background: "#f9fafb", color: "#888" }}
+      />
+    );
+  }
+
   return (
     <Autocomplete onLoad={handleLoad} onPlaceChanged={handlePlaceChanged}>
       <input
         ref={inputRef}
         type="text"
         placeholder={placeholder || "Search location"}
-        style={{
-          width: "100%",
-          padding: "10px 12px",
-          fontSize: "16px",
-          borderRadius: "8px",
-          border: "1px solid #e8e8e8",
-        }}
+        style={inputStyle}
       />
     </Autocomplete>
   );
