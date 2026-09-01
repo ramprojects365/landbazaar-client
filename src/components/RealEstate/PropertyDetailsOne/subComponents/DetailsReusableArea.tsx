@@ -5,23 +5,41 @@ import RecentlyViewedProperties from "./RecentlyViewedItem";
 import AmenitiesCategories from "./AmenitiesCategories";
 import PropertyDocuments from "./PropertyDocuments";
 import PropertyDetailsBox from "./PropertyDetailsBox";
-import PropertyLocationMap, {
-  hasValidPropertyCoordinates,
-} from "./PropertyLocationMap";
 import {
   formatLandSize,
   formatPricePerUnit,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
+import { hasValidPropertyCoordinates } from "@/utils/propertyCoordinates";
+import type { FeaturedSidebarProperty } from "@/types/propertySidebar";
+import type { IRecentlyViewedItem } from "@/types/custom-interface";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+const PropertyLocationMap = dynamic(
+  () => import("./PropertyLocationMap"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="tp-property-details-map-status tp-property-details-map-status--loading">
+        Loading map…
+      </div>
+    ),
+  },
+);
 
 interface IProps {
   spacingClass?: string;
   property?: ApiPropertyFields;
+  featuredProperty?: FeaturedSidebarProperty | null;
+  recentProperties?: IRecentlyViewedItem[];
 }
 
 export default function DetailsReusableArea({
   spacingClass,
   property,
+  featuredProperty = null,
+  recentProperties = [],
 }: IProps) {
   const landSize = formatLandSize(property?.landSize, property?.areaUnit);
   const pricePerUnit = formatPricePerUnit(
@@ -130,8 +148,12 @@ export default function DetailsReusableArea({
           <div className="col-lg-4">
             <div className="tp-property-details-right">
               <UserContactCard user={property?.user} />
-              <SidebarPropertyItem />
-              <RecentlyViewedProperties />
+              <Suspense fallback={null}>
+                <SidebarPropertyItem featuredProperty={featuredProperty} />
+              </Suspense>
+              <Suspense fallback={null}>
+                <RecentlyViewedProperties initialProperties={recentProperties} />
+              </Suspense>
             </div>
           </div>
         </div>
