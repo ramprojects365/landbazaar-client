@@ -132,3 +132,29 @@
     display: none;
   }
 }
+
+@media (max-width: 767px) {
+  .tp-hero-tab-box .hero-filter-dropdown-trigger {
+    justify-content: flex-start;
+    min-height: auto;
+    min-width: auto;
+  }
+
+  .tp-hero-tab-box .hero-filter-dropdown-menu {
+    left: 0;
+    right: auto;
+    min-width: min(100%, 240px);
+  }
+
+  .tp-hero-tab-box .hero-filter-dropdown-option {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    width: 100%;
+    min-height: 44px;
+    min-width: 0;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}

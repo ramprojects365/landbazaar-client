@@ -12,16 +12,21 @@ const serviceItems = [
   { label: "Dharani Title Check", href: "/services/dharani-title-check" },
   { label: "Legal Verification", href: "/legal-verification" },
   { label: "EC Verification", href: "/services/ec-verification" },
+  { label: "Stamp Duty Calculator", href: "/services/stamp-duty-calculator" },
+  {
+    label: "Plot Loan EMI Calculator",
+    href: "/services/plot-loan-emi-calculator",
+  },
 ];
 
 export default function ServicesPage() {
   return (
     <main>
-      <BreadcrumbArea title="Services" />
-      <section className="pt-80 pb-120">
+      <BreadcrumbArea title="Services" showBackground={false} />
+      <section className="pt-40 pb-120">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-lg-8 text-center">
+            <div className="col-lg-10">
               <span className="tp-section-title-pre">DekhoLand Services</span>
               <h3 className="tp-section-title mb-20">Land services</h3>
               <p
@@ -33,7 +38,9 @@ export default function ServicesPage() {
                 }}
               >
                 Start with a Dharani Title Check, Legal Verification, and EC
-                Verification before buying land in Telangana.
+                Verification before buying land in Telangana. Use our stamp duty
+                and plot loan EMI calculators to plan registration costs and
+                monthly repayments.
               </p>
               <ul
                 style={{

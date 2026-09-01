@@ -106,6 +106,16 @@ const menu_data_one = [
         url: "/legal-verification",
       },
       { id: 13, label: "EC Verification", url: "/services/ec-verification" },
+      {
+        id: 14,
+        label: "Stamp Duty Calculator",
+        url: "/services/stamp-duty-calculator",
+      },
+      {
+        id: 15,
+        label: "Plot Loan EMI Calculator",
+        url: "/services/plot-loan-emi-calculator",
+      },
     ],
   },
 ];
