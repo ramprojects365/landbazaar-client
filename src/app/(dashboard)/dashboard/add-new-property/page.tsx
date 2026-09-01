@@ -3,6 +3,7 @@ import AddPropertyMain from "./components/AddPropertyMain";
 import ProtectedRoute from "@/components/Auth/ProtectedRoute";
 import GoogleMapsProvider from "@/components/HeroBanner/subComponents/GoogleMapsProvider";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Add New Land | Dekho Land Dashboard",
@@ -15,11 +16,17 @@ export default function AddProperty() {
   return (
     <ProtectedRoute redirectTo="/dashboard/add-new-property">
       <DashboardLayout>
-        {/* tp dashboard area start */}
-        <GoogleMapsProvider>
-          <AddPropertyMain />
+        <GoogleMapsProvider deferChildren>
+          <Suspense
+            fallback={
+              <div className="text-center py-5">
+                <div className="spinner-border text-primary" role="status" />
+              </div>
+            }
+          >
+            <AddPropertyMain />
+          </Suspense>
         </GoogleMapsProvider>
-        {/* tp dashboard area end */}
       </DashboardLayout>
     </ProtectedRoute>
   );

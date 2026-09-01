@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { IRecentlyViewedItem } from "@/types/custom-interface";
 import Link from "next/link";
@@ -24,7 +24,17 @@ interface RecentlyViewedPropertiesProps {
   initialProperties?: IRecentlyViewedItem[];
 }
 
-export default function RecentlyViewedProperties({
+export default function RecentlyViewedProperties(
+  props: RecentlyViewedPropertiesProps,
+) {
+  return (
+    <Suspense fallback={null}>
+      <RecentlyViewedPropertiesInner {...props} />
+    </Suspense>
+  );
+}
+
+function RecentlyViewedPropertiesInner({
   initialProperties,
 }: RecentlyViewedPropertiesProps) {
   const hasInitialData = Boolean(initialProperties && initialProperties.length > 0);

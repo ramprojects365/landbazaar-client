@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { verifySchema } from "@/schemas/validationSchema";
 import ErrorMessage from "../ErrorMassage";
 import { useForm } from "react-hook-form";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import axios from "axios";
@@ -15,6 +15,11 @@ interface FormData {
 
 export default function VerifyForm() {
   const router = useRouter();
+  const [registeredEmail, setRegisteredEmail] = useState("");
+
+  useEffect(() => {
+    setRegisteredEmail(localStorage.getItem("registeredEmail") || "");
+  }, []);
 
   const {
     register,
@@ -82,9 +87,7 @@ export default function VerifyForm() {
                 <div>
                   <label>
                     We have sent OTP to your registered email id{" "}
-                    {typeof window !== "undefined"
-                      ? localStorage.getItem("registeredEmail")
-                      : ""}
+                    {registeredEmail || "your email"}
                   </label>
                 </div>
               </div>

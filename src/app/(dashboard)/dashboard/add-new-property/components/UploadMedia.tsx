@@ -101,10 +101,15 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
       : [],
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [isLocalHost, setIsLocalHost] = useState(false);
   const blobUrlsRef = useRef<Set<string>>(new Set());
-  const isLocalHost =
-    typeof window !== "undefined" &&
-    ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+  useEffect(() => {
+    setIsLocalHost(
+      ["localhost", "127.0.0.1"].includes(window.location.hostname),
+    );
+  }, []);
+
   // Opt-in only. Default is real server upload so property images get permanent URLs.
   // Set NEXT_PUBLIC_LOCAL_IMAGE_UPLOAD=true only for offline UI testing.
   const isLocalUploadMode =
