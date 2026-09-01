@@ -296,6 +296,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
         <div ref={cityDropdownRef} style={{ position: "relative" }}>
           <button
             type="button"
+            className="hero-filter-dropdown-trigger"
             onClick={() => {
               setCityDropdownOpen(!cityDropdownOpen);
               setLandTypeDropdownOpen(false);
@@ -317,11 +318,12 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
             />
           </button>
           {cityDropdownOpen && (
-            <div style={dropdownMenuStyle}>
+            <div className="hero-filter-dropdown-menu" style={dropdownMenuStyle}>
               {CITIES.map((cityOption) => (
                 <button
                   key={cityOption}
                   type="button"
+                  className="hero-filter-dropdown-option"
                   onClick={() => {
                     setCity(cityOption);
                     setCityDropdownOpen(false);
@@ -350,6 +352,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
         <div ref={landTypeDropdownRef} style={{ position: "relative" }}>
           <button
             type="button"
+            className="hero-filter-dropdown-trigger"
             onClick={() => {
               setLandTypeDropdownOpen(!landTypeDropdownOpen);
               setCityDropdownOpen(false);
@@ -376,11 +379,12 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
             />
           </button>
           {landTypeDropdownOpen && (
-            <div style={dropdownMenuStyle}>
+            <div className="hero-filter-dropdown-menu" style={dropdownMenuStyle}>
               {LAND_TYPES.map((typeOption) => (
                 <button
                   key={typeOption.value}
                   type="button"
+                  className="hero-filter-dropdown-option"
                   onClick={() => {
                     setLandType(typeOption.value);
                     setLandTypeDropdownOpen(false);

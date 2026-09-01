@@ -15,23 +15,19 @@
       font-size: 14px;
       font-weight: 500;
       color: var(--tp-common-white);
+      border-bottom: none;
       &:hover {
         color: var(--tp-theme-primary);
       }
     }
 
-    &:not(:last-child) {
-      & > a {
-        border-bottom: 1px solid var(--tp-common-white);
-      }
-    }
+    border-bottom: 1px solid var(--tp-common-white);
     &.active {
       & > a {
         color: var(--tp-theme-primary);
       }
       & > .tp-menu-close {
-        border-color: var(--tp-theme-primary);
-        background-color: var(--tp-theme-primary);
+        color: var(--tp-theme-primary);
         & i {
           @include transform(rotate(90deg));
         }
@@ -53,7 +49,9 @@
   font-size: 14px;
   line-height: 29px;
   color: var(--tp-common-white);
-  border: 1px solid var(--tp-common-white);
+  border: none;
+  background: transparent;
+  padding: 0;
   & i {
     @include transition(0.3s);
   }

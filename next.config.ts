@@ -91,6 +91,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/stamp-duty-calculator-hyderabad",
+        destination: "/services/stamp-duty-calculator",
+        permanent: true,
+      },
+      {
+        source: "/plot-loan-calculator-hyderabad",
+        destination: "/services/plot-loan-emi-calculator",
+        permanent: true,
+      },
+      {
         source: "/blog/verify-land-records-telangana-dharani-registration-portal",
         destination:
           "/blog/how-to-verify-land-records-on-the-telangana-dharani-registration-portal",
