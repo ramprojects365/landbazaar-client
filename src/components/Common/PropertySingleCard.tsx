@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import { LivingSvg } from "../SVG";
 import { IFeatureListProps } from "@/types/custom-interface";
 import { formatTotalPriceDisplay } from "../Utils/formatPrice";
@@ -15,7 +16,24 @@ function getImageSrc(image: IFeatureListProps["item"]["image"]): string {
   );
 }
 
-export default function PropertySingleCard({ item }: IFeatureListProps) {
+export default function PropertySingleCard(props: IFeatureListProps) {
+  return (
+    <Suspense
+      fallback={
+        <div
+          className="row tp-rent-item mb-30 placeholder-glow"
+          style={{ border: "1px solid #DBE1EF", minHeight: "310px" }}
+        >
+          <span className="placeholder col-12 h-100" />
+        </div>
+      }
+    >
+      <PropertySingleCardInner {...props} />
+    </Suspense>
+  );
+}
+
+function PropertySingleCardInner({ item }: IFeatureListProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 

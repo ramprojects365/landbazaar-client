@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import rentThumb from "../../../../public/assets/img/rent/rent-thumb-1.jpg";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import Image from "next/image";
@@ -18,7 +18,15 @@ interface IPropsWrapperCls {
   featuredProperty?: FeaturedSidebarProperty | null;
 }
 
-export default function SidebarPropertyItem({
+export default function SidebarPropertyItem(props: IPropsWrapperCls) {
+  return (
+    <Suspense fallback={null}>
+      <SidebarPropertyItemInner {...props} />
+    </Suspense>
+  );
+}
+
+function SidebarPropertyItemInner({
   wrapperCls,
   customClass,
   featuredProperty: featuredPropertyProp = null,

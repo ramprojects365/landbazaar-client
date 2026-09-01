@@ -7,9 +7,9 @@ import {
   InfoWindow,
   Marker,
 } from "@react-google-maps/api";
-import PropertyGoogleMapsProvider, {
-  usePropertyGoogleMaps,
-} from "./PropertyGoogleMapsProvider";
+import GoogleMapsProvider, {
+  useGoogleMaps,
+} from "@/components/HeroBanner/subComponents/GoogleMapsProvider";
 import { parseCoordinate } from "@/utils/propertyCoordinates";
 
 type PropertyLocationMapProps = {
@@ -54,7 +54,7 @@ function PropertyLocationMapInner({
   title,
 }: Required<Pick<PropertyLocationMapProps, "latitude" | "longitude">> &
   Pick<PropertyLocationMapProps, "location" | "title">) {
-  const { isLoaded, loadError } = usePropertyGoogleMaps();
+  const { isLoaded, loadError } = useGoogleMaps();
   const [infoOpen, setInfoOpen] = useState(true);
 
   const center = useMemo(
@@ -164,7 +164,7 @@ export default function PropertyLocationMap({
   }
 
   return (
-    <PropertyGoogleMapsProvider>
+    <GoogleMapsProvider deferChildren>
       <div className="tp-property-details-map">
         <PropertyLocationMapInner
           latitude={lat}
@@ -173,6 +173,6 @@ export default function PropertyLocationMap({
           title={title}
         />
       </div>
-    </PropertyGoogleMapsProvider>
+    </GoogleMapsProvider>
   );
 }

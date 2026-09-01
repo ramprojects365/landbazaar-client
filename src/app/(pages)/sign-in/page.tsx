@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import signInThumb from "../../../../public/assets/img/others/sign-in-thumb.jpg";
 import SignInForm from "@/components/Form/auth/SignInForm";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Sign In to Dekho Land | Access Your Land Marketplace Account",
@@ -30,7 +31,15 @@ export default function SignIn() {
                   <p>Enter your credentials to acces your account.</p>
                 </div>
                 <div className="tp-sign-in-input-form">
-                  <SignInForm />
+                  <Suspense
+                    fallback={
+                      <div className="text-center py-4">
+                        <div className="spinner-border text-primary" role="status" />
+                      </div>
+                    }
+                  >
+                    <SignInForm />
+                  </Suspense>
                 </div>
               </div>
             </div>

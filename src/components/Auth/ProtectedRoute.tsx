@@ -1,5 +1,6 @@
 "use client";
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { isAuthenticated } from "@/utils/auth";
 
@@ -8,35 +9,46 @@ interface ProtectedRouteProps {
   redirectTo?: string;
 }
 
-export default function ProtectedRoute({ children, redirectTo }: ProtectedRouteProps) {
+function AuthLoadingState({ message }: { message: string }) {
+  return (
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "50vh" }}
+    >
+      <div className="text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="mt-3">{message}</p>
+      </div>
+    </div>
+  );
+}
+
+export default function ProtectedRoute({
+  children,
+  redirectTo,
+}: ProtectedRouteProps) {
   const router = useRouter();
+  const [status, setStatus] = useState<"loading" | "authenticated">("loading");
 
   useEffect(() => {
-    // Check if user is authenticated
-    if (!isAuthenticated()) {
-      // Build login URL with redirect
-      const currentPath = typeof window !== "undefined" ? window.location.pathname + window.location.search : "";
-      const loginUrl = redirectTo 
-        ? `/sign-in?redirect=${encodeURIComponent(redirectTo)}`
-        : `/sign-in?redirect=${encodeURIComponent(currentPath)}`;
-      
-      router.push(loginUrl);
+    if (isAuthenticated()) {
+      setStatus("authenticated");
       return;
     }
+
+    const currentPath =
+      window.location.pathname + window.location.search;
+    const loginUrl = redirectTo
+      ? `/sign-in?redirect=${encodeURIComponent(redirectTo)}`
+      : `/sign-in?redirect=${encodeURIComponent(currentPath)}`;
+
+    router.replace(loginUrl);
   }, [router, redirectTo]);
 
-  // Only render children if authenticated
-  if (!isAuthenticated()) {
-    return (
-      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "50vh" }}>
-        <div className="text-center">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <p className="mt-3">Redirecting to login...</p>
-        </div>
-      </div>
-    );
+  if (status === "loading") {
+    return <AuthLoadingState message="Loading..." />;
   }
 
   return <>{children}</>;

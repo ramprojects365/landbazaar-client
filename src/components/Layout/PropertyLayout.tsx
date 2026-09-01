@@ -1,15 +1,27 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import PropertyFilterWidget from "./subComponents/PropertyFilterWidget";
 import SidebarPropertyItem from "./subComponents/SidebarPropertyItem";
 import SearchRefineBar from "@/components/RealEstate/PropertyStyleOne/SearchRefineBar";
 import { useSearchParams } from "next/navigation";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
-export default function DekhoLayout({ children }: { children: ReactNode }) {
+function SearchLayoutFallback() {
+  return (
+    <section className="tp-property-ptb pt-20 pb-20">
+      <div className="container">
+        <div className="placeholder-glow py-3">
+          <span className="placeholder col-4 d-block mb-2" />
+          <span className="placeholder col-6 d-block" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DekhoLayoutInner({ children }: { children: ReactNode }) {
   const params = useSearchParams();
 
-  // New params used by SearchRefineBar
   const q = params.get("q") || "";
   const type = params.get("type") || "";
   const city = params.get("city") || "";
@@ -18,7 +30,6 @@ export default function DekhoLayout({ children }: { children: ReactNode }) {
 
   const breadcrumbLabel = propertyName || q || address || "Search";
 
-  // Build a human-readable subtitle
   const subtitleParts: string[] = [];
   if (type) subtitleParts.push(type);
   if (city) subtitleParts.push(city);
@@ -64,7 +75,6 @@ export default function DekhoLayout({ children }: { children: ReactNode }) {
         </div>
       </section>
 
-      {/* Main Content */}
       <section
         className="tp-property-list-section"
         style={{ marginTop: "-120px" }}
@@ -80,5 +90,13 @@ export default function DekhoLayout({ children }: { children: ReactNode }) {
         </div>
       </section>
     </>
+  );
+}
+
+export default function DekhoLayout({ children }: { children: ReactNode }) {
+  return (
+    <Suspense fallback={<SearchLayoutFallback />}>
+      <DekhoLayoutInner>{children}</DekhoLayoutInner>
+    </Suspense>
   );
 }
