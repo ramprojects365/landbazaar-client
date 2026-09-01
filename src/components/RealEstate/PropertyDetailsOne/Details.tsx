@@ -1,8 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import DetailsReusableArea from "./subComponents/DetailsReusableArea";
-import PropertyDetailsSlider from "./subComponents/PropertySlider";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { recordPropertyView } from "@/services/propertyService";
@@ -18,17 +17,51 @@ import {
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { API_BASE_URL } from "@/config/constants";
 import { toDescriptionSnippet } from "@/utils/descriptionHtml";
+import type { FeaturedSidebarProperty } from "@/types/propertySidebar";
+import type { IRecentlyViewedItem } from "@/types/custom-interface";
+
+const PropertyDetailsSlider = dynamic(
+  () => import("./subComponents/PropertySlider"),
+  {
+    loading: () => (
+      <div
+        className="placeholder-glow rounded-3"
+        style={{ height: "420px", background: "#f0f0f0" }}
+      />
+    ),
+  },
+);
+
+const DetailsReusableArea = dynamic(
+  () => import("./subComponents/DetailsReusableArea"),
+  {
+    loading: () => (
+      <section className="tp-property-details-ptb pb-120">
+        <div className="container">
+          <div className="placeholder-glow">
+            <span className="placeholder col-12 mb-2 d-block" />
+            <span className="placeholder col-10 d-block" />
+          </div>
+        </div>
+      </section>
+    ),
+  },
+);
 
 type ApiProperty = ApiPropertyFields;
 
 type PropertyDetailsProps = {
   id: string | number;
   initialProperty?: ApiProperty | null;
+  featuredProperty?: FeaturedSidebarProperty | null;
+  recentProperties?: IRecentlyViewedItem[];
 };
 
-export default function PropertyDetailsOneArea({
+function PropertyDetailsContent({
   id,
   initialProperty = null,
+  featuredProperty = null,
+  recentProperties = [],
 }: PropertyDetailsProps) {
   const searchParams = useSearchParams();
   const viewRecordedRef = useRef(false);
@@ -103,12 +136,22 @@ export default function PropertyDetailsOneArea({
     if (!id || viewRecordedRef.current) return;
     viewRecordedRef.current = true;
 
-    recordPropertyView({
-      propertyId: id,
-      propertyUrl: window.location.href,
-    }).catch(() => {
-      viewRecordedRef.current = false;
-    });
+    const record = () => {
+      recordPropertyView({
+        propertyId: id,
+        propertyUrl: window.location.href,
+      }).catch(() => {
+        viewRecordedRef.current = false;
+      });
+    };
+
+    if ("requestIdleCallback" in window) {
+      const idleId = window.requestIdleCallback(record, { timeout: 3000 });
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timeoutId = window.setTimeout(record, 1500);
+    return () => window.clearTimeout(timeoutId);
   }, [id]);
 
   if (loading) {
@@ -270,7 +313,32 @@ export default function PropertyDetailsOneArea({
           <PropertyDetailsSlider images={apiProperty.images} />
         </div>
       </section>
-      <DetailsReusableArea property={apiProperty} />
+      <DetailsReusableArea
+        property={apiProperty}
+        featuredProperty={featuredProperty}
+        recentProperties={recentProperties}
+      />
     </>
+  );
+}
+
+function PropertyDetailsFallback() {
+  return (
+    <section className="tp-property-details-area pb-130">
+      <div className="container">
+        <div
+          className="placeholder-glow rounded-3"
+          style={{ height: "420px", background: "#f0f0f0" }}
+        />
+      </div>
+    </section>
+  );
+}
+
+export default function PropertyDetailsOneArea(props: PropertyDetailsProps) {
+  return (
+    <Suspense fallback={<PropertyDetailsFallback />}>
+      <PropertyDetailsContent {...props} />
+    </Suspense>
   );
 }

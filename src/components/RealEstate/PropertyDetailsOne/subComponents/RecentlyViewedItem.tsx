@@ -20,13 +20,24 @@ interface Property {
   listingType?: string;
 }
 
-export default function RecentlyViewedProperties() {
-  const [properties, setProperties] = useState<IRecentlyViewedItem[]>([]);
-  const [loading, setLoading] = useState(true);
+interface RecentlyViewedPropertiesProps {
+  initialProperties?: IRecentlyViewedItem[];
+}
+
+export default function RecentlyViewedProperties({
+  initialProperties,
+}: RecentlyViewedPropertiesProps) {
+  const hasInitialData = Boolean(initialProperties && initialProperties.length > 0);
+  const [properties, setProperties] = useState<IRecentlyViewedItem[]>(
+    initialProperties ?? [],
+  );
+  const [loading, setLoading] = useState(!hasInitialData);
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    if (hasInitialData) return;
+
     const fetchRecentProperties = async () => {
       try {
         const res = await fetch(
@@ -71,7 +82,7 @@ export default function RecentlyViewedProperties() {
     };
 
     fetchRecentProperties();
-  }, []);
+  }, [hasInitialData]);
 
   const fromUrl =
     pathname === "/search" ? `/search?${searchParams.toString()}` : null;

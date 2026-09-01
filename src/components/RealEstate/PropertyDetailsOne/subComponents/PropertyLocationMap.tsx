@@ -7,7 +7,10 @@ import {
   InfoWindow,
   Marker,
 } from "@react-google-maps/api";
-import { useGoogleMaps } from "@/components/HeroBanner/subComponents/GoogleMapsProvider";
+import PropertyGoogleMapsProvider, {
+  usePropertyGoogleMaps,
+} from "./PropertyGoogleMapsProvider";
+import { parseCoordinate } from "@/utils/propertyCoordinates";
 
 type PropertyLocationMapProps = {
   latitude?: number | string | null;
@@ -16,27 +19,14 @@ type PropertyLocationMapProps = {
   title?: string;
 };
 
-function parseCoordinate(
-  value: number | string | null | undefined,
-): number | null {
-  if (value == null || value === "") return null;
-  const parsed = typeof value === "number" ? value : parseFloat(String(value).trim());
-  if (!Number.isFinite(parsed)) return null;
-  return parsed;
-}
-
 function isValidCoordinatePair(lat: number, lng: number): boolean {
-  return lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180 && !(lat === 0 && lng === 0);
-}
-
-export function hasValidPropertyCoordinates(
-  latitude?: number | string | null,
-  longitude?: number | string | null,
-): boolean {
-  const lat = parseCoordinate(latitude);
-  const lng = parseCoordinate(longitude);
-  if (lat == null || lng == null) return false;
-  return isValidCoordinatePair(lat, lng);
+  return (
+    lat >= -90 &&
+    lat <= 90 &&
+    lng >= -180 &&
+    lng <= 180 &&
+    !(lat === 0 && lng === 0)
+  );
 }
 
 function MapStatusMessage({
@@ -64,7 +54,7 @@ function PropertyLocationMapInner({
   title,
 }: Required<Pick<PropertyLocationMapProps, "latitude" | "longitude">> &
   Pick<PropertyLocationMapProps, "location" | "title">) {
-  const { isLoaded, loadError } = useGoogleMaps();
+  const { isLoaded, loadError } = usePropertyGoogleMaps();
   const [infoOpen, setInfoOpen] = useState(true);
 
   const center = useMemo(
@@ -174,13 +164,15 @@ export default function PropertyLocationMap({
   }
 
   return (
-    <div className="tp-property-details-map">
-      <PropertyLocationMapInner
-        latitude={lat}
-        longitude={lng}
-        location={location}
-        title={title}
-      />
-    </div>
+    <PropertyGoogleMapsProvider>
+      <div className="tp-property-details-map">
+        <PropertyLocationMapInner
+          latitude={lat}
+          longitude={lng}
+          location={location}
+          title={title}
+        />
+      </div>
+    </PropertyGoogleMapsProvider>
   );
 }

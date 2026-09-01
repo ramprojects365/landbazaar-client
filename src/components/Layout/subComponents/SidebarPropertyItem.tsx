@@ -10,15 +10,18 @@ import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
 import { fetchPropertiesList } from "@/services/propertiesList";
+import type { FeaturedSidebarProperty } from "@/types/propertySidebar";
 
 interface IPropsWrapperCls {
   wrapperCls?: string;
   customClass?: string;
+  featuredProperty?: FeaturedSidebarProperty | null;
 }
 
 export default function SidebarPropertyItem({
   wrapperCls,
   customClass,
+  featuredProperty: featuredPropertyProp = null,
 }: IPropsWrapperCls) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -29,17 +32,13 @@ export default function SidebarPropertyItem({
     return qs ? `/search?${qs}` : "/search";
   }, [pathname, searchParams]);
 
-  const [latest, setLatest] = useState<{
-    id: string;
-    title: string;
-    listingType: string;
-    price: number;
-    landSize: string;
-    propertyType: string;
-    imageUrl: string | null;
-  } | null>(null);
+  const [latestState, setLatestState] = useState<FeaturedSidebarProperty | null>(
+    null,
+  );
 
   useEffect(() => {
+    if (featuredPropertyProp) return;
+
     const run = async () => {
       try {
         const list = await fetchPropertiesList();
@@ -59,7 +58,7 @@ export default function SidebarPropertyItem({
         });
 
         const item = sorted[0];
-        setLatest({
+        setLatestState({
           id: item.id,
           title: item.propertyName || item.title || "Land listing",
           listingType: item.listingType || "sale",
@@ -74,7 +73,9 @@ export default function SidebarPropertyItem({
     };
 
     run();
-  }, []);
+  }, [featuredPropertyProp]);
+
+  const latest = featuredPropertyProp ?? latestState;
 
   const detailsHref = latest
     ? fromUrl

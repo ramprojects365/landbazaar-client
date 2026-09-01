@@ -63,6 +63,8 @@ export default function PropertyDetailsSlider({ images }: Props) {
             className="tp-pdg-main-img"
             src={galleryItems[0].url}
             alt={getImageLabel(galleryItems[0]) || "Land cover image"}
+            fetchPriority="high"
+            decoding="async"
             style={{ width: "100%", height: "100%" }}
           />
           {getImageLabel(galleryItems[0]) ? (

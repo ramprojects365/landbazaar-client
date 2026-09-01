@@ -2,7 +2,11 @@ import PropertyDetailsOneArea from "@/components/RealEstate/PropertyDetailsOne/D
 import { PageParamsProps } from "@/types/custom-interface";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { toDescriptionSnippet } from "@/utils/descriptionHtml";
-import { getPropertyByIdCached } from "@/services/propertyServer";
+import {
+  getFeaturedSidebarPropertyCached,
+  getPropertyByIdCached,
+  getRecentSidebarPropertiesCached,
+} from "@/services/propertyServer";
 import type { Metadata } from "next";
 
 const FALLBACK_DESCRIPTION =
@@ -84,13 +88,22 @@ export async function generateMetadata(
 export default async function PropertyDetails(props: PageParamsProps) {
   const resolvedParams = await props.params;
   const { id } = resolvedParams;
-  const initialProperty = id ? await getPropertyByIdCached(id) : null;
+
+  const [initialProperty, featuredProperty, recentProperties] =
+    await Promise.all([
+      id ? getPropertyByIdCached(id) : Promise.resolve(null),
+      getFeaturedSidebarPropertyCached(),
+      getRecentSidebarPropertiesCached(3),
+    ]);
 
   return (
     <main>
-      {/* property details area start */}
-      <PropertyDetailsOneArea id={id} initialProperty={initialProperty} />
-      {/* property details area end */}
+      <PropertyDetailsOneArea
+        id={id}
+        initialProperty={initialProperty}
+        featuredProperty={featuredProperty}
+        recentProperties={recentProperties}
+      />
     </main>
   );
 }
