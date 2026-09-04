@@ -162,15 +162,15 @@ export default function OffcanvasArea() {
               </Link>
               <Link
                 className="icon twitter"
-                href="https://x.com/"
+                href="https://x.com/dekho_land"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <i className="fab fa-twitter"></i>
+                <i className="fa-brands fa-twitter"></i>
               </Link>
               <Link
                 className="icon instagram"
-                href="https://www.instagram.com/dekholand/"
+                href="https://www.instagram.com/dekho_land/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -178,7 +178,7 @@ export default function OffcanvasArea() {
               </Link>
               <Link
                 className="icon pinterest"
-                href="https://www.pinterest.com/"
+                href="https://www.pinterest.com/dekholand/dekholand-your-path-to-verified-land/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
