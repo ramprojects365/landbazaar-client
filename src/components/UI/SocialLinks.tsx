@@ -4,7 +4,7 @@ import Link from "next/link";
 export function SocialLinks() {
   return (
     <div className="tp-hero-social">
-      <Link href="https://www.instagram.com/dekholand/" target="_blank">
+      <Link href="https://www.instagram.com/dekho_land/" target="_blank">
         <span>
           <i className="fa-brands fa-instagram"></i>
         </span>
@@ -52,7 +52,7 @@ export function SocialLinksTwo() {
           <i className="fa-brands fa-linkedin-in"></i>
         </span>
       </Link>{" "}
-      <Link href="https://www.instagram.com/dekholand/" target="_blank">
+      <Link href="https://www.instagram.com/dekho_land/" target="_blank">
         <span>
           <i className="fa-brands fa-instagram"></i>
         </span>
@@ -69,13 +69,13 @@ export function SocialLinksThree() {
       >
         <i className="fab fa-facebook-f"></i>
       </Link>{" "}
-      <Link href="https://www.instagram.com/dekholand/" target="_blank">
+      <Link href="https://www.instagram.com/dekho_land/" target="_blank">
         <i className="fa-brands fa-instagram"></i>
       </Link>{" "}
-      <Link href="https://vimeo.com/" target="_blank">
-        <i className="fa-brands fa-vimeo-v"></i>
+      <Link href="https://www.youtube.com/@DekhoLand" target="_blank">
+        <i className="fa-brands fa-youtube"></i>
       </Link>{" "}
-      <Link href="https://www.pinterest.com/" target="_blank">
+      <Link href="https://www.pinterest.com/dekholand/dekholand-your-path-to-verified-land/" target="_blank">
         <i className="fa-brands fa-pinterest-p"></i>
       </Link>
     </>
@@ -91,14 +91,14 @@ export function FooterSocialLinks() {
       >
         <i className="fab fa-facebook-f"></i>
       </Link>{" "}
-      <Link href="https://www.instagram.com/dekholand/" target="_blank">
+      <Link href="https://www.instagram.com/dekho_land/" target="_blank">
         <i className="fa-brands fa-instagram"></i>
       </Link>{" "}
-      <Link href="https://www.pinterest.com/" target="_blank">
+      <Link href="https://www.pinterest.com/dekholand/dekholand-your-path-to-verified-land/" target="_blank">
         <i className="fa-brands fa-pinterest-p"></i>
       </Link>{" "}
-      <Link href="https://x.com/" target="_blank">
-        <i className="fab fa-twitter"></i>
+      <Link href="https://x.com/dekho_land" target="_blank">
+        <i className="fa-brands fa-twitter"></i>
       </Link>
     </>
   );
