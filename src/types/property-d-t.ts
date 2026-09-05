@@ -27,6 +27,10 @@ export interface IFeaturedPropertyDT {
   spacing?: boolean;
   price: number;
   quantity: number;
+  viewCount?: number;
+  uniqueViewCount?: number;
+  favouriteCount?: number;
+  leadCount?: number;
   user?: {
     id?: string;
     username?: string;

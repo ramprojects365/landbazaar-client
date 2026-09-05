@@ -13,9 +13,10 @@ import { toast } from "sonner";
 interface IProps {
   property: IFeaturedPropertyDT;
   onDelete?: (id: string | number) => void;
+  removeInsteadOfDelete?: boolean;
 }
 
-export default function DashboardPropertyItem({ property, onDelete }: IProps) {
+export default function DashboardPropertyItem({ property, onDelete, removeInsteadOfDelete = false }: IProps) {
   const [loading, setLoading] = useState(false);
   const listingFlag = resolveListingTypeFlag(property);
   const detailsHref = getPropertyDetailsPath({
@@ -24,15 +25,19 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
   });
   const handleDelete = async (id: string | number) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this property?",
+      removeInsteadOfDelete
+        ? "Remove this property from your saved properties?"
+        : "Are you sure you want to delete this property?",
     );
     if (!confirmed) return;
 
     try {
       setLoading(true);
-      await deleteProperty(id);
+      if (!removeInsteadOfDelete) {
+        await deleteProperty(id);
+      }
       onDelete?.(id);
-      toast.success("Property deleted successfully");
+      toast.success(removeInsteadOfDelete ? "Property removed from saved properties" : "Property deleted successfully");
     } catch (err: any) {
       console.error(err);
       toast.error(err?.response?.data?.message || "Delete failed");
@@ -121,6 +126,21 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <p>{property.bathrooms || "Land"}</p>
+            </div>
+          </div>
+          <div className="tp-rent-meta-item">
+            <div className="tp-rent-meta-content d-flex">
+              <p>Views: {property.viewCount ?? 0}</p>
+            </div>
+          </div>
+          <div className="tp-rent-meta-item">
+            <div className="tp-rent-meta-content d-flex">
+              <p>Saved: {property.favouriteCount ?? 0}</p>
+            </div>
+          </div>
+          <div className="tp-rent-meta-item">
+            <div className="tp-rent-meta-content d-flex">
+              <p>Leads: {property.leadCount ?? 0}</p>
             </div>
           </div>
         </div>

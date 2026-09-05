@@ -2,9 +2,15 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
+import { Heart } from "lucide-react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import { recordPropertyView } from "@/services/propertyService";
+import {
+  getSavedPropertyStatus,
+  recordPropertyView,
+  removeSavedProperty,
+  saveProperty,
+} from "@/services/propertyService";
 import SocialShare from "@/components/UI/SocialShare";
 import {
   formatPricePerUnit,
@@ -75,6 +81,8 @@ function PropertyDetailsContent({
   );
   const [loading, setLoading] = useState(!initialProperty);
   const [error, setError] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
 
   const fromParam = searchParams.get("from");
   const listingHref = (() => {
@@ -139,9 +147,17 @@ function PropertyDetailsContent({
     viewRecordedRef.current = true;
 
     const record = () => {
+      const visitorKeyStorageKey = "dekhoLandVisitorKey";
+      let visitorKey = window.localStorage.getItem(visitorKeyStorageKey);
+      if (!visitorKey) {
+        visitorKey = crypto.randomUUID();
+        window.localStorage.setItem(visitorKeyStorageKey, visitorKey);
+      }
+
       recordPropertyView({
         propertyId,
         propertyUrl: window.location.href,
+        visitorKey,
       }).catch(() => {
         viewRecordedRef.current = false;
       });
@@ -155,6 +171,34 @@ function PropertyDetailsContent({
     const timeoutId = window.setTimeout(record, 1500);
     return () => window.clearTimeout(timeoutId);
   }, [propertyId]);
+
+  useEffect(() => {
+    if (!propertyId || !localStorage.getItem("authToken")) return;
+    getSavedPropertyStatus(propertyId)
+      .then((response) => setIsSaved(Boolean(response?.data?.saved)))
+      .catch(() => setIsSaved(false));
+  }, [propertyId]);
+
+  const handleSaveToggle = async () => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      window.location.href = `/sign-in?redirect=${encodeURIComponent(window.location.pathname)}`;
+      return;
+    }
+
+    setSaveLoading(true);
+    try {
+      if (isSaved) {
+        await removeSavedProperty(propertyId);
+        setIsSaved(false);
+      } else {
+        await saveProperty(propertyId, window.location.href);
+        setIsSaved(true);
+      }
+    } finally {
+      setSaveLoading(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -278,6 +322,28 @@ function PropertyDetailsContent({
                   title={display.title?.trim() || "Property"}
                   text={toDescriptionSnippet(apiProperty.description ?? "", 180)}
                 />
+
+                <button
+                  type="button"
+                  onClick={handleSaveToggle}
+                  disabled={saveLoading}
+                  aria-label={isSaved ? "Remove from saved properties" : "Save property"}
+                  title={isSaved ? "Remove from saved properties" : "Save property"}
+                  style={{
+                    border: "1px solid #dbe1ef",
+                    background: isSaved ? "#fff1f2" : "#fff",
+                    color: isSaved ? "#c62828" : "#003b5c",
+                    width: 42,
+                    height: 42,
+                    borderRadius: 6,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: 12,
+                  }}
+                >
+                  <Heart size={19} fill={isSaved ? "currentColor" : "none"} />
+                </button>
 
                 <h4 className="tp-property-details-icon-price">
                   {formatTotalPriceDisplay(display.price)}

@@ -30,6 +30,10 @@ interface ApiProperty {
   cityName?: string;
   state?: string;
   stateName?: string;
+  viewCount?: number;
+  uniqueViewCount?: number;
+  favouriteCount?: number;
+  leadCount?: number;
 }
 
 const buildPropertyAddress = (property: ApiProperty): string => {
@@ -116,6 +120,10 @@ export default function DashboardProperty() {
               showTags: true,
               userName: "Property Owner",
               userRole: "Seller",
+              viewCount: property.viewCount || 0,
+              uniqueViewCount: property.uniqueViewCount || 0,
+              favouriteCount: property.favouriteCount || 0,
+              leadCount: property.leadCount || 0,
             };
           },
         );
