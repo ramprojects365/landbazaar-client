@@ -34,6 +34,7 @@ interface ApiProperty {
   uniqueViewCount?: number;
   favouriteCount?: number;
   leadCount?: number;
+  leads?: IFeaturedPropertyDT["leads"];
 }
 
 const buildPropertyAddress = (property: ApiProperty): string => {
@@ -124,6 +125,7 @@ export default function DashboardProperty() {
               uniqueViewCount: property.uniqueViewCount || 0,
               favouriteCount: property.favouriteCount || 0,
               leadCount: property.leadCount || 0,
+              leads: property.leads || [],
             };
           },
         );

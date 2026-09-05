@@ -31,6 +31,13 @@ export interface IFeaturedPropertyDT {
   uniqueViewCount?: number;
   favouriteCount?: number;
   leadCount?: number;
+  leads?: {
+    name: string;
+    email: string | null;
+    phone: string | null;
+    lastInteractionAt: string;
+    type: string;
+  }[];
   user?: {
     id?: string;
     username?: string;
