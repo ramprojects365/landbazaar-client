@@ -9,6 +9,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { buildSearchHrefFromParams } from "@/utils/searchUrl";
+import FavoriteButton from "@/components/UI/FavoriteButton";
 
 function getImageSrc(image: IFeatureListProps["item"]["image"]): string {
   if (typeof image === "string") return image;
@@ -34,7 +35,10 @@ export default function PropertySingleCard(props: IFeatureListProps) {
   );
 }
 
-function PropertySingleCardInner({ item }: IFeatureListProps) {
+function PropertySingleCardInner({
+  item,
+  showFavorite = false,
+}: IFeatureListProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -90,6 +94,7 @@ function PropertySingleCardInner({ item }: IFeatureListProps) {
               </h5>
             </div>
           </div>
+          {showFavorite ? <FavoriteButton propertyId={item.id} /> : null}
         </div>
         {item.showTags && (
           <div className="tp-rent-tags">

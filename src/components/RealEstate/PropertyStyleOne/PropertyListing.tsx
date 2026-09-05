@@ -299,7 +299,7 @@ export default function PropertyListing({
                 key={item.id}
                 style={{ marginBottom: "15px" }}
               >
-                <PropertySingleCard item={item} />
+                <PropertySingleCard item={item} showFavorite />
               </div>
             ))}
           </div>

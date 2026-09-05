@@ -93,6 +93,7 @@ export interface IdProps {
 //define interface for Property List Props
 export interface IFeatureListProps {
   item: IFeaturedPropertyDT;
+  showFavorite?: boolean;
 }
 //define interface for contact location
 export interface ContactLocation {

@@ -105,7 +105,7 @@ export default function PropertyHome() {
                   {(items.length > 0 ? items : propertyData.slice(0, 5)).map(
                     (item) => (
                       <SwiperSlide key={String(item.id)}>
-                        <PropertySingleCardTwo item={item} />
+                        <PropertySingleCardTwo item={item} showFavorite />
                       </SwiperSlide>
                     ),
                   )}
