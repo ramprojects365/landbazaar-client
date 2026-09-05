@@ -27,7 +27,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
   const handleDelete = async (id: string | number) => {
     const confirmed = window.confirm(
       removeInsteadOfDelete
-        ? "Remove this property from your saved properties?"
+        ? "Remove this property from your favourite properties?"
         : "Are you sure you want to delete this property?",
     );
     if (!confirmed) return;
@@ -38,7 +38,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
         await deleteProperty(id);
       }
       onDelete?.(id);
-      toast.success(removeInsteadOfDelete ? "Property removed from saved properties" : "Property deleted successfully");
+      toast.success(removeInsteadOfDelete ? "Property removed from favourite properties" : "Property deleted successfully");
     } catch (err: any) {
       console.error(err);
       toast.error(err?.response?.data?.message || "Delete failed");
@@ -136,7 +136,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
           </div>
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
-              <p>Saved: {property.favouriteCount ?? 0}</p>
+              <p>Favourites: {property.favouriteCount ?? 0}</p>
             </div>
           </div>
           <div className="tp-rent-meta-item">

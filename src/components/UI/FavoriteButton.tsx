@@ -57,7 +57,7 @@ export default function FavoriteButton({ propertyId }: FavoriteButtonProps) {
       className="property-favorite-btn"
       aria-pressed={isFavorite}
       aria-label={isFavorite ? "Remove from favourites" : "Add to favourites"}
-      title={isFavorite ? "Remove from saved properties" : "Save property"}
+      title={isFavorite ? "Remove from favourite properties" : "Add to favourite properties"}
       disabled={loading}
       data-property-id={propertyId != null ? String(propertyId) : undefined}
       onClick={(event) => {

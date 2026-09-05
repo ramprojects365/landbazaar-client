@@ -45,7 +45,7 @@ const Sidebar = () => {
       },
       {
         href: "/dashboard/favourites",
-        label: "Saved properties",
+        label: "Favourite properties",
         icon: <MyPropertiesSvg />,
       },
     ],

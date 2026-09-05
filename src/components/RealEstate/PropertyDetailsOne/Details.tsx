@@ -327,8 +327,8 @@ function PropertyDetailsContent({
                   type="button"
                   onClick={handleSaveToggle}
                   disabled={saveLoading}
-                  aria-label={isSaved ? "Remove from saved properties" : "Save property"}
-                  title={isSaved ? "Remove from saved properties" : "Save property"}
+                  aria-label={isSaved ? "Remove from favourite properties" : "Add to favourite properties"}
+                  title={isSaved ? "Remove from favourite properties" : "Add to favourite properties"}
                   style={{
                     border: "1px solid #dbe1ef",
                     background: isSaved ? "#fff1f2" : "#fff",

@@ -53,7 +53,7 @@ export default function SavedPropertiesPage() {
   useEffect(() => {
     getSavedProperties()
       .then((response) => setProperties((response?.data || []).map(mapSavedProperty)))
-      .catch(() => setError("Failed to load saved properties."))
+      .catch(() => setError("Failed to load favourite properties."))
       .finally(() => setLoading(false));
   }, []);
 
@@ -65,10 +65,10 @@ export default function SavedPropertiesPage() {
   return (
     <DashboardLayout>
       <div className="tp-dashboard-property-wrapper">
-        <h4 className="tp-dashboard-new-title mb-30">Saved properties</h4>
-        {loading && <p>Loading saved properties...</p>}
+        <h4 className="tp-dashboard-new-title mb-30">Favourite properties</h4>
+        {loading && <p>Loading favourite properties...</p>}
         {error && <p className="text-danger">{error}</p>}
-        {!loading && !error && properties.length === 0 && <p className="text-muted">No saved properties yet.</p>}
+        {!loading && !error && properties.length === 0 && <p className="text-muted">No favourite properties yet.</p>}
         {!loading && !error && properties.map((property) => (
           <DashboardPropertyItem key={property.id} property={property} onDelete={removeSaved} removeInsteadOfDelete />
         ))}
