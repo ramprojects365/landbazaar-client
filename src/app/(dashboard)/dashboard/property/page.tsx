@@ -8,6 +8,7 @@ import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { API_BASE_URL } from "@/config/constants";
 import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
+import { useAuth } from "@/hooks/useAuth";
 
 // API Property interface
 interface ApiProperty {
@@ -57,6 +58,8 @@ export default function DashboardProperty() {
   const [properties, setProperties] = useState<IFeaturedPropertyDT[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { token, userType } = useAuth();
+  const isAdmin = userType?.trim().toLowerCase() === "admin";
 
   const handleDelete = async (id: string | number) => {
     setProperties((prev) => prev.filter((p) => p.id !== id));
@@ -65,8 +68,12 @@ export default function DashboardProperty() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const token = localStorage.getItem("authToken");
-        const res = await fetch(`${API_BASE_URL}/properties/my-properties`, {
+        if (!token) return;
+
+        const propertiesEndpoint = isAdmin
+          ? "/properties/admin/all"
+          : "/properties/my-properties";
+        const res = await fetch(`${API_BASE_URL}${propertiesEndpoint}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -132,7 +139,7 @@ export default function DashboardProperty() {
     };
 
     fetchProperties();
-  }, []);
+  }, [token, userType]);
 
   const engagementSummary = properties.reduce(
     (summary, property) => ({
@@ -155,7 +162,9 @@ export default function DashboardProperty() {
                 padding: "20px 24px",
               }}
             >
-              <h4 className="tp-dashboard-new-title mb-15">Property engagement</h4>
+              <h4 className="tp-dashboard-new-title mb-15">
+                {isAdmin ? "All property engagement" : "Property engagement"}
+              </h4>
               <div className="row">
                 <div className="col-12 col-md-4 mb-15 mb-md-0">
                   <div>
