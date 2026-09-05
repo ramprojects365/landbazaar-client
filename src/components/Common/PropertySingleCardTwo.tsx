@@ -57,7 +57,11 @@ function PropertySingleCardTwo({
               )}
             </div>
           )}
-          <div className="tp-rent-user-wrap d-flex align-items-center justify-content-between">
+          <div
+            className={`tp-rent-user-wrap d-flex align-items-center justify-content-between${
+              showFavorite ? " tp-rent-user-wrap--with-favorite" : ""
+            }`}
+          >
             <div className="tp-rent-user d-flex align-items-center">
               <div className="tp-rent-user-thumb">
                 <Image

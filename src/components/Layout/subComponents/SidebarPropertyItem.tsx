@@ -128,7 +128,13 @@ function SidebarPropertyItemInner({
                     {getListingTypeFlag(latest.listingType) || "FOR SALE"}
                   </Link>
                 </div>
-                <div className="tp-rent-user-wrap d-flex align-items-center justify-content-between">
+                <div
+                  className={`tp-rent-user-wrap d-flex align-items-center justify-content-between${
+                    pathname.startsWith("/property-details")
+                      ? " tp-rent-user-wrap--with-favorite"
+                      : ""
+                  }`}
+                >
                   <div className="tp-rent-user d-flex align-items-center">
                     <div className="tp-rent-user-content">
                       <h5 className="tp-rent-user-content-title">
