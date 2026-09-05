@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from './constants';
+import { clearAuthSession } from '@/utils/auth';
 
 // Export axios for error checking utilities
 export { axios };
@@ -52,6 +53,27 @@ apiClient.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error.response?.status;
+    const message = error.response?.data?.message;
+    const isExpiredToken =
+      status === 403 && (message === 'Token expired' || message === 'Invalid token');
+
+    if (typeof window !== 'undefined' && isExpiredToken) {
+      const currentPath = `${window.location.pathname}${window.location.search}`;
+      clearAuthSession();
+
+      if (!window.location.pathname.startsWith('/sign-in')) {
+        window.location.href = `/sign-in?redirect=${encodeURIComponent(currentPath)}`;
+      }
+    }
+
     return Promise.reject(error);
   }
 );

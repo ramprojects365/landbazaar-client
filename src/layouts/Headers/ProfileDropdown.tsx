@@ -109,6 +109,11 @@ const ProfileDropdown = () => {
               <span>My properties</span>
             </Link>
           </li>
+          <li>
+            <Link href="/dashboard/favourites" onClick={() => setOpen(false)}>
+              <span>Favourite properties</span>
+            </Link>
+          </li>
           <li className="profile-dropdown__section">Manage account</li>
           <li>
             <Link href="/dashboard/my-profile" onClick={() => setOpen(false)}>

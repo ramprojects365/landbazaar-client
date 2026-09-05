@@ -27,6 +27,17 @@ export interface IFeaturedPropertyDT {
   spacing?: boolean;
   price: number;
   quantity: number;
+  viewCount?: number;
+  uniqueViewCount?: number;
+  favouriteCount?: number;
+  leadCount?: number;
+  leads?: {
+    name: string;
+    email: string | null;
+    phone: string | null;
+    lastInteractionAt: string;
+    type: string;
+  }[];
   user?: {
     id?: string;
     username?: string;

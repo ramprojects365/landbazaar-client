@@ -13,10 +13,12 @@ import { toast } from "sonner";
 interface IProps {
   property: IFeaturedPropertyDT;
   onDelete?: (id: string | number) => void;
+  removeInsteadOfDelete?: boolean;
 }
 
-export default function DashboardPropertyItem({ property, onDelete }: IProps) {
+export default function DashboardPropertyItem({ property, onDelete, removeInsteadOfDelete = false }: IProps) {
   const [loading, setLoading] = useState(false);
+  const [showLeads, setShowLeads] = useState(false);
   const listingFlag = resolveListingTypeFlag(property);
   const detailsHref = getPropertyDetailsPath({
     id: property.id,
@@ -24,15 +26,19 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
   });
   const handleDelete = async (id: string | number) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this property?",
+      removeInsteadOfDelete
+        ? "Remove this property from your favourite properties?"
+        : "Are you sure you want to delete this property?",
     );
     if (!confirmed) return;
 
     try {
       setLoading(true);
-      await deleteProperty(id);
+      if (!removeInsteadOfDelete) {
+        await deleteProperty(id);
+      }
       onDelete?.(id);
-      toast.success("Property deleted successfully");
+      toast.success(removeInsteadOfDelete ? "Property removed from favourite properties" : "Property deleted successfully");
     } catch (err: any) {
       console.error(err);
       toast.error(err?.response?.data?.message || "Delete failed");
@@ -123,7 +129,47 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
               <p>{property.bathrooms || "Land"}</p>
             </div>
           </div>
+          <div className="tp-rent-meta-item">
+            <div className="tp-rent-meta-content d-flex">
+              <p>Views: {property.viewCount ?? 0}</p>
+            </div>
+          </div>
+          <div className="tp-rent-meta-item">
+            <div className="tp-rent-meta-content d-flex">
+              <p>Favourites: {property.favouriteCount ?? 0}</p>
+            </div>
+          </div>
+          <div className="tp-rent-meta-item">
+            <div className="tp-rent-meta-content d-flex">
+              <p>Leads: {property.leadCount ?? 0}</p>
+            </div>
+          </div>
         </div>
+        {!removeInsteadOfDelete && (property.leads?.length || property.leadCount) ? (
+          <div style={{ marginTop: 12 }}>
+            <button
+              type="button"
+              className="btn btn-link p-0"
+              onClick={() => setShowLeads((current) => !current)}
+              aria-expanded={showLeads}
+            >
+              {showLeads ? "Hide leads" : `View leads (${property.leadCount ?? property.leads?.length ?? 0})`}
+            </button>
+            {showLeads && (
+              <div style={{ marginTop: 8, borderTop: "1px solid #DBE1EF", paddingTop: 8 }}>
+                {property.leads?.map((lead) => (
+                  <div key={`${lead.email || lead.phone || lead.name}-${lead.lastInteractionAt}`} style={{ marginBottom: 8 }}>
+                    <strong>{lead.name}</strong>
+                    <div style={{ fontSize: 13, color: "#667085" }}>
+                      {lead.phone || "Phone not provided"}
+                      {lead.email ? ` | ${lead.email}` : ""}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : null}
         <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">
           <div className="tp-rent-btn">
             <Link className="tp-btn" href={detailsHref}>

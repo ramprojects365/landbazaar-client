@@ -84,9 +84,31 @@ export const notifyPropertyFitView = async (payload: {
 export const recordPropertyView = async (payload: {
   propertyId: string | number;
   propertyUrl?: string;
+  visitorKey?: string;
 }) => {
   const res = await apiClient.post(`/properties/${payload.propertyId}/view`, {
     propertyUrl: payload.propertyUrl,
+    visitorKey: payload.visitorKey,
   });
+  return res.data;
+};
+
+export const saveProperty = async (propertyId: string | number, propertyUrl?: string) => {
+  const res = await apiClient.post(`/properties/${propertyId}/favourite`, { propertyUrl });
+  return res.data;
+};
+
+export const removeSavedProperty = async (propertyId: string | number) => {
+  const res = await apiClient.delete(`/properties/${propertyId}/favourite`);
+  return res.data;
+};
+
+export const getSavedPropertyStatus = async (propertyId: string | number) => {
+  const res = await apiClient.get(`/properties/${propertyId}/favourite-status`);
+  return res.data;
+};
+
+export const getSavedProperties = async () => {
+  const res = await apiClient.get('/properties/favourites');
   return res.data;
 };
