@@ -23,6 +23,10 @@
   box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.45);
 }
 
+.property-favorite-btn--light {
+  filter: none;
+}
+
 .tp-rent-user-wrap--with-favorite .tp-rent-user {
   min-width: 0;
 }

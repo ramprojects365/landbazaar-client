@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type SyntheticEvent } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import { Heart } from "lucide-react";
 import {
   getSavedPropertyStatus,
@@ -13,23 +13,33 @@ const FAVORITE_COLOR = "#ef4444";
 
 type FavoriteButtonProps = {
   propertyId?: string | number;
+  initialFavorite?: boolean;
+  tone?: "overlay" | "light";
+  onFavoriteChange?: (isFavorite: boolean) => void;
 };
 
 function isolateEvent(event: SyntheticEvent) {
   event.stopPropagation();
 }
 
-export default function FavoriteButton({ propertyId }: FavoriteButtonProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
+export default function FavoriteButton({
+  propertyId,
+  initialFavorite = false,
+  tone = "overlay",
+  onFavoriteChange,
+}: FavoriteButtonProps) {
+  const [isFavorite, setIsFavorite] = useState(initialFavorite);
   const [loading, setLoading] = useState(false);
+  const inactiveColor = tone === "light" ? FAVORITE_COLOR : "#FFFFFF";
 
   useEffect(() => {
     if (propertyId == null || !localStorage.getItem("authToken")) return;
+    if (initialFavorite) return;
 
     getSavedPropertyStatus(propertyId)
       .then((response) => setIsFavorite(Boolean(response?.data?.saved)))
       .catch(() => setIsFavorite(false));
-  }, [propertyId]);
+  }, [propertyId, initialFavorite]);
 
   const handleToggle = async () => {
     if (propertyId == null || loading) return;
@@ -45,9 +55,11 @@ export default function FavoriteButton({ propertyId }: FavoriteButtonProps) {
       if (isFavorite) {
         await removeSavedProperty(propertyId);
         setIsFavorite(false);
+        onFavoriteChange?.(false);
       } else {
         await saveProperty(propertyId, window.location.href);
         setIsFavorite(true);
+        onFavoriteChange?.(true);
       }
     } finally {
       setLoading(false);
@@ -57,7 +69,9 @@ export default function FavoriteButton({ propertyId }: FavoriteButtonProps) {
   return (
     <button
       type="button"
-      className="property-favorite-btn"
+      className={`property-favorite-btn${
+        tone === "light" ? " property-favorite-btn--light" : ""
+      }`}
       aria-pressed={isFavorite}
       aria-label={isFavorite ? "Remove from favourites" : "Add to favourites"}
       title={isFavorite ? "Remove from favourite properties" : "Add to favourite properties"}
@@ -75,7 +89,7 @@ export default function FavoriteButton({ propertyId }: FavoriteButtonProps) {
       <Heart
         size={20}
         strokeWidth={2}
-        color={isFavorite ? FAVORITE_COLOR : "#FFFFFF"}
+        color={isFavorite ? FAVORITE_COLOR : inactiveColor}
         fill={isFavorite ? FAVORITE_COLOR : "transparent"}
         aria-hidden="true"
       />
