@@ -240,10 +240,6 @@ function PropertyDetailsContent({
     apiProperty.pricePerUnit,
     apiProperty.areaUnit,
   );
-  const monthlyRentLabel = formatTotalPriceDisplay(
-    apiProperty.monthlyRent ?? apiProperty.price,
-  );
-
   return (
     <>
       <section className="tp-property-details-area pb-130">
@@ -294,30 +290,21 @@ function PropertyDetailsContent({
                   {display.address}
                 </span>
 
-                <div className="tp-property-details-info mt-3 d-flex flex-wrap gap-3 align-items-center">
-                  <span>
+                <div
+                  className="tp-property-details-info mt-3 d-flex flex-nowrap align-items-center"
+                  style={{ gap: "24px" }}
+                >
+                  <span className="tp-property-details-info-item">
                     <strong>Size:</strong> {display.bedrooms}
                   </span>
-                  {isLease ? (
-                    <span>
-                      <strong>Monthly Rent:</strong> {monthlyRentLabel}
+                  {!isLease && pricePerUnitLabel !== "—" && (
+                    <span className="tp-property-details-info-item">
+                      <strong>Price / unit:</strong> {pricePerUnitLabel}
                     </span>
-                  ) : (
-                    <>
-                      <span>
-                        <strong>Price:</strong>{" "}
-                        {formatTotalPriceDisplay(display.price)}
-                      </span>
-                      {pricePerUnitLabel !== "—" && (
-                        <span style={{ color: "#888", fontSize: "14px" }}>
-                          {pricePerUnitLabel}
-                        </span>
-                      )}
-                    </>
                   )}
                   {apiProperty.facingDirection && (
-                    <span style={{ color: "#888", fontSize: "14px" }}>
-                      Facing {apiProperty.facingDirection}
+                    <span className="tp-property-details-info-item">
+                      <strong>Facing:</strong> {apiProperty.facingDirection}
                     </span>
                   )}
                 </div>

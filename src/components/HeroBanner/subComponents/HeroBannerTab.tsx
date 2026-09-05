@@ -5,6 +5,7 @@ import { ITabContentProps } from "@/types/banner-d-t";
 import { LAND_CITIES, PUBLIC_LAND_TYPE_OPTIONS } from "@/config/landOptions";
 import { buildSearchHref } from "@/utils/searchUrl";
 import { API_BASE_URL } from "@/config/constants";
+import { LandPlot, MapPin } from "lucide-react";
 import "./hero-banner-tab.css";
 
 
@@ -301,6 +302,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
             aria-expanded={cityDropdownOpen}
             aria-label="Select city"
           >
+            <MapPin size={16} strokeWidth={2} color="#003B5C" aria-hidden="true" />
             <span>{city === "All" ? "City" : city}</span>
             <i
               className="far fa-chevron-down"
@@ -357,6 +359,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
             aria-expanded={landTypeDropdownOpen}
             aria-label="Select land type"
           >
+            <LandPlot size={16} strokeWidth={2} color="#003B5C" aria-hidden="true" />
             <span>
               {LAND_TYPES.find((option) => option.value === landType)?.label ??
                 "Land Type"}
