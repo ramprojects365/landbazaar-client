@@ -5,7 +5,6 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import RecentlyViewedProperties from "@/components/RealEstate/PropertyDetailsOne/subComponents/RecentlyViewedItem";
 import { useEffect, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
-import { deleteProperty } from "@/services/propertyService";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { API_BASE_URL } from "@/config/constants";
 import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
@@ -60,14 +59,7 @@ export default function DashboardProperty() {
   const [error, setError] = useState<string | null>(null);
 
   const handleDelete = async (id: string | number) => {
-    try {
-      await deleteProperty(id);
-
-      setProperties((prev) => prev.filter((p) => p.id !== id));
-    } catch (err: any) {
-      console.error(err);
-      setError(err?.response?.data?.message || "Delete failed");
-    }
+    setProperties((prev) => prev.filter((p) => p.id !== id));
   };
 
   useEffect(() => {
@@ -157,38 +149,37 @@ export default function DashboardProperty() {
         <div className="row mb-30">
           <div className="col-12">
             <div
-              className="row"
               style={{
                 border: "1px solid #DBE1EF",
                 background: "#fff",
-                padding: "20px 10px",
+                padding: "20px 24px",
               }}
             >
-              <div className="col-12 mb-15">
-                <h4 className="tp-dashboard-new-title mb-0">Property engagement</h4>
-              </div>
-              <div className="col-12 col-md-4 mb-15 mb-md-0">
-                <div>
-                  <span style={{ color: "#667085", fontSize: 13 }}>Total views</span>
-                  <strong style={{ display: "block", color: "#003B5C", fontSize: 24 }}>
-                    {engagementSummary.views}
-                  </strong>
+              <h4 className="tp-dashboard-new-title mb-15">Property engagement</h4>
+              <div className="row">
+                <div className="col-12 col-md-4 mb-15 mb-md-0">
+                  <div>
+                    <span style={{ color: "#667085", fontSize: 13 }}>Total views</span>
+                    <strong style={{ display: "block", color: "#003B5C", fontSize: 24 }}>
+                      {engagementSummary.views}
+                    </strong>
+                  </div>
                 </div>
-              </div>
-              <div className="col-12 col-md-4 mb-15 mb-md-0">
-                <div>
-                  <span style={{ color: "#667085", fontSize: 13 }}>Favourite properties</span>
-                  <strong style={{ display: "block", color: "#FF7A00", fontSize: 24 }}>
-                    {engagementSummary.saved}
-                  </strong>
+                <div className="col-12 col-md-4 mb-15 mb-md-0">
+                  <div>
+                    <span style={{ color: "#667085", fontSize: 13 }}>Total Favourite</span>
+                    <strong style={{ display: "block", color: "#FF7A00", fontSize: 24 }}>
+                      {engagementSummary.saved}
+                    </strong>
+                  </div>
                 </div>
-              </div>
-              <div className="col-12 col-md-4">
-                <div>
-                  <span style={{ color: "#667085", fontSize: 13 }}>Total leads</span>
-                  <strong style={{ display: "block", color: "#2E7D32", fontSize: 24 }}>
-                    {engagementSummary.leads}
-                  </strong>
+                <div className="col-12 col-md-4">
+                  <div>
+                    <span style={{ color: "#667085", fontSize: 13 }}>Total leads</span>
+                    <strong style={{ display: "block", color: "#2E7D32", fontSize: 24 }}>
+                      {engagementSummary.leads}
+                    </strong>
+                  </div>
                 </div>
               </div>
             </div>

@@ -12,6 +12,7 @@ import {
   saveProperty,
 } from "@/services/propertyService";
 import SocialShare from "@/components/UI/SocialShare";
+import { toast } from "sonner";
 import {
   formatPricePerUnit,
   getListingTypeBadgeStyle,
@@ -191,10 +192,19 @@ function PropertyDetailsContent({
       if (isSaved) {
         await removeSavedProperty(propertyId);
         setIsSaved(false);
+        toast.success("Removed from favourite properties");
       } else {
         await saveProperty(propertyId, window.location.href);
         setIsSaved(true);
+        toast.success("Added to favourite properties");
       }
+    } catch (error: unknown) {
+      const message =
+        error && typeof error === "object" && "response" in error
+          ? (error as { response?: { data?: { message?: string } } }).response
+              ?.data?.message
+          : undefined;
+      toast.error(message || "Could not update favourite. Please try again.");
     } finally {
       setSaveLoading(false);
     }
