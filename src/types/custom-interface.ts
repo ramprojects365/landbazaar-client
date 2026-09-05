@@ -15,7 +15,7 @@ export interface AppContextType {
 }
 //define interface for PageParams props
 export interface PageParamsProps {
-  params: Promise<{ id: number }>;
+  params: Promise<{ slug: string }>;
 }
 
 //define interface for Choose item props

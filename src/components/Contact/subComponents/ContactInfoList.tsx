@@ -17,7 +17,7 @@ export default function ContactInfoList() {
         </div>
         <div className="tp-contact-info-content">
           <span>Call us at</span>
-          <Link href="tel:+919849967236">+91 9849967236</Link>
+          <Link href="tel:+919849967236">+916303245269</Link>
         </div>
       </div>
       <div className="tp-contact-info d-flex align-items-center mb-10">

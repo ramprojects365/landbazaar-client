@@ -1,4 +1,7 @@
-import { PUBLIC_LAND_TYPE_OPTIONS } from "@/config/landOptions";
+import {
+  PUBLIC_LAND_TYPE_OPTIONS,
+  landTypeSearchHref,
+} from "@/config/landOptions";
 
 export const quickLinks = [
   { label: "About Us", href: "/about" },
@@ -168,5 +171,5 @@ export const plotLinks = FOOTER_LOCATION_AREAS.slice(5).map((area) => ({
 
 export const landTypeLinks = PUBLIC_LAND_TYPE_OPTIONS.map((item) => ({
   label: item.label,
-  href: `/search?propertyType=${encodeURIComponent(item.value)}`,
+  href: landTypeSearchHref(item.value),
 }));

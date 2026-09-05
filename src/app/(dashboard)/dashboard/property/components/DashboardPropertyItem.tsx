@@ -2,6 +2,7 @@
 import { DeleteIconSvg, LivingSvg, PropertyEditSvg } from "@/components/SVG";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
+import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { deleteProperty } from "@/services/propertyService";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import Image from "next/image";
@@ -17,6 +18,10 @@ interface IProps {
 export default function DashboardPropertyItem({ property, onDelete }: IProps) {
   const [loading, setLoading] = useState(false);
   const listingFlag = resolveListingTypeFlag(property);
+  const detailsHref = getPropertyDetailsPath({
+    id: property.id,
+    title: property.title,
+  });
   const handleDelete = async (id: string | number) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this property?",
@@ -45,7 +50,7 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
         className="col-xl-6 tp-rent-thumb p-relative"
         style={{ padding: "0px" }}
       >
-        <Link href={`/property-details/${property.id}`}>
+        <Link href={detailsHref}>
           <Image
             src={property?.image}
             width={400}
@@ -82,7 +87,7 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
         >
           <Link
             className="textline"
-            href={`/property-details/${property.id}`}
+            href={detailsHref}
             style={{
               display: "block",
               whiteSpace: "nowrap",
@@ -121,7 +126,7 @@ export default function DashboardPropertyItem({ property, onDelete }: IProps) {
         </div>
         <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">
           <div className="tp-rent-btn">
-            <Link className="tp-btn" href={`/property-details/${property.id}`}>
+            <Link className="tp-btn" href={detailsHref}>
               View Details
             </Link>
           </div>

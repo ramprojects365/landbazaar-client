@@ -10,9 +10,9 @@
 export const encodeUrlValue = (str: string): string => {
   if (!str) return '';
   
-  // Only encode characters that need encoding, but keep spaces as +
+  // Only encode characters that need encoding, but keep spaces as hyphens
   return str
-    .replace(/\s+/g, '+') // Replace spaces with +
+    .replace(/\s+/g, '-')
     .replace(/%/g, '%25') // Encode % signs
     .replace(/\?/g, '%3F') // Encode ? signs
     .replace(/#/g, '%23') // Encode # signs
@@ -86,6 +86,6 @@ export const createCleanFromUrl = (fromUrl: string): string => {
     return cleanFromUrl;
   } catch {
     // Fallback for malformed URLs
-    return fromUrl.replace(/\s+/g, '+');
+    return fromUrl.replace(/\s+/g, '-');
   }
 };

@@ -3,11 +3,16 @@ import { PageParamsProps } from "@/types/custom-interface";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { toDescriptionSnippet } from "@/utils/descriptionHtml";
 import {
+  getPropertySlug,
+  isPropertyUuid,
+} from "@/utils/propertySlug";
+import {
   getFeaturedSidebarPropertyCached,
-  getPropertyByIdCached,
+  getPropertyByParamCached,
   getRecentSidebarPropertiesCached,
 } from "@/services/propertyServer";
 import type { Metadata } from "next";
+import { notFound, permanentRedirect } from "next/navigation";
 
 const FALLBACK_DESCRIPTION =
   "View detailed land and plot information in India. Find residential plots, agricultural land, farm land, and commercial land for sale or lease in Hyderabad, Telangana, Visakhapatnam and other growth corridors.";
@@ -26,28 +31,29 @@ export async function generateMetadata(
   props: PageParamsProps,
 ): Promise<Metadata> {
   const resolvedParams = await props.params;
-  const { id } = resolvedParams;
+  const { slug } = resolvedParams;
 
-  if (!id) {
+  if (!slug) {
     return {
       title: "Property Details",
     };
   }
 
   try {
-    const item = await getPropertyByIdCached(id);
+    const item = await getPropertyByParamCached(slug);
     if (!item) {
       return {
         metadataBase: new URL("https://www.dekholand.com"),
-        title: `Property Details - ${id}`,
+        title: "Property Details",
       };
     }
 
-    const title = item.propertyName || item.title || `Property Details - ${id}`;
+    const title = item.propertyName || item.title || "Property Details";
     const description =
       toDescriptionSnippet(item.description || "", 180) || FALLBACK_DESCRIPTION;
     const imageUrl = toAbsoluteImageUrl(getCoverImageUrl(item.images));
-    const canonicalUrl = `https://www.dekholand.com/property-details/${id}`;
+    const canonicalSlug = getPropertySlug(item);
+    const canonicalUrl = `https://www.dekholand.com/property-details/${canonicalSlug}`;
 
     return {
       metadataBase: new URL("https://www.dekholand.com"),
@@ -80,26 +86,43 @@ export async function generateMetadata(
   } catch {
     return {
       metadataBase: new URL("https://www.dekholand.com"),
-      title: `Property Details - ${id}`,
+      title: "Property Details",
     };
   }
 }
 
 export default async function PropertyDetails(props: PageParamsProps) {
   const resolvedParams = await props.params;
-  const { id } = resolvedParams;
+  const { slug } = resolvedParams;
 
-  const [initialProperty, featuredProperty, recentProperties] =
-    await Promise.all([
-      id ? getPropertyByIdCached(id) : Promise.resolve(null),
-      getFeaturedSidebarPropertyCached(),
-      getRecentSidebarPropertiesCached(3),
-    ]);
+  if (!slug) {
+    notFound();
+  }
+
+  const initialProperty = await getPropertyByParamCached(slug);
+
+  if (!initialProperty?.id) {
+    notFound();
+  }
+
+  const canonicalSlug = getPropertySlug(initialProperty);
+  const decodedSlug = decodeURIComponent(slug);
+
+  if (isPropertyUuid(decodedSlug) || decodedSlug !== canonicalSlug) {
+    permanentRedirect(
+      `/property-details/${canonicalSlug}`,
+    );
+  }
+
+  const [featuredProperty, recentProperties] = await Promise.all([
+    getFeaturedSidebarPropertyCached(),
+    getRecentSidebarPropertiesCached(3),
+  ]);
 
   return (
     <main>
       <PropertyDetailsOneArea
-        id={id}
+        propertyId={String(initialProperty.id)}
         initialProperty={initialProperty}
         featuredProperty={featuredProperty}
         recentProperties={recentProperties}

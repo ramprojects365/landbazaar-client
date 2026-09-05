@@ -6,8 +6,9 @@ import { formatTotalPriceDisplay } from "../Utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
+import { getPropertyDetailsPath } from "@/utils/propertySlug";
+import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 
 function getImageSrc(image: IFeatureListProps["item"]["image"]): string {
   if (typeof image === "string") return image;
@@ -38,10 +39,11 @@ function PropertySingleCardInner({ item }: IFeatureListProps) {
   const searchParams = useSearchParams();
 
   const fromUrl =
-    pathname === "/search" ? `/search?${searchParams.toString()}` : null;
-  const detailsHref = fromUrl
-    ? `/${item.linkUrl}/${item.id}?from=${createCleanFromUrl(fromUrl)}`
-    : `/${item.linkUrl}/${item.id}`;
+    pathname === "/search" ? buildSearchHrefFromParams(searchParams) : null;
+  const detailsHref = getPropertyDetailsPath(
+    { id: item.id, title: item.title },
+    { from: fromUrl },
+  );
   const imageSrc = getImageSrc(item.image);
   const listingFlag = resolveListingTypeFlag(item);
 

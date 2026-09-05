@@ -6,10 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { getListingTypeFlag } from "@/utils/mapApiProperty";
-import { createCleanFromUrl } from "@/utils/urlEncoding";
+import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
 import { fetchPropertiesList } from "@/services/propertiesList";
+import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 import type { FeaturedSidebarProperty } from "@/types/propertySidebar";
 
 interface IPropsWrapperCls {
@@ -36,8 +37,7 @@ function SidebarPropertyItemInner({
 
   const fromUrl = useMemo(() => {
     if (pathname !== "/search") return null;
-    const qs = searchParams.toString();
-    return qs ? `/search?${qs}` : "/search";
+    return buildSearchHrefFromParams(searchParams);
   }, [pathname, searchParams]);
 
   const [latestState, setLatestState] = useState<FeaturedSidebarProperty | null>(
@@ -86,9 +86,10 @@ function SidebarPropertyItemInner({
   const latest = featuredPropertyProp ?? latestState;
 
   const detailsHref = latest
-    ? fromUrl
-      ? `/property-details/${latest.id}?from=${createCleanFromUrl(fromUrl)}`
-      : `/property-details/${latest.id}`
+    ? getPropertyDetailsPath(
+        { id: latest.id, title: latest.title },
+        { from: fromUrl },
+      )
     : "#";
 
   return (

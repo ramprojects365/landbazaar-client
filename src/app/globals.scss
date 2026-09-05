@@ -3556,6 +3556,14 @@ html {
   }
 }
 
+/* Dashboard footer: full-width below content, no overlap with mobile menus */
+.tp-dashboard-footer-wrap {
+  width: 100%;
+  clear: both;
+  position: relative;
+  z-index: 1;
+}
+
 /* DASHBOARD MOBILE FIX */
 @media (max-width: 767px) {
   .tp-dashboard-wrapper {

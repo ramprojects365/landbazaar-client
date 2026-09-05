@@ -5,6 +5,7 @@ import Wrapper from "@/layouts/Wrapper";
 import CommonFooter from "@/layouts/Footers/CommonFooter";
 import { Metadata } from "next";
 import HomeAdvisorPopup from "@/components/Advisor/HomeAdvisorPopup";
+import { landTypeSearchHref } from "@/config/landOptions";
 
 const siteTitle = "DekhoLand | Buy & Sell Verified Lands and Plots";
 const siteDescription =
@@ -72,13 +73,13 @@ const homeStructuredData = {
           "@type": "SiteNavigationElement",
           position: 2,
           name: "Commercial",
-          url: `${siteUrl}/search?propertyType=${encodeURIComponent("Commercial Plot")}`,
+          url: `${siteUrl}${landTypeSearchHref("Commercial Plot")}`,
         },
         {
           "@type": "SiteNavigationElement",
           position: 3,
           name: "Farm",
-          url: `${siteUrl}/search?propertyType=${encodeURIComponent("Agricultural Land")}`,
+          url: `${siteUrl}${landTypeSearchHref("Agricultural Land")}`,
         },
         {
           "@type": "SiteNavigationElement",

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { HYDERABAD_SEO_LISTINGS } from "@/data/footerLinks";
+import { buildSearchHref } from "@/utils/searchUrl";
 
 const locationPages = {
   hyderabad: "Hyderabad",
@@ -94,7 +95,7 @@ export default async function LocationPropertiesPage({
                 )}
                 <Link
                   className="tp-btn"
-                  href={`/search?keyword=${encodeURIComponent(title)}`}
+                  href={buildSearchHref({ keyword: title })}
                 >
                   Browse {title}
                 </Link>

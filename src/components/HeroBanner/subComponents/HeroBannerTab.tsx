@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
 import { LAND_CITIES, PUBLIC_LAND_TYPE_OPTIONS } from "@/config/landOptions";
+import { buildSearchHref } from "@/utils/searchUrl";
 import { API_BASE_URL } from "@/config/constants";
 import "./hero-banner-tab.css";
 
@@ -77,18 +78,13 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
   const landTypeDropdownRef = useRef<HTMLDivElement>(null);
 
   const runSearch = (value: string) => {
-    const params = new URLSearchParams();
-    if (value.trim()) {
-      params.set("q", value.trim());
-    }
-    if (city?.trim() && city !== "All") {
-      params.set("city", city.trim());
-    }
-    if (landType?.trim() && landType !== "All") {
-      params.set("propertyType", landType.trim());
-    }
-    const queryString = params.toString();
-    router.push(queryString ? `/search?${queryString}` : "/search");
+    router.push(
+      buildSearchHref({
+        q: value,
+        city: city !== "All" ? city : undefined,
+        propertyType: landType !== "All" ? landType : undefined,
+      }),
+    );
   };
 
   const handleSearch = () => {
