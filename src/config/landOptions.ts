@@ -64,6 +64,15 @@ const LAND_TYPE_ALIASES: Record<string, string> = {
   "eco plot": "Farm Land",
 };
 
+function normalizeLandTypeLookup(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[_/]+/g, " ")
+    .replace(/-/g, " ")
+    .replace(/\s+/g, " ");
+}
+
 export function toApiPropertyType(
   value?: string | null,
 ): string | undefined {
@@ -71,14 +80,24 @@ export function toApiPropertyType(
   const trimmed = value.trim();
   if (!trimmed || trimmed.toLowerCase() === "all") return undefined;
   if (LAND_TYPES.includes(trimmed)) return trimmed;
-  return LAND_TYPE_ALIASES[trimmed.toLowerCase()];
+
+  const lower = trimmed.toLowerCase();
+  if (LAND_TYPE_ALIASES[lower]) return LAND_TYPE_ALIASES[lower];
+
+  const spaced = normalizeLandTypeLookup(trimmed);
+  if (LAND_TYPE_ALIASES[spaced]) return LAND_TYPE_ALIASES[spaced];
+
+  return LAND_TYPES.find((type) => type.toLowerCase() === spaced);
+}
+
+/** Public search URLs use hyphens so values stay readable (`Farm-Land`). */
+export function toUrlPropertyType(value?: string | null): string | undefined {
+  return toApiPropertyType(value)?.replace(/\s+/g, "-");
 }
 
 export function landTypeSearchHref(label: string) {
-  const propertyType = toApiPropertyType(label);
-  return propertyType
-    ? `/search?propertyType=${encodeURIComponent(propertyType)}`
-    : "/search";
+  const propertyType = toUrlPropertyType(label);
+  return propertyType ? `/search?propertyType=${propertyType}` : "/search";
 }
 
 export const LISTING_TYPES = ["sale", "lease"] as const;

@@ -9,6 +9,8 @@ import { getCoverImageUrl } from "@/utils/propertyImages";
 import React, { useEffect, useMemo, useState } from "react";
 import type { StaticImageData } from "next/image";
 import { fetchPropertiesList } from "@/services/propertiesList";
+import { getPropertyDetailsPath } from "@/utils/propertySlug";
+import { buildSearchHref } from "@/utils/searchUrl";
 
 type ApiProperty = {
   id: string;
@@ -116,7 +118,9 @@ function HomePropertiesByCity() {
                 getCoverImageUrl(property.images) ||
                 neighbourhoodsData[index % neighbourhoodsData.length].image,
               isDynamic: true,
-              href: property.id ? `/property-details/${property.id}` : undefined,
+              href: property.id
+                ? getPropertyDetailsPath(property)
+                : undefined,
               isPropertyCard: true,
             }));
 
@@ -167,9 +171,7 @@ function HomePropertiesByCity() {
           {items.map((property) => (
             <div key={property.id} className="col-lg-4 col-md-6 col-6">
               {(() => {
-                const params = new URLSearchParams();
-                params.set("q", property.name);
-                const href = property.href || `/search?${params.toString()}`;
+                const href = property.href || buildSearchHref({ q: property.name });
 
                 return (
                   <div className="tp-explore-item text-center mb-30">

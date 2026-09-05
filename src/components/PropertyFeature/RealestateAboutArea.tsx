@@ -7,6 +7,7 @@ import LivingSvg from "../SVG/PropertySvg/LivingSvg";
 import { RentMetaItemProps } from "@/types/property-d-t";
 import { formatTotalPriceDisplay } from "../Utils/formatPrice";
 import { getListingTypeLabel } from "@/utils/mapApiProperty";
+import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -145,9 +146,11 @@ export default function RealestateAboutArea() {
               },
             ];
 
+            const detailsHref = getPropertyDetailsPath(property);
+
             return (
               <article className="about-featured-card" key={property.id}>
-                <Link className="about-featured-card__image" href={`/property-details/${property.id}`}>
+                <Link className="about-featured-card__image" href={detailsHref}>
                   <Image
                     src={image || realStateImg}
                     alt={property.propertyName || property.title || "Featured Property"}
@@ -162,7 +165,7 @@ export default function RealestateAboutArea() {
 
                 <div className="about-featured-card__body">
                   <h4>
-                    <Link href={`/property-details/${property.id}`}>
+                    <Link href={detailsHref}>
                       {property.propertyName || property.title || "Featured Property"}
                     </Link>
                   </h4>
@@ -174,7 +177,7 @@ export default function RealestateAboutArea() {
                   </div>
                   <div className="about-featured-card__footer">
                     <strong>{formatTotalPriceDisplay(property.price || 0)}</strong>
-                    <Link href={`/property-details/${property.id}`}>View</Link>
+                    <Link href={detailsHref}>View</Link>
                   </div>
                 </div>
               </article>

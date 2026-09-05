@@ -36,7 +36,7 @@ export default function FooterContact() {
                     fill="currentColor"
                   ></path>
                 </svg>{" "}
-                +91 9849967236
+                +916303245269
               </span>
             </Link>
             <p>support@dekholand.com</p>

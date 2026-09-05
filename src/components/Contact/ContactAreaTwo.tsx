@@ -14,7 +14,7 @@ const contactLocations: ContactLocation[] = [
         </p>
       </>
     ),
-    phone: "+91 9849967236",
+    phone: "+916303245269",
     email: "support@dekholand.com",
   },
 ];

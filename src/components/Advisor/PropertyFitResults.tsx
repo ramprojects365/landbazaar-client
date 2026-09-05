@@ -21,6 +21,7 @@ import {
   AdvisorContact,
   getMatchReason,
 } from "./advisor-utils";
+import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import "./property-fit-results.scss";
 
 type StoredAdvisorResults = {
@@ -225,7 +226,7 @@ export default function PropertyFitResults() {
       await notifyPropertyFitView({
         propertyId: property.id,
         contact: storedResults.contact,
-        propertyUrl: `${window.location.origin}/property-details/${property.id}`,
+        propertyUrl: `${window.location.origin}${getPropertyDetailsPath(property)}`,
       });
     } catch (error) {
       console.error("Property view notification error:", error);

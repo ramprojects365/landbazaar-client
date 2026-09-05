@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { listingTypes } from "@/data/dropdownData";
+import { buildSearchHref, fromUrlTextValue } from "@/utils/searchUrl";
 
 export default function SearchRefineBar() {
   const router = useRouter();
@@ -9,11 +10,12 @@ export default function SearchRefineBar() {
 
   // Fall back to "address" param (sent by homepage search bar)
   const [keyword, setKeyword] = useState(
-    searchParams.get("keyword") ||
-      searchParams.get("q") ||
-      searchParams.get("address") ||
-      searchParams.get("keyWord") ||
-      "",
+    fromUrlTextValue(
+      searchParams.get("keyword") ||
+        searchParams.get("q") ||
+        searchParams.get("address") ||
+        searchParams.get("keyWord"),
+    ),
   );
   const rawInitialType = (searchParams.get("type") || "all").toLowerCase();
   const initialType =
@@ -23,23 +25,27 @@ export default function SearchRefineBar() {
         ? rawInitialType
         : "all";
   const [type, setType] = useState(initialType);
-  const [city, setCity] = useState(searchParams.get("city") || "");
+  const [city, setCity] = useState(fromUrlTextValue(searchParams.get("city")));
   const [propertyName, setPropertyName] = useState(
-    searchParams.get("propertyName") ||
-      searchParams.get("q") ||
-      searchParams.get("address") ||
-      "",
+    fromUrlTextValue(
+      searchParams.get("propertyName") ||
+        searchParams.get("q") ||
+        searchParams.get("address"),
+    ),
   );
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = new URLSearchParams();
-    if (keyword.trim()) params.set("q", keyword.trim());
-    // "all" means no listing-type filter
-    if (type && type !== "all") params.set("type", type);
-    if (city.trim()) params.set("city", city.trim());
-    if (propertyName.trim()) params.set("propertyName", propertyName.trim());
-    router.push(`/search?${params.toString()}`);
+    router.push(
+      buildSearchHref({
+        q: keyword,
+        type,
+        city,
+        propertyName,
+        propertyType:
+          searchParams.get("propertyType") || searchParams.get("landType"),
+      }),
+    );
   };
 
   const inputStyle: React.CSSProperties = {

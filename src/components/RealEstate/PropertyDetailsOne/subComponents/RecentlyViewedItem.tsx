@@ -7,6 +7,8 @@ import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { usePathname, useSearchParams } from "next/navigation";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { parseTotalPrice } from "@/utils/mapApiProperty";
+import { getPropertyDetailsPath } from "@/utils/propertySlug";
+import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 import { API_BASE_URL } from "@/config/constants";
 
 interface Property {
@@ -77,7 +79,7 @@ function RecentlyViewedPropertiesInner({
 
             return {
               image,
-              link: `/property-details/${property.id}`,
+              link: getPropertyDetailsPath(property),
               title,
               price: formatTotalPriceDisplay(priceNum),
             };
@@ -95,7 +97,7 @@ function RecentlyViewedPropertiesInner({
   }, [hasInitialData]);
 
   const fromUrl =
-    pathname === "/search" ? `/search?${searchParams.toString()}` : null;
+    pathname === "/search" ? buildSearchHrefFromParams(searchParams) : null;
   const withFrom = (href: string) =>
     fromUrl ? `${href}?from=${createCleanFromUrl(fromUrl)}` : href;
 

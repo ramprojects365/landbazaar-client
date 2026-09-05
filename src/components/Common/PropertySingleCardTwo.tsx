@@ -2,6 +2,7 @@ import MapMarkerSvg from "@/components/SVG/PropertySvg/MapMarkerIcon";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { formatTotalPriceDisplay } from "../Utils/formatPrice";
 import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
+import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -16,7 +17,7 @@ function getImageSrc(image: IFeaturedPropertyDT["image"]): string {
 }
 
 function PropertySingleCardTwo({ item }: propertyProps) {
-  const detailsHref = `/property-details/${item.id}`;
+  const detailsHref = getPropertyDetailsPath({ id: item.id, title: item.title });
   const imageSrc = getImageSrc(item.image);
   const listingFlag = resolveListingTypeFlag(item);
 

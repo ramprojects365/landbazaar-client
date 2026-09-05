@@ -17,6 +17,8 @@ import {
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { API_BASE_URL } from "@/config/constants";
 import { toDescriptionSnippet } from "@/utils/descriptionHtml";
+import { getPropertyDetailsPath } from "@/utils/propertySlug";
+import { fromUrlTextValue } from "@/utils/searchUrl";
 import type { FeaturedSidebarProperty } from "@/types/propertySidebar";
 import type { IRecentlyViewedItem } from "@/types/custom-interface";
 
@@ -51,14 +53,14 @@ const DetailsReusableArea = dynamic(
 type ApiProperty = ApiPropertyFields;
 
 type PropertyDetailsProps = {
-  id: string | number;
+  propertyId: string;
   initialProperty?: ApiProperty | null;
   featuredProperty?: FeaturedSidebarProperty | null;
   recentProperties?: IRecentlyViewedItem[];
 };
 
 function PropertyDetailsContent({
-  id,
+  propertyId,
   initialProperty = null,
   featuredProperty = null,
   recentProperties = [],
@@ -89,10 +91,10 @@ function PropertyDetailsContent({
       const u = new URL(listingHref, "http://159.223.92.101");
       const sp = u.searchParams;
       return (
-        sp.get("propertyName") ||
-        sp.get("q") ||
-        sp.get("address") ||
-        sp.get("city") ||
+        fromUrlTextValue(sp.get("propertyName")) ||
+        fromUrlTextValue(sp.get("q")) ||
+        fromUrlTextValue(sp.get("address")) ||
+        fromUrlTextValue(sp.get("city")) ||
         "Property Listing"
       );
     } catch {
@@ -101,10 +103,10 @@ function PropertyDetailsContent({
   })();
 
   useEffect(() => {
-    if (!id) return;
+    if (!propertyId) return;
 
     const initialMatches =
-      initialProperty && String(initialProperty.id) === String(id);
+      initialProperty && String(initialProperty.id) === String(propertyId);
     if (initialMatches) {
       setApiProperty(initialProperty);
       setDisplay(mapApiPropertyToCard(initialProperty, ""));
@@ -117,7 +119,7 @@ function PropertyDetailsContent({
       setLoading(true);
       setError("");
       try {
-        const res = await fetch(`${API_BASE_URL}/properties/${id}`);
+        const res = await fetch(`${API_BASE_URL}/properties/${propertyId}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
         const item: ApiProperty = json?.data ?? json;
@@ -130,15 +132,15 @@ function PropertyDetailsContent({
       }
     };
     load();
-  }, [id, initialProperty]);
+  }, [propertyId, initialProperty]);
 
   useEffect(() => {
-    if (!id || viewRecordedRef.current) return;
+    if (!propertyId || viewRecordedRef.current) return;
     viewRecordedRef.current = true;
 
     const record = () => {
       recordPropertyView({
-        propertyId: id,
+        propertyId,
         propertyUrl: window.location.href,
       }).catch(() => {
         viewRecordedRef.current = false;
@@ -152,7 +154,7 @@ function PropertyDetailsContent({
 
     const timeoutId = window.setTimeout(record, 1500);
     return () => window.clearTimeout(timeoutId);
-  }, [id]);
+  }, [propertyId]);
 
   if (loading) {
     return (
@@ -272,7 +274,7 @@ function PropertyDetailsContent({
               <div className="tp-property-details-right-side text-lg-end mb-40">
                 <SocialShare
                   variant="property"
-                  path={`/property-details/${id}`}
+                  path={getPropertyDetailsPath(apiProperty)}
                   title={display.title?.trim() || "Property"}
                   text={toDescriptionSnippet(apiProperty.description ?? "", 180)}
                 />

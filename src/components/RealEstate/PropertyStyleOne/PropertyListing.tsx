@@ -12,6 +12,7 @@ import {
 } from "@/utils/mapApiProperty";
 import { API_BASE_URL } from "@/config/constants";
 import { toApiPropertyType } from "@/config/landOptions";
+import { fromUrlTextValue } from "@/utils/searchUrl";
 import { slimPropertyForList } from "@/services/propertiesList";
 import { formatFilterPriceLabel } from "@/components/Utils/formatPrice";
 import { parseIndianPriceValue } from "@/utils/priceParsing";
@@ -55,7 +56,7 @@ export default function PropertyListing({
   const searchParams = useSearchParams();
 
   // ── Search bar params (SearchRefineBar) ─────────────────────────
-  const q = searchParams.get("q") || "";
+  const q = fromUrlTextValue(searchParams.get("q"));
   const rawType = (searchParams.get("type") || "").trim().toLowerCase();
   // Supported listing types: sale | lease. Legacy "rent" maps to lease.
   const type =
@@ -64,18 +65,18 @@ export default function PropertyListing({
       : rawType === "rent"
         ? "lease"
         : rawType;
-  const city = presetCity || searchParams.get("city") || "";
+  const city = presetCity || fromUrlTextValue(searchParams.get("city"));
   const queryPropertyType =
     toApiPropertyType(
       presetPropertyType ||
         searchParams.get("propertyType") ||
         searchParams.get("landType"),
     ) || "";
-  const propertyName = searchParams.get("propertyName") || "";
+  const propertyName = fromUrlTextValue(searchParams.get("propertyName"));
   // Homepage sends "address" — treat it as keyword fallback
-  const address = searchParams.get("address") || "";
+  const address = fromUrlTextValue(searchParams.get("address"));
   // Direct keyword parameter from neighborhood clicks
-  const keywordParam = searchParams.get("keyword") || "";
+  const keywordParam = fromUrlTextValue(searchParams.get("keyword"));
   const keyword = presetKeyword || keywordParam || q || address;
 
   // ── Sidebar filter params (PropertyFilterWidget) ─────────────────

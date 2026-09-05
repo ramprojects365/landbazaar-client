@@ -1,4 +1,3 @@
-import BreadcrumbArea from "@/components/Breadcrumb/BreadcrumbArea";
 import ContactAreaTwo from "@/components/Contact/ContactAreaTwo";
 import ContactFormTwo from "@/components/Form/ContactFormTwo";
 import MapArea from "@/components/Contact/MapArea";
@@ -34,10 +33,6 @@ export const metadata: Metadata = {
 export default function Contact() {
   return (
     <main className="contact-page">
-      {/* breadcrumb area start */}
-      <BreadcrumbArea title="Contact Us" showBackground={false} />
-      {/* breadcrumb area end */}
-
       {/* contact area start */}
       <ContactAreaTwo />
       {/* contact area end */}

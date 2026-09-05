@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import NiceSelect from "@/components/UI/NiceSelect";
 import { LAND_CITIES, LAND_TYPES, toApiPropertyType } from "@/config/landOptions";
+import { buildSearchHref, fromUrlTextValue } from "@/utils/searchUrl";
 
 export default function PropertyFilterWidget() {
   const router = useRouter();
@@ -12,7 +13,9 @@ export default function PropertyFilterWidget() {
       searchParams.get("propertyType") || searchParams.get("landType"),
     ) || "All",
   );
-  const [city, setCity] = useState(searchParams.get("city") || "Hyderabad");
+  const [city, setCity] = useState(
+    fromUrlTextValue(searchParams.get("city")) || "Hyderabad",
+  );
   const [minPrice, setMinPrice] = useState("Any");
   const [maxPrice, setMaxPrice] = useState("Any");
 
@@ -38,32 +41,26 @@ export default function PropertyFilterWidget() {
 
   const handleUpdateList = () => {
     // Preserve keyword and listing-type from the current URL
-    const existingQ =
-      searchParams.get("q") || searchParams.get("address") || "";
+    const existingQ = fromUrlTextValue(
+      searchParams.get("q") || searchParams.get("address"),
+    );
     const existingType = searchParams.get("type") || "";
-    const existingCity = searchParams.get("city") || "";
-    const existingPropertyName = searchParams.get("propertyName") || "";
+    const existingCity = fromUrlTextValue(searchParams.get("city"));
+    const existingPropertyName = fromUrlTextValue(
+      searchParams.get("propertyName"),
+    );
 
-    const filterParams = new URLSearchParams();
-
-    // Carry over search-bar params unchanged
-    if (existingQ) filterParams.set("q", existingQ);
-    if (existingType) filterParams.set("type", existingType);
-    if (city.trim()) {
-      filterParams.set("city", city.trim());
-    } else if (existingCity) {
-      filterParams.set("city", existingCity);
-    }
-    if (existingPropertyName)
-      filterParams.set("propertyName", existingPropertyName);
-
-    // Sidebar filter params
-    if (propertyType && propertyType !== "All")
-      filterParams.set("propertyType", propertyType);
-    if (minPrice !== "Any") filterParams.set("minPrice", minPrice);
-    if (maxPrice !== "Any") filterParams.set("maxPrice", maxPrice);
-
-    router.push(`/search?${filterParams.toString()}`);
+    router.push(
+      buildSearchHref({
+        q: existingQ,
+        type: existingType,
+        city: city.trim() || existingCity,
+        propertyName: existingPropertyName,
+        propertyType: propertyType !== "All" ? propertyType : undefined,
+        minPrice,
+        maxPrice,
+      }),
+    );
   };
   return (
     <div className="tp-property-widget mb-40">

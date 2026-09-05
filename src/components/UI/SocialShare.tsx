@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { toast } from "sonner";
 import {
   getFacebookShareUrl,
+  getInstagramProfileUrl,
   getLinkedInShareUrl,
   getTwitterShareUrl,
   getWhatsAppShareUrl,
@@ -32,7 +32,6 @@ const openExternal = (url: string) => {
 export default function SocialShare({
   path,
   title = "",
-  text = "",
   variant = "blog",
   networks,
 }: SocialShareProps) {
@@ -42,36 +41,10 @@ export default function SocialShare({
       ? (["facebook", "instagram", "whatsapp"] as ShareNetwork[])
       : (["facebook", "twitter", "linkedin", "whatsapp"] as ShareNetwork[]));
   const pageUrl = toCanonicalPageUrl(path);
-  const shareBody = [title, text].filter(Boolean).join("\n\n");
-  const shareText = [shareBody, pageUrl].filter(Boolean).join("\n\n");
-
-  const shareOnInstagram = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: title || "DekhoLand",
-          text: shareBody || undefined,
-          url: pageUrl,
-        });
-        return;
-      } catch (error) {
-        if (error instanceof Error && error.name === "AbortError") return;
-      }
-    }
-
-    try {
-      await navigator.clipboard.writeText(shareText);
-      toast.success("Share text copied.");
-      openExternal("https://www.instagram.com/");
-      toast.message("Paste the copied title, description, and link into Instagram.");
-    } catch {
-      toast.error("Could not copy share text.");
-    }
-  };
 
   const handleClick = (network: ShareNetwork) => {
     if (network === "instagram") {
-      void shareOnInstagram();
+      openExternal(getInstagramProfileUrl());
       return;
     }
 
@@ -99,7 +72,10 @@ export default function SocialShare({
           </button>
         )}
         {activeNetworks.includes("instagram") && (
-          <button title="Share on Instagram" onClick={() => handleClick("instagram")}>
+          <button
+            title="Visit DekhoLand on Instagram"
+            onClick={() => handleClick("instagram")}
+          >
             <span>
               <i
                 className="fa-brands fa-instagram"
@@ -177,10 +153,15 @@ export default function SocialShare({
         </Link>
       )}
       {activeNetworks.includes("instagram") && (
-        <button type="button" className="share-instagram" onClick={() => handleClick("instagram")}>
+        <Link
+          className="share-instagram"
+          href={getInstagramProfileUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <i className="fab fa-instagram"></i>
           Instagram
-        </button>
+        </Link>
       )}
     </div>
   );

@@ -26,3 +26,12 @@ export const getLinkedInShareUrl = (pageUrl: string): string => {
   linkedInUrl.searchParams.set("url", pageUrl);
   return linkedInUrl.toString();
 };
+
+export const getInstagramProfileUrl = (): string =>
+  "https://www.instagram.com/dekho_land/";
+
+export const toAbsoluteSiteUrl = (url: string): string => {
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  const path = url.startsWith("/") ? url : `/${url}`;
+  return `${SITE_URL}${path}`;
+};
