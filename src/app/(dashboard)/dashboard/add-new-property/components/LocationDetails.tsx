@@ -7,6 +7,7 @@ import PlaceSearch, {
   PlaceResult,
 } from "../../../../../components/HeroBanner/subComponents/PlaceSearch";
 import { LAND_CITIES, LAND_STATES } from "@/config/landOptions";
+import { MapPin } from "lucide-react";
 
 export default function LocationDetails() {
   const {
@@ -45,7 +46,10 @@ export default function LocationDetails() {
           </div>
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Full Address</label>
+              <label className="d-flex align-items-center gap-1">
+                <MapPin size={16} aria-hidden="true" />
+                Full Address
+              </label>
               <PlaceSearch
                 onSelect={handleSelect}
                 placeholder="Type and pick exact location"
