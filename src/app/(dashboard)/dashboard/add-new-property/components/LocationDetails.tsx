@@ -47,7 +47,6 @@ export default function LocationDetails() {
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
               <label className="d-flex align-items-center gap-1">
-                <MapPin size={16} aria-hidden="true" />
                 Full Address
               </label>
               <PlaceSearch
