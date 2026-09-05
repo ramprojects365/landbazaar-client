@@ -9,8 +9,7 @@ import {
 } from "@/services/propertyService";
 import "./favorite-button.css";
 
-/** Brand orange from the Dekho Land logo pin. */
-const FAVORITE_ORANGE = "#FF7A00";
+const FAVORITE_COLOR = "#ef4444";
 
 type FavoriteButtonProps = {
   propertyId?: string | number;
@@ -76,8 +75,8 @@ export default function FavoriteButton({ propertyId }: FavoriteButtonProps) {
       <Heart
         size={20}
         strokeWidth={2}
-        color={isFavorite ? FAVORITE_ORANGE : "#FFFFFF"}
-        fill={isFavorite ? FAVORITE_ORANGE : "transparent"}
+        color={isFavorite ? FAVORITE_COLOR : "#FFFFFF"}
+        fill={isFavorite ? FAVORITE_COLOR : "transparent"}
         aria-hidden="true"
       />
     </button>

@@ -20,7 +20,7 @@
 
 .property-favorite-btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.45);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.45);
 }
 
 .tp-rent-user-wrap--with-favorite .tp-rent-user {
