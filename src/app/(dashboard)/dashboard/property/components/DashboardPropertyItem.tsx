@@ -169,10 +169,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
                 initialFavorite
                 tone="light"
                 onFavoriteChange={(saved) => {
-                  if (!saved) {
-                    toast.success("Property removed from favourite properties");
-                    onDelete?.(property.id);
-                  }
+                  if (!saved) onDelete?.(property.id);
                 }}
               />
             ) : (

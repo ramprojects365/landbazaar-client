@@ -5,7 +5,6 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import RecentlyViewedProperties from "@/components/RealEstate/PropertyDetailsOne/subComponents/RecentlyViewedItem";
 import { useEffect, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
-import { deleteProperty } from "@/services/propertyService";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { API_BASE_URL } from "@/config/constants";
 import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
@@ -60,14 +59,7 @@ export default function DashboardProperty() {
   const [error, setError] = useState<string | null>(null);
 
   const handleDelete = async (id: string | number) => {
-    try {
-      await deleteProperty(id);
-
-      setProperties((prev) => prev.filter((p) => p.id !== id));
-    } catch (err: any) {
-      console.error(err);
-      setError(err?.response?.data?.message || "Delete failed");
-    }
+    setProperties((prev) => prev.filter((p) => p.id !== id));
   };
 
   useEffect(() => {

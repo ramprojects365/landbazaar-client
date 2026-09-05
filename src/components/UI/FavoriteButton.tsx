@@ -7,6 +7,7 @@ import {
   removeSavedProperty,
   saveProperty,
 } from "@/services/propertyService";
+import { toast } from "sonner";
 import "./favorite-button.css";
 
 const FAVORITE_COLOR = "#ef4444";
@@ -46,7 +47,9 @@ export default function FavoriteButton({
 
     const token = localStorage.getItem("authToken");
     if (!token) {
-      window.location.href = `/sign-in?redirect=${encodeURIComponent(window.location.pathname)}`;
+      window.location.href = `/sign-in?redirect=${encodeURIComponent(
+        window.location.pathname + window.location.search,
+      )}`;
       return;
     }
 
@@ -55,12 +58,21 @@ export default function FavoriteButton({
       if (isFavorite) {
         await removeSavedProperty(propertyId);
         setIsFavorite(false);
+        toast.success("Removed from favourite properties");
         onFavoriteChange?.(false);
       } else {
         await saveProperty(propertyId, window.location.href);
         setIsFavorite(true);
+        toast.success("Added to favourite properties");
         onFavoriteChange?.(true);
       }
+    } catch (error: unknown) {
+      const message =
+        error && typeof error === "object" && "response" in error
+          ? (error as { response?: { data?: { message?: string } } }).response
+              ?.data?.message
+          : undefined;
+      toast.error(message || "Could not update favourite. Please try again.");
     } finally {
       setLoading(false);
     }
