@@ -1,0 +1,30 @@
+.property-favorite-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  line-height: 0;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55));
+  transition: transform 0.15s ease;
+}
+
+.property-favorite-btn:hover,
+.property-favorite-btn:focus-visible {
+  transform: scale(1.08);
+  outline: none;
+}
+
+.property-favorite-btn:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.45);
+}
+
+.tp-rent-user-wrap .property-favorite-btn {
+  margin-left: 8px;
+}

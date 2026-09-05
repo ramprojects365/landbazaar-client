@@ -12,6 +12,7 @@ import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
 import { fetchPropertiesList } from "@/services/propertiesList";
 import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 import type { FeaturedSidebarProperty } from "@/types/propertySidebar";
+import FavoriteButton from "@/components/UI/FavoriteButton";
 
 interface IPropsWrapperCls {
   wrapperCls?: string;
@@ -136,6 +137,9 @@ function SidebarPropertyItemInner({
                       <span>{formatTotalPriceDisplay(latest.price)}</span>
                     </div>
                   </div>
+                  {pathname.startsWith("/property-details") ? (
+                    <FavoriteButton propertyId={latest.id} />
+                  ) : null}
                 </div>
               </div>
 

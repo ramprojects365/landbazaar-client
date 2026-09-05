@@ -6,9 +6,11 @@ import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import FavoriteButton from "@/components/UI/FavoriteButton";
 
 interface propertyProps {
   item: IFeaturedPropertyDT;
+  showFavorite?: boolean;
 }
 
 function getImageSrc(image: IFeaturedPropertyDT["image"]): string {
@@ -16,7 +18,10 @@ function getImageSrc(image: IFeaturedPropertyDT["image"]): string {
   return image?.src || "/assets/img/rent/rent-thumb-1.jpg";
 }
 
-function PropertySingleCardTwo({ item }: propertyProps) {
+function PropertySingleCardTwo({
+  item,
+  showFavorite = false,
+}: propertyProps) {
   const detailsHref = getPropertyDetailsPath({ id: item.id, title: item.title });
   const imageSrc = getImageSrc(item.image);
   const listingFlag = resolveListingTypeFlag(item);
@@ -76,6 +81,7 @@ function PropertySingleCardTwo({ item }: propertyProps) {
                 </h5>
               </div>
             </div>
+            {showFavorite ? <FavoriteButton propertyId={item.id} /> : null}
           </div>
         </div>
         <div className="tp-rent-content">
