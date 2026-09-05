@@ -1,4 +1,6 @@
 .property-favorite-btn {
+  position: relative;
+  z-index: 3;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -11,20 +13,32 @@
   cursor: pointer;
   flex-shrink: 0;
   line-height: 0;
+  pointer-events: auto;
+  touch-action: manipulation;
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55));
-  transition: transform 0.15s ease;
 }
 
-.property-favorite-btn:hover,
 .property-favorite-btn:focus-visible {
-  transform: scale(1.08);
   outline: none;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.45);
 }
 
-.property-favorite-btn:focus-visible {
-  box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.45);
+.property-favorite-btn--light {
+  filter: none;
 }
 
-.tp-rent-user-wrap .property-favorite-btn {
+.tp-rent-user-wrap--with-favorite .tp-rent-user {
+  min-width: 0;
+}
+
+.tp-rent-user-wrap--with-favorite .tp-rent-user-content,
+.tp-rent-user-wrap--with-favorite .tp-rent-user-content-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tp-rent-user-wrap--with-favorite .property-favorite-btn {
   margin-left: 8px;
 }

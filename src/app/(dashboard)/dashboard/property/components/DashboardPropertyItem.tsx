@@ -1,5 +1,6 @@
 "use client";
-import { DeleteIconSvg, LivingSvg, PropertyEditSvg } from "@/components/SVG";
+import { DeleteIconSvg, LandSizeSvg, PropertyEditSvg } from "@/components/SVG";
+import { IndianRupee, LandPlot } from "lucide-react";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
@@ -9,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
+import FavoriteButton from "@/components/UI/FavoriteButton";
 
 interface IProps {
   property: IFeaturedPropertyDT;
@@ -53,7 +55,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
       className="row tp-rent-item p-relative mb-30"
     >
       <div
-        className="col-xl-6 tp-rent-thumb p-relative"
+        className="col-md-5 tp-rent-thumb p-relative"
         style={{ padding: "0px" }}
       >
         <Link href={detailsHref}>
@@ -81,7 +83,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
           </div>
         )}
       </div>
-      <div className="col-xl-6 tp-rent-content">
+      <div className="col-md-7 tp-rent-content">
         <h4
           className="tp-rent-title"
           style={{
@@ -119,34 +121,22 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <span>
-                <LivingSvg />
+                <LandSizeSvg size={18} />
               </span>
               <p>{property.bedrooms || "—"}</p>
             </div>
           </div>
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
+              <span>
+                <LandPlot size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
+              </span>
               <p>{property.bathrooms || "Land"}</p>
-            </div>
-          </div>
-          <div className="tp-rent-meta-item">
-            <div className="tp-rent-meta-content d-flex">
-              <p>Views: {property.viewCount ?? 0}</p>
-            </div>
-          </div>
-          <div className="tp-rent-meta-item">
-            <div className="tp-rent-meta-content d-flex">
-              <p>Favourites: {property.favouriteCount ?? 0}</p>
-            </div>
-          </div>
-          <div className="tp-rent-meta-item">
-            <div className="tp-rent-meta-content d-flex">
-              <p>Leads: {property.leadCount ?? 0}</p>
             </div>
           </div>
         </div>
         {!removeInsteadOfDelete && (property.leads?.length || property.leadCount) ? (
-          <div style={{ marginTop: 12 }}>
+          <div style={{ marginTop: 12, marginBottom: 16 }}>
             <button
               type="button"
               className="btn btn-link p-0"
@@ -156,7 +146,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
               {showLeads ? "Hide leads" : `View leads (${property.leadCount ?? property.leads?.length ?? 0})`}
             </button>
             {showLeads && (
-              <div style={{ marginTop: 8, borderTop: "1px solid #DBE1EF", paddingTop: 8 }}>
+              <div style={{ marginTop: 8 }}>
                 {property.leads?.map((lead) => (
                   <div key={`${lead.email || lead.phone || lead.name}-${lead.lastInteractionAt}`} style={{ marginBottom: 8 }}>
                     <strong>{lead.name}</strong>
@@ -177,35 +167,65 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
             </Link>
           </div>
           <div className="tp-rent-action-btn d-flex">
-            <div className="tp-action-btn mr-10">
-              <Link
-                href={`/dashboard/add-new-property?edit=${property.id}`}
-                title="Edit Property"
-              >
-                <PropertyEditSvg />
-              </Link>
-            </div>
-            {onDelete && (
-              <div className="tp-action-btn">
-                <button
-                  className="click"
-                  onClick={() => handleDelete(property.id)}
-                  title="Delete Property"
-                  disabled={loading}
-                  style={{
-                    opacity: loading ? 0.6 : 1,
-                    cursor: loading ? "not-allowed" : "pointer",
-                  }}
-                >
-                  <DeleteIconSvg />
-                </button>
-              </div>
+            {removeInsteadOfDelete ? (
+              <FavoriteButton
+                propertyId={property.id}
+                initialFavorite
+                tone="light"
+                onFavoriteChange={(saved) => {
+                  if (!saved) onDelete?.(property.id);
+                }}
+              />
+            ) : (
+              <>
+                <div className="tp-action-btn mr-10">
+                  <Link
+                    href={`/dashboard/add-new-property?edit=${property.id}`}
+                    title="Edit Property"
+                  >
+                    <PropertyEditSvg />
+                  </Link>
+                </div>
+                {onDelete && (
+                  <div className="tp-action-btn">
+                    <button
+                      className="click"
+                      onClick={() => handleDelete(property.id)}
+                      title="Delete Property"
+                      disabled={loading}
+                      style={{
+                        opacity: loading ? 0.6 : 1,
+                        cursor: loading ? "not-allowed" : "pointer",
+                      }}
+                    >
+                      <DeleteIconSvg />
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
-          <div className="tp-rent-price">
+          <div className="tp-rent-price d-flex align-items-center" style={{ gap: 6 }}>
+            <IndianRupee size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
             <span>{formatTotalPriceDisplay(Number(property.price) || 0)}</span>
           </div>
         </div>
+        {!removeInsteadOfDelete && (
+          <div
+            className="d-flex justify-content-between align-items-center"
+            style={{ marginTop: 14 }}
+          >
+            <span style={{ color: "#667085", fontSize: 13 }}>
+              Views: {property.viewCount ?? 0}
+            </span>
+            <span style={{ color: "#667085", fontSize: 13 }}>
+              Favourites: {property.favouriteCount ?? 0}
+            </span>
+            <span style={{ color: "#667085", fontSize: 13 }}>
+              Leads: {property.leadCount ?? 0}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

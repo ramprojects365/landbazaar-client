@@ -1,6 +1,7 @@
 "use client";
 import { Suspense } from "react";
-import { LivingSvg } from "../SVG";
+import { LandSizeSvg } from "../SVG";
+import { IndianRupee, LandPlot } from "lucide-react";
 import { IFeatureListProps } from "@/types/custom-interface";
 import { formatTotalPriceDisplay } from "../Utils/formatPrice";
 import Image from "next/image";
@@ -72,7 +73,11 @@ function PropertySingleCardInner({
             loading="lazy"
           />
         </Link>
-        <div className="tp-rent-user-wrap d-flex align-items-center justify-content-between">
+        <div
+          className={`tp-rent-user-wrap d-flex align-items-center justify-content-between${
+            showFavorite ? " tp-rent-user-wrap--with-favorite" : ""
+          }`}
+        >
           <div className="tp-rent-user d-flex align-items-center">
             <div className="tp-rent-user-thumb">
               <Image
@@ -135,13 +140,16 @@ function PropertySingleCardInner({
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <span>
-                <LivingSvg />
+                <LandSizeSvg size={18} />
               </span>
               <p>{item.bedrooms}</p>
             </div>
           </div>
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
+              <span>
+                <LandPlot size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
+              </span>
               <p>{item.bathrooms || "Land"}</p>
             </div>
           </div>
@@ -152,7 +160,8 @@ function PropertySingleCardInner({
               View Details
             </Link>
           </div>
-          <div className="tp-rent-price">
+          <div className="tp-rent-price d-flex align-items-center" style={{ gap: 6 }}>
+            <IndianRupee size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
             <span>{formatTotalPriceDisplay(item.price)}</span>
           </div>
         </div>

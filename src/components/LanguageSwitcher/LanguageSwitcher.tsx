@@ -7,7 +7,7 @@ const LanguageSwitcher = () => {
 
   return (
     <button
-      onClick={() => setLanguage(language === "en" ? "tg" : "en")}
+      onClick={() => setLanguage(language === "en" ? "te" : "en")}
       className="language-switcher-btn"
       onMouseEnter={(e) => {
         e.currentTarget.style.background = "#003B5C";
@@ -18,7 +18,7 @@ const LanguageSwitcher = () => {
         e.currentTarget.style.color = "#003B5C";
       }}
     >
-      {language === "en" ? "EN" : "TG"}
+      {language === "en" ? "TE" : "EN"}
     </button>
   );
 };

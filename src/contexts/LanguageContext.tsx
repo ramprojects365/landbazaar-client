@@ -2,9 +2,9 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import enTranslations from "../locales/en.json";
-import tgTranslations from "../locales/tg.json";
+import teTranslations from "../locales/te.json";
 
-type Language = "en" | "tg";
+type Language = "en" | "te";
 
 interface LanguageContextType {
   language: Language;
@@ -16,7 +16,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const translations = {
   en: enTranslations,
-  tg: tgTranslations,
+  te: teTranslations,
 };
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
@@ -24,9 +24,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   // Load language from localStorage on mount
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language;
-    if (savedLanguage && (savedLanguage === "en" || savedLanguage === "tg")) {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage === "en" || savedLanguage === "te") {
       setLanguageState(savedLanguage);
+    } else if (savedLanguage === "tg") {
+      setLanguageState("te");
+      localStorage.setItem("language", "te");
     }
   }, []);
 

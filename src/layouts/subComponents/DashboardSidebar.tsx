@@ -35,7 +35,7 @@ const Sidebar = () => {
     items: [
       {
         href: "/dashboard/add-new-property",
-        label: "Add new property",
+        label: "Add property",
         icon: <AddPropertySvg />,
       },
       {
@@ -45,7 +45,7 @@ const Sidebar = () => {
       },
       {
         href: "/dashboard/favourites",
-        label: "Favourite properties",
+        label: "My Favourites",
         icon: <MyPropertiesSvg />,
       },
     ],

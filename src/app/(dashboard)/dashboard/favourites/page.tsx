@@ -1,7 +1,8 @@
 "use client";
 
 import DashboardLayout from "@/layouts/DashboardLayout";
-import { getSavedProperties, removeSavedProperty } from "@/services/propertyService";
+import RecentlyViewedProperties from "@/components/RealEstate/PropertyDetailsOne/subComponents/RecentlyViewedItem";
+import { getSavedProperties } from "@/services/propertyService";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
 import { useEffect, useState } from "react";
@@ -25,12 +26,19 @@ type SavedProperty = {
 };
 
 const mapSavedProperty = (property: SavedProperty): IFeaturedPropertyDT => {
-  const listingType = property.listingType?.toLowerCase() === "rent" ? "lease" : property.listingType;
+  const listingType =
+    property.listingType?.toLowerCase() === "rent"
+      ? "lease"
+      : property.listingType;
   return {
     id: property.id,
     title: property.propertyName || property.title || "Property",
-    address: property.location || [property.cityName, property.state].filter(Boolean).join(", "),
-    image: getCoverImageUrl(property.images) || "/assets/img/rent/property/property-1.jpg",
+    address:
+      property.location ||
+      [property.cityName, property.state].filter(Boolean).join(", "),
+    image:
+      getCoverImageUrl(property.images) ||
+      "/assets/img/rent/property/property-1.jpg",
     price: parseTotalPrice(property.totalPrice, property.price || 0),
     quantity: 1,
     bedrooms: formatLandSize(property.landSize, property.areaUnit),
@@ -52,26 +60,69 @@ export default function SavedPropertiesPage() {
 
   useEffect(() => {
     getSavedProperties()
-      .then((response) => setProperties((response?.data || []).map(mapSavedProperty)))
+      .then((response) =>
+        setProperties((response?.data || []).map(mapSavedProperty)),
+      )
       .catch(() => setError("Failed to load favourite properties."))
       .finally(() => setLoading(false));
   }, []);
 
   const removeSaved = async (id: string | number) => {
-    await removeSavedProperty(id);
-    setProperties((current) => current.filter((property) => property.id !== id));
+    setProperties((current) =>
+      current.filter((property) => property.id !== id),
+    );
   };
 
   return (
     <DashboardLayout>
       <div className="tp-dashboard-property-wrapper">
         <h4 className="tp-dashboard-new-title mb-30">Favourite properties</h4>
-        {loading && <p>Loading favourite properties...</p>}
-        {error && <p className="text-danger">{error}</p>}
-        {!loading && !error && properties.length === 0 && <p className="text-muted">No favourite properties yet.</p>}
-        {!loading && !error && properties.map((property) => (
-          <DashboardPropertyItem key={property.id} property={property} onDelete={removeSaved} removeInsteadOfDelete />
-        ))}
+        <div className="row">
+          <div className="col-12 col-lg-8">
+            <div className="row">
+              {loading && (
+                <div className="col-12 text-center py-5">
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  <p className="mt-2">Loading favourite properties...</p>
+                </div>
+              )}
+
+              {error && (
+                <div className="col-12">
+                  <div className="alert alert-danger" role="alert">
+                    {error}
+                  </div>
+                </div>
+              )}
+
+              {!loading && !error && properties.length === 0 && (
+                <div className="col-12 text-center py-5">
+                  <p className="text-muted">No favourite properties yet.</p>
+                </div>
+              )}
+
+              {!loading &&
+                !error &&
+                properties.map((property) => (
+                  <div className="col-12" key={property.id}>
+                    <DashboardPropertyItem
+                      property={property}
+                      onDelete={removeSaved}
+                      removeInsteadOfDelete
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          <div className="col-12 col-lg-4">
+            <div className="tp-property-details-right">
+              <RecentlyViewedProperties />
+            </div>
+          </div>
+        </div>
       </div>
     </DashboardLayout>
   );

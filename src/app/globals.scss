@@ -829,6 +829,13 @@
   font-size: 30px;
 }
 
+.tp-property-details-info-item {
+  font-size: 15px;
+  line-height: 1.4;
+  color: #003b5c;
+  white-space: nowrap;
+}
+
 /* Hide elements on mobile (tablets and phones) */
 .hide-mobile {
   display: block;
@@ -3459,6 +3466,11 @@ html {
 
   .tp-property-details-heading > span {
     font-size: 13px !important;
+  }
+
+  .tp-property-details-info {
+    flex-wrap: wrap !important;
+    gap: 12px 20px !important;
   }
 
   .tp-property-details-info,
