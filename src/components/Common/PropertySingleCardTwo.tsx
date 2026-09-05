@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import FavoriteButton from "@/components/UI/FavoriteButton";
+import { LandSizeSvg } from "@/components/SVG";
+import { IndianRupee, LandPlot } from "lucide-react";
 
 interface propertyProps {
   item: IFeaturedPropertyDT;
@@ -118,11 +120,17 @@ function PropertySingleCardTwo({
           <div className="tp-rent-meta-list d-flex justify-content-between align-items-center">
             <div className="tp-rent-meta-item">
               <div className="tp-rent-meta-content d-flex">
+                <span>
+                  <LandSizeSvg size={18} />
+                </span>
                 <p>{item.bedrooms}</p>
               </div>
             </div>
             <div className="tp-rent-meta-item">
               <div className="tp-rent-meta-content d-flex">
+                <span>
+                  <LandPlot size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
+                </span>
                 <p>{item.bathrooms || "Land"}</p>
               </div>
             </div>
@@ -133,7 +141,8 @@ function PropertySingleCardTwo({
                 View Details
               </Link>
             </div>
-            <div className="tp-rent-price">
+            <div className="tp-rent-price d-flex align-items-center" style={{ gap: 6 }}>
+              <IndianRupee size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
               <span>{formatTotalPriceDisplay(item.price)}</span>
             </div>
           </div>

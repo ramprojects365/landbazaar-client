@@ -1,5 +1,6 @@
 "use client";
-import { DeleteIconSvg, LivingSvg, PropertyEditSvg } from "@/components/SVG";
+import { DeleteIconSvg, LandSizeSvg, PropertyEditSvg } from "@/components/SVG";
+import { IndianRupee, LandPlot } from "lucide-react";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
@@ -120,13 +121,16 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <span>
-                <LivingSvg />
+                <LandSizeSvg size={18} />
               </span>
               <p>{property.bedrooms || "—"}</p>
             </div>
           </div>
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
+              <span>
+                <LandPlot size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
+              </span>
               <p>{property.bathrooms || "Land"}</p>
             </div>
           </div>
@@ -201,7 +205,8 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
               </>
             )}
           </div>
-          <div className="tp-rent-price">
+          <div className="tp-rent-price d-flex align-items-center" style={{ gap: 6 }}>
+            <IndianRupee size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
             <span>{formatTotalPriceDisplay(Number(property.price) || 0)}</span>
           </div>
         </div>
