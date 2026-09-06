@@ -72,11 +72,15 @@
     }
 
     &-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
       &-title {
         font-size: 14px;
         font-weight: 600;
-        margin: -2px;
-        line-height: 1;
+        margin: 0;
+        line-height: 1.25;
         letter-spacing: -0.32px;
         color: #fff;
       }
