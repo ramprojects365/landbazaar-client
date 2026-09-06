@@ -516,6 +516,25 @@
   border-radius: 6px;
 }
 
+.tp-rent-user {
+  align-items: center;
+}
+
+.tp-rent-user-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tp-rent-user-content-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -0.32px;
+  color: #fff;
+}
+
 .tp-hero-tab-box {
   border-radius: 8px;
   width: 100%;
