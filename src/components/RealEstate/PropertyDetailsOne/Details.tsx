@@ -17,6 +17,7 @@ import {
   formatPricePerUnit,
   getListingTypeBadgeStyle,
   getListingTypeLabel,
+  getPropertyHeadingTitle,
   isLeaseListingType,
   mapApiPropertyToCard,
   type ApiPropertyFields,
@@ -285,7 +286,9 @@ function PropertyDetailsContent({
                   )}
                 </div>
 
-                <h4 className="tp-property-details-title">{display.title}</h4>
+                <h4 className="tp-property-details-title">
+                  {getPropertyHeadingTitle(apiProperty)}
+                </h4>
                 <span style={{ color: "#777", fontSize: "15px" }}>
                   {display.address}
                 </span>
@@ -316,7 +319,7 @@ function PropertyDetailsContent({
                 <SocialShare
                   variant="property"
                   path={getPropertyDetailsPath(apiProperty)}
-                  title={display.title?.trim() || "Property"}
+                  title={getPropertyHeadingTitle(apiProperty)}
                   text={toDescriptionSnippet(apiProperty.description ?? "", 180)}
                 />
 

@@ -25,6 +25,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
   const detailsHref = getPropertyDetailsPath({
     id: property.id,
     title: property.title,
+    propertyName: property.propertyName,
   });
   const handleDelete = async (id: string | number) => {
     const confirmed = window.confirm(

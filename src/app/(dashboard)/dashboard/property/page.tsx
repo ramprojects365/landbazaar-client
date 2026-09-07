@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { API_BASE_URL } from "@/config/constants";
-import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
-import { useAuth } from "@/hooks/useAuth";
+import { formatLandSize, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
 
 // API Property interface
 interface ApiProperty {
@@ -89,7 +88,7 @@ export default function DashboardProperty() {
         // Transform API data to match IFeaturedPropertyDT interface
         const transformedProperties: IFeaturedPropertyDT[] = apiProperties.map(
           (property, index) => {
-            const title = property.propertyName || property.title || "Property";
+            const title = getPropertyHeadingTitle(property);
             const price = property.price || property.monthlyRent || 0;
             const image =
               property.imageUrl ||
@@ -105,6 +104,7 @@ export default function DashboardProperty() {
             return {
               id: property.id || String(index + 1),
               title: title,
+              propertyName: property.propertyName,
               address: buildPropertyAddress(property),
               image: image,
               price: parseTotalPrice(property.totalPrice, price),

@@ -5,6 +5,7 @@ import { ITabContentProps } from "@/types/banner-d-t";
 import { LAND_CITIES, PUBLIC_LAND_TYPE_OPTIONS } from "@/config/landOptions";
 import { buildSearchHref } from "@/utils/searchUrl";
 import { API_BASE_URL } from "@/config/constants";
+import { getPropertyHeadingTitle } from "@/utils/mapApiProperty";
 import { LandPlot, MapPin } from "lucide-react";
 import "./hero-banner-tab.css";
 
@@ -138,7 +139,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
             : [];
 
         const mapped: SearchItem[] = rawItems.slice(0, 8).map((item, index) => {
-          const displayText = item.propertyName || item.title || "Property";
+          const displayText = getPropertyHeadingTitle(item);
           const displayType = item.propertyType || "Land";
           const displayDescription =
             [item.streetName, item.cityName].filter(Boolean).join(", ") ||

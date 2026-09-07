@@ -2,6 +2,7 @@ import PropertyDetailsOneArea from "@/components/RealEstate/PropertyDetailsOne/D
 import { PageParamsProps } from "@/types/custom-interface";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import { toDescriptionSnippet } from "@/utils/descriptionHtml";
+import { getPropertyHeadingTitle } from "@/utils/mapApiProperty";
 import {
   getPropertySlug,
   isPropertyUuid,
@@ -48,7 +49,7 @@ export async function generateMetadata(
       };
     }
 
-    const title = item.propertyName || item.title || "Property Details";
+    const title = getPropertyHeadingTitle(item);
     const description =
       toDescriptionSnippet(item.description || "", 180) || FALLBACK_DESCRIPTION;
     const imageUrl = toAbsoluteImageUrl(getCoverImageUrl(item.images));

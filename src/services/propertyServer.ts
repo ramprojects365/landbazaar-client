@@ -3,6 +3,7 @@ import { API_BASE_URL } from "@/config/constants";
 import { getCoverImageUrl } from "@/utils/propertyImages";
 import {
   formatLandSize,
+  getPropertyHeadingTitle,
   parseTotalPrice,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
@@ -101,7 +102,8 @@ export const getFeaturedSidebarPropertyCached = cache(
 
     return {
       id: String(item.id),
-      title: item.propertyName || item.title || "Land listing",
+      title: getPropertyHeadingTitle(item),
+      propertyName: item.propertyName,
       listingType: item.listingType || "sale",
       price: parseTotalPrice(item.totalPrice, item.price),
       landSize: formatLandSize(item.landSize, item.areaUnit),
@@ -124,8 +126,7 @@ export const getRecentSidebarPropertiesCached = cache(
     return parsePropertyList(json)
       .slice(0, limit)
       .map((property) => {
-        const title =
-          property.propertyName || property.title || "Land listing";
+        const title = getPropertyHeadingTitle(property);
         const priceNum = parseTotalPrice(property.totalPrice, property.price);
 
         return {

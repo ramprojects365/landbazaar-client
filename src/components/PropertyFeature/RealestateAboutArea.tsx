@@ -6,7 +6,7 @@ import BedroomsSvg from "../SVG/PropertySvg/BedroomsSvg";
 import LivingSvg from "../SVG/PropertySvg/LivingSvg";
 import { RentMetaItemProps } from "@/types/property-d-t";
 import { formatTotalPriceDisplay } from "../Utils/formatPrice";
-import { getListingTypeLabel } from "@/utils/mapApiProperty";
+import { getListingTypeLabel, getPropertyHeadingTitle } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import Image from "next/image";
 import Link from "next/link";
@@ -153,7 +153,7 @@ export default function RealestateAboutArea() {
                 <Link className="about-featured-card__image" href={detailsHref}>
                   <Image
                     src={image || realStateImg}
-                    alt={property.propertyName || property.title || "Featured Property"}
+                    alt={getPropertyHeadingTitle(property)}
                     width={520}
                     height={340}
                     unoptimized
@@ -166,7 +166,7 @@ export default function RealestateAboutArea() {
                 <div className="about-featured-card__body">
                   <h4>
                     <Link href={detailsHref}>
-                      {property.propertyName || property.title || "Featured Property"}
+                      {getPropertyHeadingTitle(property)}
                     </Link>
                   </h4>
                   <p>{getPropertyLocation(property)}</p>
