@@ -7,6 +7,7 @@ import {
 } from "@/components/SVG";
 import Link from "next/link";
 import { JSX, useState, useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 // SidebarItem interface
 interface SidebarItem {
@@ -24,6 +25,8 @@ interface SidebarSection {
 // Sidebar component
 const Sidebar = () => {
   const [activePath, setActivePath] = useState<string>("");
+  const { userType } = useAuth();
+  const isAdmin = userType?.trim().toLowerCase() === "admin";
 
   // Update activePath when the component mounts
   useEffect(() => {
@@ -40,7 +43,7 @@ const Sidebar = () => {
       },
       {
         href: "/dashboard/property",
-        label: "My properties",
+        label: isAdmin ? "All properties" : "My properties",
         icon: <MyPropertiesSvg />,
       },
       {
