@@ -5,10 +5,9 @@ import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { getListingTypeFlag } from "@/utils/mapApiProperty";
+import { formatLandSize, getListingTypeFlag, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { getCoverImageUrl } from "@/utils/propertyImages";
-import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
 import { fetchPropertiesList } from "@/services/propertiesList";
 import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 import type { FeaturedSidebarProperty } from "@/types/propertySidebar";
@@ -69,7 +68,8 @@ function SidebarPropertyItemInner({
         const item = sorted[0];
         setLatestState({
           id: item.id,
-          title: item.propertyName || item.title || "Land listing",
+          title: getPropertyHeadingTitle(item),
+          propertyName: item.propertyName,
           listingType: item.listingType || "sale",
           price: parseTotalPrice(item.totalPrice, item.price),
           landSize: formatLandSize(item.landSize, item.areaUnit),
@@ -88,7 +88,7 @@ function SidebarPropertyItemInner({
 
   const detailsHref = latest
     ? getPropertyDetailsPath(
-        { id: latest.id, title: latest.title },
+        { id: latest.id, title: latest.title, propertyName: latest.propertyName },
         { from: fromUrl },
       )
     : "#";

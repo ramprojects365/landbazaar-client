@@ -8,6 +8,7 @@ import PropertyDetailsBox from "./PropertyDetailsBox";
 import {
   formatLandSize,
   formatPricePerUnit,
+  getPropertyHeadingTitle,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
 import { hasValidPropertyCoordinates } from "@/utils/propertyCoordinates";
@@ -135,10 +136,10 @@ export default function DetailsReusableArea({
                     Property Location
                   </h3>
                   <PropertyLocationMap
-                    latitude={property.latitude}
-                    longitude={property.longitude}
-                    location={property.location}
-                    title={property.propertyName || property.title}
+                    latitude={property?.latitude}
+                    longitude={property?.longitude}
+                    location={property?.location}
+                    title={getPropertyHeadingTitle(property)}
                   />
                 </div>
               )}

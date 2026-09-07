@@ -46,7 +46,7 @@ function PropertySingleCardInner({
   const fromUrl =
     pathname === "/search" ? buildSearchHrefFromParams(searchParams) : null;
   const detailsHref = getPropertyDetailsPath(
-    { id: item.id, title: item.title },
+    { id: item.id, title: item.title, propertyName: item.propertyName },
     { from: fromUrl },
   );
   const imageSrc = getImageSrc(item.image);

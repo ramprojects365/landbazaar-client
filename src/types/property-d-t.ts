@@ -5,6 +5,7 @@ import { JSX } from "react";
 export interface IFeaturedPropertyDT {
   id: string | number;
   title: string;
+  propertyName?: string;
   address?: string;
   linkUrl?: string;
   image: StaticImageData | string;

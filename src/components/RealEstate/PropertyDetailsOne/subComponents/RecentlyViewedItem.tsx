@@ -6,7 +6,7 @@ import Link from "next/link";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { usePathname, useSearchParams } from "next/navigation";
 import { getCoverImageUrl } from "@/utils/propertyImages";
-import { parseTotalPrice } from "@/utils/mapApiProperty";
+import { getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 import { API_BASE_URL } from "@/config/constants";
@@ -66,8 +66,7 @@ function RecentlyViewedPropertiesInner({
 
         const transformedProperties: IRecentlyViewedItem[] =
           limitedProperties.map((property) => {
-            const title =
-              property.propertyName || property.title || "Land listing";
+            const title = getPropertyHeadingTitle(property);
             const priceNum = parseTotalPrice(
               property.totalPrice,
               property.price,

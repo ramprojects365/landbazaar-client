@@ -15,6 +15,7 @@ import {
 } from "@/services/propertyService";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { getCoverImageUrl } from "@/utils/propertyImages";
+import { getPropertyHeadingTitle } from "@/utils/mapApiProperty";
 import {
   ADVISOR_RESULTS_KEY,
   AdvisorAnswers,
@@ -98,7 +99,8 @@ const mapApiProperty = (item: ApiProperty): IFeaturedPropertyDT => {
 
   return {
     id: item.id,
-    title: item.propertyName || item.title || "Property",
+    title: getPropertyHeadingTitle(item),
+    propertyName: item.propertyName,
     address: address || "Address not available",
     linkUrl: "property-details",
     image,

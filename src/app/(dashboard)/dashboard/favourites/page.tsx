@@ -4,7 +4,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import RecentlyViewedProperties from "@/components/RealEstate/PropertyDetailsOne/subComponents/RecentlyViewedItem";
 import { getSavedProperties } from "@/services/propertyService";
 import { getCoverImageUrl } from "@/utils/propertyImages";
-import { formatLandSize, parseTotalPrice } from "@/utils/mapApiProperty";
+import { formatLandSize, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
 import { useEffect, useState } from "react";
 import DashboardPropertyItem from "../property/components/DashboardPropertyItem";
 import type { IFeaturedPropertyDT } from "@/types/property-d-t";
@@ -32,7 +32,8 @@ const mapSavedProperty = (property: SavedProperty): IFeaturedPropertyDT => {
       : property.listingType;
   return {
     id: property.id,
-    title: property.propertyName || property.title || "Property",
+    title: getPropertyHeadingTitle(property),
+    propertyName: property.propertyName,
     address:
       property.location ||
       [property.cityName, property.state].filter(Boolean).join(", "),

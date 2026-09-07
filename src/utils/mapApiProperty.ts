@@ -213,9 +213,18 @@ function resolveImageSrc(
 }
 
 /**
+ * Details-page heading: Property Title, then layout name if title is empty.
+ */
+export function getPropertyHeadingTitle(
+  item?: Pick<ApiPropertyFields, "title" | "propertyName"> | null,
+): string {
+  return item?.title?.trim() || item?.propertyName?.trim() || "Land listing";
+}
+
+/**
  * Map /api/properties item → listing/home card model.
  * Uses only API fields:
- * - title ← propertyName (fallback title)
+ * - title ← Property Title (fallback layout name / propertyName)
  * - address ← streetName, cityName
  * - bedrooms slot ← landSize + areaUnit
  * - bathrooms slot ← propertyType
@@ -237,7 +246,8 @@ export function mapApiPropertyToCard(
 
   return {
     id: item.id,
-    title: item.propertyName?.trim() || item.title?.trim() || "Land listing",
+    title: getPropertyHeadingTitle(item),
+    propertyName: item.propertyName?.trim() || undefined,
     address: formatStreetCity(item.streetName, item.cityName),
     linkUrl: "property-details",
     image: resolveImageSrc(coverImage, fallbackImage),

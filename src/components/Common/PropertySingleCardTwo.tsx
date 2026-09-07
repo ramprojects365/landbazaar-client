@@ -24,7 +24,11 @@ function PropertySingleCardTwo({
   item,
   showFavorite = false,
 }: propertyProps) {
-  const detailsHref = getPropertyDetailsPath({ id: item.id, title: item.title });
+  const detailsHref = getPropertyDetailsPath({
+    id: item.id,
+    title: item.title,
+    propertyName: item.propertyName,
+  });
   const imageSrc = getImageSrc(item.image);
   const listingFlag = resolveListingTypeFlag(item);
 
