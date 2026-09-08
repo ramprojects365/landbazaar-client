@@ -600,6 +600,17 @@
   font-size: 30px;
 }
 
+html.lang-te .tp-rent-heading .tp-section-title,
+html.lang-te .tp-explore-heading .tp-section-title,
+html.lang-te .trusted-partners__heading h2,
+html.lang-te .tp-blog-heading .tp-section-title,
+html.lang-te .home-trust-section .tp-section-title {
+  font-family: var(--font-noto-sans-telugu), var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
 .home-page .tp-section-title,
 .home-page .trusted-partners__heading h2 {
   margin-bottom: 8px;
