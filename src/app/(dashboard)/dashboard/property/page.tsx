@@ -66,10 +66,12 @@ export default function DashboardProperty() {
   };
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        if (!token) return;
+    if (!token) return;
 
+    const fetchProperties = async () => {
+      setLoading(true);
+      setError(null);
+      try {
         const propertiesEndpoint = isAdmin
           ? "/properties/admin/all"
           : "/properties/my-properties";
