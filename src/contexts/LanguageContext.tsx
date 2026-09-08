@@ -38,6 +38,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("language", lang);
   };
 
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.documentElement.classList.toggle("lang-te", language === "te");
+  }, [language]);
+
   const t = (key: string): string => {
     const keys = key.split(".");
     let value: any = translations[language];

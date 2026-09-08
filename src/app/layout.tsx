@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Telugu, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 
 import "swiper/css/bundle";
@@ -16,6 +16,12 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
+});
+
+const notoSansTelugu = Noto_Sans_Telugu({
+  variable: "--font-noto-sans-telugu",
+  subsets: ["telugu"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const geistSans = Geist({
@@ -126,7 +132,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable}`}
+        className={`${plusJakartaSans.variable} ${notoSansTelugu.variable} ${geistSans.variable} ${geistMono.variable}`}
       >
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-MLP838YHVK"
