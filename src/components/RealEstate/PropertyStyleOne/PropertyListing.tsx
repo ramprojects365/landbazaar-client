@@ -314,7 +314,10 @@ export default function PropertyListing({
             </div>
 
             {totalPages > 1 && (
-              <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
+              <div
+                className="d-flex justify-content-center align-items-center gap-2 mt-4 mb-4"
+                style={{ marginBottom: "28px" }}
+              >
                 <button
                   type="button"
                   className="btn btn-outline-secondary"
