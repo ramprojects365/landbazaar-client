@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import FavoriteButton from "@/components/UI/FavoriteButton";
-import { DEFAULT_PROPERTY_IMAGE } from "@/utils/propertyImages";
+import { DEFAULT_PROPERTY_IMAGE, getPropertyImageAlt } from "@/utils/propertyImages";
 import { LandSizeSvg } from "@/components/SVG";
 import { IndianRupee, LandPlot } from "lucide-react";
 
@@ -46,7 +46,7 @@ function PropertySingleCardTwo({
           <Link href={detailsHref}>
             <img
               src={imageSrc}
-              alt={item.title || "Land or plot for sale"}
+              alt={getPropertyImageAlt(item.title, item.city)}
               style={{ width: "100%", height: "250px", objectFit: "cover" }}
               loading="lazy"
             />

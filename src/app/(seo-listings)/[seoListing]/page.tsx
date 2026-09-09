@@ -7,6 +7,7 @@ import {
   FOOTER_LOCATION_AREAS,
   getRelatedSeoLinks,
   getSeoListingFromSlug,
+  getSeoListingPresets,
   getSeoListingSlugs,
   toAreaSlug,
 } from "@/data/footerLinks";
@@ -31,16 +32,20 @@ export async function generateMetadata({
     return {};
   }
 
-  const description = `Browse ${listing.heading.toLowerCase()} on Dekho Land. Find verified residential plots, farmlands, and land listings in ${listing.area}, Telangana.`;
+  const pageTitle = listing.metaTitle || listing.heading;
+  const description =
+    listing.description ||
+    `Browse ${listing.heading.toLowerCase()} on Dekho Land. Find verified residential plots, farmlands, and land listings in ${listing.area}.`;
 
   return {
-    title: listing.heading,
+    title: pageTitle,
     description,
+    keywords: [pageTitle, listing.area, "DekhoLand", "plots for sale"],
     alternates: {
       canonical: `/${listing.slug}`,
     },
     openGraph: {
-      title: `${listing.heading} | Dekho Land`,
+      title: `${pageTitle} | Dekho Land`,
       description,
       url: `https://www.dekholand.com/${listing.slug}`,
       siteName: "Dekho Land",
@@ -48,7 +53,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary",
-      title: `${listing.heading} | Dekho Land`,
+      title: `${pageTitle} | Dekho Land`,
       description,
     },
   };
@@ -63,6 +68,7 @@ export default async function SeoListingPage({ params }: SeoListingPageProps) {
   }
 
   const relatedLinks = getRelatedSeoLinks(listing);
+  const presets = getSeoListingPresets(listing);
 
   return (
     <main className="property-location-page">
@@ -89,11 +95,42 @@ export default async function SeoListingPage({ params }: SeoListingPageProps) {
               </Link>
             ))}
           </div>
+          {listing.extraContent === "best-places-hyderabad" && (
+            <div style={{ marginBottom: "32px" }}>
+              <h2 className="tp-section-title" style={{ fontSize: "22px" }}>
+                Best places to buy land in Hyderabad
+              </h2>
+              <p style={{ color: "#5c6f7b", maxWidth: "720px", margin: "12px 0 16px" }}>
+                Buyers looking for plots for sale near Hyderabad often start with
+                west and south corridors — Shankarpally, Sangareddy, Shadnagar,
+                Maheshwaram, and Vikarabad. These areas also include farm land
+                for sale near Hyderabad and HMDA plots for sale.
+              </p>
+              <ul
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "8px 16px",
+                  paddingLeft: 0,
+                  listStyle: "none",
+                  margin: 0,
+                }}
+              >
+                {FOOTER_LOCATION_AREAS.map((area) => (
+                  <li key={area}>
+                    <Link href={`/plots-for-sale-in-${toAreaSlug(area)}`}>
+                      Plots for sale in {area}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <Suspense fallback={<p>Loading listings…</p>}>
             <PropertyListing
-              presetCity={listing.isCity ? listing.area : undefined}
-              presetKeyword={listing.isCity ? undefined : listing.area}
-              presetPropertyType={listing.propertyType}
+              presetCity={presets.presetCity}
+              presetKeyword={presets.presetKeyword}
+              presetPropertyType={presets.presetPropertyType}
             />
           </Suspense>
           <div style={{ marginTop: "40px" }}>
@@ -119,7 +156,7 @@ export default async function SeoListingPage({ params }: SeoListingPageProps) {
                   </li>
                 ),
               )}
-              {listing.area !== "Hyderabad" && (
+              {listing.slug !== "plots-for-sale-in-hyderabad" && (
                 <li>
                   <Link href="/plots-for-sale-in-hyderabad">
                     Plots for sale in Hyderabad

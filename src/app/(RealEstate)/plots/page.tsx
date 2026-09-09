@@ -7,7 +7,9 @@ export const metadata: Metadata = {
     absolute: "Search Plots & Farmlands - DekhoLand",
   },
   description:
-    "Search plots and farmlands for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond.",
+    "Search plots and farmlands for sale across Hyderabad, Telangana, and Andhra Pradesh. Find residential plots, open plots, HMDA plots, farm land near Hyderabad, and agricultural land on DekhoLand.",
+  keywords:
+    "plots for sale in Hyderabad, open plots for sale in Hyderabad, farm land for sale near Hyderabad, agricultural land for sale in Telangana, HMDA plots for sale, gated community plots for sale",
   metadataBase: new URL("https://www.dekholand.com"),
   alternates: {
     canonical: "/plots",
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Search Plots & Farmlands - DekhoLand",
     description:
-      "Search plots and farmlands for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond.",
+      "Search plots and farmlands for sale across Hyderabad, Telangana, and Andhra Pradesh. Find residential plots, open plots, HMDA plots, farm land near Hyderabad, and agricultural land on DekhoLand.",
     url: "https://www.dekholand.com/plots",
     siteName: "DekhoLand",
     type: "website",
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Search Plots & Farmlands - DekhoLand",
     description:
-      "Search plots and farmlands for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond.",
+      "Search plots and farmlands for sale across Hyderabad, Telangana, and Andhra Pradesh. Find residential plots, open plots, HMDA plots, farm land near Hyderabad, and agricultural land on DekhoLand.",
   },
 };
 

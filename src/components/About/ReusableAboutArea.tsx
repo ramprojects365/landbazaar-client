@@ -20,18 +20,20 @@ export default function ReusableAboutArea() {
                 </h3>
                 <p className="mt-20" style={{ color: "#5c6f7b", fontSize: "16px", lineHeight: 1.7 }}>
                   Dekho Land is built for people who want a clear, reliable way to
-                  buy and sell land across India. Whether you are looking for a
-                  residential plot, agricultural land, commercial land, farm
-                  land, or a gated community plot, you can discover verified
-                  opportunities in one place — and sellers can reach serious
-                  buyers faster.
+                  buy and sell land across India. Whether you are looking for
+                  plots for sale in Hyderabad, land for sale in Telangana, or
+                  plots for sale in Andhra Pradesh — including Visakhapatnam,
+                  Vizag, Vijayawada, and Amaravati — you can discover verified
+                  residential plots, agricultural land, farm land, and gated
+                  community plots in one place.
                 </p>
                 <p className="mt-15" style={{ color: "#5c6f7b", fontSize: "16px", lineHeight: 1.7 }}>
                   We carefully verify listings before they go live, so buyers can
                   explore with more confidence and sellers can showcase land with
-                  greater trust. From open plots near growing city corridors to
-                  farmland and commercial parcels, Dekho Land helps you take the
-                  next step in your land journey.
+                  greater trust. From open plots for sale in Hyderabad and HMDA
+                  plots to farm land for sale near Hyderabad and agricultural
+                  land for sale in Telangana, Dekho Land helps you take the next
+                  step in your land journey.
                 </p>
               </div>
               <div className="tp-about-5-item-box mb-55">

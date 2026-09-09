@@ -9,7 +9,7 @@ import { landTypeSearchHref } from "@/config/landOptions";
 
 const siteTitle = "DekhoLand | Buy & Sell Verified Lands and Plots";
 const siteDescription =
-  "India's trusted marketplace for lands and plots. Buy or sell open plots, farm land, and agricultural land with Dekho Land.";
+  "Find plots for sale in Andhra Pradesh and Telangana — including Hyderabad, Visakhapatnam, Vizag, Vijayawada, and Amaravati. Browse HMDA, DTCP, and RERA approved plots, farm land, and agricultural land on DekhoLand.";
 const siteImage = "https://www.dekholand.com/assets/img/logo/logo-blue.png";
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         url: siteImage,
         width: 512,
         height: 512,
-        alt: "DekhoLand — verified lands and plots marketplace",
+        alt: "DekhoLand — plots for sale in Hyderabad, Telangana, and Andhra Pradesh",
       },
     ],
   },
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     images: [siteImage],
   },
   keywords:
-    "DekhoLand, India land, plots for sale, verified land, agricultural land, farmland, buy land India, sell land India, Telangana land, Hyderabad plots",
+    "plots for sale in Andhra Pradesh, plots for sale in Telangana, land for sale in Andhra Pradesh, land for sale in Telangana, plots for sale in Hyderabad, land for sale in Hyderabad, open plots for sale in Hyderabad, residential plots for sale in Hyderabad, plots for sale in Visakhapatnam, plots for sale in Vizag, plots for sale in Vijayawada, plots for sale in Amaravati, farm land for sale near Hyderabad, agricultural land for sale in Telangana, HMDA plots for sale, DTCP plots for sale, RERA approved plots for sale, gated community plots for sale, best places to buy land in Hyderabad",
 };
 
 const siteUrl = "https://www.dekholand.com";

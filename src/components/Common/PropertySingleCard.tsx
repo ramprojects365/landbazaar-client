@@ -11,7 +11,7 @@ import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 import FavoriteButton from "@/components/UI/FavoriteButton";
-import { DEFAULT_PROPERTY_IMAGE } from "@/utils/propertyImages";
+import { DEFAULT_PROPERTY_IMAGE, getPropertyImageAlt } from "@/utils/propertyImages";
 
 function getImageSrc(image: IFeatureListProps["item"]["image"]): string {
   if (typeof image === "string" && image.trim()) return image;
@@ -70,7 +70,7 @@ function PropertySingleCardInner({
           <img
             src={imageSrc}
             style={{ width: "100%", height: "310px", objectFit: "cover" }}
-            alt={item.title || "Land or plot for sale"}
+            alt={getPropertyImageAlt(item.title, item.city)}
             loading="lazy"
           />
         </Link>

@@ -94,3 +94,15 @@ export const DEFAULT_PROPERTY_IMAGE = "/assets/img/rent/rent-thumb-1.jpg";
 
 export const withDefaultPropertyImage = (url?: string | null): string =>
   url?.trim() || DEFAULT_PROPERTY_IMAGE;
+
+export function getPropertyImageAlt(
+  title?: string | null,
+  city?: string | null,
+): string {
+  const name = title?.trim();
+  const location = city?.trim();
+  if (name && location) return `${name} — land for sale in ${location}`;
+  if (name) return name;
+  if (location) return `Plots for sale in ${location}`;
+  return "Land or plot for sale";
+}

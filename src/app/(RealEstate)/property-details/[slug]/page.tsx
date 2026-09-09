@@ -16,7 +16,7 @@ import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 
 const FALLBACK_DESCRIPTION =
-  "View detailed land and plot information in India. Find residential plots, agricultural land, farm land, and commercial land for sale or lease in Hyderabad, Telangana, Visakhapatnam and other growth corridors.";
+  "View land and plot details on Dekho Land. Find plots for sale in Hyderabad, Telangana, and Andhra Pradesh, including Visakhapatnam, Vizag, Vijayawada, and Amaravati.";
 
 const FALLBACK_OG_IMAGE =
   "https://www.dekholand.com/assets/img/logo/logo-blue.png";
@@ -55,11 +55,21 @@ export async function generateMetadata(
     const imageUrl = toAbsoluteImageUrl(getCoverImageUrl(item.images));
     const canonicalSlug = getPropertySlug(item);
     const canonicalUrl = `https://www.dekholand.com/property-details/${canonicalSlug}`;
+    const city = item.cityName?.trim();
+    const state = item.state?.trim();
+    const keywords = [
+      title,
+      city ? `plots for sale in ${city}` : "",
+      city ? `land for sale in ${city}` : "",
+      state ? `plots for sale in ${state}` : "",
+      state ? `land for sale in ${state}` : "",
+    ].filter(Boolean);
 
     return {
       metadataBase: new URL("https://www.dekholand.com"),
       title,
       description,
+      keywords,
       alternates: { canonical: canonicalUrl },
       openGraph: {
         title,
@@ -73,7 +83,7 @@ export async function generateMetadata(
             url: imageUrl,
             width: 1200,
             height: 630,
-            alt: title,
+            alt: city ? `${title} — land for sale in ${city}` : title,
           },
         ],
       },
