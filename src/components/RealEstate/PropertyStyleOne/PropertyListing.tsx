@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PropertySingleCard from "@/components/Common/PropertySingleCard";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import {
@@ -44,6 +44,8 @@ export default function PropertyListing({
   presetPropertyType?: string;
 } = {}) {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   // ── Search bar params (SearchRefineBar) ─────────────────────────
   const q = fromUrlTextValue(searchParams.get("q"));
@@ -78,6 +80,14 @@ export default function PropertyListing({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [resultCount, setResultCount] = useState<number | null>(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const currentPage = Number(searchParams.get("page") || "1");
+
+  useEffect(() => {
+    setPage(currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -100,6 +110,8 @@ export default function PropertyListing({
           }
           if (propertyName.trim())
             params.set("propertyName", propertyName.trim());
+          params.set("page", String(page));
+          params.set("limit", "10");
           url = `${API_BASE_URL}/properties/search?${params}`;
         } else {
           // ── Filter-only: /api/properties ────────────────────────
@@ -114,6 +126,8 @@ export default function PropertyListing({
           const maxP = parsePriceParam(maxPriceStr);
           if (minP !== undefined) params.set("minPrice", String(minP));
           if (maxP !== undefined) params.set("maxPrice", String(maxP));
+          params.set("page", String(page));
+          params.set("limit", "10");
           url = `${API_BASE_URL}/properties?${params}`;
         }
 
@@ -126,6 +140,7 @@ export default function PropertyListing({
 
         const data = await response.json();
         let results: ApiProperty[] = data?.data || data || [];
+        const serverTotalPages = Number(data?.totalPages ?? 0);
 
         // Client-side size post-filter (only needed for text search,
         // since the filter endpoint handles minArea server-side)
@@ -143,7 +158,8 @@ export default function PropertyListing({
           .map(slimPropertyForList)
           .map((item) => mapApiProperty(item));
         setProperties(mapped);
-        setResultCount(mapped.length);
+        setResultCount(Number(data?.count ?? mapped.length));
+        setTotalPages(serverTotalPages || (mapped.length > 0 ? page : 0));
       } catch (err) {
         console.error("Error fetching properties:", err);
         setError("We couldn’t load properties right now. Please try again shortly.");
@@ -163,7 +179,14 @@ export default function PropertyListing({
     propertyType,
     minPriceStr,
     maxPriceStr,
+    page,
   ]);
+
+  const updatePageParam = (nextPage: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", String(nextPage));
+    router.replace(`${pathname}?${params.toString()}`);
+  };
 
   const activeFilters: { label: string; value: string }[] = [];
   if (presetKeyword) activeFilters.push({ label: "Location", value: presetKeyword });
@@ -277,17 +300,51 @@ export default function PropertyListing({
         )}
 
         {!loading && properties.length > 0 && (
-          <div className="row list-img-sec search-results-list">
-            {properties.map((item) => (
-              <div
-                className="col-xl-12 col-sm-12"
-                key={item.id}
-                style={{ marginBottom: "15px" }}
-              >
-                <PropertySingleCard item={item} showFavorite />
+          <>
+            <div className="row list-img-sec search-results-list">
+              {properties.map((item) => (
+                <div
+                  className="col-xl-12 col-sm-12"
+                  key={item.id}
+                  style={{ marginBottom: "15px" }}
+                >
+                  <PropertySingleCard item={item} showFavorite />
+                </div>
+              ))}
+            </div>
+
+            {totalPages > 1 && (
+              <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  disabled={page <= 1}
+                  onClick={() => {
+                    const nextPage = Math.max(1, page - 1);
+                    setPage(nextPage);
+                    updatePageParam(nextPage);
+                  }}
+                >
+                  Prev
+                </button>
+                <span style={{ color: "#475467", fontSize: 14 }}>
+                  {page} / {totalPages}
+                </span>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  disabled={page >= totalPages}
+                  onClick={() => {
+                    const nextPage = Math.min(totalPages, page + 1);
+                    setPage(nextPage);
+                    updatePageParam(nextPage);
+                  }}
+                >
+                  Next
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
     </div>
