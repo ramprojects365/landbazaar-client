@@ -3,7 +3,7 @@
 import DashboardLayout from "@/layouts/DashboardLayout";
 import RecentlyViewedProperties from "@/components/RealEstate/PropertyDetailsOne/subComponents/RecentlyViewedItem";
 import { getSavedProperties } from "@/services/propertyService";
-import { getCoverImageUrl } from "@/utils/propertyImages";
+import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
 import { formatLandSize, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
 import { useEffect, useState } from "react";
 import DashboardPropertyItem from "../property/components/DashboardPropertyItem";
@@ -37,9 +37,7 @@ const mapSavedProperty = (property: SavedProperty): IFeaturedPropertyDT => {
     address:
       property.location ||
       [property.cityName, property.state].filter(Boolean).join(", "),
-    image:
-      getCoverImageUrl(property.images) ||
-      "/assets/img/rent/property/property-1.jpg",
+    image: withDefaultPropertyImage(getCoverImageUrl(property.images)),
     price: parseTotalPrice(property.totalPrice, property.price || 0),
     quantity: 1,
     bedrooms: formatLandSize(property.landSize, property.areaUnit),
@@ -100,7 +98,7 @@ export default function SavedPropertiesPage() {
 
               {!loading && !error && properties.length === 0 && (
                 <div className="col-12 text-center py-5">
-                  <p className="text-muted">No favourite properties yet.</p>
+                  <p className="text-muted">No data found</p>
                 </div>
               )}
 

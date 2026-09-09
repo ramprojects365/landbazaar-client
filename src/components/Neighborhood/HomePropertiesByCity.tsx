@@ -1,34 +1,22 @@
 "use client";
 
-import neighbourhoodsData from "@/data/exploreAreaData";
 import NavigateArrowSvg from "../SVG/NavigateArrowSvg";
-import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "@/contexts/LanguageContext";
-import { getCoverImageUrl } from "@/utils/propertyImages";
-import React, { useEffect, useMemo, useState } from "react";
-import type { StaticImageData } from "next/image";
+import {
+  DEFAULT_PROPERTY_IMAGE,
+  getCoverImageUrl,
+} from "@/utils/propertyImages";
+import React, { useEffect, useState } from "react";
 import { fetchPropertiesList } from "@/services/propertiesList";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { buildSearchHref } from "@/utils/searchUrl";
-
-type ApiProperty = {
-  id: string;
-  title?: string;
-  propertyName?: string;
-  cityName?: string;
-  state?: string;
-  streetName?: string;
-  images?: unknown[];
-  createdAt?: string;
-  updatedAt?: string;
-};
 
 type CityItem = {
   id: string;
   name: string;
   count: number;
-  image: string | StaticImageData;
+  image: string;
   isDynamic: boolean;
   href?: string;
   isPropertyCard?: boolean;
@@ -40,24 +28,16 @@ const normaliseLocationName = (value?: string) =>
 function HomePropertiesByCity() {
   const { t } = useTranslation();
   const [cityItems, setCityItems] = useState<CityItem[]>([]);
-
-  const fallbackItems: CityItem[] = useMemo(
-    () =>
-      neighbourhoodsData.slice(0, 6).map((item) => ({
-        id: `fallback-${item.id}`,
-        name: item.name,
-        count: item.count,
-        image: item.image,
-        isDynamic: false,
-      })),
-    [],
-  );
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const run = async () => {
       try {
         const list = await fetchPropertiesList();
-        if (!Array.isArray(list) || list.length === 0) return;
+        if (!Array.isArray(list) || list.length === 0) {
+          setCityItems([]);
+          return;
+        }
 
         const grouped = new Map<string, CityItem>();
         const MAX_CITY_PROPERTIES = 6;
@@ -76,7 +56,7 @@ function HomePropertiesByCity() {
             if (existing.count < MAX_CITY_PROPERTIES) {
               existing.count += 1;
             }
-            if (typeof existing.image !== "string") {
+            if (existing.image === DEFAULT_PROPERTY_IMAGE) {
               const cover = getCoverImageUrl(property.images);
               if (cover) existing.image = cover;
             }
@@ -87,9 +67,7 @@ function HomePropertiesByCity() {
             id: `city-${key}-${index}`,
             name,
             count: 1,
-            image:
-              getCoverImageUrl(property.images) ||
-              neighbourhoodsData[index % neighbourhoodsData.length].image,
+            image: getCoverImageUrl(property.images) || DEFAULT_PROPERTY_IMAGE,
             isDynamic: true,
           });
         });
@@ -104,7 +82,10 @@ function HomePropertiesByCity() {
               const cityValue =
                 normaliseLocationName(property.cityName) ||
                 normaliseLocationName(property.state);
-              return cityValue && cityValue.toLowerCase() === cityName.toLowerCase();
+              return (
+                cityValue &&
+                cityValue.toLowerCase() === cityName.toLowerCase()
+              );
             })
             .slice(0, MAX_CITY_PROPERTIES)
             .map((property, index) => ({
@@ -115,8 +96,7 @@ function HomePropertiesByCity() {
                 cityName,
               count: 1,
               image:
-                getCoverImageUrl(property.images) ||
-                neighbourhoodsData[index % neighbourhoodsData.length].image,
+                getCoverImageUrl(property.images) || DEFAULT_PROPERTY_IMAGE,
               isDynamic: true,
               href: property.id
                 ? getPropertyDetailsPath(property)
@@ -134,16 +114,16 @@ function HomePropertiesByCity() {
           .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
           .slice(0, MAX_VISIBLE_CITY_CARDS);
 
-        if (nextItems.length > 0) setCityItems(nextItems);
+        setCityItems(nextItems);
       } catch {
-        return;
+        setCityItems([]);
+      } finally {
+        setLoading(false);
       }
     };
 
     run();
   }, []);
-
-  const items = cityItems.length > 0 ? cityItems : fallbackItems;
 
   return (
     <section
@@ -168,54 +148,53 @@ function HomePropertiesByCity() {
           data-wow-duration="1s"
           data-wow-delay=".7s"
         >
-          {items.map((property) => (
-            <div key={property.id} className="col-lg-4 col-md-6 col-6">
-              {(() => {
-                const href = property.href || buildSearchHref({ q: property.name });
+          {loading ? (
+            <div className="col-12">
+              <p className="text-center text-muted mb-0">Loading...</p>
+            </div>
+          ) : cityItems.length === 0 ? (
+            <div className="col-12">
+              <p className="text-center text-muted mb-0">No data found</p>
+            </div>
+          ) : (
+            cityItems.map((property) => (
+              <div key={property.id} className="col-lg-4 col-md-6 col-6">
+                {(() => {
+                  const href =
+                    property.href || buildSearchHref({ q: property.name });
 
-                return (
-                  <div className="tp-explore-item text-center mb-30">
-                    <Link href={href} className="tp-explore-thumb p-relative">
-                      {typeof property.image === "string" ? (
+                  return (
+                    <div className="tp-explore-item text-center mb-30">
+                      <Link href={href} className="tp-explore-thumb p-relative">
                         <img
                           src={property.image}
                           alt={property.name}
                           loading="lazy"
                         />
-                      ) : (
-                        <Image
-                          src={property.image}
-                          alt={property.name}
-                          loading="lazy"
-                          width={0}
-                          height={0}
-                          sizes="100vw"
-                          style={{ width: "100%", height: "auto" }}
-                        />
-                      )}
-                      <div className="tp-explore-content">
-                        <h4 className="tp-explore-title">
-                          <span className="textline">{property.name}</span>
-                        </h4>
-                        <span>
-                          {property.isPropertyCard
-                            ? ""
-                            : property.isDynamic
-                              ? `${property.count} ${t("common.property")}`
-                              : ""}
-                        </span>
-                      </div>
-                      <div className="tp-explore-btn">
-                        <span>
-                          <NavigateArrowSvg />
-                        </span>
-                      </div>
-                    </Link>
-                  </div>
-                );
-              })()}
-            </div>
-          ))}
+                        <div className="tp-explore-content">
+                          <h4 className="tp-explore-title">
+                            <span className="textline">{property.name}</span>
+                          </h4>
+                          <span>
+                            {property.isPropertyCard
+                              ? ""
+                              : property.isDynamic
+                                ? `${property.count} ${t("common.property")}`
+                                : ""}
+                          </span>
+                        </div>
+                        <div className="tp-explore-btn">
+                          <span>
+                            <NavigateArrowSvg />
+                          </span>
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })()}
+              </div>
+            ))
+          )}
         </div>
       </div>
     </section>

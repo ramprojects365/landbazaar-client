@@ -14,7 +14,7 @@ import {
   notifyPropertyFitView,
 } from "@/services/propertyService";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
-import { getCoverImageUrl } from "@/utils/propertyImages";
+import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
 import { getPropertyHeadingTitle } from "@/utils/mapApiProperty";
 import {
   ADVISOR_RESULTS_KEY,
@@ -84,9 +84,7 @@ type ApiProperty = {
 };
 
 const mapApiProperty = (item: ApiProperty): IFeaturedPropertyDT => {
-  const image =
-    getCoverImageUrl(item.images) ||
-    "/assets/img/rent/property/property-details-thumb-1.png";
+  const image = withDefaultPropertyImage(getCoverImageUrl(item.images));
   const area = parseFloat(String(item.buildupArea ?? 0));
   const address = [
     item.propertyName,

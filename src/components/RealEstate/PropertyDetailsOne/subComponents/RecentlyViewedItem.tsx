@@ -5,7 +5,10 @@ import { IRecentlyViewedItem } from "@/types/custom-interface";
 import Link from "next/link";
 import { createCleanFromUrl } from "@/utils/urlEncoding";
 import { usePathname, useSearchParams } from "next/navigation";
-import { getCoverImageUrl } from "@/utils/propertyImages";
+import {
+  DEFAULT_PROPERTY_IMAGE,
+  getCoverImageUrl,
+} from "@/utils/propertyImages";
 import { getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { buildSearchHrefFromParams } from "@/utils/searchUrl";
@@ -74,7 +77,7 @@ function RecentlyViewedPropertiesInner({
             const image =
               property.imageUrl ||
               getCoverImageUrl(property.images) ||
-              "/assets/img/rent/property/recent-1.jpg";
+              DEFAULT_PROPERTY_IMAGE;
 
             return {
               image,
@@ -120,7 +123,7 @@ function RecentlyViewedPropertiesInner({
     return (
       <div className="tp-property-filter-wrap mb-40">
         <h4 className="tp-team-details-item-title">Latest Properties</h4>
-        <p className="text-muted">No recent listings found</p>
+        <p className="text-muted">No data found</p>
       </div>
     );
   }
@@ -140,7 +143,7 @@ function RecentlyViewedPropertiesInner({
                   typeof property.image === "string"
                     ? property.image
                     : (property.image as { src?: string })?.src ||
-                      "/assets/img/rent/property/recent-1.jpg"
+                      DEFAULT_PROPERTY_IMAGE
                 }
                 alt={property.title || "Land listing"}
                 loading="lazy"

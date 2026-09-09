@@ -1,9 +1,7 @@
 "use client";
 import PropertySingleCardTwo from "../Common/PropertySingleCardTwo";
-import { propertyData } from "@/data/propertyData";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
-import { StaticImageData } from "next/image";
 import { useTranslation } from "@/contexts/LanguageContext";
 import { mapApiPropertyToCard } from "@/utils/mapApiProperty";
 import { fetchPropertiesList } from "@/services/propertiesList";
@@ -13,16 +11,8 @@ import { Pagination } from "swiper/modules";
 
 export default function PropertyHome() {
   const [items, setItems] = useState<IFeaturedPropertyDT[]>([]);
+  const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
-
-  const localImagePool: StaticImageData[] = useMemo(
-    () =>
-      propertyData
-        .filter((p) => p.image)
-        .map((p) => p.image as StaticImageData)
-        .slice(0, 20),
-    [],
-  );
 
   useEffect(() => {
     const run = async () => {
@@ -47,17 +37,15 @@ export default function PropertyHome() {
         });
 
         const top = sorted.slice(0, 8);
-        const mapped: IFeaturedPropertyDT[] = top.map((p, idx) =>
-          mapApiPropertyToCard(p, localImagePool[idx % localImagePool.length]),
-        );
-
-        setItems(mapped);
+        setItems(top.map((property) => mapApiPropertyToCard(property)));
       } catch {
         setItems([]);
+      } finally {
+        setLoading(false);
       }
     };
     run();
-  }, [localImagePool]);
+  }, []);
 
   return (
     <section className="tp-rent-area p-relative pt-80 pb-10">
@@ -84,34 +72,40 @@ export default function PropertyHome() {
                 data-wow-duration="1s"
                 data-wow-delay=".7s"
               >
-                <Swiper
-                  modules={[Pagination]}
-                  slidesPerView={2}
-                  spaceBetween={30}
-                  loop={items.length > 4}
-                  freeMode={true}
-                  breakpoints={{
-                    1400: { slidesPerView: 4 },
-                    1200: { slidesPerView: 3 },
-                    768: { slidesPerView: 2 },
-                    576: { slidesPerView: 1 },
-                    0: { slidesPerView: 1 },
-                  }}
-                  pagination={{
-                    el: ".tp-rent-slider-dot",
-                    clickable: true,
-                  }}
-                >
-                  {(items.length > 0 ? items : propertyData.slice(0, 5)).map(
-                    (item) => (
+                {loading ? (
+                  <p className="text-center text-muted mb-0">Loading...</p>
+                ) : items.length === 0 ? (
+                  <p className="text-center text-muted mb-0">No data found</p>
+                ) : (
+                  <Swiper
+                    modules={[Pagination]}
+                    slidesPerView={2}
+                    spaceBetween={30}
+                    loop={items.length > 4}
+                    freeMode={true}
+                    breakpoints={{
+                      1400: { slidesPerView: 4 },
+                      1200: { slidesPerView: 3 },
+                      768: { slidesPerView: 2 },
+                      576: { slidesPerView: 1 },
+                      0: { slidesPerView: 1 },
+                    }}
+                    pagination={{
+                      el: ".tp-rent-slider-dot",
+                      clickable: true,
+                    }}
+                  >
+                    {items.map((item) => (
                       <SwiperSlide key={String(item.id)}>
                         <PropertySingleCardTwo item={item} showFavorite />
                       </SwiperSlide>
-                    ),
-                  )}
-                </Swiper>
+                    ))}
+                  </Swiper>
+                )}
               </div>
-              <div className="tp-rent-slider-dot"></div>
+              {items.length > 0 ? (
+                <div className="tp-rent-slider-dot"></div>
+              ) : null}
             </div>
           </div>
         </div>

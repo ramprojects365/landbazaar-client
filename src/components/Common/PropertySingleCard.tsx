@@ -11,11 +11,12 @@ import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 import FavoriteButton from "@/components/UI/FavoriteButton";
+import { DEFAULT_PROPERTY_IMAGE } from "@/utils/propertyImages";
 
 function getImageSrc(image: IFeatureListProps["item"]["image"]): string {
-  if (typeof image === "string") return image;
+  if (typeof image === "string" && image.trim()) return image;
   return (
-    (image as { src?: string })?.src || "/assets/img/rent/rent-thumb-1.jpg"
+    (image as { src?: string })?.src || DEFAULT_PROPERTY_IMAGE
   );
 }
 

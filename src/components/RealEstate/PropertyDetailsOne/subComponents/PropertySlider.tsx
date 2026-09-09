@@ -3,23 +3,18 @@ import { useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperClass } from "swiper";
 import {
+  DEFAULT_PROPERTY_IMAGE,
   getPropertyImageItems,
   type PropertyImageDisplayItem,
 } from "@/utils/propertyImages";
-
-const fallbackImages = [
-  "/assets/img/property/property-details/property-thumb-1.jpg",
-  "/assets/img/property/property-details/property-thumb-2.jpg",
-  "/assets/img/property/property-details/property-thumb-3.jpg",
-];
 
 interface Props {
   images?: unknown[];
 }
 
-const fallbackItems: PropertyImageDisplayItem[] = fallbackImages.map((url) => ({
-  url,
-}));
+const fallbackItems: PropertyImageDisplayItem[] = [
+  { url: DEFAULT_PROPERTY_IMAGE },
+];
 
 const getImageLabel = (image: PropertyImageDisplayItem) =>
   image.caption || image.displayPlace || "";
@@ -38,11 +33,7 @@ export default function PropertyDetailsSlider({ images }: Props) {
   const galleryItems = imageItems;
   const extraCount = galleryItems.length > 5 ? galleryItems.length - 5 : 0;
 
-  const modalItems = useMemo(() => {
-    const apiItems = getPropertyImageItems(images);
-    if (apiItems.length > 0) return apiItems;
-    return [...fallbackItems, ...fallbackItems].slice(0, 5);
-  }, [images]);
+  const modalItems = imageItems;
 
   const openAt = (index: number) => {
     setStartIndex(index);
@@ -74,8 +65,7 @@ export default function PropertyDetailsSlider({ images }: Props) {
           )}
         </button>
         <div className="tp-pdg-side">
-          {(sideTiles.length > 0 ? sideTiles : fallbackItems.slice(0, 4)).map(
-            (item, idx) => {
+          {sideTiles.map((item, idx) => {
               const absoluteIndex = idx + 1;
               const isLastVisible = idx === 3;
               const label = getImageLabel(item);
@@ -98,8 +88,7 @@ export default function PropertyDetailsSlider({ images }: Props) {
                   )}
                 </button>
               );
-            },
-          )}
+            })}
         </div>
       </div>
 

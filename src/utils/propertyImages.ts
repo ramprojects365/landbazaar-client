@@ -88,3 +88,9 @@ export const getCoverImageUrl = (images: unknown): string | null => {
   const cover = items.find((image) => image.isCover);
   return cover?.url || items[0].url;
 };
+
+/** Used when a listing has no uploaded photos. Not mock listing artwork. */
+export const DEFAULT_PROPERTY_IMAGE = "/assets/img/rent/rent-thumb-1.jpg";
+
+export const withDefaultPropertyImage = (url?: string | null): string =>
+  url?.trim() || DEFAULT_PROPERTY_IMAGE;
