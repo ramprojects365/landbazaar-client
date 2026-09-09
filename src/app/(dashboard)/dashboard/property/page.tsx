@@ -5,7 +5,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import RecentlyViewedProperties from "@/components/RealEstate/PropertyDetailsOne/subComponents/RecentlyViewedItem";
 import { useEffect, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
-import { getCoverImageUrl } from "@/utils/propertyImages";
+import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
 import { API_BASE_URL } from "@/config/constants";
 import { formatLandSize, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
 import { useAuth } from "@/hooks/useAuth";
@@ -93,10 +93,9 @@ export default function DashboardProperty() {
           (property, index) => {
             const title = getPropertyHeadingTitle(property);
             const price = property.price || property.monthlyRent || 0;
-            const image =
-              property.imageUrl ||
-              getCoverImageUrl(property.images) ||
-              "/assets/img/rent/property/property-1.jpg";
+            const image = withDefaultPropertyImage(
+              property.imageUrl || getCoverImageUrl(property.images),
+            );
 
             const listingType = (() => {
               const type = property.listingType?.trim().toLowerCase();
@@ -215,7 +214,7 @@ export default function DashboardProperty() {
 
               {!loading && !error && properties.length === 0 && (
                 <div className="text-center py-5">
-                  <p className="text-muted">No properties found</p>
+                  <p className="text-muted">No data found</p>
                 </div>
               )}
 

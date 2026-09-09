@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { StaticImageData } from "next/image";
 import PropertySingleCard from "@/components/Common/PropertySingleCard";
-import { propertyData } from "@/data/propertyData";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import {
   mapApiPropertyToCard,
@@ -19,18 +17,10 @@ import { parseIndianPriceValue } from "@/utils/priceParsing";
 
 type Property = IFeaturedPropertyDT;
 
-const localImagePool: StaticImageData[] = propertyData
-  .filter((p) => p.image)
-  .map((p) => p.image as StaticImageData)
-  .slice(0, 20);
-
 type ApiProperty = ApiPropertyFields;
 
-function mapApiProperty(item: ApiProperty, index: number): Property {
-  return mapApiPropertyToCard(
-    item,
-    localImagePool[index % localImagePool.length],
-  );
+function mapApiProperty(item: ApiProperty): Property {
+  return mapApiPropertyToCard(item);
 }
 
 /** Convert "100k" / "1M" / "500000" price strings into a plain number, or undefined. */
@@ -151,7 +141,7 @@ export default function PropertyListing({
 
         const mapped = results
           .map(slimPropertyForList)
-          .map((item, idx) => mapApiProperty(item, idx));
+          .map((item) => mapApiProperty(item));
         setProperties(mapped);
         setResultCount(mapped.length);
       } catch (err) {
@@ -282,12 +272,7 @@ export default function PropertyListing({
             className="text-center py-5 search-results-empty"
             style={{ border: "1px dashed #d6dbe1", borderRadius: "10px" }}
           >
-            <p style={{ fontSize: "16px", color: "#555" }}>
-              No properties found matching your search.
-            </p>
-            <p style={{ color: "#888" }}>
-              Try adjusting your filters or search terms.
-            </p>
+            <p style={{ fontSize: "16px", color: "#555" }}>No data found</p>
           </div>
         )}
 

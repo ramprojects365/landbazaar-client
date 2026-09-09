@@ -1,6 +1,9 @@
 import { cache } from "react";
 import { API_BASE_URL } from "@/config/constants";
-import { getCoverImageUrl } from "@/utils/propertyImages";
+import {
+  DEFAULT_PROPERTY_IMAGE,
+  getCoverImageUrl,
+} from "@/utils/propertyImages";
 import {
   formatLandSize,
   getPropertyHeadingTitle,
@@ -132,7 +135,7 @@ export const getRecentSidebarPropertiesCached = cache(
         return {
           image:
             getCoverImageUrl(property.images) ||
-            "/assets/img/rent/property/recent-1.jpg",
+            DEFAULT_PROPERTY_IMAGE,
           link: getPropertyDetailsPath(property),
           title,
           price: formatTotalPriceDisplay(priceNum),

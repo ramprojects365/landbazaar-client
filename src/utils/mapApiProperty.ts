@@ -1,7 +1,10 @@
 import { StaticImageData } from "next/image";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { formatPrice } from "@/components/Utils/formatPrice";
-import { getCoverImageUrl } from "@/utils/propertyImages";
+import {
+  DEFAULT_PROPERTY_IMAGE,
+  getCoverImageUrl,
+} from "@/utils/propertyImages";
 import { resolveUserDisplayProfile } from "@/utils/userProfileDisplay";
 
 export type ApiPropertyDocument = {
@@ -237,7 +240,7 @@ export function getPropertyHeadingTitle(
  */
 export function mapApiPropertyToCard(
   item: ApiPropertyFields,
-  fallbackImage: StaticImageData | string,
+  fallbackImage: StaticImageData | string = DEFAULT_PROPERTY_IMAGE,
 ): IFeaturedPropertyDT {
   const listingType = normalizeListingTypeValue(item.listingType);
   const coverImage = getCoverImageUrl(item.images);

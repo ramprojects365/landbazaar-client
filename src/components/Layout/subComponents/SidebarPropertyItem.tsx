@@ -162,7 +162,9 @@ function SidebarPropertyItemInner({
                 </div>
               </div>
             </div>
-          ) : null}
+          ) : (
+            <p className="text-muted mb-0">No data found</p>
+          )}
         </div>
       </div>
     </>

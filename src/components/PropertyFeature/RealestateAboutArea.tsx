@@ -1,6 +1,5 @@
 "use client";
 
-import realStateImg from "../../../public/assets/img/rent/about/real-state.jpg";
 import BathroomsSvg from "../SVG/PropertySvg/BathroomsSvg";
 import BedroomsSvg from "../SVG/PropertySvg/BedroomsSvg";
 import LivingSvg from "../SVG/PropertySvg/LivingSvg";
@@ -12,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "@/config/constants";
+import { withDefaultPropertyImage } from "@/utils/propertyImages";
 
 interface Property {
   id: string;
@@ -109,7 +109,7 @@ export default function RealestateAboutArea() {
       <section className="tp-realstate-ptb about-featured-properties pt-120 pb-140">
         <div className="container">
           <div className="text-center">
-            <p>No featured lands available at the moment.</p>
+            <p>No data found</p>
           </div>
         </div>
       </section>
@@ -152,7 +152,7 @@ export default function RealestateAboutArea() {
               <article className="about-featured-card" key={property.id}>
                 <Link className="about-featured-card__image" href={detailsHref}>
                   <Image
-                    src={image || realStateImg}
+                    src={withDefaultPropertyImage(image)}
                     alt={getPropertyHeadingTitle(property)}
                     width={520}
                     height={340}

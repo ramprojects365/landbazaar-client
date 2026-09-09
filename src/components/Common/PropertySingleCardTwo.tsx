@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import FavoriteButton from "@/components/UI/FavoriteButton";
+import { DEFAULT_PROPERTY_IMAGE } from "@/utils/propertyImages";
 import { LandSizeSvg } from "@/components/SVG";
 import { IndianRupee, LandPlot } from "lucide-react";
 
@@ -16,8 +17,8 @@ interface propertyProps {
 }
 
 function getImageSrc(image: IFeaturedPropertyDT["image"]): string {
-  if (typeof image === "string") return image;
-  return image?.src || "/assets/img/rent/rent-thumb-1.jpg";
+  if (typeof image === "string" && image.trim()) return image;
+  return image?.src || DEFAULT_PROPERTY_IMAGE;
 }
 
 function PropertySingleCardTwo({
