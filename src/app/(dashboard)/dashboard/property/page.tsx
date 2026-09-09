@@ -58,6 +58,9 @@ export default function DashboardProperty() {
   const [properties, setProperties] = useState<IFeaturedPropertyDT[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const { token, userType } = useAuth();
   const isAdmin = userType?.trim().toLowerCase() === "admin";
 
@@ -75,7 +78,17 @@ export default function DashboardProperty() {
         const propertiesEndpoint = isAdmin
           ? "/properties/admin/all"
           : "/properties/my-properties";
-        const res = await fetch(`${API_BASE_URL}${propertiesEndpoint}`, {
+        const query = new URLSearchParams();
+
+        if (isAdmin) {
+          query.set("page", String(page));
+          query.set("limit", "10");
+          if (search.trim()) {
+            query.set("search", search.trim());
+          }
+        }
+
+        const res = await fetch(`${API_BASE_URL}${propertiesEndpoint}?${query.toString()}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -86,9 +99,8 @@ export default function DashboardProperty() {
         }
 
         const json = await res.json();
-        const apiProperties: ApiProperty[] = json?.data ?? []; // Array of user's properties
+        const apiProperties: ApiProperty[] = json?.data ?? [];
 
-        // Transform API data to match IFeaturedPropertyDT interface
         const transformedProperties: IFeaturedPropertyDT[] = apiProperties.map(
           (property, index) => {
             const title = getPropertyHeadingTitle(property);
@@ -132,6 +144,9 @@ export default function DashboardProperty() {
         );
 
         setProperties(transformedProperties);
+        if (isAdmin) {
+          setTotalPages(json?.totalPages ?? 0);
+        }
       } catch (err) {
         console.error("Error fetching properties:", err);
         setError("Failed to load properties. Please try again later.");
@@ -141,7 +156,7 @@ export default function DashboardProperty() {
     };
 
     fetchProperties();
-  }, [token, userType]);
+  }, [token, userType, isAdmin, page, search]);
 
   const engagementSummary = properties.reduce(
     (summary, property) => ({
@@ -158,44 +173,66 @@ export default function DashboardProperty() {
         <div className="row">
           <div className="col-12 col-lg-8">
             <div className="dashboard-property-main">
-              <div
-                className="property-engagement-box mb-30"
-                style={{
-                  border: "1px solid #DBE1EF",
-                  background: "#fff",
-                  padding: "20px 24px",
-                }}
-              >
-                <h4 className="tp-dashboard-new-title mb-15">
-                  {isAdmin ? "All property engagement" : "Property engagement"}
-                </h4>
-                <div className="row property-engagement-stats">
-                  <div className="col-4">
-                    <div>
-                      <span style={{ color: "#667085", fontSize: 13 }}>Total views</span>
-                      <strong style={{ display: "block", color: "#003B5C", fontSize: 24 }}>
-                        {engagementSummary.views}
-                      </strong>
+              {!isAdmin && (
+                <div
+                  className="property-engagement-box mb-30"
+                  style={{
+                    border: "1px solid #DBE1EF",
+                    background: "#fff",
+                    padding: "20px 24px",
+                  }}
+                >
+                  <h4 className="tp-dashboard-new-title mb-15">
+                    Property engagement
+                  </h4>
+                  <div className="row property-engagement-stats">
+                    <div className="col-4">
+                      <div>
+                        <span style={{ color: "#667085", fontSize: 13 }}>Total views</span>
+                        <strong style={{ display: "block", color: "#003B5C", fontSize: 24 }}>
+                          {engagementSummary.views}
+                        </strong>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-4">
-                    <div>
-                      <span style={{ color: "#667085", fontSize: 13 }}>Total Favourite</span>
-                      <strong style={{ display: "block", color: "#FF7A00", fontSize: 24 }}>
-                        {engagementSummary.saved}
-                      </strong>
+                    <div className="col-4">
+                      <div>
+                        <span style={{ color: "#667085", fontSize: 13 }}>Total Favourite</span>
+                        <strong style={{ display: "block", color: "#FF7A00", fontSize: 24 }}>
+                          {engagementSummary.saved}
+                        </strong>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-4">
-                    <div>
-                      <span style={{ color: "#667085", fontSize: 13 }}>Total leads</span>
-                      <strong style={{ display: "block", color: "#2E7D32", fontSize: 24 }}>
-                        {engagementSummary.leads}
-                      </strong>
+                    <div className="col-4">
+                      <div>
+                        <span style={{ color: "#667085", fontSize: 13 }}>Total leads</span>
+                        <strong style={{ display: "block", color: "#2E7D32", fontSize: 24 }}>
+                          {engagementSummary.leads}
+                        </strong>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
+
+              {isAdmin && (
+                <div className="mb-30" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+                  <div style={{ flex: 1, minWidth: 220 }}>
+                    <input
+                      value={search}
+                      onChange={(event) => {
+                        setPage(1);
+                        setSearch(event.target.value);
+                      }}
+                      placeholder="Search title, location, city, state..."
+                      className="form-control"
+                      style={{ border: "1px solid #DBE1EF", borderRadius: 8, height: 44 }}
+                    />
+                  </div>
+                  <div style={{ color: "#475467", fontSize: 14 }}>
+                    Showing page {page} of {Math.max(totalPages, 1)}
+                  </div>
+                </div>
+              )}
 
               {loading && (
                 <div className="text-center py-5">
@@ -227,6 +264,30 @@ export default function DashboardProperty() {
                     onDelete={handleDelete}
                   />
                 ))}
+
+              {!loading && !error && isAdmin && totalPages > 1 && (
+                <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    disabled={page <= 1}
+                    onClick={() => setPage((current) => Math.max(1, current - 1))}
+                  >
+                    Prev
+                  </button>
+                  <span style={{ color: "#475467", fontSize: 14 }}>
+                    {page} / {totalPages}
+                  </span>
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    disabled={page >= totalPages}
+                    onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
