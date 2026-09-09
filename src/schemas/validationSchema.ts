@@ -189,6 +189,7 @@ export const propertySchema = yup.object({
       (value) => stripDescriptionHtml(value || "").length <= DESCRIPTION_MAX_CHARS,
     ),
   location: yup.string().required("Property location is required"),
+  googleLocationPath: yup.string().optional(),
   latitude: yup
     .number()
     .nullable()

@@ -4,7 +4,7 @@
   align-items: stretch;
   gap: 10px;
   width: 100%;
-  --hero-search-radius: 8px;
+  --hero-search-radius: 6px;
 }
 
 .hero-search-input-wrap {
@@ -13,7 +13,7 @@
   align-items: center;
   gap: 10px;
   height: 52px;
-  border: 1px solid #dbe3e8;
+  border: 1px solid #dbe1ef;
   border-radius: var(--hero-search-radius);
   padding-left: 14px;
   padding-right: 14px;

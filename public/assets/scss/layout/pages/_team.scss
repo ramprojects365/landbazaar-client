@@ -464,6 +464,8 @@
   &-box {
     padding: 60px 10px 60px 60px;
     background-color: var(--tp-common-white);
+    border: 1px solid #dbe1ef;
+    border-radius: 6px;
     box-shadow: 0px 0px 60px 0px rgba(115, 108, 141, 0.08);
     @media #{$lg,$md,$xs} {
       padding: 30px;
@@ -602,7 +604,7 @@
     &-top {
       padding: 30px 30px 20px;
       margin-bottom: 40px;
-      border-radius: 0px 0px 10px 10px;
+      border-radius: 6px 6px 0 0;
       background: var(--tp-theme-primary);
     }
     &-user {

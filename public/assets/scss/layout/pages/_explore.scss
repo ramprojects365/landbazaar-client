@@ -33,6 +33,7 @@
   }
   &-thumb {
     overflow: hidden;
+    border-radius: 6px;
     & img {
       width: 100%;
       object-fit: cover;

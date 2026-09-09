@@ -383,6 +383,8 @@
     &-box {
       padding: 50px 80px;
       background: var(--tp-common-white);
+      border: 1px solid #dbe1ef;
+      border-radius: 6px;
       box-shadow: 0px 30px 60px 0px rgba(3, 4, 28, 0.1);
       @media #{$xl,$lg,$md} {
         padding: 45px 35px;

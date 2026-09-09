@@ -64,8 +64,8 @@
 
 .property-fit-page__brief span {
   background: #f8fbfc;
-  border: 1px solid #dce5e8;
-  border-radius: 8px;
+  border: 1px solid #dbe1ef;
+  border-radius: 6px;
   color: #5c6f7b;
   min-height: 62px;
   padding: 10px 12px;
@@ -95,8 +95,8 @@
 
 .property-fit-page__handoff > div {
   background: #ffffff;
-  border: 1px solid #dce5e8;
-  border-radius: 8px;
+  border: 1px solid #dbe1ef;
+  border-radius: 6px;
   padding: 14px;
   display: flex;
   gap: 10px;
@@ -128,7 +128,7 @@
 .property-fit-page__notice {
   background: #eaf8f2;
   border: 1px solid #b8e4cf;
-  border-radius: 8px;
+  border-radius: 6px;
   color: #17633f;
   display: flex;
   align-items: center;
@@ -180,16 +180,16 @@
   height: 100%;
   margin-bottom: 0;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 18px 42px rgba(15, 48, 63, 0.09);
   background: #ffffff;
 }
 
 .property-fit-page__reason {
   background: #ffffff;
-  border: 1px solid #dce5e8;
+  border: 1px solid #dbe1ef;
   border-bottom: 0;
-  border-radius: 8px 8px 0 0;
+  border-radius: 6px 6px 0 0;
   padding: 12px 14px;
   width: 100%;
   max-width: 100%;
@@ -258,8 +258,8 @@
 }
 
 .property-fit-page__empty {
-  border: 1px solid #dce5e8;
-  border-radius: 8px;
+  border: 1px solid #dbe1ef;
+  border-radius: 6px;
   background: #ffffff;
   min-height: 280px;
   display: grid;
@@ -353,15 +353,15 @@
   }
 
   .property-fit-page__result-card {
-    border-radius: 8px;
+    border-radius: 6px;
   }
 
   .property-fit-page__reason {
-    border-radius: 8px 8px 0 0;
+    border-radius: 6px 6px 0 0;
   }
 
   .property-fit-page__view-signal + div .tp-rent-item {
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 6px 6px;
   }
 
   .property-fit-page__hero {

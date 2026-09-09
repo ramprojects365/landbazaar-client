@@ -2512,6 +2512,8 @@
       width: 100%;
       margin-bottom: 30px;
       background: var(--tp-common-white);
+      border: 1px solid #dbe1ef;
+      border-radius: 6px;
       box-shadow: 0px 0px 4px 0px rgba(64, 71, 99, 0.08);
 
       @media #{$xl,$md,$xs} {
@@ -2654,6 +2656,8 @@
     &-property {
       padding: 30px;
       background-color: #ffffff;
+      border: 1px solid #dbe1ef;
+      border-radius: 6px;
       box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.0392156863);
     }
 

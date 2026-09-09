@@ -30,6 +30,7 @@ export type ApiPropertyFields = {
   pincode?: string;
   landmark?: string;
   location?: string;
+  googleLocationPath?: string;
   latitude?: number;
   longitude?: number;
   price?: number | string;

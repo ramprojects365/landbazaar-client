@@ -153,6 +153,9 @@
     }
   }
   &-item {
+    border: 1px solid #dbe1ef;
+    border-radius: 6px;
+    overflow: hidden;
     & .tp-rent {
       &-option {
         position: absolute;

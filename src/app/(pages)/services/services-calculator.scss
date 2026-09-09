@@ -34,9 +34,9 @@
 
 .service-calculator__assessed {
   padding: 14px 16px;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #edf6f4;
-  border: 1px solid rgba(0, 59, 92, 0.1);
+  border: 1px solid #dbe1ef;
 
   p {
     margin: 0 0 4px;
@@ -122,8 +122,8 @@
 
 .service-calculator-page__rate-cards article {
   padding: 20px;
-  border: 1px solid rgba(0, 59, 92, 0.12);
-  border-radius: 8px;
+  border: 1px solid #dbe1ef;
+  border-radius: 6px;
   background: #f8faf9;
 }
 
@@ -164,7 +164,7 @@
 .service-calculator-page__cta {
   margin-top: 12px;
   padding: 28px;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #003b5c;
   color: #fff;
 }
