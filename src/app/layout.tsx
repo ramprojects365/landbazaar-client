@@ -9,7 +9,7 @@ import RootProviders from "./RootProviders";
 const siteUrl = "https://www.dekholand.com";
 const siteTitle = "DekhoLand | Buy & Sell Verified Lands and Plots";
 const siteDescription =
-  "India's trusted marketplace for lands and plots. Buy or sell open plots, farm land, and agricultural land with Dekho Land.";
+  "Find plots for sale in Andhra Pradesh and Telangana — including Hyderabad, Visakhapatnam, Vizag, Vijayawada, and Amaravati. Browse HMDA, DTCP, and RERA approved plots, farm land, and agricultural land on DekhoLand.";
 const siteImage = "https://www.dekholand.com/assets/img/logo/logo-blue.png";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -48,17 +48,36 @@ export const metadata: Metadata = {
 
   keywords: [
     "DekhoLand",
-    "India land",
-    "India plots",
-    "verified land India",
-    "agricultural land India",
-    "farmland India",
-    "land for sale India",
-    "plots for sale India",
-    "buy land India",
-    "sell land India",
-    "Telangana land",
-    "Hyderabad plots",
+    "plots for sale in Andhra Pradesh",
+    "plots for sale in Telangana",
+    "land for sale in Andhra Pradesh",
+    "land for sale in Telangana",
+    "plots for sale in Hyderabad",
+    "land for sale in Hyderabad",
+    "open plots for sale in Hyderabad",
+    "residential plots for sale in Hyderabad",
+    "plots for sale in Visakhapatnam",
+    "plots for sale in Vizag",
+    "land for sale in Visakhapatnam",
+    "plots for sale in Vijayawada",
+    "land for sale in Vijayawada",
+    "plots for sale in Amaravati",
+    "land for sale in Amaravati",
+    "plots for sale in Guntur",
+    "plots for sale in Kakinada",
+    "plots for sale in Tirupati",
+    "plots for sale in Warangal",
+    "plots for sale near Hyderabad",
+    "farm land for sale near Hyderabad",
+    "agricultural land for sale in Telangana",
+    "agricultural land for sale in Andhra Pradesh",
+    "HMDA plots for sale",
+    "DTCP plots for sale",
+    "RERA approved plots for sale",
+    "VMRDA plots for sale",
+    "APCRDA plots for sale",
+    "gated community plots for sale",
+    "best places to buy land in Hyderabad",
   ],
 
   authors: [{ name: "DekhoLand" }],
@@ -79,7 +98,7 @@ export const metadata: Metadata = {
         url: siteImage,
         width: 512,
         height: 512,
-        alt: "DekhoLand — verified lands and plots marketplace",
+        alt: "DekhoLand — plots for sale in Hyderabad, Telangana, and Andhra Pradesh",
       },
     ],
     locale: "en_IN",

@@ -678,6 +678,16 @@
   margin-bottom: 0;
 }
 
+.property-engagement-stats > [class*="col-"] > div {
+  display: inline-block;
+  text-align: center;
+}
+
+.property-engagement-stats strong {
+  display: block;
+  text-align: center;
+}
+
 .tp-rent-item {
   border-radius: 6px;
   overflow: hidden;

@@ -168,7 +168,11 @@ function HomePropertiesByCity() {
                       <Link href={href} className="tp-explore-thumb p-relative">
                         <img
                           src={property.image}
-                          alt={property.name}
+                          alt={
+                            property.isPropertyCard
+                              ? property.name
+                              : `Plots for sale in ${property.name}`
+                          }
                           loading="lazy"
                         />
                         <div className="tp-explore-content">

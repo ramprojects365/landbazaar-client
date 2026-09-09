@@ -1,10 +1,20 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 const bannerImages = [
-  "/assets/img/banner/bg-1.png",
-  "/assets/img/banner/bg-2.png",
-  "/assets/img/banner/bg-3.png",
+  {
+    src: "/assets/img/banner/bg-1.png",
+    alt: "Plots for sale in Hyderabad and Telangana",
+  },
+  {
+    src: "/assets/img/banner/bg-2.png",
+    alt: "Land for sale in Andhra Pradesh, Visakhapatnam, and Vijayawada",
+  },
+  {
+    src: "/assets/img/banner/bg-3.png",
+    alt: "HMDA plots and farm land for sale near Hyderabad",
+  },
 ];
 
 export default function BannerSlider() {
@@ -22,15 +32,18 @@ export default function BannerSlider() {
     <div className="banner-slider">
       {bannerImages.map((image, index) => (
         <div
-          key={index}
+          key={image.src}
           className={`banner-slide ${index === currentIndex ? "active" : ""}`}
-          style={{
-            backgroundImage: `url(${image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
+        >
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes="100vw"
+            priority={index === 0}
+            style={{ objectFit: "cover", objectPosition: "center" }}
+          />
+        </div>
       ))}
       <style jsx>{`
         .banner-slider {
@@ -71,19 +84,6 @@ export default function BannerSlider() {
 
         .banner-slide.active {
           opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-          .banner-slide {
-            background-position: center center !important;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .banner-slide {
-            background-position: center center !important;
-            background-size: cover !important;
-          }
         }
       `}</style>
     </div>

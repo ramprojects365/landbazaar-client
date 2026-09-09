@@ -6,14 +6,16 @@ export const metadata: Metadata = {
   title:
     "Search Lands & Plots in Hyderabad, Telangana, Visakhapatnam | Dekho Land",
   description:
-    "Search lands and plots for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond. Filter by location, price, and land type on Dekho Land.",
+    "Search plots for sale in Hyderabad, Telangana, and Andhra Pradesh. Find land for sale in Visakhapatnam, Vijayawada, and Amaravati, plus HMDA, DTCP, and RERA approved plots on Dekho Land.",
+  keywords:
+    "plots for sale in Hyderabad, plots for sale in Telangana, plots for sale in Andhra Pradesh, land for sale in Hyderabad, plots for sale in Visakhapatnam, plots for sale in Vizag, HMDA plots for sale, DTCP plots for sale, RERA approved plots for sale",
   metadataBase: new URL("https://www.dekholand.com"),
   alternates: {
     canonical: "/search",
   },
   openGraph: {
     title: "Search Lands & Plots in Hyderabad, Telangana, Visakhapatnam | Dekho Land",
-    description: "Search lands and plots for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond.",
+    description: "Search plots for sale in Hyderabad, Telangana, and Andhra Pradesh. Find land for sale in Visakhapatnam, Vijayawada, and Amaravati, plus HMDA, DTCP, and RERA approved plots on Dekho Land.",
     url: "https://www.dekholand.com/search",
     siteName: "Dekho Land",
     type: "website",
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: "Search Lands & Plots in Hyderabad, Telangana, Visakhapatnam | Dekho Land",
-    description: "Search lands and plots for sale and lease across India. Find residential plots, agricultural land, farm land, and commercial land in Hyderabad, Telangana, Visakhapatnam and beyond.",
+    description: "Search plots for sale in Hyderabad, Telangana, and Andhra Pradesh. Find land for sale in Visakhapatnam, Vijayawada, and Amaravati, plus HMDA, DTCP, and RERA approved plots on Dekho Land.",
   },
 };
 

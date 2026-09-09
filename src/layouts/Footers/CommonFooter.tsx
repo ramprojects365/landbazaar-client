@@ -8,6 +8,7 @@ import {
 import FooterContact from "./subComponents/FooterContact";
 import FooterColumn from "./subComponents/FooterColumn";
 import FooterCopyright from "./subComponents/FooterCopyright";
+import PopularSeoLinks from "@/components/Seo/PopularSeoLinks";
 
 export default function CommonFooter({ className = "pt-50" }) {
   return (
@@ -32,6 +33,9 @@ export default function CommonFooter({ className = "pt-50" }) {
                   <FooterColumn title="Land Types" links={landTypeLinks} />
                 </div>
               </div>
+            </div>
+            <div className="col-12">
+              <PopularSeoLinks compact />
             </div>
           </div>
         </div>
