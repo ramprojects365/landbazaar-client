@@ -7,7 +7,6 @@ import PlaceSearch, {
   PlaceResult,
 } from "../../../../../components/HeroBanner/subComponents/PlaceSearch";
 import { LAND_CITIES, LAND_STATES } from "@/config/landOptions";
-import { MapPin } from "lucide-react";
 
 export default function LocationDetails() {
   const {
@@ -46,27 +45,6 @@ export default function LocationDetails() {
           </div>
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label className="d-flex align-items-center gap-1">
-                Full Address
-              </label>
-              <PlaceSearch
-                onSelect={handleSelect}
-                placeholder="Type and pick exact location"
-                defaultValue={locationValue ?? ""}
-              />
-              {/* Hidden inputs so react-hook-form tracks lat/lng */}
-              <input type="hidden" {...register("location")} />
-              <input type="hidden" {...register("latitude")} />
-              <input type="hidden" {...register("longitude")} />
-              {errors?.location && (
-                <ErrorMessage message={errors?.location?.message || ""} />
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-6">
-            <div className="tp-dashboard-new-input">
               <label>City</label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("cityName")} className="listDropDown">
@@ -83,6 +61,8 @@ export default function LocationDetails() {
               )}
             </div>
           </div>
+        </div>
+        <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
               <label>State</label>
@@ -101,8 +81,6 @@ export default function LocationDetails() {
               )}
             </div>
           </div>
-        </div>
-        <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
               <label>Pin Code</label>
@@ -127,6 +105,8 @@ export default function LocationDetails() {
               )}
             </div>
           </div>
+        </div>
+        <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
               <label>Landmark</label>
@@ -138,6 +118,40 @@ export default function LocationDetails() {
               />
               {errors?.landmark && (
                 <ErrorMessage message={errors?.landmark?.message || ""} />
+              )}
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="tp-dashboard-new-input">
+              <label>Full Address</label>
+              <PlaceSearch
+                onSelect={handleSelect}
+                placeholder="Type and pick exact location"
+                defaultValue={locationValue ?? ""}
+              />
+              <input type="hidden" {...register("location")} />
+              <input type="hidden" {...register("latitude")} />
+              <input type="hidden" {...register("longitude")} />
+              {errors?.location && (
+                <ErrorMessage message={errors?.location?.message || ""} />
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-6">
+            <div className="tp-dashboard-new-input">
+              <label>Google Location Path</label>
+              <input
+                className="textBox"
+                type="text"
+                {...register("googleLocationPath")}
+                placeholder="Paste Google Maps link"
+              />
+              {errors?.googleLocationPath && (
+                <ErrorMessage
+                  message={errors?.googleLocationPath?.message || ""}
+                />
               )}
             </div>
           </div>

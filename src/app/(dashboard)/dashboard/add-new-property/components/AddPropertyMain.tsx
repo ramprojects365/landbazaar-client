@@ -195,6 +195,7 @@ export default function AddPropertyPage() {
       title: "",
       description: "",
       location: "",
+      googleLocationPath: "",
       latitude: undefined,
       longitude: undefined,
       streetName: "",
@@ -307,6 +308,7 @@ export default function AddPropertyPage() {
 
             location:
               propertyData.location || buildLocationFallback(propertyData),
+            googleLocationPath: propertyData.googleLocationPath || "",
             latitude: propertyData.latitude ?? null,
             longitude: propertyData.longitude ?? null,
             streetName: propertyData.streetName || "",
@@ -514,6 +516,14 @@ export default function AddPropertyPage() {
           }
         }
 
+        if (propertyImages.length < 1) {
+          toast.error("Please add at least 1 property image.");
+          document
+            .getElementById("property-upload-media")
+            ?.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+
         if (propertyImages.length < 5) {
           toast.warning("Add at least 5 images for better results.", {
             duration: 4000,
@@ -598,6 +608,7 @@ export default function AddPropertyPage() {
             ? sanitizeDescriptionHtmlSync(data.description)
             : "",
           location: data.location,
+          googleLocationPath: data.googleLocationPath || "",
           latitude:
             data.latitude === undefined ||
             data.latitude === null ||

@@ -156,52 +156,50 @@ export default function DashboardProperty() {
   return (
     <DashboardLayout>
       <div className="tp-dashboard-property-wrapper">
-        <div className="row mb-30">
-          <div className="col-12">
-            <div
-              style={{
-                border: "1px solid #DBE1EF",
-                background: "#fff",
-                padding: "20px 24px",
-              }}
-            >
-              <h4 className="tp-dashboard-new-title mb-15">
-                {isAdmin ? "All property engagement" : "Property engagement"}
-              </h4>
-              <div className="row">
-                <div className="col-12 col-md-4 mb-15 mb-md-0">
-                  <div>
-                    <span style={{ color: "#667085", fontSize: 13 }}>Total views</span>
-                    <strong style={{ display: "block", color: "#003B5C", fontSize: 24 }}>
-                      {engagementSummary.views}
-                    </strong>
+        <div className="row">
+          <div className="col-12 col-lg-8">
+            <div className="dashboard-property-main">
+              <div
+                className="property-engagement-box mb-30"
+                style={{
+                  border: "1px solid #DBE1EF",
+                  background: "#fff",
+                  padding: "20px 24px",
+                }}
+              >
+                <h4 className="tp-dashboard-new-title mb-15">
+                  {isAdmin ? "All property engagement" : "Property engagement"}
+                </h4>
+                <div className="row property-engagement-stats">
+                  <div className="col-4">
+                    <div>
+                      <span style={{ color: "#667085", fontSize: 13 }}>Total views</span>
+                      <strong style={{ display: "block", color: "#003B5C", fontSize: 24 }}>
+                        {engagementSummary.views}
+                      </strong>
+                    </div>
                   </div>
-                </div>
-                <div className="col-12 col-md-4 mb-15 mb-md-0">
-                  <div>
-                    <span style={{ color: "#667085", fontSize: 13 }}>Total Favourite</span>
-                    <strong style={{ display: "block", color: "#FF7A00", fontSize: 24 }}>
-                      {engagementSummary.saved}
-                    </strong>
+                  <div className="col-4">
+                    <div>
+                      <span style={{ color: "#667085", fontSize: 13 }}>Total Favourite</span>
+                      <strong style={{ display: "block", color: "#FF7A00", fontSize: 24 }}>
+                        {engagementSummary.saved}
+                      </strong>
+                    </div>
                   </div>
-                </div>
-                <div className="col-12 col-md-4">
-                  <div>
-                    <span style={{ color: "#667085", fontSize: 13 }}>Total leads</span>
-                    <strong style={{ display: "block", color: "#2E7D32", fontSize: 24 }}>
-                      {engagementSummary.leads}
-                    </strong>
+                  <div className="col-4">
+                    <div>
+                      <span style={{ color: "#667085", fontSize: 13 }}>Total leads</span>
+                      <strong style={{ display: "block", color: "#2E7D32", fontSize: 24 }}>
+                        {engagementSummary.leads}
+                      </strong>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 col-lg-8">
-            <div className="row">
+
               {loading && (
-                <div className="col-12 text-center py-5">
+                <div className="text-center py-5">
                   <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </div>
@@ -210,15 +208,13 @@ export default function DashboardProperty() {
               )}
 
               {error && (
-                <div className="col-12">
-                  <div className="alert alert-danger" role="alert">
-                    {error}
-                  </div>
+                <div className="alert alert-danger" role="alert">
+                  {error}
                 </div>
               )}
 
               {!loading && !error && properties.length === 0 && (
-                <div className="col-12 text-center py-5">
+                <div className="text-center py-5">
                   <p className="text-muted">No properties found</p>
                 </div>
               )}
@@ -226,12 +222,11 @@ export default function DashboardProperty() {
               {!loading &&
                 !error &&
                 properties.map((property) => (
-                  <div className="col-12" key={property.id}>
-                    <DashboardPropertyItem
-                      property={property}
-                      onDelete={handleDelete}
-                    />
-                  </div>
+                  <DashboardPropertyItem
+                    key={property.id}
+                    property={property}
+                    onDelete={handleDelete}
+                  />
                 ))}
             </div>
           </div>

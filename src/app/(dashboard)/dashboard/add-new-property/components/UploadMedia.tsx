@@ -346,8 +346,13 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
   const captionedCount = images.filter((image) => image.caption.trim()).length;
 
   return (
-    <div className="tp-dashboard-new-property mb-15 property-upload-manager">
-      <h5 className="tp-dashboard-new-title">Upload Media</h5>
+    <div
+      id="property-upload-media"
+      className="tp-dashboard-new-property mb-15 property-upload-manager"
+    >
+      <h5 className="tp-dashboard-new-title">
+        Upload Media <span style={{ color: "#dc3545" }}>*</span>
+      </h5>
 
       <div className="tp-dashboard-new-um">
         <div className="tp-dashboard-new-um-content property-upload-drop">
@@ -366,8 +371,9 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
           </span>
 
           <p>
-            Upload land photos, set the cover image, and optionally add a caption
-            for each photo. Existing photos stay unless you remove or replace them.
+            Upload at least 1 land photo (required). Set the cover image, and
+            optionally add a caption for each photo. Existing photos stay unless
+            you remove or replace them.
           </p>
           <p className="property-upload-size-guide">
             {PROPERTY_IMAGE_GUIDE_TEXT}
@@ -388,7 +394,9 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
         />
 
         {images.length === 0 ? (
-          <div className="property-upload-empty">No images uploaded yet.</div>
+          <div className="property-upload-empty">
+            No images uploaded yet. At least 1 image is required.
+          </div>
         ) : (
           <div className="property-media-workspace">
             <div className="property-media-editor">

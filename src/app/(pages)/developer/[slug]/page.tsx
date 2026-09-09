@@ -279,7 +279,8 @@ export default function DeveloperDetailsPage() {
         }
         .tp-agent-profile-card {
           background: white;
-          border-radius: 10px;
+          border: 1px solid #dbe1ef;
+          border-radius: 6px;
           padding: 30px;
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
           margin-bottom: 30px;

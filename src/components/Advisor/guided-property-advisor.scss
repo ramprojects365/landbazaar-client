@@ -153,8 +153,8 @@
 .guided-advisor__summary,
 .guided-advisor__empty {
   background: #ffffff;
-  border: 1px solid #dbe7ea;
-  border-radius: 8px;
+  border: 1px solid #dbe1ef;
+  border-radius: 6px;
   box-shadow: 0 18px 45px rgba(15, 48, 63, 0.08);
 }
 
@@ -743,8 +743,8 @@
 }
 
 .guided-advisor__summary div {
-  border: 1px solid #e3ecef;
-  border-radius: 8px;
+  border: 1px solid #dbe1ef;
+  border-radius: 6px;
   padding: 12px;
   margin-bottom: 10px;
   background: #f8fbfc;
@@ -805,9 +805,9 @@
   width: min(680px, 100%);
   max-height: min(86vh, 900px);
   overflow: auto;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid #dbe1ef;
   box-shadow: 0 24px 70px rgba(0, 59, 92, 0.16);
   padding: 30px;
   animation: guided-modal-in 0.24s ease both;
@@ -1036,9 +1036,9 @@
 
 .guided-advisor__reason {
   background: #ffffff;
-  border: 1px solid #dbe7ea;
+  border: 1px solid #dbe1ef;
   border-bottom: 0;
-  border-radius: 8px 8px 0 0;
+  border-radius: 6px 6px 0 0;
   padding: 12px 14px;
   box-shadow: 0 12px 25px rgba(15, 48, 63, 0.06);
 }
@@ -1057,7 +1057,7 @@
 }
 
 .guided-advisor__view-signal + .tp-rent-item {
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 6px 6px;
   margin-bottom: 18px;
   box-shadow: 0 18px 42px rgba(15, 48, 63, 0.09);
   overflow: hidden;
@@ -1102,7 +1102,7 @@
   max-height: 90vh;
   overflow-y: auto;
   overflow-x: hidden;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #f7fafb;
   padding: 18px;
   box-shadow: 0 24px 70px rgba(0, 59, 92, 0.18);
@@ -1221,7 +1221,8 @@
 .guided-advisor__no-match {
   background: #f0fbfb;
   color: #24414a;
-  border-radius: 8px;
+  border: 1px solid #dbe1ef;
+  border-radius: 6px;
   padding: 30px;
   box-shadow: 0 18px 42px rgba(0, 59, 92, 0.1);
   overflow: hidden;
@@ -1282,8 +1283,8 @@
 
 .guided-advisor__fallback-grid div {
   background: #ffffff;
-  border: 1px solid #dbe7ea;
-  border-radius: 8px;
+  border: 1px solid #dbe1ef;
+  border-radius: 6px;
   padding: 14px;
 }
 
