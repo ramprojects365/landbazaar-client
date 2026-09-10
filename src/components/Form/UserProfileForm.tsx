@@ -554,7 +554,7 @@ export default function UserProfileForm() {
                   <input
                     {...registerProfile("fullName")}
                     type="text"
-                    placeholder="Enter full name"
+                    placeholder="Enter your name"
                   />
                   <ErrorMessage
                     message={profileErrors.fullName?.message || ""}
@@ -568,7 +568,7 @@ export default function UserProfileForm() {
                   <textarea
                     {...registerProfile("aboutYou")}
                     rows={4}
-                    placeholder="Tell us about yourself"
+                    placeholder="e.g. Land seller based in Hyderabad"
                     style={{ width: "100%", resize: "vertical" }}
                   />
                   <ErrorMessage
@@ -603,7 +603,7 @@ export default function UserProfileForm() {
                     {...registerProfile("email")}
                     type="email"
                     readOnly
-                    placeholder="Email"
+                    placeholder="Enter your email"
                     style={{ background: "#f6f6f6" }}
                   />
                   <ErrorMessage message={profileErrors.email?.message || ""} />
@@ -618,7 +618,7 @@ export default function UserProfileForm() {
                       <input
                         {...registerProfile("renNumber")}
                         type="text"
-                        placeholder="RERA12345 or Agent ID"
+                        placeholder="e.g. RERA12345"
                         style={{ textTransform: "uppercase" }}
                         onInput={(e: React.FormEvent<HTMLInputElement>) => {
                           const target = e.currentTarget;
@@ -637,7 +637,7 @@ export default function UserProfileForm() {
                       <input
                         {...registerProfile("companyName")}
                         type="text"
-                        placeholder="Enter your company name"
+                        placeholder="e.g. CRR Infra"
                       />
                       <ErrorMessage
                         message={profileErrors.companyName?.message || ""}
@@ -651,7 +651,7 @@ export default function UserProfileForm() {
                       <input
                         {...registerProfile("icPassport")}
                         type="text"
-                        placeholder="Enter your identification number"
+                        placeholder="e.g. Aadhaar or PAN"
                       />
                       <ErrorMessage
                         message={profileErrors.icPassport?.message || ""}
@@ -665,7 +665,7 @@ export default function UserProfileForm() {
                       <input
                         {...registerProfile("designation")}
                         type="text"
-                        placeholder="Enter your designation"
+                        placeholder="e.g. Sales Manager"
                       />
                       <ErrorMessage
                         message={profileErrors.designation?.message || ""}
@@ -680,7 +680,7 @@ export default function UserProfileForm() {
                         {...registerProfile("experience")}
                         type="number"
                         min={0}
-                        placeholder="Years of experience"
+                        placeholder="e.g. 5"
                       />
                       <ErrorMessage
                         message={profileErrors.experience?.message || ""}

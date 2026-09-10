@@ -8,7 +8,7 @@ import { deleteProperty } from "@/services/propertyService";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, type CSSProperties } from "react";
+import { useState, useRef, type CSSProperties } from "react";
 import { toast } from "sonner";
 import FavoriteButton from "@/components/UI/FavoriteButton";
 
@@ -32,6 +32,7 @@ const leadLinkStyle: CSSProperties = {
 export default function DashboardPropertyItem({ property, onDelete, removeInsteadOfDelete = false }: IProps) {
   const [loading, setLoading] = useState(false);
   const [showLeads, setShowLeads] = useState(false);
+  const thumbRef = useRef<HTMLDivElement>(null);
   const listingFlag = resolveListingTypeFlag(property);
   const detailsHref = getPropertyDetailsPath({
     id: property.id,
@@ -61,22 +62,38 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
     }
   };
 
+  const toggleLeads = () => {
+    setShowLeads((current) => {
+      const next = !current;
+      if (next && thumbRef.current) {
+        thumbRef.current.style.setProperty(
+          "--dashboard-thumb-height",
+          `${thumbRef.current.getBoundingClientRect().height}px`,
+        );
+      }
+      return next;
+    });
+  };
+
   return (
     <div
       style={{ border: "1px solid #DBE1EF", marginLeft: "0px" }}
-      className="row tp-rent-item p-relative mb-30 align-items-start"
+      className={`row tp-rent-item p-relative mb-30${
+        showLeads ? " dashboard-property-item--leads-open" : ""
+      }`}
     >
       <div
+        ref={thumbRef}
         className="col-md-5 tp-rent-thumb p-relative"
         style={{ padding: "0px" }}
       >
-        <Link href={detailsHref}>
+        <Link href={detailsHref} className="dashboard-property-thumb-link">
           <Image
             src={property?.image}
-            width={400}
-            height={280}
-            style={{ width: "100%", height: "280px", maxHeight: "280px", objectFit: "cover" }}
             alt="property image"
+            fill
+            sizes="(max-width: 768px) 100vw, 42vw"
+            style={{ objectFit: "cover" }}
             unoptimized
           />
         </Link>
@@ -152,7 +169,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
             <button
               type="button"
               className="btn btn-link p-0"
-              onClick={() => setShowLeads((current) => !current)}
+              onClick={toggleLeads}
               aria-expanded={showLeads}
             >
               {showLeads ? "Hide leads" : `View leads (${property.leadCount ?? property.leads?.length ?? 0})`}

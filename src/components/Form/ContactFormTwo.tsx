@@ -68,7 +68,7 @@ export default function ContactFormTwo() {
                   <input
                     type="text"
                     {...register("name")}
-                    placeholder="Full name"
+                    placeholder="Enter your name"
                     maxLength={60}
                     onInput={handleNameInput}
                   />
@@ -82,7 +82,7 @@ export default function ContactFormTwo() {
                   <input
                     type="email"
                     {...register("email")}
-                    placeholder="Email address"
+                    placeholder="Enter your email"
                   />
                   <ErrorMessage message={errors?.email?.message || ""} />
                 </div>
@@ -111,7 +111,7 @@ export default function ContactFormTwo() {
                   <input
                     type="text"
                     {...register("subject")}
-                    placeholder="Subject"
+                    placeholder="e.g. Enquiry about a plot"
                     maxLength={120}
                   />
                   <ErrorMessage message={errors?.subject?.message || ""} />
@@ -123,7 +123,7 @@ export default function ContactFormTwo() {
                 <div className="tp-contact-input p-relative">
                   <textarea
                     {...register("message")}
-                    placeholder="Write your message"
+                    placeholder="e.g. I am interested in this plot"
                     maxLength={1000}
                   ></textarea>
                   <ErrorMessage message={errors?.message?.message || ""} />

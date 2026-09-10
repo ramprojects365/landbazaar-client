@@ -147,6 +147,12 @@ const optionalDigits = yup
     (value) => !value || /^[0-9]+$/.test(value),
   );
 
+const yesNoRequired = (message: string) =>
+  yup
+    .string()
+    .oneOf(["Yes", "No"], message)
+    .required(message);
+
 export const propertySchema = yup.object({
   listingType: yup
     .string()
@@ -157,13 +163,13 @@ export const propertySchema = yup.object({
   tenure: yup.string().optional(),
   areaUnit: yup.string().required("Area unit is required"),
   pricePerUnit: yup.string().when("listingType", {
-    is: "sale",
-    then: () =>
+    is: "lease",
+    then: () => optionalDigits,
+    otherwise: () =>
       digitsOnlyPositive(
         "Price per unit is required",
         "Price per unit must be greater than 0",
       ),
-    otherwise: () => optionalDigits,
   }),
   totalPrice: yup.string().when("listingType", {
     is: "sale",
@@ -217,7 +223,7 @@ export const propertySchema = yup.object({
   stateName: yup.string().required("State is required"),
   pinCode: yup
     .string()
-    .optional()
+    .required("Pin code is required")
     .matches(/^[0-9]{6}$/, "Pin Code must be exactly 6 digits"),
   landmark: yup.string().optional(),
   price: yup.string().when("listingType", {
@@ -258,14 +264,29 @@ export const propertySchema = yup.object({
   availability: yup.string().optional(),
   negotiable: yup.string().required("Please select negotiable value"),
   floorLevel: yup.string().optional(),
-  cornerPlot: yup.string().optional(),
-  roadWidth: yup.string().optional(),
+  cornerPlot: yesNoRequired("Please select corner plot"),
+  roadWidth: yup.string().required("Road width is required"),
   surveyNumber: yup.string().optional(),
-  approvalTypes: yup.array().of(yup.string()).optional(),
-  soilType: yup.string().optional(),
-  clearTitle: yup.string().optional(),
-  loanFacility: yup.string().optional(),
-  registrationReady: yup.string().optional(),
+  approvalTypes: yup.array().of(yup.string()).when("listingType", {
+    is: "sale",
+    then: (schema) =>
+      schema
+        .min(1, "Please select at least one approval type")
+        .required("Please select at least one approval type"),
+    otherwise: (schema) => schema.optional(),
+  }),
+  soilType: yup.string().required("Soil type is required"),
+  clearTitle: yesNoRequired("Please select clear title"),
+  loanFacility: yup.string().when("listingType", {
+    is: "lease",
+    then: (schema) => schema.optional(),
+    otherwise: () => yesNoRequired("Please select loan facility"),
+  }),
+  registrationReady: yup.string().when("listingType", {
+    is: "lease",
+    then: (schema) => schema.optional(),
+    otherwise: () => yesNoRequired("Please select registration ready"),
+  }),
   contactPersonName: yup.string().required("Contact person name is required"),
   contactNumber: yup
     .string()
@@ -286,7 +307,7 @@ export const propertySchema = yup.object({
     })
     .optional(),
   carParkAllocation: yup.string().optional(),
-  facingDirection: yup.string().optional(),
+  facingDirection: yup.string().required("Facing is required"),
   monthlyRent: yup.string().when("listingType", {
     is: "lease",
     then: () =>

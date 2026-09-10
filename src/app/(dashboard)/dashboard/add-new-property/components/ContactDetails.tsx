@@ -7,6 +7,7 @@ import {
   PHONE_NUMBER_PLACEHOLDER,
   sanitizePhoneDigits,
 } from "@/utils/phoneInput";
+import RequiredAsterisk from "./RequiredAsterisk";
 
 export default function ContactDetails() {
   const {
@@ -21,11 +22,14 @@ export default function ContactDetails() {
         <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Contact Person</label>
+              <label>
+                Contact Person
+                <RequiredAsterisk />
+              </label>
               <input
                 className="textBox"
                 type="text"
-                placeholder="Mr. Ram"
+                placeholder="Enter your name"
                 {...register("contactPersonName")}
               />
               {errors?.contactPersonName && (
@@ -38,7 +42,10 @@ export default function ContactDetails() {
 
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Contact Number</label>
+              <label>
+                Contact Number
+                <RequiredAsterisk />
+              </label>
               <input
                 className="textBox"
                 type="text"

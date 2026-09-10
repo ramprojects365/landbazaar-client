@@ -98,7 +98,7 @@ export default function VerifyForm() {
                   <input
                     {...register("emailOtp")}
                     type="text"
-                    placeholder="Enter email OTP"
+                    placeholder="e.g. 123456"
                   />
                 </div>
                 <div className="col-4 text-end">

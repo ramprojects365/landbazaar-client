@@ -542,7 +542,7 @@ export default function GuidedPropertyAdvisor({
                       email: event.target.value,
                     }))
                   }
-                  placeholder="you@example.com"
+                  placeholder="Enter your email"
                 />
               </label>
               <p>This will help you find better matches.</p>

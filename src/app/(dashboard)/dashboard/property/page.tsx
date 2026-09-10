@@ -222,7 +222,7 @@ export default function DashboardProperty() {
                       setPage(1);
                       setSearch(event.target.value);
                     }}
-                    placeholder="Search title, location, city, state..."
+                    placeholder="Search title, location, city, or state"
                     className="form-control"
                     style={{ border: "1px solid #DBE1EF", borderRadius: 8, height: 44 }}
                   />

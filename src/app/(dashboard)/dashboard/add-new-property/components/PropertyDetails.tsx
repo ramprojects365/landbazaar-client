@@ -9,6 +9,8 @@ import {
   SOIL_TYPES,
 } from "@/config/landOptions";
 import { UseFormRegister } from "react-hook-form";
+import ErrorMessage from "../../../../../components/Form/ErrorMassage";
+import RequiredAsterisk from "./RequiredAsterisk";
 import "../property.css";
 
 const inlineRadioRowStyle = {
@@ -35,18 +37,21 @@ function YesNoRadioRow({
   label,
   field,
   register,
+  errorMessage,
 }: {
   label: string;
   field: "cornerPlot" | "clearTitle" | "loanFacility" | "registrationReady";
   register: UseFormRegister<PropertyFormData>;
+  errorMessage?: string;
 }) {
   return (
     <div className="tp-dashboard-new-input">
       <div style={inlineRadioRowStyle}>
         <label
-          style={{ marginBottom: 0, whiteSpace: "nowrap", width: "150px" }}
+          style={{ marginBottom: 0, whiteSpace: "nowrap", minWidth: "150px" }}
         >
           {label}
+          <RequiredAsterisk />
         </label>
         <div style={inlineRadioOptionsStyle}>
           <label style={inlineRadioOptionStyle}>
@@ -59,12 +64,17 @@ function YesNoRadioRow({
           </label>
         </div>
       </div>
+      {errorMessage ? <ErrorMessage message={errorMessage} /> : null}
     </div>
   );
 }
 
 export default function PropertyDetails() {
-  const { register, watch } = useFormContext<PropertyFormData>();
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useFormContext<PropertyFormData>();
   const isLeaseListing = watch("listingType") === "lease";
 
   return (
@@ -74,11 +84,11 @@ export default function PropertyDetails() {
         <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Layout Name (Optional)</label>
+              <label>Layout Name</label>
               <input
                 className="textBox"
                 type="text"
-                placeholder="Ex: Green Valley Venture"
+                placeholder="e.g. Green Valley"
                 {...register("propertyName")}
               />
             </div>
@@ -90,7 +100,7 @@ export default function PropertyDetails() {
               <input
                 className="textBox"
                 type="text"
-                placeholder="Ex: 124/A"
+                placeholder="e.g. 124/A"
                 {...register("surveyNumber")}
               />
             </div>
@@ -98,7 +108,10 @@ export default function PropertyDetails() {
 
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Soil Type</label>
+              <label>
+                Soil Type
+                <RequiredAsterisk />
+              </label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("soilType")} className="listDropDown">
                   <option value="">Select</option>
@@ -109,6 +122,9 @@ export default function PropertyDetails() {
                   ))}
                 </select>
               </div>
+              {errors?.soilType && (
+                <ErrorMessage message={errors?.soilType?.message || ""} />
+              )}
             </div>
           </div>
         </div>
@@ -116,7 +132,10 @@ export default function PropertyDetails() {
         <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Road Width</label>
+              <label>
+                Road Width
+                <RequiredAsterisk />
+              </label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("roadWidth")} className="listDropDown">
                   <option value="">Select</option>
@@ -127,22 +146,30 @@ export default function PropertyDetails() {
                   ))}
                 </select>
               </div>
+              {errors?.roadWidth && (
+                <ErrorMessage message={errors?.roadWidth?.message || ""} />
+              )}
             </div>
             <YesNoRadioRow
               label="Corner Plot"
               field="cornerPlot"
               register={register}
+              errorMessage={errors?.cornerPlot?.message}
             />
             <YesNoRadioRow
               label="Clear Title"
               field="clearTitle"
               register={register}
+              errorMessage={errors?.clearTitle?.message}
             />
           </div>
 
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Facing</label>
+              <label>
+                Facing
+                <RequiredAsterisk />
+              </label>
               <div className="tp-property-tabs-select tp-select">
                 <select
                   {...register("facingDirection")}
@@ -156,6 +183,11 @@ export default function PropertyDetails() {
                   ))}
                 </select>
               </div>
+              {errors?.facingDirection && (
+                <ErrorMessage
+                  message={errors?.facingDirection?.message || ""}
+                />
+              )}
             </div>
             {!isLeaseListing && (
               <>
@@ -163,11 +195,13 @@ export default function PropertyDetails() {
                   label="Loan Facility"
                   field="loanFacility"
                   register={register}
+                  errorMessage={errors?.loanFacility?.message}
                 />
                 <YesNoRadioRow
                   label="Registration Ready"
                   field="registrationReady"
                   register={register}
+                  errorMessage={errors?.registrationReady?.message}
                 />
               </>
             )}
@@ -175,7 +209,10 @@ export default function PropertyDetails() {
           {!isLeaseListing && (
             <div className="col-lg-4">
               <div className="tp-dashboard-new-input">
-                <label>Approval Type (Multi Select)</label>
+                <label>
+                  Approval Type (Multi Select)
+                  <RequiredAsterisk />
+                </label>
                 <select
                   {...register("approvalTypes")}
                   multiple
@@ -187,6 +224,11 @@ export default function PropertyDetails() {
                     </option>
                   ))}
                 </select>
+                {errors?.approvalTypes && (
+                  <ErrorMessage
+                    message={errors?.approvalTypes?.message || ""}
+                  />
+                )}
               </div>
             </div>
           )}

@@ -152,7 +152,7 @@ export default function SignInForm() {
         <div className="col-12">
           <div className="tp-sign-in-input-box">
             <div className="tp-sign-in-input p-relative">
-              <input {...register("email")} type="text" placeholder="Email" />
+              <input {...register("email")} type="text" placeholder="Enter your email" />
               <i>
                 <AuthUserSvg />
               </i>
@@ -167,7 +167,7 @@ export default function SignInForm() {
                 <input
                   {...register("password")}
                   type={showPass ? "text" : "password"}
-                  placeholder="Password"
+                  placeholder="Enter your password"
                 />
                 <div
                   className="tp-sign-in-input-eye password-show-toggle"
