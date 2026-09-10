@@ -11,6 +11,7 @@ import {
   sanitizeDescriptionHtmlSync,
   stripDescriptionHtml,
 } from "@/utils/descriptionHtml";
+import { examplePlaceholder } from "@/utils/placeholders";
 
 type DescriptionEditorProps = {
   value: string;
@@ -47,7 +48,7 @@ function getActiveFontSize(editor: {
 export default function DescriptionEditor({
   value,
   onChange,
-  placeholder = "Write land highlights, approvals, road access, and nearby landmarks.",
+  placeholder = examplePlaceholder("HMDA approved, 30 ft road, near ORR"),
 }: DescriptionEditorProps) {
   const lastEmittedHtml = useRef<string>(value || "");
   const [, setToolbarTick] = useState(0);

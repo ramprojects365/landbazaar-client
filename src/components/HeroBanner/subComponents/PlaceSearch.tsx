@@ -85,7 +85,7 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
         <input
           ref={inputRef}
           type="text"
-          placeholder={placeholder || "Search location"}
+          placeholder={placeholder || "Search and select the location"}
           defaultValue={defaultValue}
           disabled
           style={{ ...inputStyle, background: "#f9fafb", color: "#888" }}
@@ -101,7 +101,7 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
         <input
           ref={inputRef}
           type="text"
-          placeholder={placeholder || "Search location"}
+          placeholder={placeholder || "Search and select the location"}
           onChange={handleInputChange}
           style={inputStyle}
         />

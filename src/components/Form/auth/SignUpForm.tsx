@@ -144,7 +144,7 @@ export default function SignUpForm() {
             <div className="tp-sign-in-input p-relative">
               <input
                 type="text"
-                placeholder="Enter display name"
+                placeholder="Enter your name"
                 {...register("displayname")}
               />
               <i>
@@ -159,7 +159,7 @@ export default function SignUpForm() {
             <div className="tp-sign-in-input p-relative">
               <input
                 type="email"
-                placeholder="Enter email"
+                placeholder="Enter your email"
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -204,7 +204,7 @@ export default function SignUpForm() {
               <div className="password-input p-relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="Password"
+                  placeholder="Enter your password"
                   {...register("password")}
                 />
                 <div
@@ -242,7 +242,7 @@ export default function SignUpForm() {
               <div className="password-input p-relative">
                 <input
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm password"
+                  placeholder="Confirm your password"
                   {...register("confirmPassword")}
                 />
                 <div

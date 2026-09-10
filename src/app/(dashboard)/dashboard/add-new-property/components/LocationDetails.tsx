@@ -7,6 +7,7 @@ import PlaceSearch, {
   PlaceResult,
 } from "../../../../../components/HeroBanner/subComponents/PlaceSearch";
 import { LAND_CITIES, LAND_STATES } from "@/config/landOptions";
+import RequiredAsterisk from "./RequiredAsterisk";
 
 export default function LocationDetails() {
   const {
@@ -31,12 +32,15 @@ export default function LocationDetails() {
         <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Village / Area</label>
+              <label>
+                Village / Area
+                <RequiredAsterisk />
+              </label>
               <input
                 className="textBox"
                 type="text"
                 {...register("streetName")}
-                placeholder="Ex: Shad Nagar"
+                placeholder="e.g. Shadnagar"
               />
               {errors?.streetName && (
                 <ErrorMessage message={errors?.streetName?.message || ""} />
@@ -45,7 +49,10 @@ export default function LocationDetails() {
           </div>
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>City</label>
+              <label>
+                City
+                <RequiredAsterisk />
+              </label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("cityName")} className="listDropDown">
                   <option value="">Select</option>
@@ -65,7 +72,10 @@ export default function LocationDetails() {
         <div className="row">
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>State</label>
+              <label>
+                State
+                <RequiredAsterisk />
+              </label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("stateName")} className="listDropDown">
                   <option value="">Select</option>
@@ -83,12 +93,15 @@ export default function LocationDetails() {
           </div>
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Pin Code</label>
+              <label>
+                Pin Code
+                <RequiredAsterisk />
+              </label>
               <input
                 className="textBox"
                 type="text"
                 inputMode="numeric"
-                placeholder="Ex: 533005"
+                placeholder="e.g. 502001"
                 {...register("pinCode")}
                 onInput={(e) => {
                   e.currentTarget.value = e.currentTarget.value.replace(
@@ -114,7 +127,7 @@ export default function LocationDetails() {
                 className="textBox"
                 type="text"
                 {...register("landmark")}
-                placeholder="Near ORR Exit 12"
+                placeholder="e.g. Near ORR Exit 12"
               />
               {errors?.landmark && (
                 <ErrorMessage message={errors?.landmark?.message || ""} />
@@ -123,10 +136,13 @@ export default function LocationDetails() {
           </div>
           <div className="col-lg-6">
             <div className="tp-dashboard-new-input">
-              <label>Full Address</label>
+              <label>
+                Full Address
+                <RequiredAsterisk />
+              </label>
               <PlaceSearch
                 onSelect={handleSelect}
-                placeholder="Type and pick exact location"
+                placeholder="Search and select the location"
                 defaultValue={locationValue ?? ""}
               />
               <input type="hidden" {...register("location")} />
@@ -146,7 +162,7 @@ export default function LocationDetails() {
                 className="textBox"
                 type="text"
                 {...register("googleLocationPath")}
-                placeholder="Paste Google Maps link"
+                placeholder="e.g. https://maps.google.com/..."
               />
               {errors?.googleLocationPath && (
                 <ErrorMessage

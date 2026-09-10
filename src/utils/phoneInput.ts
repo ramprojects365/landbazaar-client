@@ -1,4 +1,4 @@
-export const PHONE_NUMBER_PLACEHOLDER = "Enter phone number";
+export const PHONE_NUMBER_PLACEHOLDER = "Enter your phone number";
 
 /** 10-digit Indian mobile: first digit 1–9, remaining nine digits 0–9. */
 export const PHONE_DIGITS_PATTERN = /^[1-9][0-9]{9}$/;

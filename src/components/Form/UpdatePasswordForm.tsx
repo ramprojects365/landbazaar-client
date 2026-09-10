@@ -62,7 +62,7 @@ export default function UpdatePasswordForm() {
                   <input
                     {...registerPassword("oldPassword")}
                     type={oldPasswordVisible ? "text" : "password"}
-                    placeholder="Old password"
+                    placeholder="Enter your old password"
                     style={{ paddingRight: 40 }}
                   />
                   <span
@@ -93,7 +93,7 @@ export default function UpdatePasswordForm() {
                   <input
                     {...registerPassword("newPassword")}
                     type={newPasswordVisible ? "text" : "password"}
-                    placeholder="New password"
+                    placeholder="Enter your new password"
                     style={{ paddingRight: 40 }}
                   />
                   <span
@@ -124,7 +124,7 @@ export default function UpdatePasswordForm() {
                   <input
                     {...registerPassword("confirmPassword")}
                     type={confirmPasswordVisible ? "text" : "password"}
-                    placeholder="Confirm new password"
+                    placeholder="Confirm your new password"
                     style={{ paddingRight: 40 }}
                   />
                   <span

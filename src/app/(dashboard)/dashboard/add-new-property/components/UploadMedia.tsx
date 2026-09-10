@@ -11,6 +11,7 @@ import {
   preparePropertyImage,
 } from "@/utils/propertyImageUpload";
 import "../property.css";
+import RequiredAsterisk from "./RequiredAsterisk";
 
 interface PropertyImageItem {
   id: string;
@@ -351,7 +352,7 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
       className="tp-dashboard-new-property mb-15 property-upload-manager"
     >
       <h5 className="tp-dashboard-new-title">
-        Upload Media <span style={{ color: "#dc3545" }}>*</span>
+        Upload Media <RequiredAsterisk />
       </h5>
 
       <div className="tp-dashboard-new-um">
@@ -437,7 +438,7 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
                       <input
                         type="text"
                         value={image.caption}
-                        placeholder="Example: Front view from main road"
+                        placeholder="e.g. Front view from main road"
                         onChange={(event) =>
                           updateImage(image.id, { caption: event.target.value })
                         }

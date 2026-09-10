@@ -86,7 +86,7 @@ export default function ResetPasswordForm() {
               <input
                 {...register("password")}
                 type={showPassword ? "text" : "password"}
-                placeholder="New password"
+                placeholder="Enter your new password"
               />
               <span
                 className="tp-sign-in-input-eye password-show-toggle"
@@ -104,7 +104,7 @@ export default function ResetPasswordForm() {
               <input
                 {...register("confirmPassword")}
                 type={showConfirmPassword ? "text" : "password"}
-                placeholder="Confirm new password"
+                placeholder="Confirm your new password"
               />
               <span
                 className="tp-sign-in-input-eye password-show-toggle"

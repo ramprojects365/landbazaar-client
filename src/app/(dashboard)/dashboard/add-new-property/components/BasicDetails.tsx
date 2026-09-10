@@ -12,6 +12,7 @@ import {
   DESCRIPTION_MAX_CHARS,
   stripDescriptionHtml,
 } from "@/utils/descriptionHtml";
+import RequiredAsterisk from "./RequiredAsterisk";
 
 const digitsOnlyInput = (e: React.FormEvent<HTMLInputElement>) => {
   e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "");
@@ -50,6 +51,8 @@ export default function BasicDetails() {
   const [charCount, setCharCount] = useState(0);
   const { onChange: onAreaUnitChange, ...areaUnitRegister } =
     register("areaUnit");
+  const { onChange: onPricePerUnitChange, ...pricePerUnitRegister } =
+    register("pricePerUnit");
 
   const handleAreaUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onAreaUnitChange(e);
@@ -138,12 +141,15 @@ export default function BasicDetails() {
         <div className="row">
           <div className="col-lg-12">
             <div className="tp-dashboard-new-input">
-              <label>Property Title</label>
+              <label>
+                Property Title
+                <RequiredAsterisk />
+              </label>
               <input
                 className="textBox"
                 type="text"
                 {...register("title")}
-                placeholder="HMDA Approved 200 Square Yard Plot for Sale in Shadnagar"
+                placeholder="e.g. HMDA approved 200 sq. yd plot in Shadnagar"
               />
               {errors?.title && (
                 <ErrorMessage message={errors?.title?.message || ""} />
@@ -160,7 +166,10 @@ export default function BasicDetails() {
                   marginBottom: "6px",
                 }}
               >
-                <label style={{ marginBottom: "0" }}>Description</label>
+                <label style={{ marginBottom: "0" }}>
+                  Description
+                  <RequiredAsterisk />
+                </label>
                 <div
                   style={{
                     fontSize: "12px",
@@ -186,7 +195,10 @@ export default function BasicDetails() {
         <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Land Type</label>
+              <label>
+                Land Type
+                <RequiredAsterisk />
+              </label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("propertyType")} className="listDropDown">
                   <option value="">Select</option>
@@ -206,7 +218,10 @@ export default function BasicDetails() {
           </div>
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Listing Type</label>
+              <label>
+                Listing Type
+                <RequiredAsterisk />
+              </label>
               <div className="tp-property-tabs-select tp-select">
                 <select {...register("listingType")} className="listDropDown">
                   <option value="">Select</option>
@@ -226,7 +241,10 @@ export default function BasicDetails() {
           </div>
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Area Unit</label>
+              <label>
+                Area Unit
+                <RequiredAsterisk />
+              </label>
               <div className="tp-property-tabs-select tp-select">
                 <select
                   {...areaUnitRegister}
@@ -250,12 +268,15 @@ export default function BasicDetails() {
         <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Land Area</label>
+              <label>
+                Land Area
+                <RequiredAsterisk />
+              </label>
               <input
                 className="textBox"
                 type="text"
                 inputMode="numeric"
-                placeholder="Example: 200"
+                placeholder="e.g. 200"
                 {...register("landSize")}
                 onInput={digitsOnlyInput}
               />
@@ -268,25 +289,40 @@ export default function BasicDetails() {
             <>
               <div className="col-lg-4">
                 <div className="tp-dashboard-new-input">
-                  <label>Price Per Unit (INR)</label>
+                  <label>
+                    Price Per Unit (INR)
+                    <RequiredAsterisk />
+                  </label>
                   <input
                     className="textBox"
                     type="text"
                     inputMode="numeric"
-                    placeholder="Example: 25000"
-                    {...register("pricePerUnit")}
-                    onInput={digitsOnlyInput}
+                    placeholder="e.g. 25000"
+                    {...pricePerUnitRegister}
+                    onChange={(event) => {
+                      event.target.value = event.target.value.replace(
+                        /\D/g,
+                        "",
+                      );
+                      void onPricePerUnitChange(event);
+                    }}
                   />
-                  {errors?.pricePerUnit && (
+                  {errors.pricePerUnit ? (
                     <ErrorMessage
-                      message={errors?.pricePerUnit?.message || ""}
+                      message={
+                        errors.pricePerUnit.message ||
+                        "Price per unit is required"
+                      }
                     />
-                  )}
+                  ) : null}
                 </div>
               </div>
               <div className="col-lg-4">
                 <div className="tp-dashboard-new-input">
-                  <label>Total Price</label>
+                  <label>
+                    Total Price
+                    <RequiredAsterisk />
+                  </label>
                   <input type="hidden" {...register("totalPrice")} />
                   <input
                     className="textBox"
@@ -312,12 +348,15 @@ export default function BasicDetails() {
             <div className="row">
               <div className="col-lg-4">
                 <div className="tp-dashboard-new-input">
-                  <label>Monthly Rent (INR)</label>
+                  <label>
+                    Monthly Rent (INR)
+                    <RequiredAsterisk />
+                  </label>
                   <input
                     className="textBox"
                     type="text"
                     inputMode="numeric"
-                    placeholder="Example: 25000"
+                    placeholder="e.g. 25000"
                     {...register("monthlyRent")}
                     onInput={digitsOnlyInput}
                   />
@@ -328,12 +367,15 @@ export default function BasicDetails() {
               </div>
               <div className="col-lg-4">
                 <div className="tp-dashboard-new-input">
-                  <label>Lease Duration (Years)</label>
+                  <label>
+                    Lease Duration (Years)
+                    <RequiredAsterisk />
+                  </label>
                   <input
                     className="textBox"
                     type="text"
                     inputMode="numeric"
-                    placeholder="Example: 5"
+                    placeholder="e.g. 5"
                     {...register("leaseDurationYears")}
                     onInput={digitsOnlyInput}
                   />
@@ -346,12 +388,15 @@ export default function BasicDetails() {
               </div>
               <div className="col-lg-4">
                 <div className="tp-dashboard-new-input">
-                  <label>Min Lease Period (Years)</label>
+                  <label>
+                    Min Lease Period (Years)
+                    <RequiredAsterisk />
+                  </label>
                   <input
                     className="textBox"
                     type="text"
                     inputMode="numeric"
-                    placeholder="Example: 1"
+                    placeholder="e.g. 1"
                     {...register("minimumRentalPeriod")}
                     onInput={digitsOnlyInput}
                   />
@@ -366,12 +411,15 @@ export default function BasicDetails() {
             <div className="row">
               <div className="col-lg-4">
                 <div className="tp-dashboard-new-input">
-                  <label>Security Deposit (INR)</label>
+                  <label>
+                    Security Deposit (INR)
+                    <RequiredAsterisk />
+                  </label>
                   <input
                     className="textBox"
                     type="text"
                     inputMode="numeric"
-                    placeholder="Example: 50000"
+                    placeholder="e.g. 50000"
                     {...register("depositAmount")}
                     onInput={digitsOnlyInput}
                   />
@@ -384,12 +432,15 @@ export default function BasicDetails() {
               </div>
               <div className="col-lg-4">
                 <div className="tp-dashboard-new-input">
-                  <label>Rent Escalation Every Year (%)</label>
+                  <label>
+                    Rent Escalation Every Year (%)
+                    <RequiredAsterisk />
+                  </label>
                   <input
                     className="textBox"
                     type="text"
                     inputMode="numeric"
-                    placeholder="Example: 5"
+                    placeholder="e.g. 5"
                     {...register("rentEscalationPercent")}
                     onInput={digitsOnlyInput}
                   />
@@ -402,12 +453,15 @@ export default function BasicDetails() {
               </div>
               <div className="col-lg-4">
                 <div className="tp-dashboard-new-input">
-                  <label>Notice Period (Months)</label>
+                  <label>
+                    Notice Period (Months)
+                    <RequiredAsterisk />
+                  </label>
                   <input
                     className="textBox"
                     type="text"
                     inputMode="numeric"
-                    placeholder="Example: 3"
+                    placeholder="e.g. 3"
                     {...register("noticePeriod")}
                     onInput={digitsOnlyInput}
                   />
@@ -422,7 +476,10 @@ export default function BasicDetails() {
             <div className="row">
               <div className="col-lg-4">
                 <div className="tp-dashboard-new-input">
-                  <label>Renewal Option</label>
+                  <label>
+                    Renewal Option
+                    <RequiredAsterisk />
+                  </label>
                   <div
                     style={{ display: "flex", gap: "16px", marginTop: "8px" }}
                   >
@@ -469,7 +526,10 @@ export default function BasicDetails() {
         <div className="row">
           <div className="col-lg-4">
             <div className="tp-dashboard-new-input">
-              <label>Price Negotiable</label>
+              <label>
+                Price Negotiable
+                <RequiredAsterisk />
+              </label>
               <div style={{ display: "flex", gap: "16px", marginTop: "8px" }}>
                 <label
                   style={{ display: "flex", alignItems: "center", gap: "6px" }}

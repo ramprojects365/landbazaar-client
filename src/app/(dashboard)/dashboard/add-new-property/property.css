@@ -37,6 +37,12 @@
   height: 45px !important;
 }
 
+.required-asterisk {
+  color: #dc3545;
+  margin-left: 3px;
+  font-weight: 700;
+}
+
 .property-upload-manager .tp-dashboard-new-um {
   padding-bottom: 6px;
 }
