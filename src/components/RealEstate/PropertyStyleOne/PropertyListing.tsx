@@ -97,25 +97,33 @@ export default function PropertyListing({
 
       try {
         let url: string;
+        const hasSearchFilters = Boolean(
+          keyword.trim() ||
+            type ||
+            city.trim() ||
+            propertyName.trim() ||
+            (propertyType && propertyType !== "All"),
+        );
 
-        if (keyword.trim()) {
-          // ── Text search: /api/properties/search ─────────────────
-          // Accepts: q, type (listingType), city, propertyName, propertyType
+        if (keyword.trim() || hasSearchFilters) {
+          // Use the paginated search endpoint for search-page filters and keyword queries.
           const params = new URLSearchParams();
-          params.set("q", keyword.trim());
+          if (keyword.trim()) params.set("q", keyword.trim());
           if (type) params.set("type", type);
           if (city.trim()) params.set("city", city.trim());
+          if (propertyName.trim()) params.set("propertyName", propertyName.trim());
           if (propertyType.trim() && propertyType !== "All") {
             params.set("propertyType", propertyType.trim());
           }
-          if (propertyName.trim())
-            params.set("propertyName", propertyName.trim());
+          const minP = parsePriceParam(minPriceStr);
+          const maxP = parsePriceParam(maxPriceStr);
+          if (minP !== undefined) params.set("minPrice", String(minP));
+          if (maxP !== undefined) params.set("maxPrice", String(maxP));
           params.set("page", String(page));
           params.set("limit", "10");
           url = `${API_BASE_URL}/properties/search?${params}`;
         } else {
-          // ── Filter-only: /api/properties ────────────────────────
-          // Accepts: listingType, propertyType, cityName, minPrice, maxPrice
+          // Unfiltered catalog listing keeps the generic properties endpoint.
           const params = new URLSearchParams();
           if (type) params.set("listingType", type);
           if (city.trim()) params.set("cityName", city.trim());
