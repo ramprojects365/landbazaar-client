@@ -215,22 +215,17 @@ export default function DashboardProperty() {
               )}
 
               {isAdmin && (
-                <div className="mb-30" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-                  <div style={{ flex: 1, minWidth: 220 }}>
-                    <input
-                      value={search}
-                      onChange={(event) => {
-                        setPage(1);
-                        setSearch(event.target.value);
-                      }}
-                      placeholder="Search title, location, city, state..."
-                      className="form-control"
-                      style={{ border: "1px solid #DBE1EF", borderRadius: 8, height: 44 }}
-                    />
-                  </div>
-                  <div style={{ color: "#475467", fontSize: 14 }}>
-                    Showing page {page} of {Math.max(totalPages, 1)}
-                  </div>
+                <div className="mb-30">
+                  <input
+                    value={search}
+                    onChange={(event) => {
+                      setPage(1);
+                      setSearch(event.target.value);
+                    }}
+                    placeholder="Search title, location, city, state..."
+                    className="form-control"
+                    style={{ border: "1px solid #DBE1EF", borderRadius: 8, height: 44 }}
+                  />
                 </div>
               )}
 
