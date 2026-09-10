@@ -37,7 +37,14 @@ export function stripCountryCodeForDisplay(phone?: string | null): string {
 }
 
 export function formatPhoneWithCountryCode(phone?: string | null): string {
-  const digits = sanitizePhoneDigits(phone ?? "");
+  const digits = sanitizePhoneDigits(
+    stripCountryCodeForDisplay(phone ?? ""),
+  );
   if (!digits) return "";
   return `+91${digits}`;
+}
+
+export function getTelHref(phone?: string | null): string | undefined {
+  const formatted = formatPhoneWithCountryCode(phone);
+  return formatted ? `tel:${formatted}` : undefined;
 }
