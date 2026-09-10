@@ -8,6 +8,7 @@ import { fetchPropertiesList } from "@/services/propertiesList";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { shuffleArray } from "@/utils/shuffleArray";
 
 export default function PropertyHome() {
   const [items, setItems] = useState<IFeaturedPropertyDT[]>([]);
@@ -23,20 +24,8 @@ export default function PropertyHome() {
           return;
         }
 
-        const sorted = [...list].sort((a, b) => {
-          const aTime = new Date(a.createdAt || a.updatedAt || 0).getTime();
-          const bTime = new Date(b.createdAt || b.updatedAt || 0).getTime();
-          if (
-            !Number.isNaN(aTime) &&
-            !Number.isNaN(bTime) &&
-            (aTime || bTime)
-          ) {
-            return bTime - aTime;
-          }
-          return 0;
-        });
-
-        const top = sorted.slice(0, 8);
+        const randomized = shuffleArray(list);
+        const top = randomized.slice(0, 8);
         setItems(top.map((property) => mapApiPropertyToCard(property)));
       } catch {
         setItems([]);
