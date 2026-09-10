@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, type CSSProperties } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ITabContentProps } from "@/types/banner-d-t";
 import { LAND_CITIES, PUBLIC_LAND_TYPE_OPTIONS } from "@/config/landOptions";
@@ -61,10 +61,31 @@ const LAND_TYPES = [
   ...PUBLIC_LAND_TYPE_OPTIONS,
 ];
 
+const HERO_CITY_STORAGE_KEY = "dekholand-hero-city";
+
+function readSavedHeroCity(): string {
+  if (typeof window === "undefined") return "All";
+  try {
+    const saved = localStorage.getItem(HERO_CITY_STORAGE_KEY);
+    if (saved && CITIES.includes(saved)) return saved;
+  } catch {
+    // Private browsing or storage blocked
+  }
+  return "All";
+}
+
+function saveHeroCity(nextCity: string) {
+  try {
+    localStorage.setItem(HERO_CITY_STORAGE_KEY, nextCity);
+  } catch {
+    // Private browsing or storage blocked
+  }
+}
+
 export default function HeroBannerTabContent({}: ITabContentProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [city, setCity] = useState("Hyderabad");
+  const [city, setCity] = useState("All");
   const [landType, setLandType] = useState("All");
   const [suggestions, setSuggestions] = useState<SearchItem[]>([]);
   const [open, setOpen] = useState(false);
@@ -78,6 +99,15 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const cityDropdownRef = useRef<HTMLDivElement>(null);
   const landTypeDropdownRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    setCity(readSavedHeroCity());
+  }, []);
+
+  const selectCity = (nextCity: string) => {
+    setCity(nextCity);
+    saveHeroCity(nextCity);
+  };
 
   const runSearch = (value: string) => {
     router.push(
@@ -324,7 +354,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
                   type="button"
                   className="hero-filter-dropdown-option"
                   onClick={() => {
-                    setCity(cityOption);
+                    selectCity(cityOption);
                     setCityDropdownOpen(false);
                   }}
                   style={{
@@ -362,8 +392,10 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
           >
             <LandPlot size={16} strokeWidth={2} color="#003B5C" aria-hidden="true" />
             <span>
-              {LAND_TYPES.find((option) => option.value === landType)?.label ??
-                "Land Type"}
+              {landType === "All"
+                ? "Land Type"
+                : LAND_TYPES.find((option) => option.value === landType)
+                    ?.label ?? "Land Type"}
             </span>
             <i
               className="far fa-chevron-down"

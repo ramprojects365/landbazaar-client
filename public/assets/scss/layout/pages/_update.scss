@@ -2472,6 +2472,10 @@
     }
 
     &-item {
+      & + .tp-dashboard-sidebar-item {
+        margin-top: 6px;
+      }
+
       & a {
         font-size: 14px;
         width: 100%;
@@ -2479,6 +2483,8 @@
         padding: 12px 20px;
         display: inline-block;
         color: var(--tp-theme-primary);
+        border-radius: 6px;
+        border: 1px solid #dbe1ef;
 
         & span {
           display: inline-block;
@@ -2490,6 +2496,7 @@
         &.active {
           color: var(--tp-common-white);
           background-color: var(--tp-theme-primary);
+          border-color: var(--tp-theme-primary);
         }
       }
     }

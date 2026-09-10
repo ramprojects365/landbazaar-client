@@ -1,7 +1,6 @@
 "use client";
 import { ReactNode, Suspense } from "react";
 import PropertyFilterWidget from "./subComponents/PropertyFilterWidget";
-import SidebarPropertyItem from "./subComponents/SidebarPropertyItem";
 import SearchRefineBar from "@/components/RealEstate/PropertyStyleOne/SearchRefineBar";
 import { useSearchParams } from "next/navigation";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
@@ -83,7 +82,6 @@ function DekhoLayoutInner({ children }: { children: ReactNode }) {
           <div className="row">
             <div className="col-lg-3 filt hide-mobile">
               <PropertyFilterWidget />
-              <SidebarPropertyItem />
             </div>
             <div className="col-lg-9 col-12 prop-det-dev">{children}</div>
           </div>
