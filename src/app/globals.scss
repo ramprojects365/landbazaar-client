@@ -646,6 +646,34 @@
 .tp-dashboard-property-wrapper .tp-rent-item {
   border-radius: 6px !important;
   overflow: hidden !important;
+  align-items: flex-start;
+}
+
+.tp-dashboard-property-wrapper .tp-rent-thumb {
+  align-self: flex-start;
+  height: 280px;
+  max-height: 280px;
+  overflow: hidden;
+}
+
+.tp-dashboard-property-wrapper .tp-rent-thumb > a {
+  display: block;
+  height: 280px;
+  overflow: hidden;
+}
+
+.tp-dashboard-property-wrapper .dashboard-lead-contact a {
+  color: #0d6efd !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.tp-dashboard-property-wrapper .dashboard-lead-contact a:hover,
+.tp-dashboard-property-wrapper .dashboard-lead-contact a:focus {
+  color: #0a58ca !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 .dashboard-property-main {
@@ -1797,6 +1825,20 @@ body.scrolled .notification-bell__button {
   background-color: #003b5c !important;
   color: #fff !important;
   border-color: #003b5c !important;
+}
+
+.property-card-view-label--mobile {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .property-card-view-label--desktop {
+    display: none !important;
+  }
+
+  .property-card-view-label--mobile {
+    display: inline !important;
+  }
 }
 
 /* Post Property button specific styling - white background with navy border */

@@ -158,7 +158,8 @@ function PropertySingleCardInner({
         <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">
           <div className="tp-rent-btn">
             <Link className="tp-btn" href={detailsHref}>
-              View Details
+              <span className="property-card-view-label--desktop">View Details</span>
+              <span className="property-card-view-label--mobile">View</span>
             </Link>
           </div>
           <div className="tp-rent-price d-flex align-items-center" style={{ gap: 6 }}>
