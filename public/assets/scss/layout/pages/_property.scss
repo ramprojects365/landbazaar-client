@@ -823,3 +823,24 @@
 .tp-property-details-left .tp-property-details-documents a:hover {
   color: #00263b;
 }
+
+.tp-property-details-google-path a {
+  color: #003b5c;
+  word-break: break-all;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tp-property-details-google-path a:hover {
+  color: #00263b;
+}
+
+.tp-property-details-contact-phone {
+  color: #003b5c;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tp-property-details-contact-phone:hover {
+  color: #00263b;
+}

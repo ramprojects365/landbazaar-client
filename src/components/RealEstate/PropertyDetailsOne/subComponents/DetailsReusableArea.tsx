@@ -12,6 +12,7 @@ import {
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
 import { hasValidPropertyCoordinates } from "@/utils/propertyCoordinates";
+import { getTelHref } from "@/utils/phoneInput";
 import type { FeaturedSidebarProperty } from "@/types/propertySidebar";
 import type { IRecentlyViewedItem } from "@/types/custom-interface";
 import dynamic from "next/dynamic";
@@ -36,6 +37,20 @@ interface IProps {
   recentProperties?: IRecentlyViewedItem[];
 }
 
+function getSafeExternalHref(value: string): string | undefined {
+  const trimmed = value.trim();
+  if (!trimmed) return undefined;
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (
+    /^(maps\.app\.goo\.gl|goo\.gl\/|maps\.google\.|www\.google\.[^/\s]+\/maps)/i.test(
+      trimmed,
+    )
+  ) {
+    return `https://${trimmed}`;
+  }
+  return undefined;
+}
+
 export default function DetailsReusableArea({
   spacingClass,
   property,
@@ -56,6 +71,20 @@ export default function DetailsReusableArea({
   ]
     .filter(Boolean)
     .join(", ");
+
+  const googleLocationPath = property?.googleLocationPath?.trim() || "";
+  const googleLocationHref = googleLocationPath
+    ? getSafeExternalHref(googleLocationPath)
+    : undefined;
+  const contactTelHref = getTelHref(property?.contactNumber);
+
+  const hasContactAddress =
+    Boolean(address) ||
+    Boolean(property?.contactPersonName) ||
+    Boolean(property?.contactNumber) ||
+    Boolean(property?.landmark) ||
+    Boolean(property?.location) ||
+    Boolean(googleLocationPath);
 
   return (
     <section className={`tp-property-details-ptb pb-120 ${spacingClass ?? ""}`}>
@@ -104,15 +133,29 @@ export default function DetailsReusableArea({
 
               <PropertyDocuments documents={property?.documents} />
 
-              {address && (
+              {hasContactAddress && (
                 <div className="tp-property-details-box box-6 mb-30">
                   <h3 className="tp-property-details-box-title">
                     Contact & Address
                   </h3>
                   <div className="tp-property-details-box-desc">
-                    <p>{property?.contactPersonName}</p>
-                    <p>{property?.contactNumber}</p>
-                    <p>{address}</p>
+                    {property?.contactPersonName && (
+                      <p>{property.contactPersonName}</p>
+                    )}
+                    {property?.contactNumber && (
+                      <p>
+                        {contactTelHref ? (
+                          <a
+                            href={contactTelHref}
+                            className="tp-property-details-contact-phone"
+                          >
+                            {property.contactNumber}
+                          </a>
+                        ) : (
+                          property.contactNumber
+                        )}
+                      </p>
+                    )}
                     {property?.landmark && (
                       <p>
                         <strong>Landmark:</strong> {property.landmark}
@@ -120,7 +163,23 @@ export default function DetailsReusableArea({
                     )}
                     {property?.location && (
                       <p>
-                        <strong>Location:</strong> {property.location}
+                        <strong>Address:</strong> {property.location}
+                      </p>
+                    )}
+                    {googleLocationPath && (
+                      <p className="tp-property-details-google-path">
+                        <strong>Google Location Path:</strong>{" "}
+                        {googleLocationHref ? (
+                          <a
+                            href={googleLocationHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {googleLocationPath}
+                          </a>
+                        ) : (
+                          googleLocationPath
+                        )}
                       </p>
                     )}
                   </div>
