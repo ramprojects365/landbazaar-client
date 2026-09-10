@@ -75,13 +75,15 @@ export default function RealestateAboutArea() {
         const data = await res.json();
         const apiProperties: Property[] = Array.isArray(data) ? data : data?.data || [];
 
-        const sorted = apiProperties.sort((a, b) => {
-          const dateA = new Date(a.createdAt || a.updatedAt || 0);
-          const dateB = new Date(b.createdAt || b.updatedAt || 0);
-          return dateB.getTime() - dateA.getTime();
-        });
+        const uniqueProperties = [...new Map(
+          apiProperties.filter((item) => item?.id).map((item) => [item.id, item]),
+        ).values()];
 
-        setProperties(sorted.slice(0, 3));
+        const shuffled = [...uniqueProperties].sort(() => Math.random() - 0.5);
+
+        // TODO: When ad monetization is enabled, swap one tile for an ad slot.
+        // For now, keep the cards randomized so each tile shows a different property.
+        setProperties(shuffled.slice(0, 3));
       } catch (error) {
         console.error("Error fetching properties:", error);
       } finally {
