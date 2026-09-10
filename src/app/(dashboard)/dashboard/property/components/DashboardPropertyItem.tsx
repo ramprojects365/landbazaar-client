@@ -8,7 +8,7 @@ import { deleteProperty } from "@/services/propertyService";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { toast } from "sonner";
 import FavoriteButton from "@/components/UI/FavoriteButton";
 
@@ -17,6 +17,17 @@ interface IProps {
   onDelete?: (id: string | number) => void;
   removeInsteadOfDelete?: boolean;
 }
+
+function toWhatsAppHref(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+  return digits ? `https://wa.me/${digits}` : "";
+}
+
+const leadLinkStyle: CSSProperties = {
+  color: "#0d6efd",
+  textDecoration: "none",
+  borderBottom: "none",
+};
 
 export default function DashboardPropertyItem({ property, onDelete, removeInsteadOfDelete = false }: IProps) {
   const [loading, setLoading] = useState(false);
@@ -53,7 +64,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
   return (
     <div
       style={{ border: "1px solid #DBE1EF", marginLeft: "0px" }}
-      className="row tp-rent-item p-relative mb-30"
+      className="row tp-rent-item p-relative mb-30 align-items-start"
     >
       <div
         className="col-md-5 tp-rent-thumb p-relative"
@@ -64,7 +75,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
             src={property?.image}
             width={400}
             height={280}
-            style={{ width: "100%", height: "280px", objectFit: "cover" }}
+            style={{ width: "100%", height: "280px", maxHeight: "280px", objectFit: "cover" }}
             alt="property image"
             unoptimized
           />
@@ -151,9 +162,32 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
                 {property.leads?.map((lead) => (
                   <div key={`${lead.email || lead.phone || lead.name}-${lead.lastInteractionAt}`} style={{ marginBottom: 8 }}>
                     <strong>{lead.name}</strong>
-                    <div style={{ fontSize: 13, color: "#667085" }}>
-                      {lead.phone || "Phone not provided"}
-                      {lead.email ? ` | ${lead.email}` : ""}
+                    <div className="dashboard-lead-contact" style={{ fontSize: 13 }}>
+                      {lead.phone && toWhatsAppHref(lead.phone) ? (
+                        <a
+                          href={toWhatsAppHref(lead.phone)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={leadLinkStyle}
+                        >
+                          {lead.phone}
+                        </a>
+                      ) : (
+                        <span style={{ color: "#667085" }}>
+                          {lead.phone || "Phone not provided"}
+                        </span>
+                      )}
+                      {lead.email ? (
+                        <>
+                          {" | "}
+                          <a
+                            href={`mailto:${lead.email}`}
+                            style={leadLinkStyle}
+                          >
+                            {lead.email}
+                          </a>
+                        </>
+                      ) : null}
                     </div>
                   </div>
                 ))}
@@ -164,7 +198,8 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
         <div className="tp-rent-btn-box d-flex justify-content-between align-items-center">
           <div className="tp-rent-btn">
             <Link className="tp-btn" href={detailsHref}>
-              View Details
+              <span className="property-card-view-label--desktop">View Details</span>
+              <span className="property-card-view-label--mobile">View</span>
             </Link>
           </div>
           <div className="tp-rent-action-btn d-flex">
