@@ -22,7 +22,7 @@ const neighbourhoodsData: INeighbourhoodProperty[] = [
   {
     id: 4,
     name: "Warangal",
-    image: "/assets/img/apartment/apartment-bg.png",
+    image: "/assets/img/banner/bg-1.png",
     count: 25,
   },
   {
