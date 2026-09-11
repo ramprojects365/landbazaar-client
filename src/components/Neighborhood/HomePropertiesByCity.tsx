@@ -7,6 +7,7 @@ import {
   DEFAULT_PROPERTY_IMAGE,
   getCoverImageUrl,
 } from "@/utils/propertyImages";
+import { resolveCityCardImage } from "@/utils/cityImages";
 import React, { useEffect, useState } from "react";
 import { fetchPropertiesList } from "@/services/propertiesList";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
@@ -17,6 +18,7 @@ type CityItem = {
   name: string;
   count: number;
   image: string;
+  listingImage: string;
   isDynamic: boolean;
   href?: string;
   isPropertyCard?: boolean;
@@ -50,15 +52,20 @@ function HomePropertiesByCity() {
           if (!name) return;
 
           const key = name.toLowerCase();
+          const listingImage =
+            getCoverImageUrl(property.images) || DEFAULT_PROPERTY_IMAGE;
           const existing = grouped.get(key);
 
           if (existing) {
             if (existing.count < MAX_CITY_PROPERTIES) {
               existing.count += 1;
             }
-            if (existing.image === DEFAULT_PROPERTY_IMAGE) {
-              const cover = getCoverImageUrl(property.images);
-              if (cover) existing.image = cover;
+            if (
+              existing.listingImage === DEFAULT_PROPERTY_IMAGE &&
+              listingImage !== DEFAULT_PROPERTY_IMAGE
+            ) {
+              existing.listingImage = listingImage;
+              existing.image = listingImage;
             }
             return;
           }
@@ -67,46 +74,63 @@ function HomePropertiesByCity() {
             id: `city-${key}-${index}`,
             name,
             count: 1,
-            image: getCoverImageUrl(property.images) || DEFAULT_PROPERTY_IMAGE,
+            image: listingImage,
+            listingImage,
             isDynamic: true,
           });
         });
+
+        const cities = [...grouped.values()];
+        await Promise.all(
+          cities.map(async (item) => {
+            item.image = await resolveCityCardImage(
+              item.name,
+              item.listingImage,
+            );
+          }),
+        );
 
         if (grouped.size === 1) {
           const onlyCity = grouped.values().next().value as CityItem | undefined;
           if (!onlyCity) return;
 
-          const cityName = onlyCity.name;
-          const singleCityProperties = list
-            .filter((property) => {
-              const cityValue =
-                normaliseLocationName(property.cityName) ||
-                normaliseLocationName(property.state);
-              return (
-                cityValue &&
-                cityValue.toLowerCase() === cityName.toLowerCase()
-              );
-            })
-            .slice(0, MAX_CITY_PROPERTIES)
-            .map((property, index) => ({
-              id: `property-${String(property.id ?? index)}-${cityName}`,
-              name:
-                normaliseLocationName(property.propertyName) ||
-                normaliseLocationName(property.title) ||
-                cityName,
-              count: 1,
-              image:
-                getCoverImageUrl(property.images) || DEFAULT_PROPERTY_IMAGE,
-              isDynamic: true,
-              href: property.id
-                ? getPropertyDetailsPath(property)
-                : undefined,
-              isPropertyCard: true,
-            }));
+          const hasFolderImage = onlyCity.image !== onlyCity.listingImage;
 
-          if (singleCityProperties.length > 0) {
-            setCityItems(singleCityProperties);
-            return;
+          if (!hasFolderImage) {
+            const cityName = onlyCity.name;
+            const singleCityProperties = list
+              .filter((property) => {
+                const cityValue =
+                  normaliseLocationName(property.cityName) ||
+                  normaliseLocationName(property.state);
+                return (
+                  cityValue &&
+                  cityValue.toLowerCase() === cityName.toLowerCase()
+                );
+              })
+              .slice(0, MAX_CITY_PROPERTIES)
+              .map((property, index) => ({
+                id: `property-${String(property.id ?? index)}-${cityName}`,
+                name:
+                  normaliseLocationName(property.propertyName) ||
+                  normaliseLocationName(property.title) ||
+                  cityName,
+                count: 1,
+                image:
+                  getCoverImageUrl(property.images) || DEFAULT_PROPERTY_IMAGE,
+                listingImage:
+                  getCoverImageUrl(property.images) || DEFAULT_PROPERTY_IMAGE,
+                isDynamic: true,
+                href: property.id
+                  ? getPropertyDetailsPath(property)
+                  : undefined,
+                isPropertyCard: true,
+              }));
+
+            if (singleCityProperties.length > 0) {
+              setCityItems(singleCityProperties);
+              return;
+            }
           }
         }
 
@@ -174,6 +198,13 @@ function HomePropertiesByCity() {
                               : `Plots for sale in ${property.name}`
                           }
                           loading="lazy"
+                          onError={(event) => {
+                            const img = event.currentTarget;
+                            if (img.dataset.usedListing === "true") return;
+                            img.dataset.usedListing = "true";
+                            img.src =
+                              property.listingImage || DEFAULT_PROPERTY_IMAGE;
+                          }}
                         />
                         <div className="tp-explore-content">
                           <h4 className="tp-explore-title">
