@@ -114,6 +114,12 @@ const homeStructuredData = {
         {
           "@type": "SiteNavigationElement",
           position: 9,
+          name: "FAQ",
+          url: `${siteUrl}/faq`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 10,
           name: "Add Property",
           url: `${siteUrl}/add-property`,
         },

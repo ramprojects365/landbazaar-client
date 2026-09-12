@@ -8,6 +8,7 @@ export const quickLinks = [
   { label: "Properties", href: "/search" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
+  { label: "FAQ", href: "/faq" },
 ];
 
 export const FOOTER_LOCATION_AREAS = [

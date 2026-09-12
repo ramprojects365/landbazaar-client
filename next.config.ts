@@ -40,16 +40,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/faq",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/faq/:path*",
-        destination: "/",
-        permanent: true,
-      },
-      {
         source: "/property-advisor",
         destination: "/services",
         permanent: true,
