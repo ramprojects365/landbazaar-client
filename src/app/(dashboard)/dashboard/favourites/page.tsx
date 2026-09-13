@@ -5,6 +5,12 @@ import RecentlyViewedProperties from "@/components/RealEstate/PropertyDetailsOne
 import { getSavedProperties } from "@/services/propertyService";
 import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
 import { formatLandSize, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
+import {
+  getApiDekhoLandScore,
+  getApiDekhoLandScoreDetails,
+  parseDekhoLandScore,
+} from "@/utils/dekhoLandScore";
+import { resolveUserDisplayProfile } from "@/utils/userProfileDisplay";
 import { useEffect, useState } from "react";
 import DashboardPropertyItem from "../property/components/DashboardPropertyItem";
 import type { IFeaturedPropertyDT } from "@/types/property-d-t";
@@ -23,32 +29,52 @@ type SavedProperty = {
   areaUnit?: string;
   propertyType?: string;
   listingType?: string;
+  dekhoLandScore?: number | string | null;
+  dekholandScore?: number | string | null;
+  score?: number | string | null;
+  dekhoLandScoreDetails?: unknown;
+  scoreDetails?: unknown;
+  user?: IFeaturedPropertyDT["user"];
+  owner?: IFeaturedPropertyDT["user"];
+  seller?: IFeaturedPropertyDT["user"];
+  property?: SavedProperty;
 };
 
 const mapSavedProperty = (property: SavedProperty): IFeaturedPropertyDT => {
+  const listing = property.property ?? property;
   const listingType =
-    property.listingType?.toLowerCase() === "rent"
+    listing.listingType?.toLowerCase() === "rent"
       ? "lease"
-      : property.listingType;
+      : listing.listingType;
+  const ownerUser =
+    listing.user || property.user || listing.owner || property.owner || listing.seller || property.seller;
+  const ownerProfile = resolveUserDisplayProfile(ownerUser);
   return {
-    id: property.id,
-    title: getPropertyHeadingTitle(property),
-    propertyName: property.propertyName,
+    id: listing.id,
+    title: getPropertyHeadingTitle(listing),
+    propertyName: listing.propertyName,
     address:
-      property.location ||
-      [property.cityName, property.state].filter(Boolean).join(", "),
-    image: withDefaultPropertyImage(getCoverImageUrl(property.images)),
-    price: parseTotalPrice(property.totalPrice, property.price || 0),
+      listing.location ||
+      [listing.cityName, listing.state].filter(Boolean).join(", "),
+    image: withDefaultPropertyImage(getCoverImageUrl(listing.images)),
+    price: parseTotalPrice(listing.totalPrice, listing.price || 0),
     quantity: 1,
-    bedrooms: formatLandSize(property.landSize, property.areaUnit),
-    bathrooms: property.propertyType || "Land",
+    bedrooms: formatLandSize(listing.landSize, listing.areaUnit),
+    bathrooms: listing.propertyType || "Land",
     livingArea: "",
     listingType,
     isForSale: listingType === "sale",
     isForLease: listingType === "lease",
     showTags: true,
-    userName: "Property Owner",
+    userName: ownerProfile.name || undefined,
+    userImage: ownerProfile.profileImage,
+    user: ownerUser,
     userRole: "Seller",
+    dekhoLandScore: parseDekhoLandScore(
+      getApiDekhoLandScore(listing) ?? getApiDekhoLandScore(property),
+    ),
+    dekhoLandScoreDetails:
+      getApiDekhoLandScoreDetails(listing) ?? getApiDekhoLandScoreDetails(property),
   };
 };
 

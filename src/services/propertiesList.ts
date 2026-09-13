@@ -32,6 +32,11 @@ export function slimPropertyForList(item: ApiPropertyFields): ApiPropertyFields 
     updatedAt: item.updatedAt,
     images: cover ? [{ url: cover, isCover: true }] : undefined,
     user: item.user,
+    dekhoLandScore: item.dekhoLandScore,
+    dekholandScore: item.dekholandScore,
+    score: item.score,
+    dekhoLandScoreDetails: item.dekhoLandScoreDetails,
+    scoreDetails: item.scoreDetails,
   };
 }
 

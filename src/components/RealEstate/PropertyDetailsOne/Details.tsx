@@ -2,17 +2,11 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import { Heart } from "lucide-react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import {
-  getSavedPropertyStatus,
-  recordPropertyView,
-  removeSavedProperty,
-  saveProperty,
-} from "@/services/propertyService";
+import { recordPropertyView } from "@/services/propertyService";
 import SocialShare from "@/components/UI/SocialShare";
-import { toast } from "sonner";
+import DekhoLandScore from "@/components/Common/DekhoLandScore";
 import {
   formatPricePerUnit,
   getListingTypeBadgeStyle,
@@ -83,8 +77,6 @@ function PropertyDetailsContent({
   );
   const [loading, setLoading] = useState(!initialProperty);
   const [error, setError] = useState("");
-  const [isSaved, setIsSaved] = useState(false);
-  const [saveLoading, setSaveLoading] = useState(false);
 
   const fromParam = searchParams.get("from");
   const listingHref = (() => {
@@ -174,43 +166,6 @@ function PropertyDetailsContent({
     return () => window.clearTimeout(timeoutId);
   }, [propertyId]);
 
-  useEffect(() => {
-    if (!propertyId || !localStorage.getItem("authToken")) return;
-    getSavedPropertyStatus(propertyId)
-      .then((response) => setIsSaved(Boolean(response?.data?.saved)))
-      .catch(() => setIsSaved(false));
-  }, [propertyId]);
-
-  const handleSaveToggle = async () => {
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-      window.location.href = `/sign-in?redirect=${encodeURIComponent(window.location.pathname)}`;
-      return;
-    }
-
-    setSaveLoading(true);
-    try {
-      if (isSaved) {
-        await removeSavedProperty(propertyId);
-        setIsSaved(false);
-        toast.success("Removed from favourite properties");
-      } else {
-        await saveProperty(propertyId, window.location.href);
-        setIsSaved(true);
-        toast.success("Added to favourite properties");
-      }
-    } catch (error: unknown) {
-      const message =
-        error && typeof error === "object" && "response" in error
-          ? (error as { response?: { data?: { message?: string } } }).response
-              ?.data?.message
-          : undefined;
-      toast.error(message || "Could not update favourite. Please try again.");
-    } finally {
-      setSaveLoading(false);
-    }
-  };
-
   if (loading) {
     return (
       <section className="tp-property-details-area pt-80 pb-130">
@@ -289,9 +244,16 @@ function PropertyDetailsContent({
                 <h4 className="tp-property-details-title">
                   {getPropertyHeadingTitle(apiProperty)}
                 </h4>
-                <span style={{ color: "#777", fontSize: "15px" }}>
+                <span
+                  className="tp-property-details-address"
+                  style={{ color: "#777", fontSize: "15px" }}
+                >
                   {display.address}
                 </span>
+                <DekhoLandScore
+                  score={display.dekhoLandScore}
+                  details={display.dekhoLandScoreDetails}
+                />
 
                 <div
                   className="tp-property-details-info mt-3 d-flex flex-nowrap align-items-center"
@@ -322,28 +284,6 @@ function PropertyDetailsContent({
                   title={getPropertyHeadingTitle(apiProperty)}
                   text={toDescriptionSnippet(apiProperty.description ?? "", 180)}
                 />
-
-                <button
-                  type="button"
-                  onClick={handleSaveToggle}
-                  disabled={saveLoading}
-                  aria-label={isSaved ? "Remove from favourite properties" : "Add to favourite properties"}
-                  title={isSaved ? "Remove from favourite properties" : "Add to favourite properties"}
-                  style={{
-                    border: "1px solid #dbe1ef",
-                    background: isSaved ? "#fff1f2" : "#fff",
-                    color: isSaved ? "#c62828" : "#003b5c",
-                    width: 42,
-                    height: 42,
-                    borderRadius: 6,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: 12,
-                  }}
-                >
-                  <Heart size={19} fill={isSaved ? "currentColor" : "none"} />
-                </button>
 
                 <h4 className="tp-property-details-icon-price">
                   {formatTotalPriceDisplay(display.price)}

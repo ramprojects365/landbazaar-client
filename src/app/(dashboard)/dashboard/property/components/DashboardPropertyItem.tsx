@@ -11,6 +11,8 @@ import Link from "next/link";
 import { useState, useRef, type CSSProperties } from "react";
 import { toast } from "sonner";
 import FavoriteButton from "@/components/UI/FavoriteButton";
+import DekhoLandScore from "@/components/Common/DekhoLandScore";
+import { DEFAULT_PROFILE_IMAGE } from "@/utils/userProfileDisplay";
 
 interface IProps {
   property: IFeaturedPropertyDT;
@@ -97,6 +99,42 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
             unoptimized
           />
         </Link>
+        <div
+          className={`tp-rent-user-wrap d-flex align-items-center justify-content-between${
+            removeInsteadOfDelete ? " tp-rent-user-wrap--with-favorite" : ""
+          }`}
+        >
+          <div className="tp-rent-user d-flex align-items-center">
+            <div className="tp-rent-user-thumb">
+              <Image
+                src={property.userImage || DEFAULT_PROFILE_IMAGE}
+                alt={property.userName || "Seller"}
+                width={40}
+                height={40}
+                style={{ borderRadius: "50%", objectFit: "cover" }}
+                unoptimized={
+                  typeof property.userImage === "string" &&
+                  (property.userImage.startsWith("http") ||
+                    property.userImage.startsWith("/uploads"))
+                }
+              />
+            </div>
+            <div className="tp-rent-user-content">
+              <h5 className="tp-rent-user-content-title">
+                {property.userName || "—"}
+              </h5>
+            </div>
+          </div>
+          {removeInsteadOfDelete ? (
+            <FavoriteButton
+              propertyId={property.id}
+              initialFavorite
+              onFavoriteChange={(saved) => {
+                if (!saved) onDelete?.(property.id);
+              }}
+            />
+          ) : null}
+        </div>
         {property.showTags && listingFlag && (
           <div className="tp-rent-tags">
             <Link className="two" href="#">
@@ -146,6 +184,10 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
         >
           {property?.address}
         </p>
+        <DekhoLandScore
+          score={property.dekhoLandScore}
+          details={property.dekhoLandScoreDetails}
+        />
         <div className="tp-rent-meta-list d-flex align-items-center gap-4">
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
@@ -219,45 +261,34 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
               <span className="property-card-view-label--mobile">View</span>
             </Link>
           </div>
-          <div className="tp-rent-action-btn d-flex">
-            {removeInsteadOfDelete ? (
-              <FavoriteButton
-                propertyId={property.id}
-                initialFavorite
-                tone="light"
-                onFavoriteChange={(saved) => {
-                  if (!saved) onDelete?.(property.id);
-                }}
-              />
-            ) : (
-              <>
-                <div className="tp-action-btn mr-10">
-                  <Link
-                    href={`/dashboard/add-new-property?edit=${property.id}`}
-                    title="Edit Property"
+          {!removeInsteadOfDelete ? (
+            <div className="tp-rent-action-btn d-flex">
+              <div className="tp-action-btn mr-10">
+                <Link
+                  href={`/dashboard/add-new-property?edit=${property.id}`}
+                  title="Edit Property"
+                >
+                  <PropertyEditSvg />
+                </Link>
+              </div>
+              {onDelete && (
+                <div className="tp-action-btn">
+                  <button
+                    className="click"
+                    onClick={() => handleDelete(property.id)}
+                    title="Delete Property"
+                    disabled={loading}
+                    style={{
+                      opacity: loading ? 0.6 : 1,
+                      cursor: loading ? "not-allowed" : "pointer",
+                    }}
                   >
-                    <PropertyEditSvg />
-                  </Link>
+                    <DeleteIconSvg />
+                  </button>
                 </div>
-                {onDelete && (
-                  <div className="tp-action-btn">
-                    <button
-                      className="click"
-                      onClick={() => handleDelete(property.id)}
-                      title="Delete Property"
-                      disabled={loading}
-                      style={{
-                        opacity: loading ? 0.6 : 1,
-                        cursor: loading ? "not-allowed" : "pointer",
-                      }}
-                    >
-                      <DeleteIconSvg />
-                    </button>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
+              )}
+            </div>
+          ) : null}
           <div className="tp-rent-price d-flex align-items-center" style={{ gap: 6 }}>
             <IndianRupee size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
             <span>{formatTotalPriceDisplay(Number(property.price) || 0)}</span>

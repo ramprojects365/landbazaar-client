@@ -179,8 +179,8 @@
         & p {
           font-weight: 500;
           margin-bottom: 15px;
-          padding-bottom: 10px;
-          border-bottom: 1px solid #e6e6e6;
+          padding-bottom: 0;
+          border-bottom: none;
           & svg {
             margin-right: 6px;
             transform: translateY(-2px);

@@ -10,6 +10,7 @@ import FavoriteButton from "@/components/UI/FavoriteButton";
 import { DEFAULT_PROPERTY_IMAGE, getPropertyImageAlt } from "@/utils/propertyImages";
 import { LandSizeSvg } from "@/components/SVG";
 import { IndianRupee, LandPlot } from "lucide-react";
+import DekhoLandScore from "@/components/Common/DekhoLandScore";
 
 interface propertyProps {
   item: IFeaturedPropertyDT;
@@ -122,6 +123,7 @@ function PropertySingleCardTwo({
           <p style={{ height: "43px" }}>
             <MapMarkerSvg /> {item.address}
           </p>
+          <DekhoLandScore score={item.dekhoLandScore} details={item.dekhoLandScoreDetails} />
           <div className="tp-rent-meta-list d-flex justify-content-between align-items-center">
             <div className="tp-rent-meta-item">
               <div className="tp-rent-meta-content d-flex">
