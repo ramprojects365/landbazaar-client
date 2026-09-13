@@ -17,6 +17,11 @@ import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
 import { getPropertyHeadingTitle } from "@/utils/mapApiProperty";
 import {
+  getApiDekhoLandScore,
+  getApiDekhoLandScoreDetails,
+  parseDekhoLandScore,
+} from "@/utils/dekhoLandScore";
+import {
   ADVISOR_RESULTS_KEY,
   AdvisorAnswers,
   AdvisorContact,
@@ -66,6 +71,11 @@ type ApiProperty = {
   bedrooms?: number | string;
   bathrooms?: number | string;
   images?: unknown[];
+  dekhoLandScore?: number | string | null;
+  dekholandScore?: number | string | null;
+  score?: number | string | null;
+  dekhoLandScoreDetails?: unknown;
+  scoreDetails?: unknown;
   user?: {
     id?: string;
     username?: string;
@@ -122,6 +132,8 @@ const mapApiProperty = (item: ApiProperty): IFeaturedPropertyDT => {
     userName: item.user?.fullName || item.user?.username,
     userRole: item.user?.companyName || item.user?.designation || (item.user?.email ? "Assigned agent" : undefined),
     user: item.user,
+    dekhoLandScore: parseDekhoLandScore(getApiDekhoLandScore(item)),
+    dekhoLandScoreDetails: getApiDekhoLandScoreDetails(item),
   };
 };
 

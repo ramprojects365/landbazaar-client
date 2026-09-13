@@ -22,6 +22,11 @@ export interface IFeaturedPropertyDT {
   livingArea: string;
   city?: string;
   state?: string;
+  dekhoLandScore?: number;
+  dekhoLandScoreDetails?: {
+    lastUpdated?: string;
+    breakdown?: unknown;
+  };
   wowAnimation?: boolean;
   wowDelay?: string;
   description?: string;

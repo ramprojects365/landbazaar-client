@@ -8,7 +8,14 @@ import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
 import { API_BASE_URL } from "@/config/constants";
 import { formatLandSize, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
+import {
+  getApiDekhoLandScore,
+  getApiDekhoLandScoreDetails,
+  parseDekhoLandScore,
+} from "@/utils/dekhoLandScore";
+import { resolveUserDisplayProfile } from "@/utils/userProfileDisplay";
 import { useAuth } from "@/hooks/useAuth";
+import apiClient from "@/config/axios";
 
 // API Property interface
 interface ApiProperty {
@@ -35,6 +42,51 @@ interface ApiProperty {
   favouriteCount?: number;
   leadCount?: number;
   leads?: IFeaturedPropertyDT["leads"];
+  dekhoLandScore?: number | string | null;
+  dekholandScore?: number | string | null;
+  score?: number | string | null;
+  dekhoLandScoreDetails?: unknown;
+  scoreDetails?: unknown;
+  user?: IFeaturedPropertyDT["user"];
+  owner?: IFeaturedPropertyDT["user"];
+  seller?: IFeaturedPropertyDT["user"];
+}
+
+function readProfileUser(payload: unknown): IFeaturedPropertyDT["user"] | undefined {
+  if (!payload || typeof payload !== "object") return undefined;
+  const record = payload as Record<string, unknown>;
+  const data = record.data;
+  if (data && typeof data === "object") {
+    const nested = data as Record<string, unknown>;
+    if (nested.user && typeof nested.user === "object") {
+      return nested.user as IFeaturedPropertyDT["user"];
+    }
+    if (nested.profile && typeof nested.profile === "object") {
+      return nested.profile as IFeaturedPropertyDT["user"];
+    }
+    if (nested.data && typeof nested.data === "object") {
+      return nested.data as IFeaturedPropertyDT["user"];
+    }
+    return data as IFeaturedPropertyDT["user"];
+  }
+  if (record.user && typeof record.user === "object") {
+    return record.user as IFeaturedPropertyDT["user"];
+  }
+  return record as IFeaturedPropertyDT["user"];
+}
+
+function withSellerProfile(
+  property: IFeaturedPropertyDT,
+  fallbackUser?: IFeaturedPropertyDT["user"],
+): IFeaturedPropertyDT {
+  const owner = property.user || fallbackUser;
+  const ownerProfile = resolveUserDisplayProfile(owner);
+  return {
+    ...property,
+    user: owner,
+    userName: ownerProfile.name || undefined,
+    userImage: ownerProfile.profileImage,
+  };
 }
 
 const buildPropertyAddress = (property: ApiProperty): string => {
@@ -63,10 +115,20 @@ export default function DashboardProperty() {
   const [totalPages, setTotalPages] = useState(0);
   const { token, userType } = useAuth();
   const isAdmin = userType?.trim().toLowerCase() === "admin";
+  const [currentOwner, setCurrentOwner] = useState<IFeaturedPropertyDT["user"]>();
 
   const handleDelete = async (id: string | number) => {
     setProperties((prev) => prev.filter((p) => p.id !== id));
   };
+
+  useEffect(() => {
+    if (!token || isAdmin) return;
+
+    apiClient
+      .get("/users/profile")
+      .then((res) => setCurrentOwner(readProfileUser(res.data)))
+      .catch(() => undefined);
+  }, [token, isAdmin]);
 
   useEffect(() => {
     if (!token) return;
@@ -114,6 +176,8 @@ export default function DashboardProperty() {
               if (type === "rent") return "lease";
               return type || undefined;
             })();
+            const ownerUser = property.user || property.owner || property.seller;
+            const ownerProfile = resolveUserDisplayProfile(ownerUser);
 
             return {
               id: property.id || String(index + 1),
@@ -132,13 +196,17 @@ export default function DashboardProperty() {
               isForSale: listingType === "sale",
               isForLease: listingType === "lease",
               showTags: true,
-              userName: "Property Owner",
+              userName: ownerProfile.name || undefined,
+              userImage: ownerProfile.profileImage,
+              user: ownerUser,
               userRole: "Seller",
               viewCount: property.viewCount || 0,
               uniqueViewCount: property.uniqueViewCount || 0,
               favouriteCount: property.favouriteCount || 0,
               leadCount: property.leadCount || 0,
               leads: property.leads || [],
+              dekhoLandScore: parseDekhoLandScore(getApiDekhoLandScore(property)),
+              dekhoLandScoreDetails: getApiDekhoLandScoreDetails(property),
             };
           },
         );
@@ -255,7 +323,10 @@ export default function DashboardProperty() {
                 properties.map((property) => (
                   <DashboardPropertyItem
                     key={property.id}
-                    property={property}
+                    property={withSellerProfile(
+                      property,
+                      isAdmin ? undefined : currentOwner,
+                    )}
                     onDelete={handleDelete}
                   />
                 ))}

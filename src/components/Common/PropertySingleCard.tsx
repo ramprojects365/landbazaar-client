@@ -12,6 +12,7 @@ import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 import FavoriteButton from "@/components/UI/FavoriteButton";
 import { DEFAULT_PROPERTY_IMAGE, getPropertyImageAlt } from "@/utils/propertyImages";
+import DekhoLandScore from "@/components/Common/DekhoLandScore";
 
 function getImageSrc(image: IFeatureListProps["item"]["image"]): string {
   if (typeof image === "string" && image.trim()) return image;
@@ -137,6 +138,7 @@ function PropertySingleCardInner({
           </Link>
         </h4>
         <p>{item.address}</p>
+        <DekhoLandScore score={item.dekhoLandScore} details={item.dekhoLandScoreDetails} />
         <div className="tp-rent-meta-list d-flex align-items-center gap-4">
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">

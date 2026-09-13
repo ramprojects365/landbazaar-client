@@ -6,6 +6,11 @@ import {
   getCoverImageUrl,
 } from "@/utils/propertyImages";
 import { resolveUserDisplayProfile } from "@/utils/userProfileDisplay";
+import {
+  getApiDekhoLandScore,
+  getApiDekhoLandScoreDetails,
+  parseDekhoLandScore,
+} from "@/utils/dekhoLandScore";
 
 export type ApiPropertyDocument = {
   url?: string;
@@ -80,6 +85,11 @@ export type ApiPropertyFields = {
   createdAt?: string;
   updatedAt?: string;
   user?: IFeaturedPropertyDT["user"];
+  dekhoLandScore?: number | string | null;
+  dekholandScore?: number | string | null;
+  score?: number | string | null;
+  dekhoLandScoreDetails?: unknown;
+  scoreDetails?: unknown;
 };
 
 /**
@@ -271,5 +281,7 @@ export function mapApiPropertyToCard(
     userName: ownerProfile.name || undefined,
     userRole: undefined,
     user: item.user,
+    dekhoLandScore: parseDekhoLandScore(getApiDekhoLandScore(item)),
+    dekhoLandScoreDetails: getApiDekhoLandScoreDetails(item),
   };
 }
