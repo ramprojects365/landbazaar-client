@@ -148,6 +148,7 @@ export default function PropertyListing({
 
         const data = await response.json();
         let results: ApiProperty[] = data?.data || data || [];
+        const rawCount = Number(data?.count ?? results.length ?? 0);
         const serverTotalPages = Number(data?.totalPages ?? 0);
 
         // Client-side size post-filter (only needed for text search,
@@ -165,9 +166,24 @@ export default function PropertyListing({
         const mapped = results
           .map(slimPropertyForList)
           .map((item) => mapApiProperty(item));
+        const resolvedCount = Number.isFinite(rawCount) && rawCount > 0 ? rawCount : mapped.length;
+        const fallbackTotalPages = Math.max(1, Math.ceil(resolvedCount / 10));
+        const nextTotalPages =
+          Number.isFinite(serverTotalPages) && serverTotalPages > 0
+            ? serverTotalPages
+            : fallbackTotalPages;
+
         setProperties(mapped);
-        setResultCount(Number(data?.count ?? mapped.length));
-        setTotalPages(serverTotalPages || (mapped.length > 0 ? page : 0));
+        setResultCount(resolvedCount);
+        setTotalPages(nextTotalPages);
+
+        if (page > nextTotalPages) {
+          const clampedPage = Math.max(1, nextTotalPages);
+          setPage(clampedPage);
+          const params = new URLSearchParams(searchParams.toString());
+          params.set("page", String(clampedPage));
+          router.replace(`${pathname}?${params.toString()}`);
+        }
       } catch (err) {
         console.error("Error fetching properties:", err);
         setError("We couldn’t load properties right now. Please try again shortly.");

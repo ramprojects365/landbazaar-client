@@ -115,6 +115,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
         q: value,
         city: city !== "All" ? city : undefined,
         propertyType: landType !== "All" ? landType : undefined,
+        page: 1,
       }),
     );
   };

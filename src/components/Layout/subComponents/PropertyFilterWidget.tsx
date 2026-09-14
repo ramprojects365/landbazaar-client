@@ -59,6 +59,7 @@ export default function PropertyFilterWidget() {
         propertyType: propertyType !== "All" ? propertyType : undefined,
         minPrice,
         maxPrice,
+        page: 1,
       }),
     );
   };

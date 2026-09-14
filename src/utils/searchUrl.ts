@@ -56,6 +56,7 @@ export type SearchHrefInput = {
   address?: string | null;
   minPrice?: string | null;
   maxPrice?: string | null;
+  page?: string | number | null;
 };
 
 function setTextParam(
@@ -90,6 +91,13 @@ export function buildSearchHref(input: SearchHrefInput = {}): string {
   }
   if (input.maxPrice && input.maxPrice !== "Any") {
     params.set("maxPrice", input.maxPrice);
+  }
+
+  if (input.page !== undefined && input.page !== null && input.page !== "") {
+    const pageNumber = Number(input.page);
+    if (Number.isFinite(pageNumber) && pageNumber > 0) {
+      params.set("page", String(Math.floor(pageNumber)));
+    }
   }
 
   const query = params.toString();

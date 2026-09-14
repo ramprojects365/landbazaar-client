@@ -44,6 +44,7 @@ export default function SearchRefineBar() {
         propertyName,
         propertyType:
           searchParams.get("propertyType") || searchParams.get("landType"),
+        page: 1,
       }),
     );
   };
