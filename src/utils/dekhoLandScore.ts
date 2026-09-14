@@ -48,6 +48,10 @@ const MOCK_OVERALL_SCORES = [
   62, 65, 68, 71, 74, 76, 78, 81, 82, 84, 87, 89, 91, 92, 94,
 ];
 
+const MOCK_SCORE_OVERRIDES: Record<string, number> = {
+  "9c6cab59-a9e3-4663-854c-c0dbd77c81f9": 94,
+};
+
 function hashSeed(seed?: string | number | null): number {
   const text = String(seed ?? "dekholand");
   let hash = 2166136261;
@@ -59,6 +63,10 @@ function hashSeed(seed?: string | number | null): number {
 }
 
 export function getMockDekhoLandScore(seed?: string | number | null): number {
+  if (seed != null && seed !== "") {
+    const override = MOCK_SCORE_OVERRIDES[String(seed)];
+    if (override != null) return override;
+  }
   return MOCK_OVERALL_SCORES[hashSeed(seed) % MOCK_OVERALL_SCORES.length];
 }
 
