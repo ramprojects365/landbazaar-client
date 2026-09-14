@@ -283,7 +283,7 @@ export default function DashboardProperty() {
               )}
 
               {isAdmin && (
-                <div className="mb-30">
+                <div className="dashboard-property-search">
                   <input
                     value={search}
                     onChange={(event) => {

@@ -101,12 +101,11 @@ export default function SavedPropertiesPage() {
   return (
     <DashboardLayout>
       <div className="tp-dashboard-property-wrapper">
-        <h4 className="tp-dashboard-new-title mb-30">Favourite properties</h4>
         <div className="row">
           <div className="col-12 col-lg-8">
-            <div className="row">
+            <div className="dashboard-property-main">
               {loading && (
-                <div className="col-12 text-center py-5">
+                <div className="text-center py-5">
                   <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </div>
@@ -115,15 +114,13 @@ export default function SavedPropertiesPage() {
               )}
 
               {error && (
-                <div className="col-12">
-                  <div className="alert alert-danger" role="alert">
-                    {error}
-                  </div>
+                <div className="alert alert-danger" role="alert">
+                  {error}
                 </div>
               )}
 
               {!loading && !error && properties.length === 0 && (
-                <div className="col-12 text-center py-5">
+                <div className="text-center py-5">
                   <p className="text-muted">No data found</p>
                 </div>
               )}
@@ -131,13 +128,12 @@ export default function SavedPropertiesPage() {
               {!loading &&
                 !error &&
                 properties.map((property) => (
-                  <div className="col-12" key={property.id}>
-                    <DashboardPropertyItem
-                      property={property}
-                      onDelete={removeSaved}
-                      removeInsteadOfDelete
-                    />
-                  </div>
+                  <DashboardPropertyItem
+                    key={property.id}
+                    property={property}
+                    onDelete={removeSaved}
+                    removeInsteadOfDelete
+                  />
                 ))}
             </div>
           </div>

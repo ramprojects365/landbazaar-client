@@ -80,7 +80,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
   return (
     <div
       style={{ border: "1px solid #DBE1EF", marginLeft: "0px" }}
-      className={`row tp-rent-item p-relative mb-30${
+      className={`row tp-rent-item p-relative${
         showLeads ? " dashboard-property-item--leads-open" : ""
       }`}
     >
