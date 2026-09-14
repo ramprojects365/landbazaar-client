@@ -186,6 +186,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
         </p>
         <DekhoLandScore
           score={property.dekhoLandScore}
+          seed={property.id}
           details={property.dekhoLandScoreDetails}
         />
         <div className="tp-rent-meta-list d-flex align-items-center gap-4">

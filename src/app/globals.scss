@@ -862,6 +862,10 @@
   border-radius: 50%;
 }
 
+body.dekholand-score-modal-open {
+  overflow: hidden;
+}
+
 .dekholand-score-modal {
   position: fixed;
   inset: 0;

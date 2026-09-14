@@ -87,9 +87,7 @@ export type ApiPropertyFields = {
   user?: IFeaturedPropertyDT["user"];
   dekhoLandScore?: number | string | null;
   dekholandScore?: number | string | null;
-  score?: number | string | null;
   dekhoLandScoreDetails?: unknown;
-  scoreDetails?: unknown;
 };
 
 /**
