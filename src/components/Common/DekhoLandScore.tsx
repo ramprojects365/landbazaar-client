@@ -20,6 +20,7 @@ import {
 
 type DekhoLandScoreProps = {
   score?: unknown;
+  seed?: string | number | null;
   details?: { lastUpdated?: string | null; breakdown?: unknown } | null;
   className?: string;
 };
@@ -42,12 +43,13 @@ function isolateEvent(event: SyntheticEvent) {
 
 export default function DekhoLandScore({
   score,
+  seed,
   details,
   className,
 }: DekhoLandScoreProps) {
   const [open, setOpen] = useState(false);
   const titleId = useId();
-  const resolved = resolveDekhoLandScoreDetails(score, details);
+  const resolved = resolveDekhoLandScoreDetails(score, details, seed);
   const color = getDekhoLandScoreColor(resolved.score);
   const tone = getDekhoLandScoreTone(resolved.score);
 
@@ -57,12 +59,11 @@ export default function DekhoLandScore({
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("dekholand-score-modal-open");
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.body.classList.remove("dekholand-score-modal-open");
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);

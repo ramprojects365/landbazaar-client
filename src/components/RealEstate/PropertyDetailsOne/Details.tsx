@@ -252,6 +252,7 @@ function PropertyDetailsContent({
                 </span>
                 <DekhoLandScore
                   score={display.dekhoLandScore}
+                  seed={display.id}
                   details={display.dekhoLandScoreDetails}
                 />
 

@@ -44,6 +44,36 @@ const BREAKDOWN_KEYS: DekhoLandScoreBreakdownKey[] = [
   "road",
 ];
 
+const MOCK_OVERALL_SCORES = [
+  62, 65, 68, 71, 74, 76, 78, 81, 82, 84, 87, 89, 91, 92, 94,
+];
+
+function hashSeed(seed?: string | number | null): number {
+  const text = String(seed ?? "dekholand");
+  let hash = 2166136261;
+  for (let i = 0; i < text.length; i += 1) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+export function getMockDekhoLandScore(seed?: string | number | null): number {
+  return MOCK_OVERALL_SCORES[hashSeed(seed) % MOCK_OVERALL_SCORES.length];
+}
+
+function getMockDekhoLandScoreBreakdown(
+  overall: number,
+  seed?: string | number | null,
+): DekhoLandScoreBreakdownItem[] {
+  const offsets = [8, 4, -1, -4, 6];
+  return DEFAULT_DEKHOLAND_SCORE_BREAKDOWN.map((item, index) => {
+    const jitter = (hashSeed(`${seed ?? "dekholand"}-${item.key}`) % 5) - 2;
+    const score = Math.min(98, Math.max(60, overall + offsets[index] + jitter));
+    return { ...item, score };
+  });
+}
+
 export function parseDekhoLandScore(value: unknown): number | undefined {
   if (value == null || value === "") return undefined;
   const numeric = Number(value);
@@ -51,9 +81,12 @@ export function parseDekhoLandScore(value: unknown): number | undefined {
   return Math.round(numeric);
 }
 
-export function resolveDekhoLandScore(value?: unknown): number {
+export function resolveDekhoLandScore(
+  value?: unknown,
+  seed?: string | number | null,
+): number {
   const parsed = parseDekhoLandScore(value);
-  if (parsed == null) return DEFAULT_DEKHOLAND_SCORE;
+  if (parsed == null) return getMockDekhoLandScore(seed);
   return Math.min(100, Math.max(0, parsed));
 }
 
@@ -116,46 +149,37 @@ function parseBreakdown(value: unknown): DekhoLandScoreBreakdownItem[] | undefin
 
 export function getApiDekhoLandScoreDetails(item?: {
   dekhoLandScoreDetails?: unknown;
-  scoreDetails?: unknown;
-  lastUpdated?: unknown;
 } | null): { lastUpdated?: string; breakdown?: unknown } | undefined {
   if (!item) return undefined;
-  const raw = item.dekhoLandScoreDetails ?? item.scoreDetails;
-  if (raw && typeof raw === "object") {
-    const record = raw as Record<string, unknown>;
-    return {
-      lastUpdated:
-        typeof record.lastUpdated === "string"
-          ? record.lastUpdated
-          : typeof item.lastUpdated === "string"
-            ? item.lastUpdated
-            : undefined,
-      breakdown: record.breakdown ?? record.items,
-    };
-  }
-  if (typeof item.lastUpdated === "string") {
-    return { lastUpdated: item.lastUpdated };
-  }
-  return undefined;
+  const raw = item.dekhoLandScoreDetails;
+  if (!raw || typeof raw !== "object") return undefined;
+  const record = raw as Record<string, unknown>;
+  return {
+    lastUpdated:
+      typeof record.lastUpdated === "string" ? record.lastUpdated : undefined,
+    breakdown: record.breakdown ?? record.items,
+  };
 }
 
 export function resolveDekhoLandScoreDetails(
   score?: unknown,
   details?: { lastUpdated?: string | null; breakdown?: unknown } | null,
+  seed?: string | number | null,
 ): DekhoLandScoreDetails {
-  const resolvedScore = resolveDekhoLandScore(score);
+  const resolvedScore = resolveDekhoLandScore(score, seed);
   return {
     score: resolvedScore,
     ratingLabel: getDekhoLandScoreLabel(resolvedScore),
     lastUpdated: formatScoreDate(details?.lastUpdated),
-    breakdown: parseBreakdown(details?.breakdown) ?? DEFAULT_DEKHOLAND_SCORE_BREAKDOWN,
+    breakdown:
+      parseBreakdown(details?.breakdown) ??
+      getMockDekhoLandScoreBreakdown(resolvedScore, seed),
   };
 }
 
 export function getApiDekhoLandScore(item?: {
   dekhoLandScore?: unknown;
   dekholandScore?: unknown;
-  score?: unknown;
 } | null): unknown {
   if (!item) return undefined;
   if (item.dekhoLandScore != null && item.dekhoLandScore !== "") {
@@ -163,9 +187,6 @@ export function getApiDekhoLandScore(item?: {
   }
   if (item.dekholandScore != null && item.dekholandScore !== "") {
     return item.dekholandScore;
-  }
-  if (item.score != null && item.score !== "") {
-    return item.score;
   }
   return undefined;
 }

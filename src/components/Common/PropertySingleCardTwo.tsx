@@ -123,7 +123,11 @@ function PropertySingleCardTwo({
           <p style={{ height: "43px" }}>
             <MapMarkerSvg /> {item.address}
           </p>
-          <DekhoLandScore score={item.dekhoLandScore} details={item.dekhoLandScoreDetails} />
+          <DekhoLandScore
+            score={item.dekhoLandScore}
+            seed={item.id}
+            details={item.dekhoLandScoreDetails}
+          />
           <div className="tp-rent-meta-list d-flex justify-content-between align-items-center">
             <div className="tp-rent-meta-item">
               <div className="tp-rent-meta-content d-flex">
