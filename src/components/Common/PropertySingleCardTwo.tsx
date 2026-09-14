@@ -120,7 +120,13 @@ function PropertySingleCardTwo({
               {item.title}
             </Link>
           </h4>
-          <p style={{ height: "43px" }}>
+          <p
+            style={{
+              marginBottom: 0,
+              overflow: "hidden",
+            }}
+            title={item.address}
+          >
             <MapMarkerSvg /> {item.address}
           </p>
           <DekhoLandScore
