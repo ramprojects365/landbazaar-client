@@ -66,20 +66,17 @@ function DekhoLayoutInner({ children }: { children: ReactNode }) {
                   </span>
                 </div>
               </div>
-              <div className="search-refine-shell hide-mobile">
-                <SearchRefineBar />
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section
-        className="tp-property-list-section"
-        style={{ marginTop: "-120px" }}
-      >
+      <section className="tp-property-list-section">
         <div className="container">
           <div className="row">
+            <div className="col-12 hide-mobile search-refine-shell">
+              <SearchRefineBar />
+            </div>
             <div className="col-lg-3 filt hide-mobile">
               <PropertyFilterWidget />
             </div>

@@ -597,17 +597,42 @@
   border-radius: var(--app-box-radius);
 }
 
-/* Keep search header + results columns on the same left/right edges */
-.tp-property-ptb .container > .row,
-.tp-property-list-section .container > .row {
-  --bs-gutter-x: 30px;
-}
+/* Search listing alignment is desktop-only. Mobile keeps its existing layout. */
+@media (min-width: 768px) {
+  .tp-property-ptb .container > .row,
+  .tp-property-list-section .container > .row {
+    --bs-gutter-x: 30px;
+  }
 
-.tp-property-search-header,
-.tp-property-list-section .filt,
-.tp-property-list-section .prop-det-dev {
-  padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
-  padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
+  .tp-property-search-header,
+  .tp-property-list-section .filt,
+  .tp-property-list-section .prop-det-dev {
+    padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
+    padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
+  }
+
+  .tp-property-list-section .search-refine-shell {
+    margin-bottom: 15px;
+    padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
+    padding-right: 0 !important;
+  }
+
+  .search-results-list .dekholand-score {
+    padding-top: 6px;
+  }
+
+  .tp-dashboard-property-wrapper,
+  .tp-dashboard-property-wrapper > .row {
+    --bs-gutter-x: 15px;
+  }
+
+  .dashboard-property-search {
+    margin: 0 0 15px;
+  }
+
+  .tp-dashboard-property-wrapper .tp-rent-item {
+    margin-bottom: 15px !important;
+  }
 }
 
 .tp-property-search-header .ml-list {
@@ -3909,6 +3934,9 @@ html {
   .search-refine-shell,
   .property-search-refine {
     display: none !important;
+    margin-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   .property-search-refine__row {
@@ -4171,6 +4199,10 @@ html {
 
   .tp-dashboard-property-wrapper {
     width: 100%;
+  }
+
+  .tp-dashboard-property-wrapper .tp-rent-item {
+    margin-bottom: 15px !important;
   }
 
   .property-engagement-stats {

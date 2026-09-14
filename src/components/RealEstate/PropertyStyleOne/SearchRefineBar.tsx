@@ -77,7 +77,6 @@ export default function SearchRefineBar() {
         border: "1px solid #e8e8f0",
         borderRadius: "8px",
         padding: "20px 24px",
-        marginBottom: "120px",
       }}
     >
       <form onSubmit={handleSearch}>
