@@ -4,15 +4,15 @@ import Image from "next/image";
 
 const bannerImages = [
   {
-    src: "/assets/img/banner/bg-1.png",
+    src: "/assets/img/banner/bg-1.jpg",
     alt: "Plots for sale in Hyderabad and Telangana",
   },
   {
-    src: "/assets/img/banner/bg-2.png",
+    src: "/assets/img/banner/bg-2.jpg",
     alt: "Land for sale in Andhra Pradesh, Visakhapatnam, and Vijayawada",
   },
   {
-    src: "/assets/img/banner/bg-3.png",
+    src: "/assets/img/banner/bg-3.jpg",
     alt: "HMDA plots and farm land for sale near Hyderabad",
   },
 ];

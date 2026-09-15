@@ -4,25 +4,25 @@ const neighbourhoodsData: INeighbourhoodProperty[] = [
   {
     id: 1,
     name: "Hyderabad",
-    image: "/assets/img/banner/bg-1.png",
+    image: "/assets/img/banner/bg-1.jpg",
     count: 25,
   },
   {
     id: 2,
     name: "Visakhapatnam",
-    image: "/assets/img/banner/bg-2.png",
+    image: "/assets/img/banner/bg-2.jpg",
     count: 25,
   },
   {
     id: 3,
     name: "Vijayawada",
-    image: "/assets/img/banner/bg-3.png",
+    image: "/assets/img/banner/bg-3.jpg",
     count: 25,
   },
   {
     id: 4,
     name: "Warangal",
-    image: "/assets/img/banner/bg-1.png",
+    image: "/assets/img/banner/bg-1.jpg",
     count: 25,
   },
   {

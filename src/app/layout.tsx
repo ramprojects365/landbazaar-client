@@ -5,11 +5,13 @@ import Script from "next/script";
 import "swiper/css/bundle";
 import "./globals.scss";
 import RootProviders from "./RootProviders";
+import { SITE_SOCIAL_PROFILES } from "@/config/constants";
 
 const siteUrl = "https://www.dekholand.com";
-const siteTitle = "DekhoLand | Buy & Sell Verified Lands and Plots";
+const siteTitle =
+  "DekhoLand | Verified Farm Lands & Open Plots in Telangana & AP";
 const siteDescription =
-  "Find plots for sale in Andhra Pradesh and Telangana — including Hyderabad, Visakhapatnam, Vizag, Vijayawada, and Amaravati. Browse HMDA, DTCP, and RERA approved plots, farm land, and agricultural land on DekhoLand.";
+  "DekhoLand is your trusted marketplace for verified open plots, DTCP/HMDA layouts, and agricultural lands. Check the DekhoLand Score before you invest.";
 const siteImage = "https://www.dekholand.com/assets/img/logo/logo-blue.png";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -132,19 +134,25 @@ export default function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
     name: "DekhoLand",
     alternateName: ["Dekho Land", "DekhoLand Lands & Plots"],
     url: siteUrl,
     description: siteDescription,
+    publisher: {
+      "@id": `${siteUrl}/#organization`,
+    },
   };
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
     name: "DekhoLand",
     url: siteUrl,
     logo: siteImage,
     description: siteDescription,
+    sameAs: SITE_SOCIAL_PROFILES,
   };
 
   return (

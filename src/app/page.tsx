@@ -6,10 +6,12 @@ import CommonFooter from "@/layouts/Footers/CommonFooter";
 import { Metadata } from "next";
 import HomeAdvisorPopup from "@/components/Advisor/HomeAdvisorPopup";
 import { landTypeSearchHref } from "@/config/landOptions";
+import { SITE_SOCIAL_PROFILES } from "@/config/constants";
 
-const siteTitle = "DekhoLand | Buy & Sell Verified Lands and Plots";
+const siteTitle =
+  "DekhoLand | Verified Farm Lands & Open Plots in Telangana & AP";
 const siteDescription =
-  "Find plots for sale in Andhra Pradesh and Telangana — including Hyderabad, Visakhapatnam, Vizag, Vijayawada, and Amaravati. Browse HMDA, DTCP, and RERA approved plots, farm land, and agricultural land on DekhoLand.";
+  "DekhoLand is your trusted marketplace for verified open plots, DTCP/HMDA layouts, and agricultural lands. Check the DekhoLand Score before you invest.";
 const siteImage = "https://www.dekholand.com/assets/img/logo/logo-blue.png";
 
 export const metadata: Metadata = {
@@ -53,10 +55,35 @@ const homeStructuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "DekhoLand",
+      url: siteUrl,
+      description: siteDescription,
+      logo: {
+        "@type": "ImageObject",
+        url: siteImage,
+      },
+      sameAs: SITE_SOCIAL_PROFILES,
+    },
+    {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
       name: "DekhoLand",
       url: siteUrl,
+      description: siteDescription,
+      inLanguage: "en-IN",
+      publisher: {
+        "@id": `${siteUrl}/#organization`,
+      },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${siteUrl}/search?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
     {
       "@type": "ItemList",

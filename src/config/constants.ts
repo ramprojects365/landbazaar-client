@@ -40,3 +40,9 @@ export const IS_PRODUCTION = ENVIRONMENT === "production";
 
 // Other constants
 export const APP_NAME = "Dekho Land";
+
+export const SITE_SOCIAL_PROFILES = [
+  "https://www.youtube.com/@DekhoLand",
+  "https://www.instagram.com/dekho_land/",
+  "https://www.facebook.com/profile.php?id=61592897772107",
+];
