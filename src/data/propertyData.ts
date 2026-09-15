@@ -14,7 +14,7 @@ const rentUser2 = rentUser1;
 const rentUser3 = rentUser1;
 const rentUser4 = rentUser1;
 //home two property list image - use existing images
-import listingThumb1 from "../../public/assets/img/banner/bg-1.png";
+import listingThumb1 from "../../public/assets/img/banner/bg-1.jpg";
 const listingThumb2 = listingThumb1;
 const listingThumb3 = listingThumb1;
 const listingThumb4 = listingThumb1;
@@ -23,12 +23,12 @@ const featureListImg1 = listingThumb1;
 const featureListImg2 = listingThumb1;
 const featureListImg3 = listingThumb1;
 //home three property list image - use existing images
-import propertyImg1 from "../../public/assets/img/banner/bg-2.png";
+import propertyImg1 from "../../public/assets/img/banner/bg-2.jpg";
 const propertyImg2 = propertyImg1;
 const propertyImg3 = propertyImg1;
 const propertyImg4 = propertyImg1;
 //home three property image
-import propertyImg5 from "../../public/assets/img/banner/bg-3.png";
+import propertyImg5 from "../../public/assets/img/banner/bg-3.jpg";
 const propertyImg6 = propertyImg5;
 const propertyImg7 = propertyImg5;
 //author image - use existing team image
