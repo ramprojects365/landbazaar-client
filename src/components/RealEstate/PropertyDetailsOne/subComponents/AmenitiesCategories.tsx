@@ -1,24 +1,30 @@
 import { CheckSvg } from "@/components/SVG";
 
-interface Props {
-  amenities?: { lifestyle?: string[]; facilities?: string[]; security?: string[] };
-}
-
-const defaultAmenities = {
-  lifestyle:  ["Air Conditioning", "WiFi", "Swimming Pool", "Gym"],
-  facilities: ["Covered Parking", "24h Security", "CCTV", "Intercom"],
-  security:   ["Gated Community", "Access Card"],
+export type PropertyAmenities = {
+  lifestyle?: string[];
+  facilities?: string[];
+  security?: string[];
 };
 
-export default function AmenitiesCategories({ amenities }: Props) {
-  const data = amenities ?? defaultAmenities;
-  const all = [
-    ...(data.lifestyle  || []),
-    ...(data.facilities || []),
-    ...(data.security   || []),
-  ];
+interface Props {
+  amenities?: PropertyAmenities;
+}
 
-  if (all.length === 0) return <p className="text-muted">No amenities listed.</p>;
+export function getListedAmenities(amenities?: PropertyAmenities | null): string[] {
+  if (!amenities) return [];
+  return [
+    ...(amenities.lifestyle || []),
+    ...(amenities.facilities || []),
+    ...(amenities.security || []),
+  ]
+    .filter((item): item is string => typeof item === "string" && Boolean(item.trim()))
+    .map((item) => item.trim());
+}
+
+export default function AmenitiesCategories({ amenities }: Props) {
+  const all = getListedAmenities(amenities);
+
+  if (all.length === 0) return null;
 
   const chunkSize = 4;
   const columns = Array.from({ length: Math.ceil(all.length / chunkSize) }, (_, i) =>

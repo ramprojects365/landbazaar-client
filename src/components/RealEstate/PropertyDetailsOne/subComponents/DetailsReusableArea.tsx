@@ -2,7 +2,9 @@ import UserContactCard from "@/components/Layout/subComponents/UserContactCard";
 import SidebarPropertyItem from "@/components/Layout/subComponents/SidebarPropertyItem";
 import PropertyDescription from "@/components/Property/PropertyDescription";
 import RecentlyViewedProperties from "./RecentlyViewedItem";
-import AmenitiesCategories from "./AmenitiesCategories";
+import AmenitiesCategories, {
+  getListedAmenities,
+} from "./AmenitiesCategories";
 import PropertyDocuments from "./PropertyDocuments";
 import PropertyDetailsBox from "./PropertyDetailsBox";
 import {
@@ -78,6 +80,7 @@ export default function DetailsReusableArea({
     : undefined;
   const contactTelHref = getTelHref(property?.contactNumber);
 
+  const hasAmenities = getListedAmenities(property?.amenities).length > 0;
   const hasContactAddress =
     Boolean(address) ||
     Boolean(property?.contactPersonName) ||
@@ -126,10 +129,12 @@ export default function DetailsReusableArea({
                 />
               </div>
 
-              <div className="tp-property-details-box box-4 mb-30">
-                <h3 className="tp-property-details-box-title">Amenities</h3>
-                <AmenitiesCategories amenities={property?.amenities} />
-              </div>
+              {hasAmenities && (
+                <div className="tp-property-details-box box-4 mb-30">
+                  <h3 className="tp-property-details-box-title">Amenities</h3>
+                  <AmenitiesCategories amenities={property?.amenities} />
+                </div>
+              )}
 
               <PropertyDocuments documents={property?.documents} />
 
