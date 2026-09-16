@@ -11,6 +11,7 @@ import {
 import { UseFormRegister } from "react-hook-form";
 import ErrorMessage from "../../../../../components/Form/ErrorMassage";
 import RequiredAsterisk from "./RequiredAsterisk";
+import SearchableMultiSelect from "./SearchableMultiSelect";
 import "../property.css";
 
 const inlineRadioRowStyle = {
@@ -213,17 +214,11 @@ export default function PropertyDetails() {
                   Approval Type (Multi Select)
                   <RequiredAsterisk />
                 </label>
-                <select
-                  {...register("approvalTypes")}
-                  multiple
-                  className="listDropDown listDropDown--multiple"
-                >
-                  {APPROVAL_TYPES.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
+                <SearchableMultiSelect
+                  name="approvalTypes"
+                  options={APPROVAL_TYPES}
+                  placeholder="Select approval types"
+                />
                 {errors?.approvalTypes && (
                   <ErrorMessage
                     message={errors?.approvalTypes?.message || ""}
