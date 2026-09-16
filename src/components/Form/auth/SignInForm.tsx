@@ -17,6 +17,7 @@ import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import apiClient from "@/config/axios";
 import { persistAuthSession } from "@/utils/auth";
+import { GoogleLogin, GoogleOAuthProvider, type CredentialResponse } from "@react-oauth/google";
 
 interface FormData {
   email: string;
@@ -29,6 +30,7 @@ const REMEMBER_FLAG_KEY = "rememberLoginEnabled";
 
 export default function SignInForm() {
   const [showPass, setShowPass] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect");
 
@@ -146,6 +148,44 @@ export default function SignInForm() {
     reset({ email: data.remember ? data.email : "", password: "", remember: data.remember });
   };
 
+  const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
+    if (!credentialResponse.credential) {
+      toast.error("Google did not return a login credential");
+      return;
+    }
+
+    setGoogleLoading(true);
+    try {
+      const response = await apiClient.post("/auth/google", {
+        credential: credentialResponse.credential,
+      });
+      const payload = response.data?.data ?? response.data;
+      const user = payload?.user;
+
+      persistAuthSession({
+        token: payload?.token,
+        username: user?.username,
+        email: user?.email,
+        fullName: user?.fullName,
+        userType: user?.userType,
+      });
+
+      toast.success("Google login successful!");
+      window.location.href = redirectUrl || "/";
+    } catch (error: any) {
+      const message = error?.response?.data?.message;
+      const isLocalApiUnavailable = !error?.response;
+      toast.error(
+        message ||
+          (isLocalApiUnavailable
+            ? "The local API is unavailable. Start PostgreSQL and the backend, then try again."
+            : "Google login failed. Please try again."),
+      );
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
@@ -219,6 +259,24 @@ export default function SignInForm() {
             <button type="submit" className="tp-btn w-100 text-center">
               Login
             </button>
+          </div>
+
+          <div className="mb-25 d-flex justify-content-center">
+            <GoogleOAuthProvider
+              clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}
+            >
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={() => toast.error("Google login failed")}
+                useOneTap={false}
+                text="signin_with"
+                shape="rectangular"
+                width="320"
+                type="standard"
+                theme="outline"
+                disabled={googleLoading}
+              />
+            </GoogleOAuthProvider>
           </div>
 
           <div className="tp-sign-in-from-register">

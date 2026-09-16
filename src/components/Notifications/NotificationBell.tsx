@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import apiClient from "@/config/axios";
+import { clearAuthSession } from "@/utils/auth";
 import "./notification-bell.scss";
 
 type NotificationItem = {
@@ -68,7 +69,12 @@ export default function NotificationBell() {
       });
       setUnreadCount(res.data?.unreadCount ?? 0);
       setNotifications(res.data?.data ?? []);
-    } catch {
+    } catch (error: any) {
+      const status = error?.response?.status;
+      if (status === 401 || status === 403) {
+        clearAuthSession();
+        setVisible(false);
+      }
       setNotifications([]);
     } finally {
       setLoading(false);

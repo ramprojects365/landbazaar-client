@@ -19,6 +19,12 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import apiClient from "@/config/axios";
 import {
+  GoogleLogin,
+  GoogleOAuthProvider,
+  type CredentialResponse,
+} from "@react-oauth/google";
+import { persistAuthSession } from "@/utils/auth";
+import {
   PHONE_NUMBER_PLACEHOLDER,
   formatPhoneWithCountryCode,
   sanitizePhoneDigits,
@@ -27,6 +33,7 @@ import {
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const router = useRouter();
 
   const {
@@ -133,6 +140,44 @@ export default function SignUpForm() {
         message = err;
       }
       toast.error(message);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
+    if (!credentialResponse.credential) {
+      toast.error("Google did not return a login credential");
+      return;
+    }
+
+    setGoogleLoading(true);
+    try {
+      const response = await apiClient.post("/auth/google", {
+        credential: credentialResponse.credential,
+      });
+      const payload = response.data?.data ?? response.data;
+      const user = payload?.user;
+
+      persistAuthSession({
+        token: payload?.token,
+        username: user?.username,
+        email: user?.email,
+        fullName: user?.fullName,
+        userType: user?.userType,
+      });
+
+      toast.success("Google registration successful!");
+      router.push("/");
+    } catch (error: any) {
+      const message = error?.response?.data?.message;
+      const isLocalApiUnavailable = !error?.response;
+      toast.error(
+        message ||
+          (isLocalApiUnavailable
+            ? "The local API is unavailable. Start PostgreSQL and the backend, then try again."
+            : "Google registration failed. Please try again."),
+      );
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -300,6 +345,23 @@ export default function SignUpForm() {
             <button type="submit" className="tp-btn w-100 text-center">
               Sign Up
             </button>
+          </div>
+          <div className="mb-25 d-flex justify-content-center">
+            <GoogleOAuthProvider
+              clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}
+            >
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={() => toast.error("Google registration failed")}
+                useOneTap={false}
+                text="signup_with"
+                shape="rectangular"
+                width="320"
+                type="standard"
+                theme="outline"
+                disabled={googleLoading}
+              />
+            </GoogleOAuthProvider>
           </div>
           <div className="tp-sign-in-from-register">
             <p>

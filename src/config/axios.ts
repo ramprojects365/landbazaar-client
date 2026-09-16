@@ -89,11 +89,19 @@ if (process.env.NODE_ENV !== "production") {
       return response;
     },
     (error) => {
-      console.error('API Response Error:', {
-        status: error.response?.status,
+      const status = error.response?.status;
+      const details = {
+        status,
         data: error.response?.data,
         message: error.message,
-      });
+      };
+      if (!error.response) {
+        console.warn('API unavailable:', details);
+      } else if (status === 401 || status === 403) {
+        console.warn('API authorization required:', details);
+      } else {
+        console.error('API Response Error:', details);
+      }
       return Promise.reject(error);
     }
   );
