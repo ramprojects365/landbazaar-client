@@ -31,16 +31,7 @@ export default function PopularSeoLinks({
             {title}
           </Heading>
         ) : null}
-        <ul
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: compact ? "8px 14px" : "10px 18px",
-            paddingLeft: 0,
-            listStyle: "none",
-            margin: 0,
-          }}
-        >
+        <ul className={`popular-seo-links__list${compact ? " popular-seo-links__list--compact" : ""}`}>
           {popularSeoLinks.map((link) => (
             <li key={link.href}>
               <Link href={link.href}>{link.label}</Link>

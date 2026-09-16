@@ -201,6 +201,34 @@
   padding: 0;
 }
 
+.popular-seo-links__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.popular-seo-links__list--compact {
+  gap: 8px 14px;
+}
+
+@media (max-width: 991px) {
+  .popular-seo-links__list,
+  .popular-seo-links__list--compact {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .popular-seo-links__list li {
+    display: block;
+    width: 100%;
+    flex: 0 0 auto;
+  }
+}
+
 .tp-footer-widget-contact .tp-footer-phone-link span,
 .tp-footer-widget-contact .tp-footer-phone-link:visited span {
   color: #ffffff;

@@ -19,6 +19,12 @@ const fallbackItems: PropertyImageDisplayItem[] = [
 const getImageLabel = (image: PropertyImageDisplayItem) =>
   image.caption || image.displayPlace || "";
 
+const getVisibleImageLabel = (image: PropertyImageDisplayItem) => {
+  const label = getImageLabel(image).trim();
+  if (!label || label.toLowerCase() === "other") return "";
+  return label;
+};
+
 export default function PropertyDetailsSlider({ images }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
@@ -53,22 +59,22 @@ export default function PropertyDetailsSlider({ images }: Props) {
           <img
             className="tp-pdg-main-img"
             src={galleryItems[0].url}
-            alt={getImageLabel(galleryItems[0]) || "Land cover image"}
+            alt={getVisibleImageLabel(galleryItems[0]) || "Land cover image"}
             fetchPriority="high"
             decoding="async"
             style={{ width: "100%", height: "100%" }}
           />
-          {getImageLabel(galleryItems[0]) ? (
-            <span className="tp-pdg-label">{getImageLabel(galleryItems[0])}</span>
-          ) : (
-            <span className="tp-pdg-label">Cover</span>
-          )}
+          {getVisibleImageLabel(galleryItems[0]) ? (
+            <span className="tp-pdg-label">
+              {getVisibleImageLabel(galleryItems[0])}
+            </span>
+          ) : null}
         </button>
         <div className="tp-pdg-side">
           {sideTiles.map((item, idx) => {
               const absoluteIndex = idx + 1;
               const isLastVisible = idx === 3;
-              const label = getImageLabel(item);
+              const label = getVisibleImageLabel(item);
               return (
                 <button
                   key={`${item.url}-${idx}`}
@@ -123,21 +129,24 @@ export default function PropertyDetailsSlider({ images }: Props) {
                 })
               }
             >
-              {modalItems.map((item, i) => (
+              {modalItems.map((item, i) => {
+                const label = getVisibleImageLabel(item);
+                return (
                 <SwiperSlide key={`${item.url}-${i}`}>
                   <div className="tp-pdg-modal-slide">
                     <img
                       src={item.url}
-                      alt={getImageLabel(item) || `Land image ${i + 1}`}
+                      alt={label || `Land image ${i + 1}`}
                     />
-                    {getImageLabel(item) ? (
+                    {label ? (
                       <div className="tp-pdg-modal-caption">
-                        <span>{getImageLabel(item)}</span>
+                        <span>{label}</span>
                       </div>
                     ) : null}
                   </div>
                 </SwiperSlide>
-              ))}
+                );
+              })}
             </Swiper>
           </div>
           <button
