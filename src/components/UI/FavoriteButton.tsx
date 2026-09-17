@@ -10,7 +10,7 @@ import {
 import { toast } from "sonner";
 import "./favorite-button.css";
 
-const FAVORITE_COLOR = "#ef4444";
+const FAVORITE_COLOR = "#E11D48";
 
 type FavoriteButtonProps = {
   propertyId?: string | number;
@@ -31,7 +31,6 @@ export default function FavoriteButton({
 }: FavoriteButtonProps) {
   const [isFavorite, setIsFavorite] = useState(initialFavorite);
   const [loading, setLoading] = useState(false);
-  const inactiveColor = tone === "light" ? FAVORITE_COLOR : "#FFFFFF";
 
   useEffect(() => {
     if (propertyId == null || !localStorage.getItem("authToken")) return;
@@ -99,10 +98,10 @@ export default function FavoriteButton({
       onTouchStart={isolateEvent}
     >
       <Heart
-        size={20}
-        strokeWidth={2}
-        color={isFavorite ? FAVORITE_COLOR : inactiveColor}
-        fill={isFavorite ? FAVORITE_COLOR : "transparent"}
+        size={24}
+        strokeWidth={2.25}
+        color={FAVORITE_COLOR}
+        fill={isFavorite ? FAVORITE_COLOR : "#ffffff"}
         aria-hidden="true"
       />
     </button>
