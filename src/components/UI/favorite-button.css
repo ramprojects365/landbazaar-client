@@ -4,27 +4,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.92);
   cursor: pointer;
   flex-shrink: 0;
   line-height: 0;
   pointer-events: auto;
   touch-action: manipulation;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55));
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
 }
 
 .property-favorite-btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.45);
+  box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.45);
 }
 
 .property-favorite-btn--light {
-  filter: none;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.12);
 }
 
 .tp-rent-user-wrap--with-favorite .tp-rent-user {
