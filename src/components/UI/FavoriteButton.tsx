@@ -10,7 +10,7 @@ import {
 import { toast } from "sonner";
 import "./favorite-button.css";
 
-const FAVORITE_COLOR = "#E11D48";
+const HEART_COLOR = "#FFFFFF";
 
 type FavoriteButtonProps = {
   propertyId?: string | number;
@@ -98,10 +98,10 @@ export default function FavoriteButton({
       onTouchStart={isolateEvent}
     >
       <Heart
-        size={24}
+        size={20}
         strokeWidth={2.25}
-        color={FAVORITE_COLOR}
-        fill={isFavorite ? FAVORITE_COLOR : "#ffffff"}
+        color={HEART_COLOR}
+        fill={isFavorite ? HEART_COLOR : "none"}
         aria-hidden="true"
       />
     </button>

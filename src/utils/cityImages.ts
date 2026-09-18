@@ -2,6 +2,15 @@ const CITY_IMAGE_ALIASES: Record<string, string> = {
   vizag: "visakhapatnam",
   vishakhapatnam: "visakhapatnam",
   visakapatnam: "visakhapatnam",
+  rajamahendravaram: "rajahmundry",
+  rajahmahendravaram: "rajahmundry",
+};
+
+const CITY_FOLDER_IMAGES: Record<string, string> = {
+  hyderabad: "/assets/img/city/hyderabad.jpeg",
+  kakinada: "/assets/img/city/kakinada.jpeg",
+  visakhapatnam: "/assets/img/city/visakhapatnam.jpeg",
+  rajahmundry: "/assets/img/city/rajahmundry.jpeg",
 };
 
 const CITY_IMAGE_EXTENSIONS = [".jpeg", ".jpg", ".png", ".webp"] as const;
@@ -17,6 +26,7 @@ export function getCityDefaultImageCandidates(
   if (!cityName) return [];
   const slug = cityImageSlug(cityName);
   if (!slug) return [];
+  if (CITY_FOLDER_IMAGES[slug]) return [CITY_FOLDER_IMAGES[slug]];
   return CITY_IMAGE_EXTENSIONS.map(
     (extension) => `/assets/img/city/${slug}${extension}`,
   );
@@ -36,6 +46,9 @@ export async function resolveCityCardImage(
   cityName: string,
   listingImage: string,
 ): Promise<string> {
+  const slug = cityImageSlug(cityName);
+  if (CITY_FOLDER_IMAGES[slug]) return CITY_FOLDER_IMAGES[slug];
+
   for (const src of getCityDefaultImageCandidates(cityName)) {
     if (await imageExists(src)) return src;
   }
