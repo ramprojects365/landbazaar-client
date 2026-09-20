@@ -14,10 +14,45 @@ import { fromUrlTextValue } from "@/utils/searchUrl";
 import { slimPropertyForList } from "@/services/propertiesList";
 import { formatFilterPriceLabel } from "@/components/Utils/formatPrice";
 import { parseIndianPriceValue } from "@/utils/priceParsing";
+import PaginationControls from "@/components/UI/PaginationControls";
 
 type Property = IFeaturedPropertyDT;
 
 type ApiProperty = ApiPropertyFields;
+
+const PAGE_SIZE = 10;
+
+function paginatePage(
+  items: Property[],
+  page: number,
+  serverCount: number,
+  serverTotalPages: number,
+) {
+  if (items.length > PAGE_SIZE) {
+    const total = Math.max(items.length, serverCount || 0);
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    const current = Math.min(Math.max(1, page), totalPages);
+    const start = (current - 1) * PAGE_SIZE;
+    return {
+      items: items.slice(start, start + PAGE_SIZE),
+      total,
+      totalPages,
+    };
+  }
+
+  const total =
+    Number.isFinite(serverCount) && serverCount > 0 ? serverCount : items.length;
+  const totalPages =
+    Number.isFinite(serverTotalPages) && serverTotalPages > 0
+      ? serverTotalPages
+      : Math.max(1, Math.ceil(total / PAGE_SIZE));
+
+  return {
+    items: items.slice(0, PAGE_SIZE),
+    total,
+    totalPages,
+  };
+}
 
 function mapApiProperty(item: ApiProperty): Property {
   return mapApiPropertyToCard(item);
@@ -120,7 +155,7 @@ export default function PropertyListing({
           if (minP !== undefined) params.set("minPrice", String(minP));
           if (maxP !== undefined) params.set("maxPrice", String(maxP));
           params.set("page", String(page));
-          params.set("limit", "10");
+          params.set("limit", String(PAGE_SIZE));
           url = `${API_BASE_URL}/properties/search?${params}`;
         } else {
           // Unfiltered catalog listing keeps the generic properties endpoint.
@@ -135,7 +170,7 @@ export default function PropertyListing({
           if (minP !== undefined) params.set("minPrice", String(minP));
           if (maxP !== undefined) params.set("maxPrice", String(maxP));
           params.set("page", String(page));
-          params.set("limit", "10");
+          params.set("limit", String(PAGE_SIZE));
           url = `${API_BASE_URL}/properties?${params}`;
         }
 
@@ -166,19 +201,21 @@ export default function PropertyListing({
         const mapped = results
           .map(slimPropertyForList)
           .map((item) => mapApiProperty(item));
-        const resolvedCount = Number.isFinite(rawCount) && rawCount > 0 ? rawCount : mapped.length;
-        const fallbackTotalPages = Math.max(1, Math.ceil(resolvedCount / 10));
-        const nextTotalPages =
-          Number.isFinite(serverTotalPages) && serverTotalPages > 0
-            ? serverTotalPages
-            : fallbackTotalPages;
+        const resolvedCount =
+          Number.isFinite(rawCount) && rawCount > 0 ? rawCount : mapped.length;
+        const paged = paginatePage(
+          mapped,
+          page,
+          resolvedCount,
+          serverTotalPages,
+        );
 
-        setProperties(mapped);
-        setResultCount(resolvedCount);
-        setTotalPages(nextTotalPages);
+        setProperties(paged.items);
+        setResultCount(paged.total);
+        setTotalPages(paged.totalPages);
 
-        if (page > nextTotalPages) {
-          const clampedPage = Math.max(1, nextTotalPages);
+        if (page > paged.totalPages) {
+          const clampedPage = Math.max(1, paged.totalPages);
           setPage(clampedPage);
           const params = new URLSearchParams(searchParams.toString());
           params.set("page", String(clampedPage));
@@ -338,38 +375,14 @@ export default function PropertyListing({
             </div>
 
             {totalPages > 1 && (
-              <div
-                className="d-flex justify-content-center align-items-center gap-2 mt-4 mb-4"
-                style={{ marginBottom: "28px" }}
-              >
-                <button
-                  type="button"
-                  className="btn btn-outline-secondary"
-                  disabled={page <= 1}
-                  onClick={() => {
-                    const nextPage = Math.max(1, page - 1);
-                    setPage(nextPage);
-                    updatePageParam(nextPage);
-                  }}
-                >
-                  Prev
-                </button>
-                <span style={{ color: "#475467", fontSize: 14 }}>
-                  {page} / {totalPages}
-                </span>
-                <button
-                  type="button"
-                  className="btn btn-outline-secondary"
-                  disabled={page >= totalPages}
-                  onClick={() => {
-                    const nextPage = Math.min(totalPages, page + 1);
-                    setPage(nextPage);
-                    updatePageParam(nextPage);
-                  }}
-                >
-                  Next
-                </button>
-              </div>
+              <PaginationControls
+                page={page}
+                totalPages={totalPages}
+                onPageChange={(nextPage) => {
+                  setPage(nextPage);
+                  updatePageParam(nextPage);
+                }}
+              />
             )}
           </>
         )}

@@ -1,0 +1,69 @@
+.app-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0 28px;
+  flex-wrap: wrap;
+}
+
+.app-pagination__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 88px;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid #003b5c;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #003b5c;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.app-pagination__btn:hover:not(:disabled) {
+  background: #003b5c;
+  color: #ffffff;
+}
+
+.app-pagination__btn:disabled {
+  border-color: #d0d5dd;
+  background: #f2f4f7;
+  color: #98a2b3;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.app-pagination__btn:focus-visible {
+  outline: 2px solid #003b5c;
+  outline-offset: 2px;
+}
+
+.app-pagination__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 72px;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #eef4f8;
+  color: #475467;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.app-pagination__current {
+  color: #003b5c;
+  font-weight: 700;
+}
+
+.app-pagination__of {
+  color: #98a2b3;
+  font-weight: 500;
+}
