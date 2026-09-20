@@ -76,11 +76,7 @@ export default function HeroBannerOne() {
                     {t("hero.searchDescriptionMobile")}
                   </p>
                 </div>
-                <div
-                  className="tp-hero-tab p-relative wow fadeInUp"
-                  data-wow-duration="1s"
-                  data-wow-delay=".7s"
-                >
+                <div className="tp-hero-tab p-relative">
                   <div className="row">
                     <div className="tab-content" id="nav-tabContent">
                       <HeroBannerTabContent
