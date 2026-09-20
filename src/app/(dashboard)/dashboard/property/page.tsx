@@ -16,6 +16,7 @@ import {
 import { resolveUserDisplayProfile } from "@/utils/userProfileDisplay";
 import { useAuth } from "@/hooks/useAuth";
 import apiClient from "@/config/axios";
+import PaginationControls from "@/components/UI/PaginationControls";
 
 // API Property interface
 interface ApiProperty {
@@ -332,27 +333,11 @@ export default function DashboardProperty() {
                 ))}
 
               {!loading && !error && isAdmin && totalPages > 1 && (
-                <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
-                  <button
-                    type="button"
-                    className="btn btn-outline-secondary"
-                    disabled={page <= 1}
-                    onClick={() => setPage((current) => Math.max(1, current - 1))}
-                  >
-                    Prev
-                  </button>
-                  <span style={{ color: "#475467", fontSize: 14 }}>
-                    {page} / {totalPages}
-                  </span>
-                  <button
-                    type="button"
-                    className="btn btn-outline-secondary"
-                    disabled={page >= totalPages}
-                    onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
-                  >
-                    Next
-                  </button>
-                </div>
+                <PaginationControls
+                  page={page}
+                  totalPages={totalPages}
+                  onPageChange={setPage}
+                />
               )}
             </div>
           </div>
