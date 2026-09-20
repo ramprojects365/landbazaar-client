@@ -1509,7 +1509,7 @@ html.lang-te .home-trust-section .tp-section-title {
 
 .search-results-list .tp-rent-meta-content {
   align-items: center;
-  gap: 6px;
+  gap: 2px;
 }
 
 .search-results-list .tp-rent-meta-item p {
@@ -1538,7 +1538,7 @@ html.lang-te .home-trust-section .tp-section-title {
 
 .tp-listing-2-item .tp-rent-meta-content {
   align-items: center;
-  gap: 6px;
+  gap: 2px;
 }
 
 .tp-listing-2-item .tp-rent-meta-content p {
@@ -1799,10 +1799,16 @@ html.lang-te .home-trust-section .tp-section-title {
   flex: 0 0 16px;
 }
 
+.tp-rent-meta-content {
+  align-items: center;
+  gap: 2px;
+}
+
 .tp-rent-meta-content span {
   width: 18px;
   height: 18px;
   margin-top: 10px;
+  margin-right: 0;
   min-width: 18px;
   display: inline-flex;
   align-items: center;
