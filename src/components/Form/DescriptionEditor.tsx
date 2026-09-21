@@ -72,6 +72,7 @@ export default function DescriptionEditor({
       attributes: {
         class: "description-editor__content",
       },
+      transformPastedHTML: (html) => sanitizeDescriptionHtmlSync(html),
     },
     onUpdate: ({ editor: current }) => {
       const plain = current.getText();

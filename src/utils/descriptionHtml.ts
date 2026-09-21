@@ -60,15 +60,64 @@ const DESCRIPTION_SANITIZE_OPTIONS = {
   ALLOWED_ATTR: ["style"],
 } as const;
 
+const FONT_SHORTHAND_SIZE = /(\d+(?:\.\d+)?)(px|pt|em|rem)/i;
+
+/**
+ * Drop copied font families so description text uses the site font
+ * (Plus Jakarta Sans). Font size from a `font` shorthand is kept.
+ */
+export function stripCopiedFontFamilies(html: string): string {
+  if (!html) return html;
+
+  return html
+    .replace(/<\/?font\b[^>]*>/gi, "")
+    .replace(
+      /(\sstyle\s*=\s*)(["'])([\s\S]*?)\2/gi,
+      (_full, prefix: string, quote: string, styles: string) => {
+        const cleaned = styles
+          .split(";")
+          .map((part) => part.trim())
+          .filter(Boolean)
+          .flatMap((decl) => {
+            const colon = decl.indexOf(":");
+            if (colon < 0) return [];
+            const prop = decl.slice(0, colon).trim().toLowerCase();
+            const value = decl.slice(colon + 1).trim();
+
+            if (prop === "font-family") return [];
+            if (prop === "font") {
+              const sizeMatch = value.match(FONT_SHORTHAND_SIZE);
+              return sizeMatch
+                ? [`font-size: ${sizeMatch[1]}${sizeMatch[2]}`]
+                : [];
+            }
+            return [decl];
+          })
+          .join("; ");
+
+        return cleaned ? `${prefix}${quote}${cleaned}${quote}` : "";
+      },
+    );
+}
+
+function purifyDescriptionHtml(value: string): string {
+  const stripped = stripCopiedFontFamilies(value);
+  if (typeof window === "undefined") return stripped;
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const DOMPurify = require("dompurify") as typeof import("dompurify").default;
+  return stripCopiedFontFamilies(
+    DOMPurify.sanitize(stripped, DESCRIPTION_SANITIZE_OPTIONS),
+  );
+}
+
 export async function sanitizeDescriptionHtml(value: string): Promise<string> {
-  if (typeof window === "undefined") return value;
+  if (typeof window === "undefined") return stripCopiedFontFamilies(value);
   const DOMPurify = (await import("dompurify")).default;
-  return DOMPurify.sanitize(value, DESCRIPTION_SANITIZE_OPTIONS);
+  return stripCopiedFontFamilies(
+    DOMPurify.sanitize(stripCopiedFontFamilies(value), DESCRIPTION_SANITIZE_OPTIONS),
+  );
 }
 
 export function sanitizeDescriptionHtmlSync(value: string): string {
-  if (typeof window === "undefined") return value;
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const DOMPurify = require("dompurify") as typeof import("dompurify").default;
-  return DOMPurify.sanitize(value, DESCRIPTION_SANITIZE_OPTIONS);
+  return purifyDescriptionHtml(value);
 }

@@ -479,6 +479,11 @@
 
 .property-description-html {
   white-space: normal;
+  font-family: "Plus Jakarta Sans", var(--tp-ff-body), sans-serif;
+
+  * {
+    font-family: inherit !important;
+  }
 
   p {
     margin: 0 0 0.75em;
