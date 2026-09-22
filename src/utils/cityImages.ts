@@ -11,6 +11,7 @@ const CITY_FOLDER_IMAGES: Record<string, string> = {
   kakinada: "/assets/img/city/kakinada.jpeg",
   visakhapatnam: "/assets/img/city/visakhapatnam.jpeg",
   rajahmundry: "/assets/img/city/rajahmundry.jpeg",
+  vijayawada: "/assets/img/city/vijayawada.jpeg",
 };
 
 const CITY_IMAGE_EXTENSIONS = [".jpeg", ".jpg", ".png", ".webp"] as const;
