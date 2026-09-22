@@ -16,7 +16,7 @@ const neighbourhoodsData: INeighbourhoodProperty[] = [
   {
     id: 3,
     name: "Vijayawada",
-    image: "/assets/img/banner/bg-3.jpg",
+    image: "/assets/img/city/vijayawada.jpeg",
     count: 25,
   },
   {
