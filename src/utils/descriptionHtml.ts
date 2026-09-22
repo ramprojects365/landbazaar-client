@@ -62,62 +62,61 @@ const DESCRIPTION_SANITIZE_OPTIONS = {
 
 const FONT_SHORTHAND_SIZE = /(\d+(?:\.\d+)?)(px|pt|em|rem)/i;
 
+function declarationsFromFontShorthand(value: string): string[] {
+  const kept: string[] = [];
+  const sizeMatch = value.match(FONT_SHORTHAND_SIZE);
+  if (sizeMatch) kept.push(`font-size: ${sizeMatch[1]}${sizeMatch[2]}`);
+  if (/\bitalic\b/i.test(value)) kept.push("font-style: italic");
+  if (/\b(bold|bolder)\b/i.test(value) || /\b[6-9]00\b/.test(value)) {
+    kept.push("font-weight: 700");
+  }
+  return kept;
+}
+
 /**
- * Drop copied font families so description text uses the site font
- * (Plus Jakarta Sans). Font size from a `font` shorthand is kept.
+ * Remove copied font families only. Size, weight, style, lists, and
+ * headings are left for the editor and existing sanitizer.
  */
 export function stripCopiedFontFamilies(html: string): string {
   if (!html) return html;
 
-  return html
-    .replace(/<\/?font\b[^>]*>/gi, "")
-    .replace(
-      /(\sstyle\s*=\s*)(["'])([\s\S]*?)\2/gi,
-      (_full, prefix: string, quote: string, styles: string) => {
-        const cleaned = styles
-          .split(";")
-          .map((part) => part.trim())
-          .filter(Boolean)
-          .flatMap((decl) => {
-            const colon = decl.indexOf(":");
-            if (colon < 0) return [];
-            const prop = decl.slice(0, colon).trim().toLowerCase();
-            const value = decl.slice(colon + 1).trim();
+  return html.replace(
+    /(\sstyle\s*=\s*)(["'])([\s\S]*?)\2/gi,
+    (_full, prefix: string, quote: string, styles: string) => {
+      const cleaned = styles
+        .split(";")
+        .map((part) => part.trim())
+        .filter(Boolean)
+        .flatMap((decl) => {
+          const colon = decl.indexOf(":");
+          if (colon < 0) return [];
+          const prop = decl.slice(0, colon).trim().toLowerCase();
+          const value = decl.slice(colon + 1).trim();
 
-            if (prop === "font-family") return [];
-            if (prop === "font") {
-              const sizeMatch = value.match(FONT_SHORTHAND_SIZE);
-              return sizeMatch
-                ? [`font-size: ${sizeMatch[1]}${sizeMatch[2]}`]
-                : [];
-            }
-            return [decl];
-          })
-          .join("; ");
+          if (prop === "font-family") return [];
+          if (prop === "font") return declarationsFromFontShorthand(value);
+          return [decl];
+        })
+        .join("; ");
 
-        return cleaned ? `${prefix}${quote}${cleaned}${quote}` : "";
-      },
-    );
-}
-
-function purifyDescriptionHtml(value: string): string {
-  const stripped = stripCopiedFontFamilies(value);
-  if (typeof window === "undefined") return stripped;
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const DOMPurify = require("dompurify") as typeof import("dompurify").default;
-  return stripCopiedFontFamilies(
-    DOMPurify.sanitize(stripped, DESCRIPTION_SANITIZE_OPTIONS),
+      return cleaned ? `${prefix}${quote}${cleaned}${quote}` : "";
+    },
   );
 }
 
 export async function sanitizeDescriptionHtml(value: string): Promise<string> {
-  if (typeof window === "undefined") return stripCopiedFontFamilies(value);
+  if (typeof window === "undefined") return value;
   const DOMPurify = (await import("dompurify")).default;
   return stripCopiedFontFamilies(
-    DOMPurify.sanitize(stripCopiedFontFamilies(value), DESCRIPTION_SANITIZE_OPTIONS),
+    DOMPurify.sanitize(value, DESCRIPTION_SANITIZE_OPTIONS),
   );
 }
 
 export function sanitizeDescriptionHtmlSync(value: string): string {
-  return purifyDescriptionHtml(value);
+  if (typeof window === "undefined") return value;
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const DOMPurify = require("dompurify") as typeof import("dompurify").default;
+  return stripCopiedFontFamilies(
+    DOMPurify.sanitize(value, DESCRIPTION_SANITIZE_OPTIONS),
+  );
 }

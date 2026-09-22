@@ -15,7 +15,7 @@ import {
 } from "@/services/propertyService";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
-import { getPropertyHeadingTitle } from "@/utils/mapApiProperty";
+import { getPropertyHeadingTitle, parsePropertyVerified } from "@/utils/mapApiProperty";
 import {
   getApiDekhoLandScore,
   getApiDekhoLandScoreDetails,
@@ -76,6 +76,9 @@ type ApiProperty = {
   score?: number | string | null;
   dekhoLandScoreDetails?: unknown;
   scoreDetails?: unknown;
+  verified?: boolean | string | number | null;
+  isVerified?: boolean | string | number | null;
+  verificationStatus?: string | null;
   user?: {
     id?: string;
     username?: string;
@@ -113,6 +116,7 @@ const mapApiProperty = (item: ApiProperty): IFeaturedPropertyDT => {
     linkUrl: "property-details",
     image,
     showTags: true,
+    verified: parsePropertyVerified(item, item.id),
     listingType:
       item.listingType?.trim().toLowerCase() === "rent"
         ? "lease"

@@ -9,6 +9,7 @@ import {
   DESCRIPTION_MAX_CHARS,
   looksLikeHtml,
   sanitizeDescriptionHtmlSync,
+  stripCopiedFontFamilies,
   stripDescriptionHtml,
 } from "@/utils/descriptionHtml";
 import { examplePlaceholder } from "@/utils/placeholders";
@@ -20,7 +21,6 @@ type DescriptionEditorProps = {
 };
 
 const FONT_SIZES = [
-  { label: "Small", value: "12px" },
   { label: "Normal", value: "14px" },
   { label: "Bigger", value: "18px" },
 ] as const;
@@ -72,7 +72,7 @@ export default function DescriptionEditor({
       attributes: {
         class: "description-editor__content",
       },
-      transformPastedHTML: (html) => sanitizeDescriptionHtmlSync(html),
+      transformPastedHTML: (html) => stripCopiedFontFamilies(html),
     },
     onUpdate: ({ editor: current }) => {
       const plain = current.getText();
