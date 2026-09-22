@@ -5,7 +5,7 @@ import HeroBannerOne from "@/components/HeroBanner/HeroBannerOne";
 import HomePropertiesByCity from "@/components/Neighborhood/HomePropertiesByCity";
 import PropertyHome from "@/components/Property/PropertyHome";
 import TrustBadges from "@/components/UI/TrustBadges";
-import TrustedDevelopers from "@/components/TrustedDevelopers/TrustedDevelopers";
+import HomePostPropertyCta from "@/components/Home/HomePostPropertyCta";
 import React from "react";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -22,7 +22,7 @@ export default function HomeOnePage() {
         <HomePropertiesByCity />
       </div>
       <div style={{ backgroundColor: "#fff" }}>
-        <TrustedDevelopers />
+        <HomePostPropertyCta />
       </div>
       <div style={{ backgroundColor: "rgb(240, 244, 253)" }}>
         <HomeBlogArea />

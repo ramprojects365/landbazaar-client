@@ -46,3 +46,6 @@ export const SITE_SOCIAL_PROFILES = [
   "https://www.instagram.com/dekho_land/",
   "https://www.facebook.com/profile.php?id=61592897772107",
 ];
+
+export const COMPANY_WHATSAPP_NUMBER = "916303245269";
+export const COMPANY_WHATSAPP_HREF = `https://wa.me/${COMPANY_WHATSAPP_NUMBER}`;
