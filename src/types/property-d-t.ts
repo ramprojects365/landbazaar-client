@@ -15,6 +15,7 @@ export interface IFeaturedPropertyDT {
   isForSale?: boolean;
   isForLease?: boolean;
   isFeatured?: boolean;
+  verified?: boolean;
   userName?: string;
   userRole?: string;
   bedrooms: string;

@@ -11,6 +11,7 @@ import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { buildSearchHrefFromParams } from "@/utils/searchUrl";
 import FavoriteButton from "@/components/UI/FavoriteButton";
+import PropertyVerifiedBadge from "@/components/UI/PropertyVerifiedBadge";
 import { DEFAULT_PROPERTY_IMAGE, getPropertyImageAlt } from "@/utils/propertyImages";
 import DekhoLandScore from "@/components/Common/DekhoLandScore";
 
@@ -113,6 +114,7 @@ function PropertySingleCardInner({
             ) : null}
           </div>
         )}
+        <PropertyVerifiedBadge verified={item.verified} />
       </div>
       <div className="col-xl-6 tp-rent-content">
         <h4

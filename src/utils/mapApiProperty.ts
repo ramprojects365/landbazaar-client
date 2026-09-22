@@ -81,6 +81,9 @@ export type ApiPropertyFields = {
   images?: unknown[];
   documents?: ApiPropertyDocument[] | null;
   status?: string;
+  verified?: boolean | string | number | null;
+  isVerified?: boolean | string | number | null;
+  verificationStatus?: string | null;
   userId?: string;
   createdAt?: string;
   updatedAt?: string;
@@ -172,6 +175,58 @@ export function formatStreetCity(
       .filter(Boolean)
       .join(", ") || "Address not available"
   );
+}
+
+function readOptionalBoolean(value: unknown): boolean | null {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "number") {
+    if (value === 1) return true;
+    if (value === 0) return false;
+  }
+  if (typeof value === "string") {
+    const normalized = value.trim().toLowerCase();
+    if (["true", "1", "yes"].includes(normalized)) return true;
+    if (["false", "0", "no"].includes(normalized)) return false;
+  }
+  return null;
+}
+
+/** Stable demo flag until the API always sends `verified`. */
+function mockVerifiedFromId(id?: string | number): boolean {
+  const key = String(id ?? "");
+  let hash = 0;
+  for (let index = 0; index < key.length; index += 1) {
+    hash = (hash * 31 + key.charCodeAt(index)) | 0;
+  }
+  return Math.abs(hash) % 2 === 0;
+}
+
+/**
+ * Admin-verified listing flag.
+ * Uses API `verified` / `isVerified` / `verificationStatus` when present.
+ * Until those fields ship, a stable per-id mock is used so some cards show the badge.
+ */
+export function parsePropertyVerified(
+  item?: {
+    verified?: unknown;
+    isVerified?: unknown;
+    verificationStatus?: unknown;
+  } | null,
+  id?: string | number,
+): boolean {
+  const fromVerified = readOptionalBoolean(item?.verified);
+  if (fromVerified !== null) return fromVerified;
+
+  const fromIsVerified = readOptionalBoolean(item?.isVerified);
+  if (fromIsVerified !== null) return fromIsVerified;
+
+  if (typeof item?.verificationStatus === "string") {
+    const status = item.verificationStatus.trim().toLowerCase();
+    if (["verified", "approved"].includes(status)) return true;
+    if (["pending", "unverified", "rejected"].includes(status)) return false;
+  }
+
+  return mockVerifiedFromId(id ?? (item as { id?: string | number } | null)?.id);
 }
 
 export function parseTotalPrice(
@@ -268,6 +323,7 @@ export function mapApiPropertyToCard(
     isForSale: listingType === "sale",
     isForLease: listingType === "lease",
     isFeatured: false,
+    verified: parsePropertyVerified(item, item.id),
     bedrooms: landSizeLabel,
     bathrooms: item.propertyType?.trim() || "—",
     livingArea: "",

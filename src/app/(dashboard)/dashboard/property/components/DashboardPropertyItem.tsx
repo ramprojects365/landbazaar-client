@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useState, useRef, type CSSProperties } from "react";
 import { toast } from "sonner";
 import FavoriteButton from "@/components/UI/FavoriteButton";
+import PropertyVerifiedBadge from "@/components/UI/PropertyVerifiedBadge";
 import DekhoLandScore from "@/components/Common/DekhoLandScore";
 import { DEFAULT_PROFILE_IMAGE } from "@/utils/userProfileDisplay";
 
@@ -149,6 +150,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
             )}
           </div>
         )}
+        <PropertyVerifiedBadge verified={property.verified} />
       </div>
       <div className="col-md-7 tp-rent-content">
         <h4

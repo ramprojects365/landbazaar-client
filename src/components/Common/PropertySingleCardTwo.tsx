@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import FavoriteButton from "@/components/UI/FavoriteButton";
+import PropertyVerifiedBadge from "@/components/UI/PropertyVerifiedBadge";
 import { DEFAULT_PROPERTY_IMAGE, getPropertyImageAlt } from "@/utils/propertyImages";
 import { LandSizeSvg } from "@/components/SVG";
 import { IndianRupee, LandPlot } from "lucide-react";
@@ -65,6 +66,7 @@ function PropertySingleCardTwo({
               )}
             </div>
           )}
+          <PropertyVerifiedBadge verified={item.verified} />
           <div
             className={`tp-rent-user-wrap d-flex align-items-center justify-content-between${
               showFavorite ? " tp-rent-user-wrap--with-favorite" : ""

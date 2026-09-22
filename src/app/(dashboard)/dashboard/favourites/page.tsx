@@ -4,7 +4,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import RecentlyViewedProperties from "@/components/RealEstate/PropertyDetailsOne/subComponents/RecentlyViewedItem";
 import { getSavedProperties } from "@/services/propertyService";
 import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
-import { formatLandSize, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
+import { formatLandSize, getPropertyHeadingTitle, parsePropertyVerified, parseTotalPrice } from "@/utils/mapApiProperty";
 import {
   getApiDekhoLandScore,
   getApiDekhoLandScoreDetails,
@@ -37,6 +37,9 @@ type SavedProperty = {
   user?: IFeaturedPropertyDT["user"];
   owner?: IFeaturedPropertyDT["user"];
   seller?: IFeaturedPropertyDT["user"];
+  verified?: boolean | string | number | null;
+  isVerified?: boolean | string | number | null;
+  verificationStatus?: string | null;
   property?: SavedProperty;
 };
 
@@ -66,6 +69,7 @@ const mapSavedProperty = (property: SavedProperty): IFeaturedPropertyDT => {
     isForSale: listingType === "sale",
     isForLease: listingType === "lease",
     showTags: true,
+    verified: parsePropertyVerified(listing, listing.id),
     userName: ownerProfile.name || undefined,
     userImage: ownerProfile.profileImage,
     user: ownerUser,

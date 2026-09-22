@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
 import { API_BASE_URL } from "@/config/constants";
-import { formatLandSize, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
+import { formatLandSize, getPropertyHeadingTitle, parsePropertyVerified, parseTotalPrice } from "@/utils/mapApiProperty";
 import {
   getApiDekhoLandScore,
   getApiDekhoLandScoreDetails,
@@ -51,6 +51,9 @@ interface ApiProperty {
   user?: IFeaturedPropertyDT["user"];
   owner?: IFeaturedPropertyDT["user"];
   seller?: IFeaturedPropertyDT["user"];
+  verified?: boolean | string | number | null;
+  isVerified?: boolean | string | number | null;
+  verificationStatus?: string | null;
 }
 
 function readProfileUser(payload: unknown): IFeaturedPropertyDT["user"] | undefined {
@@ -197,6 +200,7 @@ export default function DashboardProperty() {
               isForSale: listingType === "sale",
               isForLease: listingType === "lease",
               showTags: true,
+              verified: parsePropertyVerified(property, property.id),
               userName: ownerProfile.name || undefined,
               userImage: ownerProfile.profileImage,
               user: ownerUser,
@@ -285,6 +289,22 @@ export default function DashboardProperty() {
 
               {isAdmin && (
                 <div className="dashboard-property-search">
+                  <svg
+                    className="dashboard-property-search__icon"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+                    <path
+                      d="M20 20L16.5 16.5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                   <input
                     value={search}
                     onChange={(event) => {
@@ -293,7 +313,7 @@ export default function DashboardProperty() {
                     }}
                     placeholder="Search title, location, city, or state"
                     className="form-control"
-                    style={{ border: "1px solid #DBE1EF", borderRadius: 8, height: 44 }}
+                    aria-label="Search title, location, city, or state"
                   />
                 </div>
               )}
