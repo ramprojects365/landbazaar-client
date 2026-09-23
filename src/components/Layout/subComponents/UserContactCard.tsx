@@ -3,29 +3,47 @@
 import { SocialLinksThree } from "@/components/UI/SocialLinks";
 import { CallThreeSvg, TeamEmailSvg } from "@/components/SVG";
 import {
+  DEFAULT_PROFILE_IMAGE,
   ProfileUserLike,
   resolveUserDisplayProfile,
 } from "@/utils/userProfileDisplay";
 import { toCanonicalPageUrl } from "@/utils/sharePage";
+import { formatPhoneWithCountryCode, toWhatsAppDigits } from "@/utils/phoneInput";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface UserContactCardProps {
   user?: ProfileUserLike;
+  /** Property listing contact number, used when the profile has no phone. */
+  fallbackPhone?: string | null;
 }
 
-export default function UserContactCard({ user }: UserContactCardProps) {
+export default function UserContactCard({
+  user,
+  fallbackPhone,
+}: UserContactCardProps) {
   const profile = resolveUserDisplayProfile(user);
   const agentName = profile.name;
-  const agentPhone = profile.phone;
+  const agentPhone =
+    profile.phone ||
+    formatPhoneWithCountryCode(fallbackPhone) ||
+    fallbackPhone?.trim() ||
+    "";
   const agentEmail = profile.email;
   const agentImage = profile.profileImage;
-  const whatsappNumber = profile.whatsappDigits;
+  const [avatarSrc, setAvatarSrc] = useState(agentImage);
+  const whatsappNumber =
+    toWhatsAppDigits(profile.phone) || toWhatsAppDigits(fallbackPhone);
   const renVerified =
     user?.renVerified === true || user?.renStatus === "verified";
   const renStatusLabel =
     user?.renStatusLabel || (renVerified ? "Verified" : "Not verified");
-  const contactRole = "Property Owner";
+  const contactRole = "Seller";
+
+  useEffect(() => {
+    setAvatarSrc(agentImage || DEFAULT_PROFILE_IMAGE);
+  }, [agentImage]);
 
   const handleWhatsAppClick = () => {
     if (!whatsappNumber) return;
@@ -49,15 +67,20 @@ export default function UserContactCard({ user }: UserContactCardProps) {
             <div className="tp-team-details-info-user d-flex align-items-center">
               <div className="tp-team-details-info-user-thumb">
                 <Image
-                  src={agentImage}
-                  alt={agentName || "Property Owner"}
+                  src={avatarSrc || DEFAULT_PROFILE_IMAGE}
+                  alt={agentName || "Seller"}
                   width={50}
                   height={50}
                   style={{ borderRadius: "50%", objectFit: "cover" }}
                   unoptimized={
-                    agentImage.startsWith("http") ||
-                    agentImage.startsWith("/uploads")
+                    avatarSrc.startsWith("http") ||
+                    avatarSrc.startsWith("/uploads")
                   }
+                  onError={() => {
+                    if (avatarSrc !== DEFAULT_PROFILE_IMAGE) {
+                      setAvatarSrc(DEFAULT_PROFILE_IMAGE);
+                    }
+                  }}
                 />
               </div>
               <div className="tp-team-details-info-user-content">

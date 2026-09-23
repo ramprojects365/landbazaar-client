@@ -212,7 +212,10 @@ export default function DetailsReusableArea({
 
           <div className="col-lg-4">
             <div className="tp-property-details-right">
-              <UserContactCard user={property?.user} />
+              <UserContactCard
+                user={property?.user}
+                fallbackPhone={property?.contactNumber}
+              />
               <Suspense fallback={null}>
                 <SidebarPropertyItem featuredProperty={featuredProperty} />
               </Suspense>

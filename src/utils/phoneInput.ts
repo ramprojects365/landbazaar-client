@@ -48,3 +48,8 @@ export function getTelHref(phone?: string | null): string | undefined {
   const formatted = formatPhoneWithCountryCode(phone);
   return formatted ? `tel:${formatted}` : undefined;
 }
+
+/** Digits for wa.me, including the India country code when a number is present. */
+export function toWhatsAppDigits(phone?: string | null): string {
+  return formatPhoneWithCountryCode(phone).replace(/\D/g, "");
+}
