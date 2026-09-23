@@ -31,6 +31,22 @@ export type UserDisplayProfile = {
   whatsappDigits: string;
 };
 
+function isUsableImageSrc(value?: string | null): boolean {
+  const src = value?.trim() ?? "";
+  if (!src) return false;
+  const lower = src.toLowerCase();
+  return !["null", "undefined", "none", "n/a"].includes(lower);
+}
+
+export function resolveProfileImageSrc(
+  ...candidates: Array<string | null | undefined>
+): string {
+  for (const candidate of candidates) {
+    if (isUsableImageSrc(candidate)) return String(candidate).trim();
+  }
+  return DEFAULT_PROFILE_IMAGE;
+}
+
 /** Display name, phone, email, and avatar from registration/profile user data. */
 export function resolveUserDisplayProfile(
   user?: ProfileUserLike | null,
@@ -39,10 +55,10 @@ export function resolveUserDisplayProfile(
     user?.fullName?.trim() || user?.username?.trim() || "";
   const phone = user?.phoneNumber?.trim() || user?.phone?.trim() || "";
   const email = user?.email?.trim() || "";
-  const profileImage =
-    user?.profileImage?.trim() ||
-    user?.profileImageUrl?.trim() ||
-    DEFAULT_PROFILE_IMAGE;
+  const profileImage = resolveProfileImageSrc(
+    user?.profileImage,
+    user?.profileImageUrl,
+  );
 
   return {
     name,
