@@ -11,13 +11,14 @@
   "header": {
     "postPropertyText": "Post Property",
     "postPropertyFree": "FREE",
-    "hiSignIn": "Hi, Sign In"
+    "hiSignIn": "Hi, Sign In",
+    "signIn": "Sign in"
   },
   "hero": {
     "findProperties": "Trusted Marketplace for Lands & Plots",
     "searchDescription": "Search open plots, farm lands, commercial plots in one place.",
-    "findPropertiesMobile": "Market place for Lands & Plots",
-    "searchDescriptionMobile": "Search open plots, farm lands and Commercial plots."
+    "findPropertiesMobile": "Find land you trust",
+    "searchDescriptionMobile": "Verified plots, farm & commercial land."
   },
   "home": {
     "featuredListings": "Premium Land Listings",

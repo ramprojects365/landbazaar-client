@@ -1,7 +1,7 @@
 "use client";
 import logoWhite from "../../../public/assets/img/logo/logo-white.png";
 import logoBlue from "../../../public/assets/img/logo/logo-blue.png";
-import UserSvg from "@/components/SVG/UserSvg";
+import HeaderAuthGuest from "./HeaderAuthGuest";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
 import useGlobalContext from "@/hooks/useContext";
 import NavMenus from "../subComponents/NavMenus";
@@ -92,18 +92,7 @@ export default function CommonHeader({ wrapClass = "" }) {
                 return isAuthenticated ? (
                   <ProfileDropdown />
                 ) : (
-                  <div className="tp-header-right-user-icon">
-                    <Link href="/sign-in">
-                      <span
-                        style={{
-                          background: "var(--tp-theme-primary)",
-                          color: "#fff",
-                        }}
-                      >
-                        <UserSvg />
-                      </span>
-                    </Link>
-                  </div>
+                  <HeaderAuthGuest iconTone="primary" />
                 );
               })()}
             </div>

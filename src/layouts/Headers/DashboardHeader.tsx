@@ -2,7 +2,7 @@
 
 import logoBlue from "../../../public/assets/img/logo/logo-blue.png";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
-import UserSvg from "@/components/SVG/UserSvg";
+import HeaderAuthGuest from "./HeaderAuthGuest";
 import useGlobalContext from "@/hooks/useContext";
 import NavMenus from "../subComponents/NavMenus";
 import useSticky from "@/hooks/useSticky";
@@ -56,13 +56,7 @@ export default function DashboardHeader() {
                 return isAuthenticated ? (
                   <ProfileDropdown />
                 ) : (
-                  <div className="tp-header-right-user-icon">
-                    <Link href="/sign-in">
-                      <span>
-                        <UserSvg />
-                      </span>
-                    </Link>
-                  </div>
+                  <HeaderAuthGuest />
                 );
               })()}
             </div>

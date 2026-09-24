@@ -42,7 +42,7 @@ export default function HeroBannerOne() {
                     {t("hero.findProperties")}
                   </h1>
                   <h1
-                    className="hide-desktop"
+                    className="hide-desktop home-hero-title-mobile"
                     style={{
                       fontSize: "20px",
                       fontWeight: 700,
@@ -65,7 +65,7 @@ export default function HeroBannerOne() {
                     {t("hero.searchDescription")}
                   </p>
                   <p
-                    className="hide-desktop"
+                    className="hide-desktop home-hero-sub-mobile"
                     style={{
                       fontSize: "13px",
                       color: "#fff",
@@ -97,6 +97,7 @@ export default function HeroBannerOne() {
                 <div className="text-center mt-4">
                   <Link
                     href="/search"
+                    className="home-hero-explore-btn"
                     style={{
                       display: "inline-block",
                       padding: "12px 24px",

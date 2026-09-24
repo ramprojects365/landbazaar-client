@@ -5,6 +5,7 @@ import Wrapper from "@/layouts/Wrapper";
 import CommonFooter from "@/layouts/Footers/CommonFooter";
 import { Metadata } from "next";
 import HomeAdvisorPopup from "@/components/Advisor/HomeAdvisorPopup";
+import "@/components/Home/home-page-mobile.css";
 import { landTypeSearchHref } from "@/config/landOptions";
 import { SITE_SOCIAL_PROFILES } from "@/config/constants";
 
