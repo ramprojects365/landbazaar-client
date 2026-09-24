@@ -24,7 +24,7 @@ export default function HomePostPropertyCta() {
         <div className="home-post-property-cta__card">
           <div className="home-post-property-cta__copy">
             <h2 id="home-post-property-title">
-              Sell or rent faster at the right price!
+              Sell or lease faster at the right price!
             </h2>
             <p>Your perfect buyer is waiting, list your property now.</p>
             <div className="home-post-property-cta__actions">
