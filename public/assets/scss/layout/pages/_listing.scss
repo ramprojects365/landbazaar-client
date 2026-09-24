@@ -181,7 +181,7 @@
           margin-bottom: 15px;
           padding-bottom: 0;
           border-bottom: none;
-          & svg {
+          &:not(.tp-rent-address) svg {
             margin-right: 6px;
             transform: translateY(-2px);
           }

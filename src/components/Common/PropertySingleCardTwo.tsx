@@ -1,4 +1,3 @@
-import MapMarkerSvg from "@/components/SVG/PropertySvg/MapMarkerIcon";
 import { IFeaturedPropertyDT } from "@/types/property-d-t";
 import { formatTotalPriceDisplay } from "../Utils/formatPrice";
 import { resolveListingTypeFlag } from "@/utils/mapApiProperty";
@@ -11,6 +10,7 @@ import PropertyVerifiedBadge from "@/components/UI/PropertyVerifiedBadge";
 import { DEFAULT_PROPERTY_IMAGE, getPropertyImageAlt } from "@/utils/propertyImages";
 import { LandSizeSvg } from "@/components/SVG";
 import { IndianRupee, LandPlot } from "lucide-react";
+import LocationPinIcon from "@/components/Common/LocationPinIcon";
 import DekhoLandScore from "@/components/Common/DekhoLandScore";
 
 interface propertyProps {
@@ -123,13 +123,20 @@ function PropertySingleCardTwo({
             </Link>
           </h4>
           <p
-            style={{
-              marginBottom: 0,
-              overflow: "hidden",
-            }}
+            className="tp-rent-address"
+            style={{ marginBottom: 0 }}
             title={item.address}
           >
-            <MapMarkerSvg /> {item.address}
+            <LocationPinIcon /><span
+              style={{
+                minWidth: 0,
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {item.address}
+            </span>
           </p>
           <DekhoLandScore
             score={item.dekhoLandScore}
@@ -148,7 +155,7 @@ function PropertySingleCardTwo({
             <div className="tp-rent-meta-item">
               <div className="tp-rent-meta-content d-flex">
                 <span>
-                  <LandPlot size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
+                  <LandPlot size={16} color="#94A3B8" strokeWidth={2} aria-hidden="true" />
                 </span>
                 <p>{item.bathrooms || "Land"}</p>
               </div>
@@ -161,7 +168,7 @@ function PropertySingleCardTwo({
                 <span className="property-card-view-label--mobile">View</span>
               </Link>
             </div>
-            <div className="tp-rent-price d-flex align-items-center" style={{ gap: 6 }}>
+            <div className="tp-rent-price d-flex align-items-center">
               <IndianRupee size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
               <span>{formatTotalPriceDisplay(item.price)}</span>
             </div>

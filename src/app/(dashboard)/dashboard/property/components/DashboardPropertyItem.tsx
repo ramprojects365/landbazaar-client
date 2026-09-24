@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import FavoriteButton from "@/components/UI/FavoriteButton";
 import PropertyVerifiedBadge from "@/components/UI/PropertyVerifiedBadge";
 import DekhoLandScore from "@/components/Common/DekhoLandScore";
+import LocationPinIcon from "@/components/Common/LocationPinIcon";
 import { DEFAULT_PROFILE_IMAGE } from "@/utils/userProfileDisplay";
 
 interface IProps {
@@ -176,15 +177,20 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
           </Link>
         </h4>
         <p
-          style={{
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            marginBottom: 0,
-          }}
+          className="tp-rent-address"
+          style={{ marginBottom: 0 }}
           title={property?.address}
         >
-          {property?.address}
+          <LocationPinIcon /><span
+            style={{
+              minWidth: 0,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {property?.address}
+          </span>
         </p>
         <DekhoLandScore
           score={property.dekhoLandScore}
@@ -292,7 +298,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
               )}
             </div>
           ) : null}
-          <div className="tp-rent-price d-flex align-items-center" style={{ gap: 6 }}>
+          <div className="tp-rent-price d-flex align-items-center">
             <IndianRupee size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
             <span>{formatTotalPriceDisplay(Number(property.price) || 0)}</span>
           </div>

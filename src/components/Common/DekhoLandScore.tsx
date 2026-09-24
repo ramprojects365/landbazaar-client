@@ -36,6 +36,28 @@ const BREAKDOWN_ICONS: Record<
   road: Route,
 };
 
+function ScoreMeterIcon() {
+  return (
+    <svg
+      className="dekholand-score__icon"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="8.25" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M12 12L16 9"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <circle cx="12" cy="12" r="1.4" fill="currentColor" />
+    </svg>
+  );
+}
+
 function isolateEvent(event: SyntheticEvent) {
   event.preventDefault();
   event.stopPropagation();
@@ -72,6 +94,7 @@ export default function DekhoLandScore({
     <div
       className={`dekholand-score dekholand-score--${tone}${className ? ` ${className}` : ""}`}
     >
+      <ScoreMeterIcon />
       <span className="dekholand-score__label">DekhoLand Score</span>
       <span
         className="dekholand-score__dot"

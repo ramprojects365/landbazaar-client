@@ -2,6 +2,7 @@
 import { Suspense } from "react";
 import { LandSizeSvg } from "../SVG";
 import { IndianRupee, LandPlot } from "lucide-react";
+import LocationPinIcon from "@/components/Common/LocationPinIcon";
 import { IFeatureListProps } from "@/types/custom-interface";
 import { formatTotalPriceDisplay } from "../Utils/formatPrice";
 import Image from "next/image";
@@ -139,7 +140,18 @@ function PropertySingleCardInner({
             {item.title}
           </Link>
         </h4>
-        <p>{item.address}</p>
+        <p className="tp-rent-address" title={item.address}>
+          <LocationPinIcon /><span
+            style={{
+              minWidth: 0,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {item.address}
+          </span>
+        </p>
         <DekhoLandScore
           score={item.dekhoLandScore}
           seed={item.id}
@@ -157,7 +169,7 @@ function PropertySingleCardInner({
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <span>
-                <LandPlot size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
+                <LandPlot size={16} color="#94A3B8" strokeWidth={2} aria-hidden="true" />
               </span>
               <p>{item.bathrooms || "Land"}</p>
             </div>
@@ -170,7 +182,7 @@ function PropertySingleCardInner({
               <span className="property-card-view-label--mobile">View</span>
             </Link>
           </div>
-          <div className="tp-rent-price d-flex align-items-center" style={{ gap: 6 }}>
+          <div className="tp-rent-price d-flex align-items-center">
             <IndianRupee size={16} color="#003B5C" strokeWidth={2} aria-hidden="true" />
             <span>{formatTotalPriceDisplay(item.price)}</span>
           </div>
