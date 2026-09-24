@@ -7,16 +7,40 @@ export type AuthSession = {
   user: string | null;
   displayName: string | null;
   userType: string | null;
+  profileImage: string | null;
 };
+
+const PROFILE_IMAGE_KEY = "loginUserProfileImage";
+
+function normalizeProfileImage(value?: string | null): string | null {
+  const src = value?.trim() ?? "";
+  if (!src) return null;
+  const lower = src.toLowerCase();
+  if (["null", "undefined", "none", "n/a"].includes(lower)) return null;
+  if (src.includes("/assets/img/team/team-details/user.png")) return null;
+  return src;
+}
 
 export function readAuthSession(): AuthSession {
   if (typeof window === "undefined") {
-    return { token: null, user: null, displayName: null, userType: null };
+    return {
+      token: null,
+      user: null,
+      displayName: null,
+      userType: null,
+      profileImage: null,
+    };
   }
 
   const token = localStorage.getItem("authToken");
   if (!token) {
-    return { token: null, user: null, displayName: null, userType: null };
+    return {
+      token: null,
+      user: null,
+      displayName: null,
+      userType: null,
+      profileImage: null,
+    };
   }
 
   const user =
@@ -33,6 +57,7 @@ export function readAuthSession(): AuthSession {
     user,
     displayName,
     userType,
+    profileImage: normalizeProfileImage(localStorage.getItem(PROFILE_IMAGE_KEY)),
   };
 }
 
@@ -42,6 +67,7 @@ export function persistAuthSession(payload: {
   email?: string | null;
   fullName?: string | null;
   userType?: string | null;
+  profileImage?: string | null;
 }) {
   if (typeof window === "undefined") return;
 
@@ -61,6 +87,14 @@ export function persistAuthSession(payload: {
   if (payload.userType) {
     localStorage.setItem("loginUserType", payload.userType);
   }
+  if (payload.profileImage !== undefined) {
+    const profileImage = normalizeProfileImage(payload.profileImage);
+    if (profileImage) {
+      localStorage.setItem(PROFILE_IMAGE_KEY, profileImage);
+    } else {
+      localStorage.removeItem(PROFILE_IMAGE_KEY);
+    }
+  }
 
   window.dispatchEvent(new Event(AUTH_CHANGED_EVENT));
 }
@@ -71,6 +105,7 @@ export function clearAuthSession() {
   localStorage.removeItem("loginUser");
   localStorage.removeItem("loginUserDisplayName");
   localStorage.removeItem("loginUserType");
+  localStorage.removeItem(PROFILE_IMAGE_KEY);
   window.dispatchEvent(new Event(AUTH_CHANGED_EVENT));
 }
 

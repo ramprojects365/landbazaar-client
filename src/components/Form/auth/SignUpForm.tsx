@@ -163,6 +163,7 @@ export default function SignUpForm() {
         email: user?.email,
         fullName: user?.fullName,
         userType: user?.userType,
+        profileImage: user?.profileImage || user?.profileImageUrl || null,
       });
 
       toast.success("Google registration successful!");

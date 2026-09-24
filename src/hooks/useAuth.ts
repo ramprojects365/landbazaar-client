@@ -9,6 +9,7 @@ export function useAuth() {
   const [user, setUser] = useState<string | null>(null);
   const [userDisplayName, setUserDisplayName] = useState<string | null>(null);
   const [userType, setUserType] = useState<string | null>(null);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -19,6 +20,7 @@ export function useAuth() {
       setUser(session.user);
       setUserDisplayName(session.displayName);
       setUserType(session.userType);
+      setProfileImage(session.profileImage);
       setToken(session.token);
     };
 
@@ -38,6 +40,7 @@ export function useAuth() {
     setUser(null);
     setUserDisplayName(null);
     setUserType(null);
+    setProfileImage(null);
     setToken(null);
   };
 
@@ -45,6 +48,7 @@ export function useAuth() {
     user,
     userDisplayName,
     userType,
+    profileImage,
     token,
     isAuthenticated: !!token,
     logout,
