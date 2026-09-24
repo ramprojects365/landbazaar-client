@@ -6,6 +6,7 @@ import { profileSchema } from "@/schemas/validationSchema";
 import ErrorMessage from "./ErrorMassage";
 import { toast } from "sonner";
 import apiClient from "@/config/axios";
+import { persistAuthSession } from "@/utils/auth";
 import UserSvg from "@/components/SVG/UserSvg";
 import { BadgeAlert, BadgeCheck } from "lucide-react";
 import {
@@ -242,6 +243,9 @@ export default function UserProfileForm() {
         // Set avatar
         if (profileImage) {
           setProfileImageUrl(profileImage);
+          persistAuthSession({ profileImage });
+        } else {
+          persistAuthSession({ profileImage: null });
         }
 
         // Set display name in header
@@ -253,6 +257,7 @@ export default function UserProfileForm() {
         }
         if (profile.profileImage) {
           setProfileImageUrl(profile.profileImage);
+          persistAuthSession({ profileImage: profile.profileImage });
         }
 
         setDisplayName(headerDisplayName || "My Profile");
@@ -311,6 +316,7 @@ export default function UserProfileForm() {
         URL.revokeObjectURL(previewUrl);
         previewObjectUrlRef.current = null;
         setProfileImageUrl(uploadedImageUrl);
+        persistAuthSession({ profileImage: uploadedImageUrl });
       }
 
       toast.success("Profile image updated!");

@@ -1930,6 +1930,15 @@ html.lang-te .home-trust-section .tp-section-title {
   color: #fff;
 }
 
+.header-auth-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .header-auth-status-dot {
   position: absolute;
   right: -1px;

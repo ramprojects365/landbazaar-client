@@ -5,12 +5,19 @@ import Link from "next/link";
 import UserProfileSVG from "@/components/SVG/UserProfileSVG";
 import { useTranslation } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
+import apiClient from "@/config/axios";
+import { persistAuthSession } from "@/utils/auth";
+import {
+  DEFAULT_PROFILE_IMAGE,
+  resolveProfileImageSrc,
+} from "@/utils/userProfileDisplay";
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
-  const { userDisplayName, user, logout } = useAuth();
+  const { userDisplayName, user, profileImage, token, logout } = useAuth();
+  const [photoFailed, setPhotoFailed] = useState(false);
 
   const truncateUsername = (value: string, maxLength: number, addDots: boolean = true) => {
     if (value.length <= maxLength) return value;
@@ -47,12 +54,50 @@ const ProfileDropdown = () => {
 
   const displayName = (userDisplayName || user || "").trim();
   const firstName = displayName.split(/\s+/)[0] || "";
+  const showPhoto = Boolean(profileImage) && !photoFailed;
+
+  useEffect(() => {
+    setPhotoFailed(false);
+  }, [profileImage]);
+
+  useEffect(() => {
+    if (!token || profileImage) return undefined;
+
+    let cancelled = false;
+    apiClient
+      .get("/users/profile")
+      .then((response) => {
+        const payload = response.data?.data ?? response.data;
+        const src = resolveProfileImageSrc(
+          payload?.profileImage,
+          payload?.profileImageUrl,
+          payload?.user?.profileImage,
+          payload?.user?.profileImageUrl,
+        );
+        if (cancelled || src === DEFAULT_PROFILE_IMAGE) return;
+        persistAuthSession({ profileImage: src });
+      })
+      .catch(() => undefined);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [token, profileImage]);
 
   return (
     <div className="profile-dropdown" ref={dropdownRef}>
       <button type="button" className="profile-btn" onClick={handleToggle}>
         <span className="Profile-btn-span" aria-label={displayName || "Logged in user"}>
-          <UserProfileSVG />
+          {showPhoto ? (
+            <img
+              src={profileImage || ""}
+              alt=""
+              className="header-auth-photo"
+              onError={() => setPhotoFailed(true)}
+            />
+          ) : (
+            <UserProfileSVG />
+          )}
           <span className="header-auth-status-dot" aria-hidden="true" />
         </span>
         <div

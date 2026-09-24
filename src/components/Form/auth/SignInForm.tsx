@@ -125,6 +125,7 @@ export default function SignInForm() {
         email: user?.email || data.email,
         fullName: user?.fullName,
         userType: user?.userType,
+        profileImage: user?.profileImage || user?.profileImageUrl || null,
       });
       if (token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -168,6 +169,7 @@ export default function SignInForm() {
         email: user?.email,
         fullName: user?.fullName,
         userType: user?.userType,
+        profileImage: user?.profileImage || user?.profileImageUrl || null,
       });
 
       toast.success("Google login successful!");
