@@ -285,6 +285,7 @@ export default function HeroBannerTabContent({}: ITabContentProps) {
     >
       {/* Top row: City + Land Type */}
       <div
+        className="hero-filter-row"
         style={{
           display: "flex",
           alignItems: "center",

@@ -11,13 +11,14 @@
   "header": {
     "postPropertyText": "Post Property",
     "postPropertyFree": "FREE",
-    "hiSignIn": "Hi, Sign In"
+    "hiSignIn": "Hi, Sign In",
+    "signIn": "సైన్ ఇన్"
   },
   "hero": {
     "findProperties": "భూములు మరియు ప్లాట్ల కోసం నమ్మదగిన మార్కెట్‌ప్లేస్",
     "searchDescription": "ఖాళీ స్థలాలు, వ్యవసాయ భూములు మరియు వాణిజ్య స్థలాల కోసం వెతకండి.",
-    "findPropertiesMobile": "భూములు & ప్లాట్ల మార్కెట్ ప్లేస్",
-    "searchDescriptionMobile": "ఖాళీ స్థలాలు, వ్యవసాయ భూములు మరియు వాణిజ్య స్థలాలు."
+    "findPropertiesMobile": "నమ్మదగిన భూమిని కనుగొనండి",
+    "searchDescriptionMobile": "ధృవీకరించిన ప్లాట్లు, ఫారం & కమర్షియల్ భూములు."
   },
   "home": {
     "featuredListings": "Premium Land Listings",

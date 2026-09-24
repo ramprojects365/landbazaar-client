@@ -1,0 +1,253 @@
+/* Homepage mobile-only visual polish. Desktop and other routes are unchanged. */
+@media (max-width: 767px) {
+  .home-page {
+    --home-app-navy: #003b5c;
+    --home-app-ink: #102a43;
+    --home-app-muted: rgba(255, 255, 255, 0.86);
+    --home-app-sheet: #ffffff;
+    --home-app-chip: #f4f7fb;
+    --home-app-line: #e4ebf4;
+    --home-app-radius: 22px;
+  }
+
+  body:has(main.home-page) .tp-header-area {
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  body:has(main.home-page) .tp-header-hamburger {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .home-page .tp-hero-hight {
+    padding: 88px 0 56px !important;
+  }
+
+  .home-page .tp-hero-hight > .container {
+    display: flex;
+    align-items: center;
+    min-height: calc(100svh - 160px);
+  }
+
+  .home-page .tp-hero-content {
+    width: 100%;
+    margin-top: 0 !important;
+    padding-bottom: 8px;
+  }
+
+  .home-page .home-hero-title-mobile {
+    max-width: none;
+    margin: 0 auto 18px !important;
+    color: #fff !important;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em;
+    line-height: 1.2 !important;
+    white-space: nowrap;
+    text-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .home-page .home-hero-sub-mobile {
+    display: none !important;
+  }
+
+  .home-page .tp-hero-tab {
+    margin-top: 0 !important;
+  }
+
+  .home-page .tp-hero-tab-box {
+    padding: 14px !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: var(--home-app-radius) !important;
+    box-shadow: 0 18px 40px rgba(16, 42, 67, 0.18);
+    gap: 12px !important;
+  }
+
+  .home-page .hero-filter-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .home-page .hero-filter-row > div {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .home-page .tp-hero-tab-box .hero-filter-dropdown-trigger {
+    width: 100%;
+    min-height: 44px !important;
+    justify-content: center !important;
+    padding: 0 10px !important;
+    border-radius: 999px !important;
+    background: var(--home-app-chip) !important;
+    color: var(--home-app-ink) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    gap: 6px !important;
+  }
+
+  .home-page .tp-hero-tab-box .hero-filter-dropdown-trigger span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .home-page .tp-hero-tab-box .hero-filter-dropdown-trigger svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0;
+  }
+
+  .home-page .tp-hero-tab-box .hero-search-row {
+    gap: 8px !important;
+  }
+
+  .home-page .tp-hero-tab-box .hero-search-input-wrap {
+    height: 48px !important;
+    min-height: 48px !important;
+    gap: 10px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    border-color: var(--home-app-line) !important;
+    border-radius: 16px !important;
+    background: var(--home-app-chip) !important;
+  }
+
+  .home-page .tp-hero-tab-box .hero-search-input-wrap svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .home-page .tp-hero-tab-box .hero-search-input-wrap input[type="text"],
+  .home-page .tp-hero-tab-box .hero-search-input {
+    font-size: 15px !important;
+    font-weight: 500;
+    color: var(--home-app-ink) !important;
+  }
+
+  .home-page .tp-hero-tab-box .hero-search-btn--mobile {
+    width: 48px !important;
+    min-width: 48px !important;
+    max-width: 48px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 18px rgba(0, 59, 92, 0.28);
+  }
+
+  .home-page .tp-hero-tab-box .hero-search-btn--mobile svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .home-page .home-hero-explore-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 14px;
+    min-height: 52px !important;
+    padding: 14px 20px !important;
+    border-radius: 999px !important;
+    background: var(--home-app-navy) !important;
+    box-shadow: 0 10px 24px rgba(0, 59, 92, 0.28) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em;
+  }
+
+  .home-page .tp-section-title-pre {
+    margin-bottom: 6px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .home-page .tp-section-title {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em;
+    line-height: 1.2 !important;
+  }
+
+  .home-page .tp-rent-heading,
+  .home-page .tp-explore-heading,
+  .home-page .tp-blog-heading {
+    margin-bottom: 18px !important;
+  }
+
+  .home-page .tp-rent-area {
+    padding-top: 36px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .home-page .tp-listing-2-item {
+    overflow: hidden;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 28px rgba(16, 42, 67, 0.08);
+  }
+
+  .home-page .tp-listing-2-item .tp-rent-title,
+  .home-page .tp-listing-2-item .tp-rent-title a {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em;
+  }
+
+  .home-page .tp-explore-area {
+    padding-top: 28px !important;
+    padding-bottom: 36px !important;
+  }
+
+  .home-page .properties-by-city .tp-explore-item {
+    margin-bottom: 14px !important;
+  }
+
+  .home-page .properties-by-city .tp-explore-thumb {
+    overflow: hidden;
+    border-radius: 18px !important;
+    box-shadow: 0 8px 20px rgba(16, 42, 67, 0.1);
+  }
+
+  .home-page .properties-by-city .tp-explore-title {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+
+  .home-page .home-post-property-cta {
+    padding: 12px 0 28px;
+  }
+
+  .home-page .home-post-property-cta__card {
+    border-radius: 22px;
+    box-shadow: 0 12px 28px rgba(16, 42, 67, 0.06);
+  }
+
+  .home-page .home-post-property-cta__copy h2 {
+    font-size: 26px;
+    letter-spacing: -0.03em;
+  }
+
+  .home-page .home-post-property-cta__button {
+    min-height: 52px;
+    border-radius: 999px;
+    font-weight: 700;
+  }
+
+  .home-page .home-trust-section {
+    padding: 28px 0 36px;
+  }
+
+  .home-page .trust-badge {
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(16, 42, 67, 0.05);
+  }
+
+  .home-page .tp-blog-area {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+}

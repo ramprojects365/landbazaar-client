@@ -45,24 +45,15 @@ const ProfileDropdown = () => {
     window.location.href = "/sign-in";
   };
 
+  const displayName = (userDisplayName || user || "").trim();
+  const firstName = displayName.split(/\s+/)[0] || "";
+
   return (
     <div className="profile-dropdown" ref={dropdownRef}>
       <button type="button" className="profile-btn" onClick={handleToggle}>
-        <span className="Profile-btn-span" aria-label="Logged in user">
+        <span className="Profile-btn-span" aria-label={displayName || "Logged in user"}>
           <UserProfileSVG />
-          <span
-            style={{
-              position: "absolute",
-              right: -1,
-              bottom: -1,
-              width: 8,
-              height: 8,
-              borderRadius: "50%",
-              background: "#22C55E",
-              border: "1.5px solid #003B5C",
-            }}
-            aria-hidden="true"
-          />
+          <span className="header-auth-status-dot" aria-hidden="true" />
         </span>
         <div
           className="profile-btn-meta"
@@ -75,18 +66,18 @@ const ProfileDropdown = () => {
           }}
         >
           <div className="tp-header-right-user-content" style={{ margin: 0 }}>
-            {(() => {
-              const displayName = userDisplayName || user;
-
-              return displayName ? (
-                <>
-                  <p className="hide-mobile" style={{ margin: 0 }}>{`${truncateUsername(displayName, 4)}`}</p>
-                  <p className="hide-desktop" style={{ margin: 0 }}>{`${truncateUsername(displayName, 3, false)}`}</p>
-                </>
-              ) : (
-                <p style={{ margin: 0 }}></p>
-              );
-            })()}
+            {displayName ? (
+              <>
+                <p className="hide-mobile" style={{ margin: 0 }}>
+                  {truncateUsername(displayName, 4)}
+                </p>
+                <p className="hide-desktop header-auth-name-mobile" style={{ margin: 0 }}>
+                  {truncateUsername(firstName, 8)}
+                </p>
+              </>
+            ) : (
+              <p style={{ margin: 0 }}></p>
+            )}
           </div>
 
           <span className={`arrow ${open ? "rotate" : ""}`}>

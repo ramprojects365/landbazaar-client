@@ -7,7 +7,7 @@ import ProfileDropdown from "./ProfileDropdown";
 import OffcanvasArea from "../../components/OffCanvas/OffcanvasArea";
 import useGlobalContext from "@/hooks/useContext";
 import NavMenus from "../subComponents/NavMenus";
-import UserSvg from "@/components/SVG/UserSvg";
+import HeaderAuthGuest from "./HeaderAuthGuest";
 import useSticky from "@/hooks/useSticky";
 import Link from "next/link";
 import { requireAuth } from "@/utils/auth";
@@ -34,7 +34,7 @@ export default function HeaderOne() {
   const renderHeaderContent = (logoVariant: LogoVariant = "white") => (
     <div className="container container-large">
       <div className="row align-items-center">
-        <div className="col-xl-2 col-lg-4 col-md-3 col-7">
+        <div className="col-xl-2 col-lg-4 col-md-3 col-6">
           <div className="tp-header-top-pad">
             <Link
               href="/"
@@ -77,7 +77,7 @@ export default function HeaderOne() {
             </button>
           </div>
         </div>
-        <div className="col-xl-2 col-lg-2 col-md-5 col-5">
+        <div className="col-xl-2 col-lg-2 col-md-5 col-6">
           <div className="tp-header-main-right d-flex align-items-center justify-content-end">
             <LanguageSwitcher />
             {isAuthenticated && <NotificationBell />}
@@ -86,13 +86,7 @@ export default function HeaderOne() {
                 return isAuthenticated ? (
                   <ProfileDropdown />
                 ) : (
-                  <div className="tp-header-right-user-icon">
-                    <Link href="/sign-in">
-                      <span>
-                        <UserSvg />
-                      </span>
-                    </Link>
-                  </div>
+                  <HeaderAuthGuest />
                 );
               })()}
 
