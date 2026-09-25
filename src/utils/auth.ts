@@ -99,8 +99,44 @@ export function persistAuthSession(payload: {
   window.dispatchEvent(new Event(AUTH_CHANGED_EVENT));
 }
 
+let profileImageRequest: Promise<void> | null = null;
+let profileImageFetchedForToken: string | null = null;
+
+export function ensureSessionProfileImage() {
+  if (typeof window === "undefined") return;
+
+  const session = readAuthSession();
+  if (!session.token || session.profileImage) return;
+  if (profileImageFetchedForToken === session.token) return;
+  if (profileImageRequest) return;
+
+  profileImageRequest = import("@/config/axios")
+    .then(({ default: apiClient }) => apiClient.get("/users/profile"))
+    .then((response) => {
+      const payload = response.data?.data ?? response.data;
+      const src = normalizeProfileImage(
+        payload?.profileImage ||
+          payload?.profileImageUrl ||
+          payload?.user?.profileImage ||
+          payload?.user?.profileImageUrl,
+      );
+      profileImageFetchedForToken = session.token;
+      if (src) {
+        persistAuthSession({ profileImage: src });
+      }
+    })
+    .catch(() => {
+      profileImageFetchedForToken = session.token;
+    })
+    .finally(() => {
+      profileImageRequest = null;
+    });
+}
+
 export function clearAuthSession() {
   if (typeof window === "undefined") return;
+  profileImageRequest = null;
+  profileImageFetchedForToken = null;
   localStorage.removeItem("authToken");
   localStorage.removeItem("loginUser");
   localStorage.removeItem("loginUserDisplayName");

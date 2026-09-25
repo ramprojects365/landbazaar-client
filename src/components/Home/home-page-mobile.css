@@ -3,16 +3,9 @@
   .home-page {
     --home-app-navy: #003b5c;
     --home-app-ink: #102a43;
-    --home-app-muted: rgba(255, 255, 255, 0.86);
-    --home-app-sheet: #ffffff;
     --home-app-chip: #f4f7fb;
     --home-app-line: #e4ebf4;
     --home-app-radius: 22px;
-  }
-
-  body:has(main.home-page) .tp-header-area {
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
   }
 
   body:has(main.home-page) .tp-header-hamburger {
@@ -46,10 +39,6 @@
     line-height: 1.2 !important;
     white-space: nowrap;
     text-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-  }
-
-  .home-page .home-hero-sub-mobile {
-    display: none !important;
   }
 
   .home-page .tp-hero-tab {

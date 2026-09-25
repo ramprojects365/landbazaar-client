@@ -5,12 +5,7 @@ import Link from "next/link";
 import UserProfileSVG from "@/components/SVG/UserProfileSVG";
 import { useTranslation } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
-import apiClient from "@/config/axios";
-import { persistAuthSession } from "@/utils/auth";
-import {
-  DEFAULT_PROFILE_IMAGE,
-  resolveProfileImageSrc,
-} from "@/utils/userProfileDisplay";
+import { ensureSessionProfileImage } from "@/utils/auth";
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
@@ -61,27 +56,8 @@ const ProfileDropdown = () => {
   }, [profileImage]);
 
   useEffect(() => {
-    if (!token || profileImage) return undefined;
-
-    let cancelled = false;
-    apiClient
-      .get("/users/profile")
-      .then((response) => {
-        const payload = response.data?.data ?? response.data;
-        const src = resolveProfileImageSrc(
-          payload?.profileImage,
-          payload?.profileImageUrl,
-          payload?.user?.profileImage,
-          payload?.user?.profileImageUrl,
-        );
-        if (cancelled || src === DEFAULT_PROFILE_IMAGE) return;
-        persistAuthSession({ profileImage: src });
-      })
-      .catch(() => undefined);
-
-    return () => {
-      cancelled = true;
-    };
+    if (!token || profileImage) return;
+    ensureSessionProfileImage();
   }, [token, profileImage]);
 
   return (
