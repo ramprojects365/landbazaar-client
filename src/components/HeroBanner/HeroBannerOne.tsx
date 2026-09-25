@@ -64,17 +64,6 @@ export default function HeroBannerOne() {
                   >
                     {t("hero.searchDescription")}
                   </p>
-                  <p
-                    className="hide-desktop home-hero-sub-mobile"
-                    style={{
-                      fontSize: "13px",
-                      color: "#fff",
-                      marginBottom: "20px",
-                      textShadow: "2px 2px 6px rgba(0, 0, 0, 0.8)",
-                    }}
-                  >
-                    {t("hero.searchDescriptionMobile")}
-                  </p>
                 </div>
                 <div className="tp-hero-tab p-relative">
                   <div className="row">

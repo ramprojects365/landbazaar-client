@@ -4,6 +4,9 @@ const CITY_IMAGE_ALIASES: Record<string, string> = {
   visakapatnam: "visakhapatnam",
   rajamahendravaram: "rajahmundry",
   rajahmahendravaram: "rajahmundry",
+  tirupathi: "tirupati",
+  thirupati: "tirupati",
+  thirupathi: "tirupati",
 };
 
 const CITY_FOLDER_IMAGES: Record<string, string> = {
@@ -12,6 +15,8 @@ const CITY_FOLDER_IMAGES: Record<string, string> = {
   visakhapatnam: "/assets/img/city/visakhapatnam.jpeg",
   rajahmundry: "/assets/img/city/rajahmundry.jpeg",
   vijayawada: "/assets/img/city/vijayawada.jpeg",
+  tirupati: "/assets/img/city/tirupati.png",
+  guntur: "/assets/img/city/guntur.png",
 };
 
 const CITY_IMAGE_EXTENSIONS = [".jpeg", ".jpg", ".png", ".webp"] as const;
