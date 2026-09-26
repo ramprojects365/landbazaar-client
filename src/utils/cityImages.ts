@@ -22,7 +22,16 @@ const CITY_FOLDER_IMAGES: Record<string, string> = {
 const CITY_IMAGE_EXTENSIONS = [".jpeg", ".jpg", ".png", ".webp"] as const;
 
 function cityImageSlug(cityName: string): string {
-  const key = cityName.trim().toLowerCase().replace(/\s+/g, "");
+  const key = cityName.trim().toLowerCase().replace(/[^a-z]/g, "");
+  if (CITY_IMAGE_ALIASES[key]) return CITY_IMAGE_ALIASES[key];
+  if (CITY_FOLDER_IMAGES[key]) return key;
+
+  const knownSlugs = Object.keys(CITY_FOLDER_IMAGES).sort(
+    (a, b) => b.length - a.length,
+  );
+  const matchedSlug = knownSlugs.find((slug) => key.includes(slug));
+  if (matchedSlug) return matchedSlug;
+
   return CITY_IMAGE_ALIASES[key] || key;
 }
 
