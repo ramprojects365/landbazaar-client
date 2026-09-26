@@ -198,21 +198,23 @@ function readOptionalBoolean(value: unknown): boolean | null {
  * Unverified listings strictly return false until approved by an admin.
  */
 export function parsePropertyVerified(
-  item?: {
-    verified?: unknown;
-    isVerified?: unknown;
-    verificationStatus?: unknown;
-  } | null,
+  item?: unknown,
   _id?: string | number,
 ): boolean {
-  const fromVerified = readOptionalBoolean(item?.verified);
+  if (!item || typeof item !== "object") return false;
+  const rawItem = item as Record<string, unknown>;
+
+  const fromVerified = readOptionalBoolean(
+    rawItem.verified ?? rawItem.isVerified ?? rawItem.is_verified,
+  );
   if (fromVerified !== null) return fromVerified;
 
-  const fromIsVerified = readOptionalBoolean(item?.isVerified);
-  if (fromIsVerified !== null) return fromIsVerified;
-
-  if (typeof item?.verificationStatus === "string") {
-    const status = item.verificationStatus.trim().toLowerCase();
+  const statusRaw =
+    rawItem.verificationStatus ??
+    rawItem.verification_status ??
+    rawItem.verifiedStatus;
+  if (typeof statusRaw === "string") {
+    const status = statusRaw.trim().toLowerCase();
     if (["verified", "approved"].includes(status)) return true;
     if (["pending", "unverified", "rejected"].includes(status)) return false;
   }

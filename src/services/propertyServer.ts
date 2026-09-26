@@ -21,7 +21,8 @@ import type { FeaturedSidebarProperty } from "@/types/propertySidebar";
 
 export type { FeaturedSidebarProperty } from "@/types/propertySidebar";
 
-const PROPERTY_REVALIDATE_SECONDS = 60;
+const PROPERTY_REVALIDATE_SECONDS =
+  process.env.NODE_ENV === "development" ? 0 : 15;
 
 function parsePropertyList(json: unknown): ApiPropertyFields[] {
   if (Array.isArray(json)) return json as ApiPropertyFields[];

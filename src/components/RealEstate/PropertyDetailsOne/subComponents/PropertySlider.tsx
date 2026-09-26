@@ -64,11 +64,7 @@ export default function PropertyDetailsSlider({ images, verified }: Props) {
           onClick={() => openAt(0)}
           style={{ position: "relative" }}
         >
-          {verified ? (
-            <div style={{ position: "absolute", top: 12, left: 12, zIndex: 3 }}>
-              <PropertyVerifiedBadge verified={verified} />
-            </div>
-          ) : null}
+          <PropertyVerifiedBadge verified={verified} />
           {isVideoUrl(galleryItems[0].url) ? (
             <video
               className="tp-pdg-main-img"

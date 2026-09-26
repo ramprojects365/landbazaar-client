@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import {
   CircleHelp,
   FileText,
+  Image as ImageIcon,
   MapPin,
   Route,
   TrendingUp,
@@ -29,6 +30,7 @@ const BREAKDOWN_ICONS: Record<
   DekhoLandScoreBreakdownKey,
   typeof FileText
 > = {
+  images: ImageIcon,
   documents: FileText,
   location: MapPin,
   growth: TrendingUp,

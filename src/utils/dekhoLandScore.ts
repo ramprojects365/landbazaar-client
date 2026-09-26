@@ -1,4 +1,4 @@
-export const DEFAULT_DEKHOLAND_SCORE = 87;
+export const DEFAULT_DEKHOLAND_SCORE = 95;
 
 export const DEKHOLAND_SCORE_COLORS = {
   green: "#16A34A",
@@ -7,6 +7,7 @@ export const DEKHOLAND_SCORE_COLORS = {
 } as const;
 
 export type DekhoLandScoreBreakdownKey =
+  | "images"
   | "documents"
   | "location"
   | "growth"
@@ -27,16 +28,15 @@ export type DekhoLandScoreDetails = {
 };
 
 export const DEFAULT_DEKHOLAND_SCORE_BREAKDOWN: DekhoLandScoreBreakdownItem[] = [
-  { key: "documents", label: "Documents & Verification", score: 95 },
-  { key: "location", label: "Location & Connectivity", score: 88 },
-  { key: "growth", label: "Growth Potential", score: 84 },
-  { key: "price", label: "Price Value", score: 82 },
-  { key: "road", label: "Road & Infrastructure", score: 92 },
+  { key: "images", label: "Property Photos (Min 3)", score: 95 },
+  { key: "documents", label: "Legal Documents (Min 1)", score: 95 },
+  { key: "location", label: "Google Map Location", score: 95 },
 ];
 
 export const DEFAULT_DEKHOLAND_SCORE_UPDATED = "13 Sep 2026";
 
 const BREAKDOWN_KEYS: DekhoLandScoreBreakdownKey[] = [
+  "images",
   "documents",
   "location",
   "growth",
@@ -44,12 +44,10 @@ const BREAKDOWN_KEYS: DekhoLandScoreBreakdownKey[] = [
   "road",
 ];
 
-const MOCK_OVERALL_SCORES = [
-  62, 65, 68, 71, 74, 76, 78, 81, 82, 84, 87, 89, 91, 92, 94,
-];
+const MOCK_OVERALL_SCORES = [65, 70, 75, 80, 85, 90, 95];
 
 const MOCK_SCORE_OVERRIDES: Record<string, number> = {
-  "9c6cab59-a9e3-4663-854c-c0dbd77c81f9": 94,
+  "9c6cab59-a9e3-4663-854c-c0dbd77c81f9": 95,
 };
 
 function hashSeed(seed?: string | number | null): number {
@@ -74,10 +72,10 @@ function getMockDekhoLandScoreBreakdown(
   overall: number,
   seed?: string | number | null,
 ): DekhoLandScoreBreakdownItem[] {
-  const offsets = [8, 4, -1, -4, 6];
+  const offsets = [0, -5, -3];
   return DEFAULT_DEKHOLAND_SCORE_BREAKDOWN.map((item, index) => {
     const jitter = (hashSeed(`${seed ?? "dekholand"}-${item.key}`) % 5) - 2;
-    const score = Math.min(98, Math.max(60, overall + offsets[index] + jitter));
+    const score = Math.min(95, Math.max(65, overall + (offsets[index] ?? 0) + jitter));
     return { ...item, score };
   });
 }
@@ -95,24 +93,24 @@ export function resolveDekhoLandScore(
 ): number {
   const parsed = parseDekhoLandScore(value);
   if (parsed == null) return getMockDekhoLandScore(seed);
-  return Math.min(100, Math.max(0, parsed));
+  return Math.min(95, Math.max(65, parsed));
 }
 
 export function getDekhoLandScoreColor(score: number): string {
-  if (score >= 80) return DEKHOLAND_SCORE_COLORS.green;
-  if (score >= 70) return DEKHOLAND_SCORE_COLORS.yellow;
+  if (score >= 85) return DEKHOLAND_SCORE_COLORS.green;
+  if (score >= 75) return DEKHOLAND_SCORE_COLORS.yellow;
   return DEKHOLAND_SCORE_COLORS.red;
 }
 
 export function getDekhoLandScoreTone(score: number): "excellent" | "good" | "average" {
-  if (score >= 80) return "excellent";
-  if (score >= 70) return "good";
+  if (score >= 85) return "excellent";
+  if (score >= 75) return "good";
   return "average";
 }
 
 export function getDekhoLandScoreLabel(score: number): string {
-  if (score >= 80) return "Very Good";
-  if (score >= 70) return "Good";
+  if (score >= 85) return "Very Good";
+  if (score >= 75) return "Good";
   return "Average";
 }
 

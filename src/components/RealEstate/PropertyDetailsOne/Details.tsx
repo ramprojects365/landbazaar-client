@@ -14,8 +14,10 @@ import {
   getPropertyHeadingTitle,
   isLeaseListingType,
   mapApiPropertyToCard,
+  parsePropertyVerified,
   type ApiPropertyFields,
 } from "@/utils/mapApiProperty";
+import PropertyVerifiedBadge from "@/components/UI/PropertyVerifiedBadge";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
 import { API_BASE_URL } from "@/config/constants";
 import { toDescriptionSnippet } from "@/utils/descriptionHtml";
@@ -192,6 +194,8 @@ function PropertyDetailsContent({
   }
 
   const isLease = isLeaseListingType(apiProperty.listingType);
+  const isPropertyVerified =
+    parsePropertyVerified(apiProperty) || parsePropertyVerified(display);
   const pricePerUnitLabel = formatPricePerUnit(
     apiProperty.pricePerUnit,
     apiProperty.areaUnit,
@@ -210,7 +214,7 @@ function PropertyDetailsContent({
           <div className="row" style={{ paddingTop: "10px" }}>
             <div className="col-lg-8">
               <div className="tp-property-details-heading mb-40">
-                <div className="mb-2 d-flex gap-2 flex-wrap">
+                <div className="mb-2 d-flex gap-2 flex-wrap align-items-center">
                   {apiProperty.listingType && (
                     <span
                       style={{
@@ -238,6 +242,12 @@ function PropertyDetailsContent({
                     >
                       {apiProperty.propertyType}
                     </span>
+                  )}
+                  {isPropertyVerified && (
+                    <PropertyVerifiedBadge
+                      verified={true}
+                      style={{ position: "static", boxShadow: "none" }}
+                    />
                   )}
                 </div>
 
@@ -321,7 +331,7 @@ function PropertyDetailsContent({
         <div className="container">
           <PropertyDetailsSlider
             images={apiProperty.images}
-            verified={Boolean(apiProperty.verified ?? display.verified)}
+            verified={isPropertyVerified}
           />
         </div>
       </section>
