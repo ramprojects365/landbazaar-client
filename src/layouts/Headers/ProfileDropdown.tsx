@@ -11,7 +11,8 @@ const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
-  const { userDisplayName, user, profileImage, token, logout } = useAuth();
+  const { userDisplayName, user, profileImage, token, userType, logout } = useAuth();
+  const isAdmin = userType?.trim().toLowerCase() === "admin";
   const [photoFailed, setPhotoFailed] = useState(false);
 
   const truncateUsername = (value: string, maxLength: number, addDots: boolean = true) => {
@@ -121,6 +122,13 @@ const ProfileDropdown = () => {
               <span>My properties</span>
             </Link>
           </li>
+          {isAdmin && (
+            <li>
+              <Link href="/dashboard/verified-properties" onClick={() => setOpen(false)}>
+                <span>Verified Properties</span>
+              </Link>
+            </li>
+          )}
           <li>
             <Link href="/dashboard/favourites" onClick={() => setOpen(false)}>
               <span>My Favourites</span>

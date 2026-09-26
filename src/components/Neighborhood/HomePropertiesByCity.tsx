@@ -207,13 +207,13 @@ function HomePropertiesByCity() {
                           <h4 className="tp-explore-title">
                             <span className="textline">{property.name}</span>
                           </h4>
-                          <span>
+                          {/* <span>
                             {property.isPropertyCard
                               ? ""
                               : property.isDynamic
                                 ? `${property.count} ${property.count === 1 ? t("common.property") : t("common.properties")}`
                                 : ""}
-                          </span>
+                          </span> */}
                         </div>
                         <div className="tp-explore-btn">
                           <span>

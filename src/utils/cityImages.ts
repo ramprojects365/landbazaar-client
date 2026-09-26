@@ -56,7 +56,7 @@ function imageExists(src: string): Promise<boolean> {
   });
 }
 
-/** Folder photo when present; otherwise the listing image from that city. */
+/** Folder photo when present; otherwise a listing image from the same city. */
 export async function resolveCityCardImage(
   cityName: string,
   listingImage: string,
@@ -67,5 +67,6 @@ export async function resolveCityCardImage(
   for (const src of getCityDefaultImageCandidates(cityName)) {
     if (await imageExists(src)) return src;
   }
+
   return listingImage;
 }
