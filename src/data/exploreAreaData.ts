@@ -28,15 +28,13 @@ const neighbourhoodsData: INeighbourhoodProperty[] = [
   {
     id: 5,
     name: "Guntur",
-    image:
-      "/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png",
+    image: "/assets/img/city/guntur.png",
     count: 25,
   },
   {
     id: 6,
     name: "Tirupati",
-    image:
-      "/assets/img/blog/10-essential-legal-documents-to-check-before-buying-a-plot-in-Hyderabad.png",
+    image: "/assets/img/city/tirupati.png",
     count: 25,
   },
 ];
