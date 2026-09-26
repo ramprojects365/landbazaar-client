@@ -24,9 +24,18 @@ interface PropertyImageItem {
   customPlaceName: string;
   caption: string;
   isCover: boolean;
+  type?: 'image' | 'video';
+  mediaType?: 'image' | 'video';
 }
 
 const DEFAULT_IMAGE_CATEGORY = "other";
+
+export const isMediaVideo = (item?: { url?: string; type?: string; mediaType?: string } | null): boolean => {
+  if (!item) return false;
+  if (item.type === 'video' || item.mediaType === 'video') return true;
+  if (!item.url) return false;
+  return /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(item.url);
+};
 
 const createId = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -48,15 +57,18 @@ const normalizeLoadedImages = (images: unknown[]): PropertyImageItem[] => {
     images
       .map((image, index): PropertyImageItem | null => {
         if (typeof image === "string" && image.trim()) {
+          const isVideo = isMediaVideo({ url: image });
           return {
             id: createId(),
             url: image,
-            fileName: `Image ${index + 1}`,
+            fileName: `${isVideo ? 'Video' : 'Image'} ${index + 1}`,
             order: index + 1,
             category: DEFAULT_IMAGE_CATEGORY,
             customPlaceName: "",
             caption: "",
             isCover: index === 0,
+            type: isVideo ? 'video' : 'image',
+            mediaType: isVideo ? 'video' : 'image',
           };
         }
 
@@ -73,17 +85,24 @@ const normalizeLoadedImages = (images: unknown[]): PropertyImageItem[] => {
         const customPlaceName =
           typeof item.customPlaceName === "string" ? item.customPlaceName : "";
         const caption = typeof item.caption === "string" ? item.caption : "";
+        const isVideo = isMediaVideo({
+          url,
+          type: typeof item.type === "string" ? item.type : undefined,
+          mediaType: typeof item.mediaType === "string" ? item.mediaType : undefined,
+        });
 
         return {
           id: typeof item.id === "string" ? item.id : createId(),
           url,
           fileName:
-            typeof item.fileName === "string" ? item.fileName : `Image ${index + 1}`,
+            typeof item.fileName === "string" ? item.fileName : `${isVideo ? 'Video' : 'Image'} ${index + 1}`,
           order: typeof item.order === "number" ? item.order : index + 1,
           category,
           customPlaceName,
           caption,
           isCover: Boolean(item.isCover || index === 0),
+          type: isVideo ? 'video' : 'image',
+          mediaType: isVideo ? 'video' : 'image',
         };
       })
       .filter((image): image is PropertyImageItem => image !== null)
@@ -122,6 +141,7 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
     () =>
       images.map((image, index) => {
         const caption = image.caption.trim();
+        const isVideo = isMediaVideo(image);
 
         return {
           url: image.url,
@@ -133,6 +153,8 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
           displayPlace: caption,
           caption,
           isCover: image.isCover,
+          type: isVideo ? ("video" as const) : ("image" as const),
+          mediaType: isVideo ? ("video" as const) : ("image" as const),
         };
       }),
     [images],
@@ -181,7 +203,7 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
 
     if (!res.ok) {
       const error = await res.json().catch(() => ({ message: res.statusText }));
-      throw new Error(error?.message || "Image upload failed");
+      throw new Error(error?.message || "Media upload failed");
     }
 
     const json = await res.json();
@@ -195,7 +217,7 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
       json?.url;
 
     if (typeof finalUrl !== "string" || !finalUrl.trim()) {
-      throw new Error("Upload completed but no image URL was returned");
+      throw new Error("Upload completed but no media URL was returned");
     }
 
     return finalUrl;
@@ -208,24 +230,44 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
     setIsLoading(true);
 
     try {
-      const preparedFiles: File[] = [];
+      type PreparedMedia = { file: File; isVideo: boolean; wasResized: boolean };
+      const preparedFiles: PreparedMedia[] = [];
       let resizedCount = 0;
       const warningMessages: string[] = [];
 
       for (const file of files) {
-        try {
-          const prepared = await preparePropertyImage(file);
-          preparedFiles.push(prepared.file);
-          if (prepared.wasResized) resizedCount += 1;
-          prepared.warnings.forEach((warning) => {
-            warningMessages.push(`${file.name}: ${warning}`);
-          });
-        } catch (error) {
-          const message =
-            error instanceof Error
-              ? error.message
-              : `${file.name} could not be uploaded.`;
-          toast.error(message);
+        const isVideo =
+          file.type.startsWith("video/") ||
+          /\.(mp4|webm|mov|m4v|ogg)$/i.test(file.name);
+
+        if (isVideo) {
+          // Check video file size (max 50MB)
+          if (file.size > 50 * 1024 * 1024) {
+            toast.error(
+              `${file.name} is larger than 50MB. Please select a video up to 50MB.`,
+            );
+            continue;
+          }
+          preparedFiles.push({ file, isVideo: true, wasResized: false });
+        } else {
+          try {
+            const prepared = await preparePropertyImage(file);
+            preparedFiles.push({
+              file: prepared.file,
+              isVideo: false,
+              wasResized: prepared.wasResized,
+            });
+            if (prepared.wasResized) resizedCount += 1;
+            prepared.warnings.forEach((warning) => {
+              warningMessages.push(`${file.name}: ${warning}`);
+            });
+          } catch (error) {
+            const message =
+              error instanceof Error
+                ? error.message
+                : `${file.name} could not be uploaded.`;
+            toast.error(message);
+          }
         }
       }
 
@@ -244,7 +286,7 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
       }
 
       const uploaded = await Promise.all(
-        preparedFiles.map(async (file, index) => {
+        preparedFiles.map(async ({ file, isVideo }, index) => {
           const url = isLocalUploadMode
             ? URL.createObjectURL(file)
             : await uploadFile(file);
@@ -261,11 +303,20 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
             customPlaceName: "",
             caption: "",
             isCover: false,
+            type: isVideo ? ("video" as const) : ("image" as const),
+            mediaType: isVideo ? ("video" as const) : ("image" as const),
           };
         }),
       );
 
       setImages((current) => normalizeOrder([...current, ...uploaded]));
+
+      const videoCount = uploaded.filter((item) => item.type === "video").length;
+      const photoCount = uploaded.length - videoCount;
+      const parts: string[] = [];
+      if (photoCount > 0) parts.push(`${photoCount} photo${photoCount > 1 ? "s" : ""}`);
+      if (videoCount > 0) parts.push(`${videoCount} video${videoCount > 1 ? "s" : ""}`);
+      toast.success(`${parts.join(" and ")} uploaded successfully.`);
 
       const successParts = [
         `${uploaded.length} image${uploaded.length === 1 ? "" : "s"} ${
@@ -362,22 +413,23 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
               id="tp-dashboard-new-um-file-input"
               type="file"
               multiple
+              accept="image/*,video/mp4,video/webm,video/quicktime"
               onChange={handleUpload}
               disabled={isLoading}
             />
 
             <label htmlFor="tp-dashboard-new-um-file-input">
-              {isLoading ? "Uploading..." : "+ Upload Images"}
+              {isLoading ? "Uploading..." : "+ Upload Photos / Videos"}
             </label>
           </span>
 
           <p>
-            Upload at least 1 land photo (required). Set the cover image, and
-            optionally add a caption for each photo. Existing photos stay unless
-            you remove or replace them.
+            Upload land photos and videos (up to 50MB for video). Set the cover
+            media, and optionally add a caption for each item. Existing media stays
+            unless you remove or replace them.
           </p>
           <p className="property-upload-size-guide">
-            {PROPERTY_IMAGE_GUIDE_TEXT}
+            {PROPERTY_IMAGE_GUIDE_TEXT} • Videos: MP4, WebM up to 50MB
           </p>
           {isLocalUploadMode ? (
             <p className="property-upload-local-note">
@@ -396,16 +448,16 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
 
         {images.length === 0 ? (
           <div className="property-upload-empty">
-            No images uploaded yet. At least 1 image is required.
+            No media uploaded yet. At least 1 photo or video is required.
           </div>
         ) : (
           <div className="property-media-workspace">
             <div className="property-media-editor">
               <div className="property-media-toolbar">
                 <div>
-                  <span className="property-media-eyebrow">Photo order</span>
+                  <span className="property-media-eyebrow">Media order</span>
                   <h6>
-                    {images.length} image{images.length === 1 ? "" : "s"} ready
+                    {images.length} item{images.length === 1 ? "" : "s"} ready
                   </h6>
                 </div>
                 <div className="property-media-stats">
@@ -417,21 +469,48 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
               </div>
 
               <div className="property-photo-list">
-                {images.map((image, index) => (
+                {images.map((image, index) => {
+                  const isVideo = isMediaVideo(image);
+                  return (
                   <article className="property-photo-card" key={image.id}>
                     <div className="property-photo-top">
                       <span className="property-photo-number">{index + 1}</span>
                       <span className="property-photo-name">{image.fileName}</span>
+                      {isVideo ? (
+                        <span
+                          style={{
+                            background: "#7c3aed",
+                            color: "#fff",
+                            fontSize: 11,
+                            padding: "2px 7px",
+                            borderRadius: 4,
+                            fontWeight: 600,
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          Video
+                        </span>
+                      ) : null}
                       {image.isCover ? (
                         <span className="property-photo-badge cover">Cover</span>
                       ) : null}
                     </div>
 
-                    <img
-                      className="property-photo-img"
-                      src={image.url}
-                      alt={image.caption || image.fileName}
-                    />
+                    {isVideo ? (
+                      <video
+                        className="property-photo-img"
+                        src={image.url}
+                        controls
+                        playsInline
+                        style={{ maxHeight: 200, width: "100%", background: "#0f172a", objectFit: "contain" }}
+                      />
+                    ) : (
+                      <img
+                        className="property-photo-img"
+                        src={image.url}
+                        alt={image.caption || image.fileName}
+                      />
+                    )}
 
                     <div className="property-upload-field">
                       <label>Caption (optional)</label>
@@ -477,7 +556,8 @@ export default function UploadMedia({ initialImages = [] }: UploadMediaProps) {
                       Remove Image
                     </button>
                   </article>
-                ))}
+                  );
+                })}
               </div>
             </div>
 

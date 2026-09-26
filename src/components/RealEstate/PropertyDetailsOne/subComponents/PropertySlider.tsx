@@ -7,9 +7,11 @@ import {
   getPropertyImageItems,
   type PropertyImageDisplayItem,
 } from "@/utils/propertyImages";
+import PropertyVerifiedBadge from "@/components/UI/PropertyVerifiedBadge";
 
 interface Props {
   images?: unknown[];
+  verified?: boolean;
 }
 
 const fallbackItems: PropertyImageDisplayItem[] = [
@@ -25,7 +27,12 @@ const getVisibleImageLabel = (image: PropertyImageDisplayItem) => {
   return label;
 };
 
-export default function PropertyDetailsSlider({ images }: Props) {
+const isVideoUrl = (url?: string): boolean => {
+  if (!url) return false;
+  return /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(url);
+};
+
+export default function PropertyDetailsSlider({ images, verified }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const [swiper, setSwiper] = useState<SwiperClass | null>(null);
@@ -55,15 +62,53 @@ export default function PropertyDetailsSlider({ images }: Props) {
           type="button"
           className="tp-pdg-tile tp-pdg-main"
           onClick={() => openAt(0)}
+          style={{ position: "relative" }}
         >
-          <img
-            className="tp-pdg-main-img"
-            src={galleryItems[0].url}
-            alt={getVisibleImageLabel(galleryItems[0]) || "Land cover image"}
-            fetchPriority="high"
-            decoding="async"
-            style={{ width: "100%", height: "100%" }}
-          />
+          {verified ? (
+            <div style={{ position: "absolute", top: 12, left: 12, zIndex: 3 }}>
+              <PropertyVerifiedBadge verified={verified} />
+            </div>
+          ) : null}
+          {isVideoUrl(galleryItems[0].url) ? (
+            <video
+              className="tp-pdg-main-img"
+              src={galleryItems[0].url}
+              muted
+              playsInline
+              style={{ width: "100%", height: "100%", objectFit: "cover", background: "#000" }}
+            />
+          ) : (
+            <img
+              className="tp-pdg-main-img"
+              src={galleryItems[0].url}
+              alt={getVisibleImageLabel(galleryItems[0]) || "Land cover image"}
+              fetchPriority="high"
+              decoding="async"
+              style={{ width: "100%", height: "100%" }}
+            />
+          )}
+          {isVideoUrl(galleryItems[0].url) && (
+            <span
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                background: "rgba(0,0,0,0.6)",
+                color: "#fff",
+                borderRadius: "50%",
+                width: 52,
+                height: 52,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 22,
+                pointerEvents: "none",
+              }}
+            >
+              ▶
+            </span>
+          )}
           {getVisibleImageLabel(galleryItems[0]) ? (
             <span className="tp-pdg-label">
               {getVisibleImageLabel(galleryItems[0])}
@@ -75,19 +120,52 @@ export default function PropertyDetailsSlider({ images }: Props) {
               const absoluteIndex = idx + 1;
               const isLastVisible = idx === 3;
               const label = getVisibleImageLabel(item);
+              const isVideo = isVideoUrl(item.url);
               return (
                 <button
                   key={`${item.url}-${idx}`}
                   type="button"
                   className="tp-pdg-tile"
                   onClick={() => openAt(Math.min(absoluteIndex, galleryItems.length - 1))}
+                  style={{ position: "relative" }}
                 >
-                  <img
-                    src={item.url}
-                    alt={label || `Land image ${absoluteIndex + 1}`}
-                    loading="lazy"
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
+                  {isVideo ? (
+                    <video
+                      src={item.url}
+                      muted
+                      playsInline
+                      style={{ width: "100%", height: "100%", objectFit: "cover", background: "#000" }}
+                    />
+                  ) : (
+                    <img
+                      src={item.url}
+                      alt={label || `Land image ${absoluteIndex + 1}`}
+                      loading="lazy"
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  )}
+                  {isVideo && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        background: "rgba(0,0,0,0.6)",
+                        color: "#fff",
+                        borderRadius: "50%",
+                        width: 38,
+                        height: 38,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 16,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      ▶
+                    </span>
+                  )}
                   {label ? <span className="tp-pdg-label">{label}</span> : null}
                   {isLastVisible && extraCount > 0 && (
                     <span className="tp-pdg-more">{`+ ${extraCount} more`}</span>
@@ -131,13 +209,24 @@ export default function PropertyDetailsSlider({ images }: Props) {
             >
               {modalItems.map((item, i) => {
                 const label = getVisibleImageLabel(item);
+                const isVideo = isVideoUrl(item.url);
                 return (
                 <SwiperSlide key={`${item.url}-${i}`}>
-                  <div className="tp-pdg-modal-slide">
-                    <img
-                      src={item.url}
-                      alt={label || `Land image ${i + 1}`}
-                    />
+                  <div className="tp-pdg-modal-slide" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    {isVideo ? (
+                      <video
+                        src={item.url}
+                        controls
+                        autoPlay
+                        playsInline
+                        style={{ maxWidth: "90vw", maxHeight: "80vh", borderRadius: 8, background: "#000" }}
+                      />
+                    ) : (
+                      <img
+                        src={item.url}
+                        alt={label || `Land image ${i + 1}`}
+                      />
+                    )}
                     {label ? (
                       <div className="tp-pdg-modal-caption">
                         <span>{label}</span>

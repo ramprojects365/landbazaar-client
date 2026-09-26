@@ -319,7 +319,10 @@ function PropertyDetailsContent({
         </div>
 
         <div className="container">
-          <PropertyDetailsSlider images={apiProperty.images} />
+          <PropertyDetailsSlider
+            images={apiProperty.images}
+            verified={Boolean(apiProperty.verified ?? display.verified)}
+          />
         </div>
       </section>
       <DetailsReusableArea

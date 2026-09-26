@@ -137,8 +137,11 @@ const normalizeImages = (propertyData: any): any[] => {
     propertyData.image,
     [],
   );
-
-  const arr = Array.isArray(rawImages) ? rawImages : [rawImages];
+  const rawVideos = propertyData.videos || [];
+  const arr = [
+    ...(Array.isArray(rawImages) ? rawImages : [rawImages]),
+    ...(Array.isArray(rawVideos) ? rawVideos.map((v: any) => ({ ...v, type: 'video', mediaType: 'video' })) : [])
+  ];
 
   return arr.filter((img) => {
     if (typeof img === "string") return img.trim();
@@ -465,6 +468,10 @@ export default function AddPropertyPage() {
 
                     const caption =
                       typeof img.caption === "string" ? img.caption.trim() : "";
+                    const isVideo =
+                      img.type === "video" ||
+                      img.mediaType === "video" ||
+                      /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(url);
 
                     return {
                       url,
@@ -476,6 +483,8 @@ export default function AddPropertyPage() {
                       displayPlace: caption || img.displayPlace || "",
                       caption,
                       isCover: Boolean(img.isCover),
+                      type: isVideo ? "video" : "image",
+                      mediaType: isVideo ? "video" : "image",
                     };
                   })
                   .filter(Boolean);
@@ -715,8 +724,16 @@ export default function AddPropertyPage() {
           // Group flat amenities array into {lifestyle, facilities, security}
           amenities: groupAmenities(flatAmenities),
 
-          // Images from upload
+          // Images and videos from upload
           images: propertyImages,
+          videos: propertyImages
+            .filter((item) => item.type === "video" || item.mediaType === "video")
+            .map((item, index) => ({
+              url: item.url,
+              fileName: item.fileName,
+              caption: item.caption,
+              order: index + 1,
+            })),
           documents: propertyDocuments,
         };
 

@@ -79,6 +79,7 @@ export type ApiPropertyFields = {
     facilities?: string[];
   };
   images?: unknown[];
+  videos?: unknown[];
   documents?: ApiPropertyDocument[] | null;
   status?: string;
   verified?: boolean | string | number | null;
@@ -191,20 +192,10 @@ function readOptionalBoolean(value: unknown): boolean | null {
   return null;
 }
 
-/** Stable demo flag until the API always sends `verified`. */
-function mockVerifiedFromId(id?: string | number): boolean {
-  const key = String(id ?? "");
-  let hash = 0;
-  for (let index = 0; index < key.length; index += 1) {
-    hash = (hash * 31 + key.charCodeAt(index)) | 0;
-  }
-  return Math.abs(hash) % 2 === 0;
-}
-
 /**
  * Admin-verified listing flag.
  * Uses API `verified` / `isVerified` / `verificationStatus` when present.
- * Until those fields ship, a stable per-id mock is used so some cards show the badge.
+ * Unverified listings strictly return false until approved by an admin.
  */
 export function parsePropertyVerified(
   item?: {
@@ -212,7 +203,7 @@ export function parsePropertyVerified(
     isVerified?: unknown;
     verificationStatus?: unknown;
   } | null,
-  id?: string | number,
+  _id?: string | number,
 ): boolean {
   const fromVerified = readOptionalBoolean(item?.verified);
   if (fromVerified !== null) return fromVerified;
@@ -226,7 +217,7 @@ export function parsePropertyVerified(
     if (["pending", "unverified", "rejected"].includes(status)) return false;
   }
 
-  return mockVerifiedFromId(id ?? (item as { id?: string | number } | null)?.id);
+  return false;
 }
 
 export function parseTotalPrice(
@@ -306,7 +297,7 @@ export function mapApiPropertyToCard(
   fallbackImage: StaticImageData | string = DEFAULT_PROPERTY_IMAGE,
 ): IFeaturedPropertyDT {
   const listingType = normalizeListingTypeValue(item.listingType);
-  const coverImage = getCoverImageUrl(item.images);
+  const coverImage = getCoverImageUrl(item.images) || getCoverImageUrl(item.videos);
   const landSizeLabel = formatLandSize(item.landSize, item.areaUnit);
   const total = parseTotalPrice(item.totalPrice, item.price);
   const ownerProfile = resolveUserDisplayProfile(item.user);

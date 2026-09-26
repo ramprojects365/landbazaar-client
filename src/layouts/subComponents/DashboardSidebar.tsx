@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 import { JSX, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { BadgeCheck } from "lucide-react";
 
 // SidebarItem interface
 interface SidebarItem {
@@ -46,6 +47,15 @@ const Sidebar = () => {
         label: isAdmin ? "All properties" : "My properties",
         icon: <MyPropertiesSvg />,
       },
+      ...(isAdmin
+        ? [
+            {
+              href: "/dashboard/verified-properties",
+              label: "Verified properties",
+              icon: <BadgeCheck size={18} strokeWidth={2} />,
+            },
+          ]
+        : []),
       {
         href: "/dashboard/favourites",
         label: "My Favourites",
