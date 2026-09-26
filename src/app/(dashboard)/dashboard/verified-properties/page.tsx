@@ -54,9 +54,10 @@ export default function VerifiedPropertiesPage() {
   const [totalPages, setTotalPages] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
 
-  const fetchUnverifiedProperties = useCallback(async () => {
+  const fetchUnverifiedProperties = useCallback(async (options?: { silent?: boolean }) => {
     if (!token) return;
-    setLoading(true);
+    const silent = Boolean(options?.silent);
+    if (!silent) setLoading(true);
     try {
       const response = await apiClient.get("/properties/admin/unverified", {
         params: {
@@ -73,9 +74,11 @@ export default function VerifiedPropertiesPage() {
         setTotalItems(data.total || 0);
       }
     } catch (err: any) {
-      toast.error(err?.response?.data?.message || "Failed to load properties for review");
+      if (!silent) {
+        toast.error(err?.response?.data?.message || "Failed to load properties for review");
+      }
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   }, [token, page, search]);
 
@@ -94,8 +97,16 @@ export default function VerifiedPropertiesPage() {
       if (res.data?.success) {
         toast.success(`"${property.title || 'Property'}" approved and verified!`);
         // Remove approved property from the list
-        setProperties((current) => current.filter((p) => p.id !== property.id));
+        setProperties((current) => {
+          const next = current.filter((p) => p.id !== property.id);
+          if (next.length === 0 && page > 1) {
+            setPage((p) => Math.max(1, p - 1));
+          }
+          return next;
+        });
         setTotalItems((prev) => Math.max(0, prev - 1));
+        // Silently re-sync with server to pull next pending item if available
+        fetchUnverifiedProperties({ silent: true });
       } else {
         throw new Error(res.data?.message || "Verification failed");
       }
@@ -148,7 +159,7 @@ export default function VerifiedPropertiesPage() {
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1"
-                onClick={fetchUnverifiedProperties}
+                onClick={() => fetchUnverifiedProperties()}
                 disabled={loading}
                 title="Refresh list"
               >
