@@ -10,7 +10,6 @@ import {
 import { resolveCityCardImage } from "@/utils/cityImages";
 import React, { useEffect, useState } from "react";
 import { fetchPropertiesList } from "@/services/propertiesList";
-import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import { buildSearchHref } from "@/utils/searchUrl";
 
 type CityItem = {
@@ -77,63 +76,18 @@ function HomePropertiesByCity() {
           });
         });
 
-        const cities = [...grouped.values()];
+        const nextItems = [...grouped.values()]
+          .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+          .slice(0, MAX_VISIBLE_CITY_CARDS);
+
         await Promise.all(
-          cities.map(async (item) => {
+          nextItems.map(async (item) => {
             item.image = await resolveCityCardImage(
               item.name,
               item.listingImage,
             );
           }),
         );
-
-        if (grouped.size === 1) {
-          const onlyCity = grouped.values().next().value as CityItem | undefined;
-          if (!onlyCity) return;
-
-          const hasFolderImage = onlyCity.image !== onlyCity.listingImage;
-
-          if (!hasFolderImage) {
-            const cityName = onlyCity.name;
-            const singleCityProperties = list
-              .filter((property) => {
-                const cityValue =
-                  normaliseLocationName(property.cityName) ||
-                  normaliseLocationName(property.state);
-                return (
-                  cityValue &&
-                  cityValue.toLowerCase() === cityName.toLowerCase()
-                );
-              })
-              .slice(0, MAX_VISIBLE_CITY_CARDS)
-              .map((property, index) => ({
-                id: `property-${String(property.id ?? index)}-${cityName}`,
-                name:
-                  normaliseLocationName(property.propertyName) ||
-                  normaliseLocationName(property.title) ||
-                  cityName,
-                count: 1,
-                image:
-                  getCoverImageUrl(property.images) || DEFAULT_PROPERTY_IMAGE,
-                listingImage:
-                  getCoverImageUrl(property.images) || DEFAULT_PROPERTY_IMAGE,
-                isDynamic: true,
-                href: property.id
-                  ? getPropertyDetailsPath(property)
-                  : undefined,
-                isPropertyCard: true,
-              }));
-
-            if (singleCityProperties.length > 0) {
-              setCityItems(singleCityProperties);
-              return;
-            }
-          }
-        }
-
-        const nextItems = [...grouped.values()]
-          .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
-          .slice(0, MAX_VISIBLE_CITY_CARDS);
 
         setCityItems(nextItems);
       } catch {
