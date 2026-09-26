@@ -42,7 +42,6 @@ function HomePropertiesByCity() {
         }
 
         const grouped = new Map<string, CityItem>();
-        const MAX_CITY_PROPERTIES = 6;
         const MAX_VISIBLE_CITY_CARDS = 6;
 
         list.forEach((property, index) => {
@@ -57,9 +56,7 @@ function HomePropertiesByCity() {
           const existing = grouped.get(key);
 
           if (existing) {
-            if (existing.count < MAX_CITY_PROPERTIES) {
-              existing.count += 1;
-            }
+            existing.count += 1;
             if (
               existing.listingImage === DEFAULT_PROPERTY_IMAGE &&
               listingImage !== DEFAULT_PROPERTY_IMAGE
@@ -108,7 +105,7 @@ function HomePropertiesByCity() {
                   cityValue.toLowerCase() === cityName.toLowerCase()
                 );
               })
-              .slice(0, MAX_CITY_PROPERTIES)
+              .slice(0, MAX_VISIBLE_CITY_CARDS)
               .map((property, index) => ({
                 id: `property-${String(property.id ?? index)}-${cityName}`,
                 name:
@@ -214,7 +211,7 @@ function HomePropertiesByCity() {
                             {property.isPropertyCard
                               ? ""
                               : property.isDynamic
-                                ? `${property.count} ${t("common.property")}`
+                                ? `${property.count} ${property.count === 1 ? t("common.property") : t("common.properties")}`
                                 : ""}
                           </span>
                         </div>
