@@ -578,6 +578,27 @@
   display: block;
 }
 
+.tp-pdg-five > .tp-pdg-main,
+.tp-pdg-five .tp-pdg-side,
+.tp-pdg-three > .tp-pdg-main,
+.tp-pdg-three .tp-pdg-side {
+  min-width: 0;
+  min-height: 0;
+}
+
+.tp-pdg-tile video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background: #000;
+}
+
 .tp-property-details-gallery .tp-pdg-five > .tp-pdg-main > .tp-pdg-main-img {
   object-fit: fill;
 }
@@ -670,6 +691,15 @@
   max-width: 100%;
   max-height: calc(100% - 54px);
   object-fit: contain;
+}
+
+.tp-pdg-modal-slide video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100% - 54px);
+  object-fit: contain;
+  background: #000;
 }
 
 .tp-pdg-modal-caption {
