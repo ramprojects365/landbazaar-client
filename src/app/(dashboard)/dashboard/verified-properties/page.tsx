@@ -11,9 +11,10 @@ import apiClient from "@/config/axios";
 import { getCoverImageUrl, withDefaultPropertyImage } from "@/utils/propertyImages";
 import { formatLandSize, getListingTypeBadgeStyle, getListingTypeLabel, getPropertyHeadingTitle, parseTotalPrice } from "@/utils/mapApiProperty";
 import { formatTotalPriceDisplay } from "@/components/Utils/formatPrice";
-import { getDekhoLandScoreColor, getDekhoLandScoreLabel, parseDekhoLandScore } from "@/utils/dekhoLandScore";
+import { getDekhoLandScoreColor, parseDekhoLandScore } from "@/utils/dekhoLandScore";
 import { getPropertyDetailsPath } from "@/utils/propertySlug";
 import PaginationControls from "@/components/UI/PaginationControls";
+import RecentlyViewedProperties from "@/components/RealEstate/PropertyDetailsOne/subComponents/RecentlyViewedItem";
 
 interface AdminUnverifiedProperty {
   id: string;
@@ -141,15 +142,16 @@ export default function VerifiedPropertiesPage() {
   return (
     <DashboardLayout>
       <div className="tp-dashboard-property-wrapper pb-80">
-        <div className="container-fluid">
+        <div className="row">
+          <div className="col-12 col-lg-8">
           {/* Header */}
           <div className="d-flex flex-wrap justify-content-between align-items-center mb-30" style={{ gap: 16 }}>
             <div>
               <h3 className="tp-dashboard-title" style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>
-                Verified Properties (Review Queue)
+                Verified Properties
               </h3>
               <p className="text-muted" style={{ margin: "4px 0 0" }}>
-                Review newly submitted properties. Click <strong>Approve</strong> to verify and attach the Verified badge.
+                Review newly submitted properties.
               </p>
             </div>
             <div className="d-flex align-items-center gap-2">
@@ -169,8 +171,7 @@ export default function VerifiedPropertiesPage() {
           </div>
 
           {/* Search bar */}
-          <div className="row mb-25">
-            <div className="col-md-6 col-lg-5">
+          <div className="mb-25">
               <div className="input-group" style={{ borderRadius: 8, overflow: "hidden", border: "1px solid #e2e8f0" }}>
                 <span className="input-group-text bg-white border-0">
                   <Search size={16} className="text-muted" />
@@ -187,7 +188,6 @@ export default function VerifiedPropertiesPage() {
                   style={{ outline: "none", boxShadow: "none" }}
                 />
               </div>
-            </div>
           </div>
 
           {/* List Content */}
@@ -232,129 +232,128 @@ export default function VerifiedPropertiesPage() {
                   >
                     <div className="card-body p-3 p-md-4">
                       <div className="row g-3 align-items-center">
-                        {/* Thumbnail */}
-                        <div className="col-12 col-md-3 col-xl-2">
-                          <div style={{ position: "relative", width: "100%", height: 130, borderRadius: 8, overflow: "hidden", background: "#f3f4f6" }}>
-                            <Image
-                              src={coverImage}
-                              alt={item.title || "Property image"}
-                              fill
-                              sizes="(max-width: 768px) 100vw, 200px"
-                              style={{ objectFit: "cover" }}
-                              unoptimized
-                            />
-                            {item.listingType && (
-                              <span
-                                style={{
-                                  position: "absolute",
-                                  top: 8,
-                                  left: 8,
-                                  ...getListingTypeBadgeStyle(item.listingType),
-                                  fontSize: 11,
-                                  padding: "2px 8px",
-                                  borderRadius: 4,
-                                  fontWeight: 600,
-                                  textTransform: "uppercase",
-                                }}
-                              >
-                                {getListingTypeLabel(item.listingType)}
-                              </span>
-                            )}
-                          </div>
-                        </div>
+                            {/* Thumbnail */}
+                            <div className="col-12 col-md-3 col-xl-2">
+                              <div style={{ position: "relative", width: "100%", height: 130, borderRadius: 8, overflow: "hidden", background: "#f3f4f6" }}>
+                                <Image
+                                  src={coverImage}
+                                  alt={item.title || "Property image"}
+                                  fill
+                                  sizes="(max-width: 768px) 100vw, 200px"
+                                  style={{ objectFit: "cover" }}
+                                  unoptimized
+                                />
+                                {item.listingType && (
+                                  <span
+                                    style={{
+                                      position: "absolute",
+                                      top: 8,
+                                      left: 8,
+                                      ...getListingTypeBadgeStyle(item.listingType),
+                                      fontSize: 11,
+                                      padding: "2px 8px",
+                                      borderRadius: 4,
+                                      fontWeight: 600,
+                                      textTransform: "uppercase",
+                                    }}
+                                  >
+                                    {getListingTypeLabel(item.listingType)}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
 
-                        {/* Property Details */}
-                        <div className="col-12 col-md-5 col-xl-6">
-                          <div className="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                            {item.propertyType && (
-                              <span className="badge bg-light text-secondary" style={{ fontSize: 12 }}>
-                                {item.propertyType}
-                              </span>
-                            )}
-                            {score != null && (
-                              <span
-                                style={{
-                                  fontSize: 12,
-                                  fontWeight: 600,
-                                  color: scoreColor,
-                                  background: `${scoreColor}15`,
-                                  padding: "2px 8px",
-                                  borderRadius: 12,
-                                }}
-                              >
-                                Dekho Score: {score}/100 ({getDekhoLandScoreLabel(score)})
-                              </span>
-                            )}
-                          </div>
+                            {/* Property Details */}
+                            <div className="col-12 col-md-5 col-xl-6">
+                              <div className="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                {item.propertyType && (
+                                  <span className="text-secondary" style={{ fontSize: 12, lineHeight: 1.2 }}>
+                                    {item.propertyType}
+                                  </span>
+                                )}
+                                {score != null && (
+                                  <span
+                                    style={{
+                                      fontSize: 12,
+                                      fontWeight: 600,
+                                      color: scoreColor,
+                                      background: `${scoreColor}15`,
+                                      padding: "2px 8px",
+                                      borderRadius: 12,
+                                    }}
+                                  >
+                                    Dekho Score: {score}/100
+                                  </span>
+                                )}
+                              </div>
 
-                          <h5 style={{ fontSize: 17, fontWeight: 600, margin: "4px 0" }}>
-                            <Link href={detailsHref} target="_blank" className="text-dark text-decoration-none">
-                              {getPropertyHeadingTitle(item)}
-                            </Link>
-                          </h5>
+                              <h5 style={{ fontSize: 17, fontWeight: 600, margin: "4px 0" }}>
+                                <Link href={detailsHref} target="_blank" className="text-dark text-decoration-none">
+                                  {getPropertyHeadingTitle(item)}
+                                </Link>
+                              </h5>
 
-                          <div className="d-flex align-items-center text-muted mb-2" style={{ fontSize: 13, gap: 4 }}>
-                            <MapPin size={14} />
-                            <span>{locationText}</span>
-                          </div>
+                              <div className="d-flex align-items-center text-muted mb-2" style={{ fontSize: 13, gap: 4 }}>
+                                <MapPin size={16} strokeWidth={2} />
+                                <span>{locationText}</span>
+                              </div>
 
-                          <div className="d-flex align-items-center gap-3" style={{ fontSize: 13 }}>
-                            <span className="text-muted">
-                              Size: <strong>{formatLandSize(item.landSize, item.areaUnit)}</strong>
-                            </span>
-                            {item.user && (
-                              <span className="text-muted d-flex align-items-center gap-1">
-                                <User size={13} />
-                                Seller: <strong>{item.user.fullName || item.user.username || item.user.email}</strong>
-                                {item.user.phoneNumber && ` (${item.user.phoneNumber})`}
-                              </span>
-                            )}
-                          </div>
-                        </div>
+                              <div className="d-flex align-items-center gap-3" style={{ fontSize: 13 }}>
+                                <span className="text-muted">
+                                  Size: <strong>{formatLandSize(item.landSize, item.areaUnit)}</strong>
+                                </span>
+                                {item.user && (
+                                  <span className="text-muted d-flex align-items-center gap-1">
+                                    <User size={16} strokeWidth={2} />
+                                    Seller: <strong>{item.user.fullName || item.user.username || item.user.email}</strong>
+                                  </span>
+                                )}
+                              </div>
+                            </div>
 
-                        {/* Price & Actions */}
-                        <div className="col-12 col-md-4 col-xl-4 d-flex flex-column justify-content-between align-items-md-end" style={{ gap: 12 }}>
-                          <div className="d-flex align-items-center text-primary" style={{ fontSize: 20, fontWeight: 700, gap: 4 }}>
-                            <IndianRupee size={18} strokeWidth={2.5} />
-                            <span>{formatTotalPriceDisplay(priceValue)}</span>
-                          </div>
+                            {/* Price & Actions */}
+                            <div className="col-12 col-md-4 col-xl-4 d-flex flex-column justify-content-between align-items-md-end" style={{ gap: 12 }}>
+                              <div className="d-flex align-items-center text-primary" style={{ fontSize: 20, fontWeight: 700, gap: 4 }}>
+                                <IndianRupee size={16} strokeWidth={2} />
+                                <span>{formatTotalPriceDisplay(priceValue)}</span>
+                              </div>
 
-                          <div className="d-flex align-items-center gap-2 w-100 justify-content-md-end flex-wrap">
-                            <Link
-                              href={detailsHref}
-                              target="_blank"
-                              className="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1 px-3 py-2"
-                              style={{ borderRadius: 6, fontWeight: 500 }}
-                            >
-                              <ExternalLink size={14} /> View Details
-                            </Link>
+                              <div className="d-flex align-items-center gap-2 w-100 justify-content-md-end flex-wrap">
+                                <Link
+                                  href={detailsHref}
+                                  target="_blank"
+                                  className="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1 px-3 py-2"
+                                  style={{ borderRadius: 6, fontWeight: 500 }}
+                                >
+                                  <ExternalLink size={16} strokeWidth={2} /> View Details
+                                </Link>
 
-                            <button
-                              type="button"
-                              onClick={() => handleApprove(item)}
-                              disabled={isApproving}
-                              className="btn btn-success btn-sm d-flex align-items-center gap-1 px-3 py-2"
-                              style={{
-                                borderRadius: 6,
-                                fontWeight: 600,
-                                background: "#16a34a",
-                                borderColor: "#16a34a",
-                              }}
-                            >
-                              {isApproving ? (
-                                <>
-                                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
-                                  <span>Approving...</span>
-                                </>
-                              ) : (
-                                <>
-                                  <BadgeCheck size={16} strokeWidth={2.4} />
-                                  <span>Approve</span>
-                                </>
-                              )}
-                            </button>
-                          </div>
-                        </div>
+                                <button
+                                  type="button"
+                                  onClick={() => handleApprove(item)}
+                                  disabled={isApproving}
+                                  className="btn btn-success btn-sm d-flex align-items-center gap-1 px-3 py-2"
+                                  style={{
+                                    borderRadius: 6,
+                                    fontWeight: 600,
+                                    background: "#16a34a",
+                                    borderColor: "#16a34a",
+                                  }}
+                                >
+                                  {isApproving ? (
+                                    <>
+                                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                                      <span>Approving...</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <BadgeCheck size={16} strokeWidth={2} />
+                                      <span>Approve</span>
+                                    </>
+                                  )}
+                                </button>
+                              </div>
+                            </div>
                       </div>
                     </div>
                   </div>
@@ -373,6 +372,12 @@ export default function VerifiedPropertiesPage() {
               )}
             </div>
           )}
+          </div>
+          <div className="col-12 col-lg-4">
+            <div className="tp-property-details-right">
+              <RecentlyViewedProperties />
+            </div>
+          </div>
         </div>
       </div>
     </DashboardLayout>
