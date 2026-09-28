@@ -246,7 +246,7 @@ export default function DashboardProperty() {
         <div className="row">
           <div className="col-12 col-lg-8">
             <div className="dashboard-property-main">
-              {!isAdmin && (
+              {!isAdmin && !loading && !error && properties.length > 0 && (
                 <div
                   className="property-engagement-box mb-30"
                   style={{
