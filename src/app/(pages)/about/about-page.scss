@@ -312,7 +312,7 @@
 
 .about-featured-card__meta .tp-rent-meta-content {
   align-items: center;
-  gap: 5px;
+  gap: var(--icon-text-gap);
 }
 
 .about-featured-card__meta .tp-rent-meta-content p,

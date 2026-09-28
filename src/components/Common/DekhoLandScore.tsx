@@ -118,7 +118,7 @@ export default function DekhoLandScore({
         onMouseDown={isolateEvent}
         onTouchStart={isolateEvent}
       >
-        <CircleHelp size={14} strokeWidth={2} />
+        <CircleHelp size={16} strokeWidth={2} />
       </button>
 
       {open

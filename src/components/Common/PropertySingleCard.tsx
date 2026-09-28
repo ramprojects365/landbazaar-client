@@ -161,7 +161,7 @@ function PropertySingleCardInner({
           <div className="tp-rent-meta-item">
             <div className="tp-rent-meta-content d-flex">
               <span>
-                <LandSizeSvg size={18} />
+                <LandSizeSvg size={16} />
               </span>
               <p>{item.bedrooms}</p>
             </div>

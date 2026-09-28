@@ -2,8 +2,8 @@ export default function LocationPinIcon() {
   return (
     <svg
       className="tp-rent-address__icon"
-      width="14"
-      height="14"
+      width="16"
+      height="16"
       viewBox="0 0 16 16"
       fill="none"
       aria-hidden="true"
