@@ -1132,8 +1132,6 @@ body.dekholand-score-modal-open {
 .dekholand-score-modal__list li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
   padding: 5px 0;
   font-size: 12px;
   line-height: 1.35;
@@ -1150,11 +1148,6 @@ body.dekholand-score-modal-open {
 .dekholand-score-modal__list li svg {
   flex-shrink: 0;
   color: #003b5c;
-}
-
-.dekholand-score-modal__list li strong {
-  font-size: 12px;
-  font-weight: 700;
 }
 
 .dekholand-score-modal__updated {
