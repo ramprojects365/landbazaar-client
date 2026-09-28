@@ -13,6 +13,7 @@ import {
   X,
 } from "lucide-react";
 import {
+  DEFAULT_DEKHOLAND_SCORE_BREAKDOWN,
   getDekhoLandScoreColor,
   getDekhoLandScoreTone,
   resolveDekhoLandScoreDetails,
@@ -156,7 +157,7 @@ export default function DekhoLandScore({
                   How is this score calculated?
                 </p>
                 <ul className="dekholand-score-modal__list">
-                  {resolved.breakdown.map((item) => {
+                  {DEFAULT_DEKHOLAND_SCORE_BREAKDOWN.map((item) => {
                     const Icon = BREAKDOWN_ICONS[item.key];
                     return (
                       <li key={item.key}>
@@ -164,9 +165,6 @@ export default function DekhoLandScore({
                           <Icon size={14} strokeWidth={2} aria-hidden="true" />
                           {item.label}
                         </span>
-                        <strong style={{ color: getDekhoLandScoreColor(item.score) }}>
-                          {item.score}
-                        </strong>
                       </li>
                     );
                   })}
