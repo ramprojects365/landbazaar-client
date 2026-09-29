@@ -86,6 +86,7 @@ export default function SavedPropertiesPage() {
   const [properties, setProperties] = useState<IFeaturedPropertyDT[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     getSavedProperties()
@@ -102,12 +103,49 @@ export default function SavedPropertiesPage() {
     );
   };
 
+  const query = search.trim().toLowerCase();
+  const visibleProperties = query
+    ? properties.filter((property) =>
+        [property.title, property.propertyName, property.address, property.city, property.state]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase()
+          .includes(query),
+      )
+    : properties;
+
   return (
     <DashboardLayout>
       <div className="tp-dashboard-property-wrapper">
         <div className="row">
           <div className="col-12 col-lg-8">
             <div className="dashboard-property-main">
+              <div className="dashboard-property-search">
+                <svg
+                  className="dashboard-property-search__icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+                  <path
+                    d="M20 20L16.5 16.5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <input
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="Search title, location, city, or state"
+                  className="form-control"
+                  aria-label="Search title, location, city, or state"
+                />
+              </div>
+
               {loading && (
                 <div className="text-center py-5">
                   <div className="spinner-border text-primary" role="status">
@@ -123,7 +161,7 @@ export default function SavedPropertiesPage() {
                 </div>
               )}
 
-              {!loading && !error && properties.length === 0 && (
+              {!loading && !error && visibleProperties.length === 0 && (
                 <div className="text-center py-5">
                   <p className="text-muted">No data found</p>
                 </div>
@@ -131,7 +169,7 @@ export default function SavedPropertiesPage() {
 
               {!loading &&
                 !error &&
-                properties.map((property) => (
+                visibleProperties.map((property) => (
                   <DashboardPropertyItem
                     key={property.id}
                     property={property}
