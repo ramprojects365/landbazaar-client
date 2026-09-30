@@ -309,7 +309,7 @@ export default function DashboardPropertyItem({ property, onDelete, removeInstea
             style={{ marginTop: 14 }}
           >
             <span style={{ color: "#667085", fontSize: 13 }}>
-              Views: {property.viewCount ?? 0}
+              Views: {(property.viewCount ?? 0) + 100}
             </span>
             <span style={{ color: "#667085", fontSize: 13 }}>
               Favourites: {property.favouriteCount ?? 0}
