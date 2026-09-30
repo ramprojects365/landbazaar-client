@@ -233,7 +233,7 @@ export default function DashboardProperty() {
 
   const engagementSummary = properties.reduce(
     (summary, property) => ({
-      views: summary.views + (property.viewCount ?? 0),
+      views: summary.views + (property.viewCount ?? 0) + 100,
       saved: summary.saved + (property.favouriteCount ?? 0),
       leads: summary.leads + (property.leadCount ?? 0),
     }),
