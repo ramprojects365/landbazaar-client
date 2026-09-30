@@ -54,8 +54,15 @@ export type SeoListingMatch = {
   description?: string;
   relatedGroup?: SeoRelatedGroup;
   extraContent?: "best-places-hyderabad";
+  /** Exact search phrases for this page. Kept off the homepage meta keywords. */
+  keywords?: string[];
+  /** Related listing slugs for this page only. Does not change other pages. */
+  relatedSlugs?: string[];
   /** Include in footer / homepage popular-search links. */
   isPriorityKeyword?: boolean;
+  cta?: { href: string; label: string };
+  /** On-page intro. Existing pages keep the shared intro when this is omitted. */
+  intro?: string;
 };
 
 export const PRIORITY_SEO_LISTINGS: SeoListingMatch[] = [
@@ -317,6 +324,7 @@ export const PRIORITY_SEO_LISTINGS: SeoListingMatch[] = [
     isPriorityKeyword: true,
     description:
       "Browse HMDA plots for sale in and around Hyderabad. Compare HMDA approved plot listings with location, size, and seller details.",
+    keywords: ["HMDA plots for sale in Hyderabad", "HMDA plots for sale"],
   },
   {
     slug: "dtcp-plots-for-sale",
@@ -380,6 +388,92 @@ export const PRIORITY_SEO_LISTINGS: SeoListingMatch[] = [
     extraContent: "best-places-hyderabad",
     description:
       "See the best places to buy land in Hyderabad, including Shankarpally, Sangareddy, Shadnagar, Maheshwaram, and other west and south corridors.",
+  },
+  {
+    slug: "best-website-to-buy-land-in-hyderabad",
+    area: "Hyderabad",
+    heading: "Best Website to Buy Land & Plots in Hyderabad",
+    metaTitle: "Best Website to Buy Land & Plots in Hyderabad",
+    isCity: true,
+    keywords: [
+      "best website for buying land in Hyderabad",
+      "best website to buy plots in Hyderabad",
+      "best website to buy land in Hyderabad",
+    ],
+    relatedSlugs: [
+      "plots-for-sale-in-hyderabad",
+      "land-for-sale-in-hyderabad",
+      "verified-plots-in-hyderabad",
+      "open-plots-in-hyderabad",
+      "hmda-plots-for-sale",
+    ],
+    description:
+      "DekhoLand is a trusted website to buy land and plots in Hyderabad. Compare verified plots, HMDA layouts, open plots, and farm land, then contact sellers directly.",
+    intro:
+      "DekhoLand is a trusted website to buy land and plots in Hyderabad. Compare verified plots, HMDA layouts, open plots, and farm land, then contact sellers directly.",
+  },
+  {
+    slug: "verified-plots-in-hyderabad",
+    area: "Hyderabad",
+    heading: "Verified plots in Hyderabad",
+    metaTitle: "Verified Plots in Hyderabad",
+    isCity: true,
+    keywords: ["verified plots in Hyderabad"],
+    relatedSlugs: [
+      "plots-for-sale-in-hyderabad",
+      "land-for-sale-in-hyderabad",
+      "open-plots-in-hyderabad",
+      "hmda-plots-for-sale",
+      "best-website-to-buy-land-in-hyderabad",
+    ],
+    description:
+      "Browse verified plots in Hyderabad on DekhoLand. Each listing shows a DekhoLand Score so you can compare HMDA, DTCP, and open plots before you enquire.",
+    intro:
+      "Browse verified plots in Hyderabad on DekhoLand. Each listing shows a DekhoLand Score so you can compare HMDA, DTCP, and open plots before you enquire.",
+  },
+  {
+    slug: "sell-land-online-hyderabad",
+    area: "Hyderabad",
+    heading: "Sell Land Online in Hyderabad",
+    metaTitle: "Sell Land Online in Hyderabad – List Property FREE",
+    isCity: true,
+    keywords: [
+      "best website to sell land in Hyderabad",
+      "free property listing Hyderabad",
+      "sell land online in Hyderabad",
+    ],
+    relatedSlugs: [
+      "plots-for-sale-in-hyderabad",
+      "land-for-sale-in-hyderabad",
+      "sell-land-online-telangana",
+    ],
+    description:
+      "Sell land online in Hyderabad with a free property listing on DekhoLand. Post your plot, farm land, or open plot and reach buyers looking in Hyderabad.",
+    intro:
+      "Sell land online in Hyderabad with a free property listing on DekhoLand. Post your plot, farm land, or open plot and reach buyers looking in Hyderabad.",
+    cta: { href: "/add-property", label: "List your property free" },
+  },
+  {
+    slug: "sell-land-online-telangana",
+    area: "Telangana",
+    heading: "Sell Land in Telangana",
+    metaTitle: "Sell Land in Telangana – Post Your Property FREE",
+    keyword: "Telangana",
+    keywords: [
+      "best website for selling land in Telangana",
+      "post property free Telangana",
+      "sell land in Telangana",
+    ],
+    relatedSlugs: [
+      "plots-for-sale-in-telangana",
+      "land-for-sale-in-telangana",
+      "sell-land-online-hyderabad",
+    ],
+    description:
+      "Post your property free in Telangana on DekhoLand. Sell land online across Hyderabad, Warangal, and the rest of the state with a free listing.",
+    intro:
+      "Post your property free in Telangana on DekhoLand. Sell land online across Hyderabad, Warangal, and the rest of the state with a free listing.",
+    cta: { href: "/add-property", label: "Post your property free" },
   },
 ];
 
@@ -476,6 +570,13 @@ export function getSeoListingSlugs() {
 }
 
 export function getRelatedSeoLinks(listing: SeoListingMatch) {
+  if (listing.relatedSlugs?.length) {
+    return listing.relatedSlugs.flatMap((slug) => {
+      const match = PRIORITY_SEO_LISTINGS.find((item) => item.slug === slug);
+      return match ? [{ href: `/${match.slug}`, label: match.heading }] : [];
+    });
+  }
+
   if (listing.relatedGroup) {
     return PRIORITY_SEO_LISTINGS.filter(
       (item) =>

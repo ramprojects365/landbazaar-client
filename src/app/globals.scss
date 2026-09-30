@@ -815,6 +815,32 @@
   color: #98a2b3;
 }
 
+.verified-property-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.verified-property-search .form-control {
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0 !important;
+  border: 0;
+  border-radius: 0;
+  line-height: 1.2;
+  background: transparent;
+  box-shadow: none;
+}
+
+.verified-property-search .form-control:focus {
+  box-shadow: none;
+}
+
 .dashboard-property-main .property-engagement-box,
 .dashboard-property-main .tp-rent-item {
   width: 100%;

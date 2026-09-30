@@ -40,7 +40,13 @@ export async function generateMetadata({
   return {
     title: pageTitle,
     description,
-    keywords: [pageTitle, listing.area, "DekhoLand", "plots for sale"],
+    keywords: [
+      pageTitle,
+      listing.area,
+      "DekhoLand",
+      "plots for sale",
+      ...(listing.keywords ?? []),
+    ],
     alternates: {
       canonical: `/${listing.slug}`,
     },
@@ -77,10 +83,16 @@ export default async function SeoListingPage({ params }: SeoListingPageProps) {
           <span className="tp-section-title-pre">Lands & Plots</span>
           <h1 className="tp-section-title mb-20">{listing.heading}</h1>
           <p style={{ color: "#5c6f7b", maxWidth: "720px", marginBottom: "24px" }}>
-            Explore verified {listing.heading.toLowerCase()}. Use Dekho Land to
-            compare listings, check location details, and connect with sellers in{" "}
-            {listing.area}.
+            {listing.intro ||
+              `Explore verified ${listing.heading.toLowerCase()}. Use Dekho Land to compare listings, check location details, and connect with sellers in ${listing.area}.`}
           </p>
+          {listing.cta ? (
+            <div style={{ marginBottom: "24px" }}>
+              <Link className="tp-btn" href={listing.cta.href}>
+                {listing.cta.label}
+              </Link>
+            </div>
+          ) : null}
           <div
             style={{
               display: "flex",

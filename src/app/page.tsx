@@ -10,7 +10,7 @@ import { landTypeSearchHref } from "@/config/landOptions";
 import { SITE_SOCIAL_PROFILES } from "@/config/constants";
 
 const siteTitle =
-  "DekhoLand | Verified Farm Lands & Open Plots in Telangana & AP";
+  "Buy & Sell Lands and Plots in Telangana & Andhra Pradesh | DekhoLand";
 const siteDescription =
   "DekhoLand is your trusted marketplace for verified open plots, DTCP/HMDA layouts, and agricultural lands. Check the DekhoLand Score before you invest.";
 const siteImage = "https://www.dekholand.com/assets/img/logo/logo-blue.png";

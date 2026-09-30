@@ -145,7 +145,7 @@ export default function VerifiedPropertiesPage() {
         <div className="row">
           <div className="col-12 col-lg-8">
           {/* Header */}
-          <div className="d-flex flex-wrap justify-content-between align-items-center mb-30" style={{ gap: 16 }}>
+          <div className="d-flex flex-wrap justify-content-between align-items-center mb-15" style={{ gap: 16 }}>
             <div>
               <h3 className="tp-dashboard-title" style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>
                 Verified Properties
@@ -171,23 +171,19 @@ export default function VerifiedPropertiesPage() {
           </div>
 
           {/* Search bar */}
-          <div className="mb-25">
-              <div className="input-group" style={{ borderRadius: 8, overflow: "hidden", border: "1px solid #e2e8f0" }}>
-                <span className="input-group-text bg-white border-0">
-                  <Search size={16} className="text-muted" />
-                </span>
-                <input
-                  type="text"
-                  className="form-control border-0"
-                  placeholder="Search by title, location, or seller name..."
-                  value={search}
-                  onChange={(e) => {
-                    setSearch(e.target.value);
-                    setPage(1);
-                  }}
-                  style={{ outline: "none", boxShadow: "none" }}
-                />
-              </div>
+          <div className="verified-property-search mb-15">
+            <Search size={16} className="text-muted" aria-hidden="true" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by title, location, or seller name..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1);
+              }}
+              style={{ outline: "none", boxShadow: "none" }}
+            />
           </div>
 
           {/* List Content */}
