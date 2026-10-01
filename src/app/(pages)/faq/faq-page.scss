@@ -48,6 +48,21 @@
   margin: 0;
 }
 
+.faq-page__list .accordion-body p + p,
+.faq-page__list .accordion-body p + ul,
+.faq-page__list .accordion-body ul + p {
+  margin-top: 12px;
+}
+
+.faq-page__list .accordion-body ul {
+  margin-bottom: 0;
+  padding-left: 1.2em;
+}
+
+.faq-page__list .accordion-body li + li {
+  margin-top: 4px;
+}
+
 .faq-page__list .accordion-body a {
   color: #003b5c;
   font-weight: 700;

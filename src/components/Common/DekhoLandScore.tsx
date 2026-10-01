@@ -169,9 +169,6 @@ export default function DekhoLandScore({
                     );
                   })}
                 </ul>
-                <p className="dekholand-score-modal__updated">
-                  Last updated: {resolved.lastUpdated}
-                </p>
                 <p className="dekholand-score-modal__disclaimer">
                   This score helps buyers compare properties.
                   It is not a guarantee of legal validity or
