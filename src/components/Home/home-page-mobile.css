@@ -25,19 +25,22 @@
 
   .home-page .tp-hero-content {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     margin-top: 0 !important;
     padding-bottom: 8px;
   }
 
   .home-page .home-hero-title-mobile {
-    max-width: none;
+    max-width: 100%;
     margin: 0 auto 18px !important;
     color: #fff !important;
     font-size: 24px !important;
     font-weight: 800 !important;
     letter-spacing: -0.03em;
     line-height: 1.2 !important;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: break-word;
     text-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
   }
 
