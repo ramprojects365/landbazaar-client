@@ -1131,7 +1131,6 @@ body.dekholand-score-modal-open {
 
 .dekholand-score-modal__summary,
 .dekholand-score-modal__question,
-.dekholand-score-modal__updated,
 .dekholand-score-modal__disclaimer {
   margin: 0;
   font-size: 12px;
@@ -1175,10 +1174,6 @@ body.dekholand-score-modal-open {
 .dekholand-score-modal__list li svg {
   flex-shrink: 0;
   color: #003b5c;
-}
-
-.dekholand-score-modal__updated {
-  color: #6b7280;
 }
 
 .dekholand-score-modal__disclaimer {

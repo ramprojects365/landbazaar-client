@@ -252,6 +252,18 @@ export const faqItems: FaqItem[] = [
     answer: `Compare properties based on location, total price, price per square yard, plot size, road access, facing, approvals, development and other relevant features. Shortlisting several similar properties on [[DekhoLand|${search}]] can help you make a more informed decision.`,
   },
   {
+    question: "What is DekhoLand Score?",
+    answer: `DekhoLand Score is a property comparison score introduced by DekhoLand to help buyers quickly understand and compare lands and plots.
+Each property is evaluated across important factors such as:
+- Documents & Verification
+- Location & Connectivity
+- Price & Value
+- Road & Infrastructure
+- Layout / Approval Details
+- Overall Property Potential
+The result is shown as a simple score out of 100, making it easier to compare multiple properties in one place.`,
+  },
+  {
     question: "How can I list my land or plot for sale on DekhoLand?",
     answer:
       "Create an account on DekhoLand and use the property-listing option to add your land or plot. Provide accurate information, location, price, size, images and available documents to help buyers understand the property. Start here: [[list your land or plot|/add-property]].",

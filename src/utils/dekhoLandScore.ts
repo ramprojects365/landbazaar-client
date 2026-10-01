@@ -141,13 +141,14 @@ function parseBreakdown(value: unknown): DekhoLandScoreBreakdownItem[] | undefin
     const rawKey = String(record.key || "").trim();
     const key = isBreakdownKey(rawKey) ? rawKey : BREAKDOWN_KEYS[index];
     if (!key) return [];
-    const defaultLabel =
-      DEFAULT_DEKHOLAND_SCORE_BREAKDOWN.find((row) => row.key === key)?.label ||
-      String(record.label || "Score");
+    const defaultLabel = DEFAULT_DEKHOLAND_SCORE_BREAKDOWN.find(
+      (row) => row.key === key,
+    )?.label;
+    if (!defaultLabel) return [];
     return [
       {
         key,
-        label: String(record.label || defaultLabel),
+        label: defaultLabel,
         score: Math.min(100, Math.max(0, score)),
       },
     ];
