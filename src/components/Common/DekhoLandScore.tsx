@@ -170,7 +170,8 @@ export default function DekhoLandScore({
                 <p className="dekholand-score-modal__disclaimer">
                   This score helps buyers compare properties.
                   It is not a guarantee of legal validity or
-                  future price appreciation.
+                  future price appreciation.{" "}
+                  <a href="/dekholand-score">How DekhoLand Score works</a>
                 </p>
               </div>
             </div>,

@@ -261,7 +261,7 @@ Each property is evaluated across important factors such as:
 - Road & Infrastructure
 - Layout / Approval Details
 - Overall Property Potential
-The result is shown as a simple score out of 100, making it easier to compare multiple properties in one place.`,
+The result is shown as a simple score out of 100, making it easier to compare multiple properties in one place. Read [[how DekhoLand Score works|/dekholand-score]].`,
   },
   {
     question: "How can I list my land or plot for sale on DekhoLand?",
