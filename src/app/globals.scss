@@ -1185,6 +1185,15 @@ body.dekholand-score-modal-open {
   color: #6b7280;
 }
 
+.dekholand-score-modal__disclaimer a {
+  display: inline-block;
+  margin-top: 6px;
+  color: #003b5c;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .tp-property-details-heading .tp-property-details-address {
   display: block;
   margin-bottom: 8px;

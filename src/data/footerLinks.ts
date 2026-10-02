@@ -9,6 +9,7 @@ export const quickLinks = [
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   { label: "FAQ", href: "/faq" },
+  { label: "DekhoLand Score", href: "/dekholand-score" },
 ];
 
 export const FOOTER_LOCATION_AREAS = [

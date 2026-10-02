@@ -20,7 +20,7 @@ const badges = [
     icon: Trophy,
   },
   {
-    label: "10,000+ Users",
+    label: "AP & Telangana",
     detail: "Growing community",
     icon: Users,
   },
