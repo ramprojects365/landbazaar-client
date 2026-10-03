@@ -28,9 +28,11 @@ export type DekhoLandScoreDetails = {
 };
 
 export const DEFAULT_DEKHOLAND_SCORE_BREAKDOWN: DekhoLandScoreBreakdownItem[] = [
-  { key: "images", label: "Property Photos (Min 3)", score: 95 },
-  { key: "documents", label: "Legal Documents (Min 1)", score: 95 },
-  { key: "location", label: "Google Map Location", score: 95 },
+  { key: "documents", label: "Documents & Verification", score: 95 },
+  { key: "location", label: "Location & Connectivity", score: 88 },
+  { key: "growth", label: "Growth Potential", score: 84 },
+  { key: "price", label: "Price Value", score: 82 },
+  { key: "road", label: "Road & Infrastructure", score: 92 },
 ];
 
 export const DEFAULT_DEKHOLAND_SCORE_UPDATED = "13 Sep 2026";
